@@ -83,6 +83,7 @@ label start:
     default MalyArmor = InventoryItem("Pancerz","Standardowy cyberowy armor")
     default Vron = InventoryItem("Vroń","Współczuję zakupu")
     default Wytrych = InventoryItem("Wytrych","Cudowny sprzęt do otwierania drzwi i nie tylko")
+    default Vomba = InventoryItem("Bomba","Bomba, tylko produkcji Vist")
 
     #relacje z gangusami
     default kalach_relacja = 0
@@ -116,6 +117,8 @@ label start:
     default maxarmor = 0
     default czas = 20
     default veq = 0
+    default znajOkol = 0
+    default lilquest = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
     $ player_name = renpy.input("Nazywasz się")
@@ -133,11 +136,10 @@ label start:
 
         "Spierdalać.":
 
+            "Good ending, lol"
             return
 
-    show cypher
-    with dissolve
-
+    show cypher with dissolve
 
     c "Witamy w bazie młody."
     c "Pa ten trick!"
@@ -146,7 +148,6 @@ label start:
 
     show gun at right
     show cypher at left
-
 
     g "Spokojnie kasztanie"
     "Gun katyńskim kopem wysłał Cyhpera na dach"
@@ -613,9 +614,12 @@ menu:
     "Bazy":
         jump rozstaje
 
+    "Sklepiku" if znajOkol == 1:
+        jump trader
+
     "Nikąd, pospaceruje sobię" if czas > 0:
         $ czas -= 5
-        $ cel = renpy.random.randint(1, 3)
+        $ cel = renpy.random.randint(1, 5)
         if cel == 1:
             "Znalazłeś jakieś drobniaki"
             $ zysk = renpy.random.randint(1, 100)
@@ -636,9 +640,9 @@ menu:
                 return
 
         elif cel == 4:
-            if znam_trade == 0:
+            if znajOkol == 0:
                 "Udało Ci się odkryć fajny osiedlowy sklepik"
-                $ znam_trade = 1
+                $ znajOkol = 1
 
             else:
                 p "Jaki fajny plasterek"
@@ -649,6 +653,14 @@ menu:
                     p "Ta? To zajebiście."
                     "Plasterek trafił do kosza."
 
+        elif cel == 5:
+            "Wszedłeś do bloku furrasów"
+            if (dzien/7)%3 == 0:
+                "Futrzana domina Cię dopadła"
+                $ HP = 1
+                $ czas = 0
+            else:
+                "Masz farta, był zamknięty"
         else:
             "Print dupa, nie powinno Cię tu być."
 
@@ -657,7 +669,7 @@ jump rozstaje
 label trader:
 scene szop
 p "A se coś kupię"
-p "Ile mam mamony. [edki] edków, mogło być mniej"
+p "Ile mam mamony? [edki] edków, mogło być mniej"
 menu:
     "Szopping tajm"
     "Ale fajna Aerka" if edki >= 500:
@@ -668,8 +680,9 @@ menu:
         $ inventory.add_item(Wytrych)
         $ edki -= 200
 
-p "Get zakuped"
-jump miasto
+    "Na nic więcej mnie nie stać":
+        p "Get zakuped"
+        jump miasto
 
 label amongthev:
 stop music fadeout 1.0
@@ -700,11 +713,14 @@ jump vtimefri
 default vechnik_stage = 0
 default voktor_stage = 0
 default varchiva_stage = 0
-#default vechnik_stage = 0
 default valki = 5
 
 label vtimefri:
 scene vland
+if HP <= 0:
+    "Jesteś prawie trupem"
+    "Powinieneś iść się leczyć"
+    $ umieram = 1
 menu:
     "Gdzie chcesz iść?"
 
@@ -727,6 +743,8 @@ menu:
         if HP < MaxHP:
             $ HP += 2
             p "Kilka ran mi się zasklepiło"
+            $ umieram = 0
+        $ valki = 5
         jump vtimefri
 
 label vechnik_wst:
@@ -778,11 +796,67 @@ if voktor_stage == 0:
     v "Viema variacie!"
     v "Chcesz vokosa kurde ten?"
     v "Nie no, yaycuję. W tym obozie nic nie ma za darmo."
-    v "Możesz wykonać dla mnie bojowe zadanie "
+    v "Możesz wykonać dla mnie bojowe zadanie"
+    if lilquest == 0:
+        menu:
+            "Chcesz kolejne bojowe zadanie?"
+            "Vevnie lmao":
+                $ inventory.add_item(Vomba)
+                v "Vpierdol w vovietrze varsztat"
+                $ lilquest +=1
+                $ voktor_stage +=1
+
+            "Vole nie":
+                v "To mnie nie vkurwiaj"
+                $ voktor_stage +=1
+    else:
+        pass
+
+elif voktor_stage == 1:
+    if lilquest == 0:
+        v "Uleczyć cię?"
+        menu:
+            "Medycyna?"
+            "Lecz mnie voktorze!" if HP != MaxHP AND vdolce > 0:
+                $ HP = MaxHP
+                $ vdolce -= 1
+
+            "A ić pan w chuj":
+                pass
+
+    elif iliquest == 1:
+        if inventory.has_item(Vomba) == True:
+            v "Veź się za vobotę"
+
+        else:
+            v "Vobra vobora, oto twoja naroda:"
+            $ HP = MaxHP
+            "Zostałeś uleczony"
+            p "I co? To tyle?"
+            v "A czego się vpodziewałeś? Miliarda edków i miliona avałek?"
+            v "Lmao"
+            $ voktor_stage = 2
+            $ lilquest = 0
+
+elif voktor_stage == 2:
+    v "Uleczyć cię?"
+    menu:
+        "Medycyna?"
+        "Lecz mnie voktorze!" if HP != MaxHP AND vdolce > 0:
+            $ HP = MaxHP
+            $ vdolce -= 1
+
+        "A ić pan w chuj":
+            pass
+
 jump vtimefri
 
 label varchiwa:
 scene drzv
+if umieram == 1:
+    "Powiniemem się wcześniej uleczyć"
+    jump gameover
+
 if varchiva_stage == 0:
     "Trafiając do varchiw stają Ci na drodze drzwi"
     if inventory.has_item(Wytrych) == True:
@@ -794,11 +868,39 @@ if varchiva_stage == 0:
         p "Dupa sraka Arasaka, nie wejdę"
         jump vtimefri
 
+elif varchiva_stage == 1:
+    "Dostałeś się do środka"
+    "Ale na twojej drodze staje vrażnik"
+    v "vrrrr"
+    v "vpierdalaj stond"
+    v "albo ci vpierdole"
+    menu:
+        "Co zrobić?"
+        "Rozpoczynam pvp!":
+            $ HP -= 20
+            $ fragi += 1
+            p "essa wariacie"
+            if HP <= 0:
+                "Jesteś prawie trupem"
+                "Powinieneś iść się leczyć"
+                $ umieram = 1
+            $ varchiva_stage = 2
+
+        "Pa te trick" if inventory.has_item(AR) == True:
+            "Wyciągasz AR"
+            v "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "vochroniaż opuszcza scenę, vgrałeś valkę"
+            $ varchiva_stage = 2
+
+        "Vpierdalam":
+            jump vtimefri
+
+
 label vrade:
 scene vshop
 menu:
     v "Co chciałbyś zakupić?"
-    "Ale fajna Aerka" if vdolce >= 5 and inventory.has_item(Flaszka) == False:
+    "Ale fajna Aerka" if vdolce >= 5 :
         $ inventory.add_item(AR)
         $ vdolce -= 5
         "Wydałeś 5 vdolce na AR-kę"
@@ -837,7 +939,7 @@ if Vron == 1:
     "Jesteś popierdolony, że przyszedłeś z vronią na arenę"
     "Vgrałeś, reszta się Vstraszyła"
     $ valki = 0
-    $ vdolce += 1
+    $ vdolce += 5
 
 else:
     $ cel = renpy.random.radint(1,3)

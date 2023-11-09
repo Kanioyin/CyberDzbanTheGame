@@ -1,28 +1,38 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 258, in script
-    if dzien > 5 and:
-SyntaxError: unexpected EOF while parsing (game/script.rpy, line 258)
+  File "renpy/common/00start.rpy", line 189, in script
+    python:
+  File "renpy/common/00start.rpy", line 190, in <module>
+    renpy.execute_default_statement(True)
+  File "game/script.rpy", line 86, in execute_default
+    default Vomba = InventoryIetm("Bomba","Bomb, tylko produkcji Vist")
+  File "game/script.rpy", line 86, in <module>
+    default Vomba = InventoryIetm("Bomba","Bomb, tylko produkcji Vist")
+NameError: name 'InventoryIetm' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 258, in script
-    if dzien > 5 and:
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2133, in execute
-    if renpy.python.py_eval(condition):
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1151, in py_eval
-    code = py_compile(code, 'eval')
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1088, in py_compile
-    raise e
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1034, in py_compile
-    raise orig_e
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1027, in py_compile
-    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, 1)
-SyntaxError: unexpected EOF while parsing (game/script.rpy, line 258)
+  File "renpy/common/00start.rpy", line 189, in script
+    python:
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 1138, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1122, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "renpy/common/00start.rpy", line 190, in <module>
+    renpy.execute_default_statement(True)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\exports.py", line 3982, in execute_default_statement
+    i.execute_default(start)
+  File "game/script.rpy", line 86, in execute_default
+    default Vomba = InventoryIetm("Bomba","Bomb, tylko produkcji Vist")
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1146, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 86, in <module>
+    default Vomba = InventoryIetm("Bomba","Bomb, tylko produkcji Vist")
+NameError: name 'InventoryIetm' is not defined
 
 Windows-10-10.0.19045 AMD64
-Ren'Py 8.1.1.23060707
+Ren'Py 8.1.3.23091805
 CyberDzban 0.00000000008
-Tue Aug 22 21:21:15 2023
+Thu Nov  9 12:10:29 2023
