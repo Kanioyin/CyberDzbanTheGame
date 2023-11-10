@@ -2,13 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 816: Line is followed by a block, despite not being a menu choice. Did you forget a colon at the end of the line?
-    "A ić pan w chuj"
-                     ^
+File "game/script.rpy", line 964: expected statement.
+    elif vagroda == 3 :
+                 ^
 
-File "game/script.rpy", line 841: Line is followed by a block, despite not being a menu choice. Did you forget a colon at the end of the line?
-    "A ić pan w chuj"
-                     ^
+File "game/script.rpy", line 967: expected statement.
+    else:
+        ^
 
 Ren'Py Version: Ren'Py 8.1.3.23091805
-Thu Nov  9 12:57:56 2023
+Fri Nov 10 15:14:02 2023
