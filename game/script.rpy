@@ -8,6 +8,8 @@ define p = Character(_("[player_name]"))
 define r = Character(_("Szczur"),color="123456")
 define j = Character(_("Jhin"),color = "444444")
 define v = Character(_("Vista"), color = "213769")
+define kk = Character(_("Krateus"), color = "ABCDEF")
+define t = Character(_("Toro") color = "6969EE")
 
 init python:
     class Inventory():
@@ -130,6 +132,8 @@ label start:
     default lilquest = 0
     default vrrr = 0
     default bigquest = 0
+    default vron = 0
+    default helper = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
     $ player_name = renpy.input("Nazywasz się")
@@ -736,10 +740,10 @@ if HP <= 0:
 menu:
     "Gdzie chcesz iść?"
 
-    "A obczaję vechnika":
+    "A obczaję vechnika" if vechnik_stake != 7:
         jump vechnik_wst
 
-    "Voktor nie brzmi źle":
+    "Voktor nie brzmi źle" if voktor_stage != 7:
         jump voktor_wst
 
     "Może po prostu zakradnę się do archiwów?":
@@ -760,6 +764,12 @@ menu:
             $ valki = 5
 
         jump vtimefri
+
+    "A poczytam sobie dokumenty Vist" if bigquest == 2:
+        pass
+
+    "Vpierdalam od pojebów" if bigquest == 2:
+        jump rozstaje
 
 label vechnik_wst:
 scene vechnik
@@ -810,6 +820,18 @@ if vechnik_stage == 1:
                 "Vomba vybuchła"
                 "Siła eksplozji wystrzeliła cię aż pod warzywniak"
 
+            "Ja się trochę cykam, potem zdecyduję":
+                pass
+
+            "A powiem vechnikowi":
+                p "Te panie vechnik, mam dla ciebie rozrywkę"
+                v "O vuj Ci chodzi?"
+                p "Bo voktor kazał mi cię vsadzić"
+                v "Voo ma ga, ale z niego vjut"
+                v "Ale kalmuj koka i wysadź tego fjuta"
+                v "Vostiesz gifta"
+                $ lilquest = 2
+
 jump vtimefri
 
 label voktor_wst:
@@ -847,7 +869,7 @@ elif voktor_stage == 1:
             "A ić pan w chuj":
                 pass
 
-    elif iliquest == 1:
+    elif lilquest == 1:
         if inventory.has_item(Vomba) == True:
             v "Veź się za vobotę"
 
@@ -860,6 +882,24 @@ elif voktor_stage == 1:
             v "Lmao"
             $ voktor_stage = 2
             $ lilquest = 0
+
+    elif lilquest == 2:
+        if inventory.has_item(Vomba) == True:
+            p "Mogę teraz vsadzić voktora"
+            menu:
+                "Vpierdolić go v vovietrze?"
+                "Vpierdalam":
+                    $ inventory.remove_item(Vomba)
+                    $ lilquest = 3
+                    $ voktor_stage = 7
+                    p "Pora na eksplodatora"
+                    p "Nigerundajo!"
+
+                "A w piździe mam to zadanie":
+                    $ lilquest = 7
+
+                "Jeszcze się muszę zastanowić":
+                    pass
 
 elif voktor_stage == 2:
     v "Uleczyć cię?"
@@ -884,11 +924,11 @@ if varchiva_stage == 0:
     "Trafiając do varchiw stają Ci na drodze drzwi"
     if inventory.has_item(Wytrych) == True:
         p "Essa mam wytrycha"
-        $ inventory.`e_item(Wytrych)
+        $ inventory.remove_item(Wytrych)
         "Udało Ci się dostać do środka"
         $ varchiva_stage = 1
     else:
-        p "Dupa sraka Arasaka, nie wejdę"
+        p "Dupa sraka Arasaka, nie wejdę. Przydałby mi się wytrych"
         jump vtimefri
 
 elif varchiva_stage == 1:
@@ -900,7 +940,7 @@ elif varchiva_stage == 1:
     menu:
         "Co zrobić?"
         "Rozpoczynam pvp!":
-            $ HP -= 20
+            $ HP -= 19
             $ fragi += 1
             p "essa wariacie"
             if HP <= 0:
@@ -925,15 +965,15 @@ elif varchiva_stage == 2:
     "Zobaczyłeś że w rogu pomieszczenia stoi automat"
     "Gdy zbliżyłeś się do niego widzisz że ma nawet nagrody"
     "Rozglądasz się dalej po pomieszczeniu"
-    "Na ścianie wisi platat vupermena"
-    "Na podłodze jest dywan"
+    "Na ścianie vsi platat vupermena"
+    "Na podłodze jest dyvan"
     "I jest nawet 1 (słownie jedno) pudełko"
     menu:
         "Co teraz robisz?"
         "Tracę swój czas szukając papierku":
             if renpy.random.randint(0,3) == 2:
-                $ bigquest = 0
-                p "się udało, lmao"
+                $ bigquest = 2
+                p "No i się udało, lmao"
 
         "Vautomat???":
             call vending
@@ -949,6 +989,28 @@ elif varchiva_stage == 2:
                     "Straciłeś trochę hp"
                     $ HP -= 5
 
+                "Nie mam problemów z agresją":
+                    "Zostawiłeś plakat w spokoju"
+                    pass
+
+        "Dyvan?":
+            "Podchodzisz do dyvanu"
+            "Vgląda dość normalnie na pierwszy rzut oka"
+            "Po kolejnym rzucie okiem, skończyły Ci się oczy"
+            "Ale jest to najzwyklejszy dyvan"
+
+        "Pudełeczko" if helper == 0:
+            "Normalnie jedno pudełeczko"
+            "Po chuj ktoś je tu zostawił"
+            menu:
+                "Otwierasz?"
+                "Kurwa no powex":
+                    "Znalazłeś 4 vdolce"
+                    $ vdolce += 4
+                    $ helper = 1
+
+                "A chuj z tym":
+                    pass
 
 label vending:
     scene vautom
@@ -970,7 +1032,7 @@ label vending:
                     "Czy mam psychę by łyknąć?"
                     "Pewex!":
                         $ HP -= 5
-                        p "Kurde balans, vukrecja"
+                        p "Kurde balans, lukrecja"
 
                     "Nie jestem vebilem":
                         p "Takie tabsy tylko po konsultacji z Łaskawcą lub farmaceutą"
@@ -1013,7 +1075,8 @@ menu:
         $ veq += 1
         "Wydałeś 3 vdolce na lil varmor"
 
-jump vtimefri
+    "Nie potrzebuję twoich towarów":
+        jump vtimefri
 
 label varena:
 scene vare
@@ -1059,3 +1122,38 @@ else:
         $ valki -= 1
 
 jump vtimefri
+
+label vokum:
+    scene black
+    p "To co ciekawego skrywają vistowe vokumenty"
+    "Czytasz pierwszą kartkę"
+    "Raport V nr 45672"
+    v "Vedykamenty są napravde pomocne, moje umiejętności umysłowe zwiększyły się."
+    v "Vózg v vłynie jest skuteczny, muszę vodziękować Vanowi"
+    v "Vestem viekav, co jeszcze ugotuje"
+    p "Kinda sus, ngl"
+    p "Co oni tu jeszcze mają?"
+    "Kolejny dokument"
+    v "Vroń testowa jest strasznie vujowa"
+    v "Vechnikowi powinienem urwać yaya i yondra!"
+    v "Vstrzeliłem i nic się nie stało."
+    v "Vkurwiam się, vopierdoli mnie"
+    p "Lmao rip"
+    p "O coś jeszcze ciekawego"
+    v "Populacja V vnosi około 20 tysiący"
+    v "Mnożymy się jak świerze bułeczki"
+    v "Jeszcze pół roku i Arasaka straci nad nami vładzę"
+    v "Ale my musimy jeszcze czekać jak karaczany"
+    v "Va szczęście dołączenie do naszej społeczności nie jest trudne"
+    v "Vstarczy vpisać vardcorevorn.vom"
+    p "O kurde balans, to jest aż tak proste?"
+    menu:
+        "Czy mam psychę sprawdzić tę stronę?"
+        "Co może być złego w pornografi":
+            $Frakcja = 3
+            "Vo volera"
+
+        "Nigdy nie zostanę V":
+            pass
+
+    jump vtimefri
