@@ -1,130 +1,41 @@
-Fri Nov 10 15:11:32 2023
+Fri Nov 10 15:20:15 2023
 Windows-10-10.0.19045
 Ren'Py 8.1.3.23091805
  
 
-Bootstrap to the start of init.init. took 0.09s
-Early init. took 0.01s
-Loader init. took 0.05s
-Loading error handling. took 0.06s
-Loading script. took 0.60s
-Loading save slot metadata. took 0.25s
-Loading persistent. took 0.00s
-
-File "game/script.rpy", line 941: Line is indented, but the preceding scene statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    p "Vistowe specjały, kuszące i pociągające"
-    ^
-DPI scale factor: 1.500000
-nvdrs: Loaded, about to disable thread optimizations.
-nvdrs: b"Couldn't load nvlib." (can be ignored)
-Interface start. took 0.26s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1920, 1080)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'ATI Technologies Inc.'"
-Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
-Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
-Maximum texture size: 4096x4096
-Resetting cache.
-Bootstrap to the start of init.init. took 148.64s
+Bootstrap to the start of init.init. took 0.08s
 Early init. took 0.00s
 Loader init. took 0.05s
 Loading error handling. took 0.07s
-Loading script. took 0.41s
-Loading save slot metadata. took 0.05s
+Loading script. took 0.97s
+Loading save slot metadata. took 0.08s
 Loading persistent. took 0.00s
-
-File "game/script.rpy", line 964: expected statement.
-    elif vagroda == 3 :
-                 ^
-
-File "game/script.rpy", line 967: expected statement.
-    else:
-        ^
-DPI scale factor: 1.500000
-nvdrs: Loaded, about to disable thread optimizations.
-nvdrs: b"Couldn't load nvlib." (can be ignored)
-Interface start. took 0.17s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1920, 1080)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'ATI Technologies Inc.'"
-Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
-Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
-Maximum texture size: 4096x4096
-Resetting cache.
-Bootstrap to the start of init.init. took 150.16s
-Early init. took 0.00s
-Loader init. took 0.05s
-Loading error handling. took 0.07s
-Loading script. took 0.45s
-Loading save slot metadata. took 0.06s
-Loading persistent. took 0.00s
-
-File "game/script.rpy", line 964: expected statement.
-    elif vagroda == 3 :
-                 ^
-
-File "game/script.rpy", line 967: expected statement.
-    else:
-        ^
-DPI scale factor: 1.500000
-nvdrs: Loaded, about to disable thread optimizations.
-nvdrs: b"Couldn't load nvlib." (can be ignored)
-Interface start. took 0.16s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1920, 1080)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'ATI Technologies Inc.'"
-Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
-Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
-Maximum texture size: 4096x4096
-Resetting cache.
-Bootstrap to the start of init.init. took 176.24s
-Early init. took 0.00s
-Loader init. took 0.06s
-Loading error handling. took 0.07s
-Loading script. took 0.64s
-Loading save slot metadata. took 0.05s
-Loading persistent. took 0.00s
-Running init code. took 0.21s
-Loading analysis data. took 0.07s
+Running init code. took 0.13s
+Loading analysis data. took 0.04s
 Analyze and compile ATL. took 0.00s
-Reloading save slot metadata. took 0.18s
+Reloading save slot metadata. took 0.06s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
-Dump and make backups. took 0.18s
+Dump and make backups. took 0.23s
 Cleaning cache. took 0.00s
 Making clean stores. took 0.00s
-Initial gc. took 0.08s
+Initial gc. took 0.06s
 DPI scale factor: 1.500000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: b"Couldn't load nvlib." (can be ignored)
-Creating interface object. took 0.00s
+Creating interface object. took 0.01s
 Cleaning stores took 0.00s
-Init translation took 0.09s
+Init translation took 0.10s
 Build styles took 0.01s
-Load screen analysis took 0.02s
+Load screen analysis took 0.00s
 Analyze screens took 0.04s
-Save screen analysis took 0.04s
-Prepare screens took 0.15s
+Save screen analysis took 0.06s
+Prepare screens took 0.17s
 Save pyanalysis. took 0.00s
-Save bytecode. took 0.04s
+Save bytecode. took 0.05s
 Running _start took 0.00s
 Performance test:
-Interface start. took 0.18s
+Interface start. took 0.19s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1920, 1080)

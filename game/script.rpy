@@ -785,7 +785,7 @@ if vechnik_stage == 0:
 
 if vechnik_stage == 1:
     v "Vtam znowu"
-    if vron == 1:
+    if vron < 1:
         v "Chcesz vupić vrońkę?"
         menu:
             "Zdobądź potężne Vposażenie"
@@ -795,12 +795,20 @@ if vechnik_stage == 1:
                 $vdolce -= 1
                 $ veq += 1
                 v "Volecam się na vrzyszłość"
-                jump vtimefri
 
             "Kurde balans, nie posiadam kapitału":
                 v "Vbacz, młody. Nie dostaniesz vorzyczki! Vróc później kiedy będziesz... MMMMMMM... VOGATRZY!"
-                jump vtimefri
 
+    if lilquest == 1:
+        menu:
+            "W swoim eq znajduje się vomba, co z nią robisz?"
+
+            "Vsadzam technika":
+                $inventory.remove_item(Vomba)
+                p "Pora vpierdalać"
+                $ vechnik_stage = 7
+                "Vomba vybuchła"
+                "Siła eksplozji wystrzeliła cię aż pod warzywniak"
 
 jump vtimefri
 
@@ -876,7 +884,7 @@ if varchiva_stage == 0:
     "Trafiając do varchiw stają Ci na drodze drzwi"
     if inventory.has_item(Wytrych) == True:
         p "Essa mam wytrycha"
-        $ inventory.remove_item(Wytrych)
+        $ inventory.`e_item(Wytrych)
         "Udało Ci się dostać do środka"
         $ varchiva_stage = 1
     else:
