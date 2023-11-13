@@ -9,7 +9,7 @@ define r = Character(_("Szczur"),color="123456")
 define j = Character(_("Jhin"),color = "444444")
 define v = Character(_("Vista"), color = "213769")
 define kk = Character(_("Krateus"), color = "ABCDEF")
-define t = Character(_("Toro") color = "6969EE")
+define t = Character(_("Toro"), color = "6969EE")
 
 init python:
     class Inventory():
@@ -766,10 +766,10 @@ menu:
         jump vtimefri
 
     "A poczytam sobie dokumenty Vist" if bigquest == 2:
-        pass
+        jump vokum
 
     "Vpierdalam od pojebów" if bigquest == 2:
-        jump rozstaje
+        jump amongthevpods
 
 label vechnik_wst:
 scene vechnik
@@ -1157,3 +1157,22 @@ label vokum:
             pass
 
     jump vtimefri
+
+label amongthevpods:
+    "Wróciłeś do bazy po analizie Vist"
+    $ if Frakcja == 3: "A nawet dołączyłeś do nich"
+    "Wszedłeś do kuchni"
+    show gun
+    g "Na raty chrystusa, ty żyjesz!"
+    g "Znaczy ten, gratulacje, udało Ci się"
+    g "Zobaczmy co tam przyniosłeś ciekawego"
+    "Oddałeś znaleziska"
+    $ vron = 0
+    g "Oj karamba, grube dowody"
+    g  "Prawie zapomłem, oto twoja nagroda"
+    $ edki += 2000
+    g "Od teraz jesteś prawdziwym bazownikiem"
+    c "RICHTIG (:"
+    g "Zamknij się Cypher"
+    g "Dobra, idź do siebie, potrzebuje trochę czasu"
+    jump sypialnia
