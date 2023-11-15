@@ -65,6 +65,42 @@ init python:
         def finish_quest(self,giver,reward,req):
             pass
 
+
+    class Relacje():
+        def __init__(self,post,rel):
+            self.post = post
+            self.rel = rel
+
+        def relstart(self,kto):
+            self.post.append(kto)
+            self.rel.append(0)
+
+        def relup(slef,kto,qua):
+            for i in len(post):
+                if kto == post:
+                    self.rel[i] += qua
+
+        def reldown(self,kto,qua):
+            for i in len(post):
+                if kto == post:
+                    self.rel[i] -= qua
+
+        def ziomeczki(self):
+            p("Relacje z ludźmi:")
+            for item in self.items:
+                p(f"{Person.name}, {Person.rel}")
+
+        def whatislove(self,post,ile):
+            if post in self.post:
+                if ile == self.rel:
+                    return True
+                else:
+                    return False
+
+    class Person():
+        def __init__(self,name):
+            self.name = name
+
 label checktime:
     if czas = 0:
         $dzien += 1
@@ -73,6 +109,7 @@ label checktime:
 label start:
     #deklaracja inventory
     default inventory = Inventory([],0)
+    default relacje = Relacje([],[])
 
     #deklaracja przedmiotów
     default AR = InventoryItem("AR", "Fajny karabin")
@@ -89,12 +126,12 @@ label start:
     default Vranat = InventoryItem("Vranat","Wabajack tego uniwersum")
 
     #relacje z gangusami
-    default kalach_relacja = 0
-    default gun_relacja = 0
-    default cypher_relacja = 0
-    default laskawca_relacja = 0
-    default hartmann_relacja = 0
-    default jhin_relacja = 0
+    default Kalach = Person("Kałach")
+    default Gun = Person("Gun")
+    default Cypher = Person("Cypher")
+    default Laskawca = Person("Łaskawca")
+    default Hartmann = Person("Hartmann")
+    default Jhin = Person("Jhin")
 
     #deklaracja cech
     default INT = 2
@@ -136,6 +173,12 @@ label start:
     default helper = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
+    $ relacje.relstart("Kalach")
+    $ relacje.relstart("Gun")
+    $ relacje.relstart("Cypher")
+    $ relacje.relstart("Laskawca")
+    $ relacje.relstart("Hartmann")
+    $ relacje.relstart("Jhin")
     $ player_name = renpy.input("Nazywasz się")
 
     "Nie miałeś edków"
@@ -231,7 +274,7 @@ label kuchnia:
     show gun
     if akt == 0:
         g "Szybko Ci poszło"
-        if kalach_relacja <= 0:
+        if relacje.whatislove("Kalach",0) == True:
             if inventory.has_item(Flaszka) == True:
                 g "Daj mu tę flachę"
                 jump rozstaje
@@ -252,19 +295,19 @@ label kuchnia:
             "Jeszcze chwilka":
                 jump rozstaje
 
-            "Muszę jeszcze na chwilę wyskoczyć":
+            "Po gadaniu z takimi deklami, jednak spierdalam":
                 "Good Ending"
                 return
 
     elif akt == 1:
-        g "Szukam roboty, wróc później"
+        g "Ser dobry, [player_name]"
         if inventory.has_item(Klapek) == True:
             p "Mam przesyłkę od Cyphera"
             g "Co on znowu chce?"
             p "Mam dla Ciebie... klapka?"
             $ inventory.remove_item(Klapek)
-            $ gun_relacja -= 2
-            $ cypher_relacja += 1
+            $ relacje.reldown("Gun",2)
+            $ relacje.relup("Cypher",1)
             g "Obawiam się że to jest wypowiedzenie wojny"
             g "Albo gorzej"
             g "Zaczął produkcję merchu z DH"
@@ -273,7 +316,7 @@ label kuchnia:
             jump rozstaje
         else:
             pass
-        if dzien > 5:
+        if dzien > 5 and bigquest != 0:
             show jhin at right
             g "Robota się znalazła"
             j "Zostaniesz naszym tajnym agentem"
@@ -287,6 +330,9 @@ label kuchnia:
             g "Zadanie analnie proste"
             g "Zaczynasz bezzwłocznie"
             jump amongthev
+
+        elif bigquest == 2:
+            g "Daj mi trochę czasu, vista ma chujowy charakter pisma."
         else:
             jump rozstaje
 
@@ -296,10 +342,10 @@ label kosciol:
     if inventory.has_item(Flaszka):
         k "Wyczuwam flachę"
         k "Wezmę sobie"
-        $ kalach_relacja += 1
+        $ relacje.relup("Kalach", 1)
         $ inventory.remove_item(Flaszka)
 
-    if kalach_relacja <= 0:
+    if relacje.whatislove("Kalach",0) == True:
         k "Kim ty kurwa jesteś?"
         k "Wypierdalaj"
 
@@ -330,7 +376,7 @@ label kibel:
                     $ inventory.remove_item(Rat)
                     show grat at left
                     r "Dziękuje, dobry człowieku"
-                    $ gun_relacja += 1
+                    $ relacje.relup("Gun",1)
                     jump rozstaje
                 "Kontynuuj sranie w kieszeni":
                     p "Tu będzie Ci bezpieczniej"
@@ -358,13 +404,18 @@ label dach:
 
     elif akt == 1:
         c "Co tam [player_name]?"
-        if Frakcja == 1:
+        if Frakcja == 1 and relacje.whatislove("Cypher",4) == True:
             c "Dobra, robotę masz"
             $ inventory.add_item(Klapek)
             c "Zanieś to Gunowi, jako symbol naszej przyjaźni"
             jump rozstaje
 
-        else:
+        elif relacje.whatislove("Cypher",5) == True:
+            c "Witaj mój najodważniejszy wojowniku"
+            c "Nie mam teraz dla ciebie nowego zadania"
+            c "Ale nie martw się, DH jeszcze zabłyśnie"
+
+        elif Frakcja != 1:
             c "Jakbyś dołączył do DH to miałbyś teraz niesamowicie ciekawego kłesta"
             c "Tak to możesz spierdalać"
             jump rozstaje
@@ -463,16 +514,8 @@ label sypialnia:
             $ dzien += 1
             $ czas = 20
             if HP != MaxHP:
-                $ HP = BODY * 2
+                $ HP = BC
             jump rozstaje
-
-        "Ciekawe, kto mnie lubi?":
-            "Relacja z Kałachem = [kalach_relacja] {w}"
-            "Relacja z Gunem = [gun_relacja] {w}"
-            "Relacja z Cypherem = [cypher_relacja] {w}"
-            "Relacja z Łaskawcą = [laskawca_relacja] {w}"
-            "Relacja z Hartmannem = [hartmann_relacja] {w}"
-            jump sypialnia
 
         "Sprawdzę swój portfel":
             "Mam w portfelu [edki]"
@@ -526,13 +569,13 @@ label akt1:
     menu:
         "Piszę się?"
         "Kurwa no pewex":
-            $ gun_relacja += 1
+            $ relacje.relup("Gun",1)
             g "To mi się podoba"
             $ wojownik = True
             jump akcja
         "Ja wracam, bo się trochę cykam":
-            $ gun_relacja -= 1
-            $ cypher_relacja +=1
+            $ relacje.reldown("Gun",1)
+            $ relacje.relup("Cypher",1)
             g "Pizda jesteś nie wojownik"
             $ wojownik = False
             scene dach
@@ -545,7 +588,7 @@ label akt1:
                 "W sumie czemu nie":
                     $ Frakcja = 1
                     $ czlonekFrakcji = True
-                    $ cypher_relacja +=3
+                    $ relacje.relup("Cypher",3)
                     c "Witamy w szeregach, później powiem Ci więcej. Muszę iść trollować Ciper."
                     jump podsumowanie1
                 "Podziękuje":
@@ -567,7 +610,7 @@ menu:
         $ HP -= 7
         "Udało Ci się zdjąć jednego ale sam też oberwałeś"
         $ Fragi += 1
-        $ gun_relacja += 1
+        $ relacje.relup("Gun",1)
     "Zbieram co mogę":
         $ inventory.add_item(AR)
         $ edki += 15
@@ -587,7 +630,7 @@ menu:
     "ZOSTAJĘ PIERDOLONYM BOGIEM WOJNY":
         $ Fragi += 3
         $ HP -= 15
-        $ laskawca_relacja += 2
+        $ relacje.relup("Łaskawca",2)
     "Zbieram jeszcze więcej":
         $ inventory.add_item(Pistolecik)
         $ inventory.add_item(Granat)
@@ -615,7 +658,7 @@ else:
     g "Szkoda że Cię nie było, zarobił byś coś"
     g "Mówiłem, nie gadaj z Cypherem"
     g "Następnym razem postaraj się bardziej"
-    $ gun_relacja -= 2
+    $ relacje.reldown("Gun",2)
 
 "Nadszedł czas chwilowego odpoczynku"
 g "Na piętrze masz pokój, czuj się jak w gościach"
@@ -697,7 +740,8 @@ menu:
 
     "Na nic więcej mnie nie stać":
         p "Get zakuped"
-        jump miasto
+
+jump miasto
 
 label amongthev:
 stop music fadeout 1.0
@@ -740,7 +784,7 @@ if HP <= 0:
 menu:
     "Gdzie chcesz iść?"
 
-    "A obczaję vechnika" if vechnik_stake != 7:
+    "A obczaję vechnika" if vechnik_stage != 7:
         jump vechnik_wst
 
     "Voktor nie brzmi źle" if voktor_stage != 7:
@@ -976,7 +1020,7 @@ elif varchiva_stage == 2:
                 p "No i się udało, lmao"
 
         "Vautomat???":
-            call vending
+            call vending from _call_vending
 
         "Vlakat?":
             "Podchodzisz bliżej tego arcydzieła graficznego"
@@ -1150,7 +1194,7 @@ label vokum:
     menu:
         "Czy mam psychę sprawdzić tę stronę?"
         "Co może być złego w pornografi":
-            $Frakcja = 3
+            $ Frakcja = 3
             "Vo volera"
 
         "Nigdy nie zostanę V":
@@ -1159,6 +1203,7 @@ label vokum:
     jump vtimefri
 
 label amongthevpods:
+    scene kuchnia
     "Wróciłeś do bazy po analizie Vist"
     $ if Frakcja == 3: "A nawet dołączyłeś do nich"
     "Wszedłeś do kuchni"
@@ -1167,6 +1212,7 @@ label amongthevpods:
     g "Znaczy ten, gratulacje, udało Ci się"
     g "Zobaczmy co tam przyniosłeś ciekawego"
     "Oddałeś znaleziska"
+    $ relacje.relup("Gun",vron)
     $ vron = 0
     g "Oj karamba, grube dowody"
     g  "Prawie zapomłem, oto twoja nagroda"

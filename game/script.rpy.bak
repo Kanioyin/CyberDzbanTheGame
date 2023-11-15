@@ -8,6 +8,8 @@ define p = Character(_("[player_name]"))
 define r = Character(_("Szczur"),color="123456")
 define j = Character(_("Jhin"),color = "444444")
 define v = Character(_("Vista"), color = "213769")
+define kk = Character(_("Krateus"), color = "ABCDEF")
+define t = Character(_("Toro"), color = "6969EE")
 
 init python:
     class Inventory():
@@ -66,7 +68,7 @@ init python:
 label checktime:
     if czas = 0:
         $dzien += 1
-        call sypialnia
+        call sypialnia from _call_sypialnia
 
 label start:
     #deklaracja inventory
@@ -81,7 +83,10 @@ label start:
     default Granat = InventoryItem("Granat","Mały gadżet, robiący bum")
     default Klapek = InventoryItem("Klapek","Klapek z twarzą Cyphera. Nie dotykałbym tego")
     default MalyArmor = InventoryItem("Pancerz","Standardowy cyberowy armor")
+    default Vron = InventoryItem("Vroń","Współczuję zakupu")
     default Wytrych = InventoryItem("Wytrych","Cudowny sprzęt do otwierania drzwi i nie tylko")
+    default Vomba = InventoryItem("Bomba","Bomba, tylko produkcji Vist")
+    default Vranat = InventoryItem("Vranat","Wabajack tego uniwersum")
 
     #relacje z gangusami
     default kalach_relacja = 0
@@ -93,27 +98,42 @@ label start:
 
     #deklaracja cech
     default INT = 2
-    default STR = 2
-    default BODY = 2
     default REF = 2
+    default ZW = 2
+    default TECH = 2
+    default CHAR = 2
+    default SW = 2
+    default SZ = 2
+    default RUCH = 2
+    default BC = 2
+    default EMP = 2
+
 
     #deklaracja reszty
     default edki = 0
     default vdolce = 0
+    default MaxHP = 10 + (5*((BC+SW)/2))
     default HP = 25
-    default MaxHP = 25
     default Fragi = 0
     default akt = 0
     default Frakcja = 0
     # 0 = Niezrzeszony
     # 1 = DH
     # 2 = DN
+    # 3 = Visty
     default dzien = 1
     default armor = 0
     default umieram = 0
     default maxarmor = 0
     default czas = 20
     default veq = 0
+    default psycha = EMP * 10
+    default znajOkol = 0
+    default lilquest = 0
+    default vrrr = 0
+    default bigquest = 0
+    default vron = 0
+    default helper = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
     $ player_name = renpy.input("Nazywasz się")
@@ -131,11 +151,10 @@ label start:
 
         "Spierdalać.":
 
+            "Good ending, lol"
             return
 
-    show cypher
-    with dissolve
-
+    show cypher with dissolve
 
     c "Witamy w bazie młody."
     c "Pa ten trick!"
@@ -144,7 +163,6 @@ label start:
 
     show gun at right
     show cypher at left
-
 
     g "Spokojnie kasztanie"
     "Gun katyńskim kopem wysłał Cyhpera na dach"
@@ -185,7 +203,7 @@ label rozstaje:
         "Kaj leziesz?"
 
         "Kierunek kuchnia":
-            call kuchnia
+            jump kuchnia
 
         "Może się pomodlę?":
             jump kosciol
@@ -253,7 +271,9 @@ label kuchnia:
             g "Tak czy siak, nic dobrego to nie oznacza"
             g "Zdupcaj, muszę pomysleć"
             jump rozstaje
-        elif dzien > 5 and zaddone == TRUE:
+        else:
+            pass
+        if dzien > 5:
             show jhin at right
             g "Robota się znalazła"
             j "Zostaniesz naszym tajnym agentem"
@@ -266,7 +286,6 @@ label kuchnia:
             g "Wyciągniesz tyle informacji ile się da i spierdolisz"
             g "Zadanie analnie proste"
             g "Zaczynasz bezzwłocznie"
-            $ zaddone = 1
             jump amongthev
         else:
             jump rozstaje
@@ -610,9 +629,12 @@ menu:
     "Bazy":
         jump rozstaje
 
+    "Sklepiku" if znajOkol == 1:
+        jump trader
+
     "Nikąd, pospaceruje sobię" if czas > 0:
         $ czas -= 5
-        $ cel = renpy.random.randint(1, 3)
+        $ cel = renpy.random.randint(1, 5)
         if cel == 1:
             "Znalazłeś jakieś drobniaki"
             $ zysk = renpy.random.randint(1, 100)
@@ -633,9 +655,9 @@ menu:
                 return
 
         elif cel == 4:
-            if znam_trade == 0:
+            if znajOkol == 0:
                 "Udało Ci się odkryć fajny osiedlowy sklepik"
-                $ znam_trade = 1
+                $ znajOkol = 1
 
             else:
                 p "Jaki fajny plasterek"
@@ -646,6 +668,14 @@ menu:
                     p "Ta? To zajebiście."
                     "Plasterek trafił do kosza."
 
+        elif cel == 5:
+            "Wszedłeś do bloku furrasów"
+            if (dzien/7)%3 == 0:
+                "Futrzana domina Cię dopadła"
+                $ HP = 1
+                $ czas = 0
+            else:
+                "Masz farta, był zamknięty"
         else:
             "Print dupa, nie powinno Cię tu być."
 
@@ -654,7 +684,7 @@ jump rozstaje
 label trader:
 scene szop
 p "A se coś kupię"
-p "Ile mam mamony. [edki] edków, mogło być mniej"
+p "Ile mam mamony? [edki] edków, mogło być mniej"
 menu:
     "Szopping tajm"
     "Ale fajna Aerka" if edki >= 500:
@@ -665,18 +695,20 @@ menu:
         $ inventory.add_item(Wytrych)
         $ edki -= 200
 
-p "Get zakuped"
-jump miasto
+    "Na nic więcej mnie nie stać":
+        p "Get zakuped"
+        jump miasto
 
 label amongthev:
 stop music fadeout 1.0
+
 scene black
 p "Wysłali mnie prosto do wypizdowa"
 p "Nie dali jakichkolwiek wytycznych"
 p "Przyjaciele po chuju"
 p "Ale chuj, podobno dostanę 2k edków"
-hide black
 scene vland
+play music "dickdisco.mp3" volume 0.2
 show vista
 v "Vitam v vlubie"
 v "Jestem Viesiek"
@@ -689,6 +721,7 @@ v "Jak go wkurwisz, to Ci jeszcze Vpierdoli"
 hide vechnik
 v "Vobra, przejdź się po okolicy, poszukaj dla siebie roboty"
 v "Vajo"
+$ bigquest = 1
 hide vista
 jump vtimefri
 
@@ -696,18 +729,21 @@ jump vtimefri
 default vechnik_stage = 0
 default voktor_stage = 0
 default varchiva_stage = 0
-#default vechnik_stage = 0
 default valki = 5
 
 label vtimefri:
 scene vland
+if HP <= 0:
+    "Jesteś prawie trupem"
+    "Powinieneś iść się leczyć"
+    $ umieram = 1
 menu:
     "Gdzie chcesz iść?"
 
-    "A obczaję vechnika":
+    "A obczaję vechnika" if vechnik_stake != 7:
         jump vechnik_wst
 
-    "Voktor nie brzmi źle":
+    "Voktor nie brzmi źle" if voktor_stage != 7:
         jump voktor_wst
 
     "Może po prostu zakradnę się do archiwów?":
@@ -723,7 +759,17 @@ menu:
         if HP < MaxHP:
             $ HP += 2
             p "Kilka ran mi się zasklepiło"
+            $ umieram = 0
+        if vrrr < 4:
+            $ valki = 5
+
         jump vtimefri
+
+    "A poczytam sobie dokumenty Vist" if bigquest == 2:
+        jump vokum
+
+    "Vpierdalam od pojebów" if bigquest == 2:
+        jump amongthevpods
 
 label vechnik_wst:
 scene vechnik
@@ -731,6 +777,7 @@ if vechnik_stage == 0:
     v "Vtam, jestem vechnikiem."
     v "Vogę Ci zaoferować potężne vposażenie."
     v "Ale oczyViście, jeśli vasz odpowiednią ilość Vdolców."
+    $vechnik_stage = 1
     menu:
         "Zdobądź potężne Vposażenie"
 
@@ -744,11 +791,11 @@ if vechnik_stage == 0:
             v "Vbacz, młody. Nie dostaniesz vorzyczki! Vróc później kiedy będziesz... MMMMMMM... VOGATRZY!"
             jump vtimefri
 
-$vechnik_stage = 1
+
 
 if vechnik_stage == 1:
     v "Vtam znowu"
-    if vron == 1:
+    if vron < 1:
         v "Chcesz vupić vrońkę?"
         menu:
             "Zdobądź potężne Vposażenie"
@@ -756,13 +803,34 @@ if vechnik_stage == 1:
             "Będę przyszłym Vogiem Vojny" if vdolce >= 1:
                 $veq += 2
                 $vdolce -= 1
+                $ veq += 1
                 v "Volecam się na vrzyszłość"
-                jump vtimefri
 
             "Kurde balans, nie posiadam kapitału":
                 v "Vbacz, młody. Nie dostaniesz vorzyczki! Vróc później kiedy będziesz... MMMMMMM... VOGATRZY!"
-                jump vtimefri
 
+    if lilquest == 1:
+        menu:
+            "W swoim eq znajduje się vomba, co z nią robisz?"
+
+            "Vsadzam technika":
+                $inventory.remove_item(Vomba)
+                p "Pora vpierdalać"
+                $ vechnik_stage = 7
+                "Vomba vybuchła"
+                "Siła eksplozji wystrzeliła cię aż pod warzywniak"
+
+            "Ja się trochę cykam, potem zdecyduję":
+                pass
+
+            "A powiem vechnikowi":
+                p "Te panie vechnik, mam dla ciebie rozrywkę"
+                v "O vuj Ci chodzi?"
+                p "Bo voktor kazał mi cię vsadzić"
+                v "Voo ma ga, ale z niego vjut"
+                v "Ale kalmuj koka i wysadź tego fjuta"
+                v "Vostiesz gifta"
+                $ lilquest = 2
 
 jump vtimefri
 
@@ -772,11 +840,86 @@ if voktor_stage == 0:
     v "Viema variacie!"
     v "Chcesz vokosa kurde ten?"
     v "Nie no, yaycuję. W tym obozie nic nie ma za darmo."
-    v "Możesz wykonać dla mnie bojowe zadanie "
+    v "Możesz wykonać dla mnie bojowe zadanie"
+    if lilquest == 0:
+        menu:
+            "Chcesz kolejne bojowe zadanie?"
+            "Vevnie lmao":
+                $ inventory.add_item(Vomba)
+                $ veq += 1
+                v "Vpierdol w vovietrze varsztat"
+                $ lilquest +=1
+                $ voktor_stage +=1
+
+            "Vole nie":
+                v "To mnie nie vkurwiaj"
+                $ voktor_stage +=1
+    else:
+        pass
+
+elif voktor_stage == 1:
+    if lilquest == 0:
+        v "Uleczyć cię?"
+        menu:
+            "Medycyna?"
+            "Lecz mnie voktorze!" if HP != MaxHP AND vdolce > 0:
+                $ HP = MaxHP
+                $ vdolce -= 1
+
+            "A ić pan w chuj":
+                pass
+
+    elif lilquest == 1:
+        if inventory.has_item(Vomba) == True:
+            v "Veź się za vobotę"
+
+        else:
+            v "Vobra vobora, oto twoja naroda:"
+            $ HP = MaxHP
+            "Zostałeś uleczony"
+            p "I co? To tyle?"
+            v "A czego się vpodziewałeś? Miliarda edków i miliona avałek?"
+            v "Lmao"
+            $ voktor_stage = 2
+            $ lilquest = 0
+
+    elif lilquest == 2:
+        if inventory.has_item(Vomba) == True:
+            p "Mogę teraz vsadzić voktora"
+            menu:
+                "Vpierdolić go v vovietrze?"
+                "Vpierdalam":
+                    $ inventory.remove_item(Vomba)
+                    $ lilquest = 3
+                    $ voktor_stage = 7
+                    p "Pora na eksplodatora"
+                    p "Nigerundajo!"
+
+                "A w piździe mam to zadanie":
+                    $ lilquest = 7
+
+                "Jeszcze się muszę zastanowić":
+                    pass
+
+elif voktor_stage == 2:
+    v "Uleczyć cię?"
+    menu:
+        "Medycyna?"
+        "Lecz mnie voktorze!" if HP != MaxHP AND vdolce > 0:
+            $ HP = MaxHP
+            $ vdolce -= 1
+
+        "A ić pan w chuj":
+            pass
+
 jump vtimefri
 
 label varchiwa:
-scene archiwa
+scene drzv
+if umieram == 1:
+    "Powiniemem się wcześniej uleczyć"
+    jump gameover
+
 if varchiva_stage == 0:
     "Trafiając do varchiw stają Ci na drodze drzwi"
     if inventory.has_item(Wytrych) == True:
@@ -785,26 +928,155 @@ if varchiva_stage == 0:
         "Udało Ci się dostać do środka"
         $ varchiva_stage = 1
     else:
-        p "Dupa sraka Arasaka, nie wejdę"
+        p "Dupa sraka Arasaka, nie wejdę. Przydałby mi się wytrych"
         jump vtimefri
+
+elif varchiva_stage == 1:
+    "Dostałeś się do środka"
+    "Ale na twojej drodze staje vrażnik"
+    v "vrrrr"
+    v "vpierdalaj stond"
+    v "albo ci vpierdole"
+    menu:
+        "Co zrobić?"
+        "Rozpoczynam pvp!":
+            $ HP -= 19
+            $ fragi += 1
+            p "essa wariacie"
+            if HP <= 0:
+                "Jesteś prawie trupem"
+                "Powinieneś iść się leczyć"
+                $ umieram = 1
+            $ varchiva_stage = 2
+
+        "Pa te trick" if inventory.has_item(AR) == True:
+            "Wyciągasz AR"
+            v "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "vochroniaż opuszcza scenę, vgrałeś valkę"
+            $ varchiva_stage = 2
+
+        "Vpierdalam":
+            jump vtimefri
+
+elif varchiva_stage == 2:
+    "Varchiva stoją przed tobą otworem"
+    "Nie będę mówił którym"
+    "Pozostaje Ci spędzić resztę swych dni szukając dokumentu"
+    "Zobaczyłeś że w rogu pomieszczenia stoi automat"
+    "Gdy zbliżyłeś się do niego widzisz że ma nawet nagrody"
+    "Rozglądasz się dalej po pomieszczeniu"
+    "Na ścianie vsi platat vupermena"
+    "Na podłodze jest dyvan"
+    "I jest nawet 1 (słownie jedno) pudełko"
+    menu:
+        "Co teraz robisz?"
+        "Tracę swój czas szukając papierku":
+            if renpy.random.randint(0,3) == 2:
+                $ bigquest = 2
+                p "No i się udało, lmao"
+
+        "Vautomat???":
+            call vending
+
+        "Vlakat?":
+            "Podchodzisz bliżej tego arcydzieła graficznego"
+            "Z każdym kolejnym krokiem chcesz valnąć ten głupi ryj"
+            menu:
+                "Znów bijatyka?"
+                "Bijatyka cały dzień":
+                    "Sprzedałeś vupermanowi hita"
+                    "Niestety za plakatem były kolce"
+                    "Straciłeś trochę hp"
+                    $ HP -= 5
+
+                "Nie mam problemów z agresją":
+                    "Zostawiłeś plakat w spokoju"
+                    pass
+
+        "Dyvan?":
+            "Podchodzisz do dyvanu"
+            "Vgląda dość normalnie na pierwszy rzut oka"
+            "Po kolejnym rzucie okiem, skończyły Ci się oczy"
+            "Ale jest to najzwyklejszy dyvan"
+
+        "Pudełeczko" if helper == 0:
+            "Normalnie jedno pudełeczko"
+            "Po chuj ktoś je tu zostawił"
+            menu:
+                "Otwierasz?"
+                "Kurwa no powex":
+                    "Znalazłeś 4 vdolce"
+                    $ vdolce += 4
+                    $ helper = 1
+
+                "A chuj z tym":
+                    pass
+
+label vending:
+    scene vautom
+    p "Vistowe specjały, kuszące i pociągające"
+    menu:
+        "Czy kusi mnie hazard?"
+        "Kurwa no pewex" if edki > 0 :
+            $ vagroda = renpy.random.randint(0,4)
+            if vagroda == 0:
+                p "Dostałem vranat"
+                $ inventory.add_item(Vranat)
+
+            elif vagroda == 1 :
+                p "Cukierek, szkoda że wylizazny"
+
+            elif vagroda == 2 :
+                p "Jakaś dziwna vigółka"
+                menu:
+                    "Czy mam psychę by łyknąć?"
+                    "Pewex!":
+                        $ HP -= 5
+                        p "Kurde balans, lukrecja"
+
+                    "Nie jestem vebilem":
+                        p "Takie tabsy tylko po konsultacji z Łaskawcą lub farmaceutą"
+
+            elif vagroda == 3 :
+                p " Guma vurbo"
+
+            else:
+                p "Spermastycznie, nic nie wpyadło"
+
+        "Szanuję swoje vdolce":
+            return
+
 
 label vrade:
 scene vshop
 menu:
     v "Co chciałbyś zakupić?"
-    "Ale fajna Aerka" if edki >= 500:
+    "Ale fajna Aerka" if vdolce >= 5 :
         $ inventory.add_item(AR)
-        $ edki -= 500
+        $ vdolce -= 5
+        $ veq += 1
+        "Wydałeś 5 vdolce na AR-kę"
 
-    "Wytrych? " if edki >= 200:
+    "Wytrych? " if vdolce >= 2:
         $ inventory.add_item(Wytrych)
-        $ edki -= 200
+        $ vdolce -= 2
+        $ veq += 1
+        "Wydałeś 2 vdolce na Wytrych"
 
-    "Flaszka?" if edki >= 20:
+    "Flaszka?" if vdolce >= 1:
         $ inventory.add_item(Flaszka)
-        $ edki -= 20
+        $ vdolce -= 1
+        $ veq += 1
+        "Wydałeś 1 vdolca na Flaszkę"
 
-jump vtimefri
+    "Varmor" if vdolce >= 3:
+        $ inventory.add_item(MalyArmor)
+        $ vdolce -= 3
+        $ veq += 1
+        "Wydałeś 3 vdolce na lil varmor"
+
+    "Nie potrzebuję twoich towarów":
+        jump vtimefri
 
 label varena:
 scene vare
@@ -824,5 +1096,83 @@ menu:
 label vlepa:
 scene black
 "Zobaczmy jak Ci poszło"
-"Chujowo jak zwykle"
+if Vron == 1 AND vrrr < 4:
+    "Jesteś popierdolony, że przyszedłeś z vronią na arenę"
+    "Vgrałeś, reszta się Vstraszyła"
+    $ valki = 0
+    $ vdolce += 5
+    $ vrrr += 1
+
+elif Vron == 1 AND vrrr > 4:
+    "Nikt już nie chce z tobą walczyć"
+
+else:
+    $ cel = renpy.random.radint(1,3)
+    if cel == 1:
+        "Chujowo jak zwykle"
+        $ valki -= 1
+
+    elif cel == 2:
+        "Remis bałwany"
+        $ valki -= 1
+
+    else:
+        "Jebaniec, udało Ci się wygrać"
+        $ vdolce +=1
+        $ valki -= 1
+
 jump vtimefri
+
+label vokum:
+    scene black
+    p "To co ciekawego skrywają vistowe vokumenty"
+    "Czytasz pierwszą kartkę"
+    "Raport V nr 45672"
+    v "Vedykamenty są napravde pomocne, moje umiejętności umysłowe zwiększyły się."
+    v "Vózg v vłynie jest skuteczny, muszę vodziękować Vanowi"
+    v "Vestem viekav, co jeszcze ugotuje"
+    p "Kinda sus, ngl"
+    p "Co oni tu jeszcze mają?"
+    "Kolejny dokument"
+    v "Vroń testowa jest strasznie vujowa"
+    v "Vechnikowi powinienem urwać yaya i yondra!"
+    v "Vstrzeliłem i nic się nie stało."
+    v "Vkurwiam się, vopierdoli mnie"
+    p "Lmao rip"
+    p "O coś jeszcze ciekawego"
+    v "Populacja V vnosi około 20 tysiący"
+    v "Mnożymy się jak świerze bułeczki"
+    v "Jeszcze pół roku i Arasaka straci nad nami vładzę"
+    v "Ale my musimy jeszcze czekać jak karaczany"
+    v "Va szczęście dołączenie do naszej społeczności nie jest trudne"
+    v "Vstarczy vpisać vardcorevorn.vom"
+    p "O kurde balans, to jest aż tak proste?"
+    menu:
+        "Czy mam psychę sprawdzić tę stronę?"
+        "Co może być złego w pornografi":
+            $Frakcja = 3
+            "Vo volera"
+
+        "Nigdy nie zostanę V":
+            pass
+
+    jump vtimefri
+
+label amongthevpods:
+    "Wróciłeś do bazy po analizie Vist"
+    $ if Frakcja == 3: "A nawet dołączyłeś do nich"
+    "Wszedłeś do kuchni"
+    show gun
+    g "Na raty chrystusa, ty żyjesz!"
+    g "Znaczy ten, gratulacje, udało Ci się"
+    g "Zobaczmy co tam przyniosłeś ciekawego"
+    "Oddałeś znaleziska"
+    $ vron = 0
+    g "Oj karamba, grube dowody"
+    g  "Prawie zapomłem, oto twoja nagroda"
+    $ edki += 2000
+    g "Od teraz jesteś prawdziwym bazownikiem"
+    c "RICHTIG (:"
+    g "Zamknij się Cypher"
+    g "Dobra, idź do siebie, potrzebuje trochę czasu"
+    jump sypialnia
