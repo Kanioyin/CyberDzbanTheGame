@@ -66,50 +66,15 @@ init python:
             pass
 
 
-    class Relacje():
-        def __init__(self,post,rel):
-            self.post = post
-            self.rel = rel
-
-        def relstart(self,kto):
-            self.post.append(kto)
-            self.rel.append(0)
-
-        def relup(slef,kto,qua):
-            for i in len(post):
-                if kto == post:
-                    self.rel[i] += qua
-
-        def reldown(self,kto,qua):
-            for i in len(post):
-                if kto == post:
-                    self.rel[i] -= qua
-
-        def ziomeczki(self):
-            p("Relacje z ludźmi:")
-            for item in self.items:
-                p(f"{Person.name}, {Person.rel}")
-
-        def whatislove(self,post,ile):
-            if post in self.post:
-                if ile == self.rel:
-                    return True
-                else:
-                    return False
-
-    class Person():
-        def __init__(self,name):
-            self.name = name
-
 label checktime:
     if czas = 0:
         $dzien += 1
         call sypialnia from _call_sypialnia
 
 label start:
+    default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0}
     #deklaracja inventory
     default inventory = Inventory([],0)
-    default relacje = Relacje([],[])
 
     #deklaracja przedmiotów
     default AR = InventoryItem("AR", "Fajny karabin")
@@ -124,14 +89,6 @@ label start:
     default Wytrych = InventoryItem("Wytrych","Cudowny sprzęt do otwierania drzwi i nie tylko")
     default Vomba = InventoryItem("Bomba","Bomba, tylko produkcji Vist")
     default Vranat = InventoryItem("Vranat","Wabajack tego uniwersum")
-
-    #relacje z gangusami
-    default Kalach = Person("Kałach")
-    default Gun = Person("Gun")
-    default Cypher = Person("Cypher")
-    default Laskawca = Person("Łaskawca")
-    default Hartmann = Person("Hartmann")
-    default Jhin = Person("Jhin")
 
     #deklaracja cech
     default INT = 2
@@ -173,12 +130,6 @@ label start:
     default helper = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
-    $ relacje.relstart("Kalach")
-    $ relacje.relstart("Gun")
-    $ relacje.relstart("Cypher")
-    $ relacje.relstart("Laskawca")
-    $ relacje.relstart("Hartmann")
-    $ relacje.relstart("Jhin")
     $ player_name = renpy.input("Nazywasz się")
 
     "Nie miałeś edków"
@@ -274,7 +225,7 @@ label kuchnia:
     show gun
     if akt == 0:
         g "Szybko Ci poszło"
-        if relacje.whatislove("Kalach",0) == True:
+        if postacie["Kalach"] == 0:
             if inventory.has_item(Flaszka) == True:
                 g "Daj mu tę flachę"
                 jump rozstaje
@@ -306,8 +257,8 @@ label kuchnia:
             g "Co on znowu chce?"
             p "Mam dla Ciebie... klapka?"
             $ inventory.remove_item(Klapek)
-            $ relacje.reldown("Gun",2)
-            $ relacje.relup("Cypher",1)
+            $ postacie["Gun"] -= 2
+            $ postacie["Cypher"] += 1
             g "Obawiam się że to jest wypowiedzenie wojny"
             g "Albo gorzej"
             g "Zaczął produkcję merchu z DH"
@@ -342,10 +293,10 @@ label kosciol:
     if inventory.has_item(Flaszka):
         k "Wyczuwam flachę"
         k "Wezmę sobie"
-        $ relacje.relup("Kalach", 1)
+        $ postacie["Kalach"] += 1
         $ inventory.remove_item(Flaszka)
 
-    if relacje.whatislove("Kalach",0) == True:
+    if postacie["Kalach"] == 0:
         k "Kim ty kurwa jesteś?"
         k "Wypierdalaj"
 
@@ -376,7 +327,7 @@ label kibel:
                     $ inventory.remove_item(Rat)
                     show grat at left
                     r "Dziękuje, dobry człowieku"
-                    $ relacje.relup("Gun",1)
+                    $ postacie["Gun"] += 1
                     jump rozstaje
                 "Kontynuuj sranie w kieszeni":
                     p "Tu będzie Ci bezpieczniej"
@@ -404,13 +355,13 @@ label dach:
 
     elif akt == 1:
         c "Co tam [player_name]?"
-        if Frakcja == 1 and relacje.whatislove("Cypher",4) == True:
+        if Frakcja == 1 and postacie["Cypher"] == 4:
             c "Dobra, robotę masz"
             $ inventory.add_item(Klapek)
             c "Zanieś to Gunowi, jako symbol naszej przyjaźni"
             jump rozstaje
 
-        elif relacje.whatislove("Cypher",5) == True:
+        elif postacie["Cypher"] == 5:
             c "Witaj mój najodważniejszy wojowniku"
             c "Nie mam teraz dla ciebie nowego zadania"
             c "Ale nie martw się, DH jeszcze zabłyśnie"
@@ -531,6 +482,11 @@ label sypialnia:
                 p "Zadawało mi się."
                 jump sypialnia
 
+        "Jak mnie inni lubią?":
+            '[postacie]'
+            jump sypialnia
+
+
         "Wyjść" if czas > 0:
             jump rozstaje
 
@@ -569,13 +525,13 @@ label akt1:
     menu:
         "Piszę się?"
         "Kurwa no pewex":
-            $ relacje.relup("Gun",1)
+            $ postacie["Gun"] += 1
             g "To mi się podoba"
             $ wojownik = True
             jump akcja
         "Ja wracam, bo się trochę cykam":
-            $ relacje.reldown("Gun",1)
-            $ relacje.relup("Cypher",1)
+            $ postacie["Gun"] -= 1
+            $ postacie["Cypher"] += 1
             g "Pizda jesteś nie wojownik"
             $ wojownik = False
             scene dach
@@ -588,7 +544,7 @@ label akt1:
                 "W sumie czemu nie":
                     $ Frakcja = 1
                     $ czlonekFrakcji = True
-                    $ relacje.relup("Cypher",3)
+                    $ postacie["Cypher"] += 3
                     c "Witamy w szeregach, później powiem Ci więcej. Muszę iść trollować Ciper."
                     jump podsumowanie1
                 "Podziękuje":
@@ -610,7 +566,7 @@ menu:
         $ HP -= 7
         "Udało Ci się zdjąć jednego ale sam też oberwałeś"
         $ Fragi += 1
-        $ relacje.relup("Gun",1)
+        $ postacie["Gun"] += 1
     "Zbieram co mogę":
         $ inventory.add_item(AR)
         $ edki += 15
@@ -630,7 +586,7 @@ menu:
     "ZOSTAJĘ PIERDOLONYM BOGIEM WOJNY":
         $ Fragi += 3
         $ HP -= 15
-        $ relacje.relup("Łaskawca",2)
+        $ postacie["Laskawca"] += 2
     "Zbieram jeszcze więcej":
         $ inventory.add_item(Pistolecik)
         $ inventory.add_item(Granat)
@@ -658,7 +614,7 @@ else:
     g "Szkoda że Cię nie było, zarobił byś coś"
     g "Mówiłem, nie gadaj z Cypherem"
     g "Następnym razem postaraj się bardziej"
-    $ relacje.reldown("Gun",2)
+    $ postacie["Gun"] -= 2
 
 "Nadszedł czas chwilowego odpoczynku"
 g "Na piętrze masz pokój, czuj się jak w gościach"
@@ -1212,7 +1168,7 @@ label amongthevpods:
     g "Znaczy ten, gratulacje, udało Ci się"
     g "Zobaczmy co tam przyniosłeś ciekawego"
     "Oddałeś znaleziska"
-    $ relacje.relup("Gun",vron)
+    $ postacie["Gun"] += vron
     $ vron = 0
     g "Oj karamba, grube dowody"
     g  "Prawie zapomłem, oto twoja nagroda"
