@@ -214,6 +214,9 @@ label rozstaje:
         "Ten czerwony krzyż wygląda obiecująco":
             jump klinika
 
+        "Dziupla Jhina" if bigquest > 2:
+            jump jhinownia
+
         "Idę do siebie" if akt > 0:
             jump sypialnia
 
@@ -369,6 +372,16 @@ label dach:
         elif Frakcja != 1:
             c "Jakbyś dołączył do DH to miałbyś teraz niesamowicie ciekawego kłesta"
             c "Tak to możesz spierdalać"
+            if bigquest == 2:
+                c "Albo czekaj, wróciłeś właśnie od Vistów co nie?"
+                c "Jak tam było? Dobrze się bawiłeś?"
+                c "Powiem Ci w sekrecie, który jednak każdy zna"
+                c "Kiedyś, za czasów swojej światłości, polowałem na Visty"
+                c "Ale moja umowa z wojskiem poszła się jebać gdy ten chuj Kennedy nie dał mi wsparcia"
+                c "Jakby ta Avałka wleciała do metra, byłbym niepokonany"
+                c "A tak to Jhin prawie się zabił tnąc kable"
+                c "Mówiłem mu, trakcja to śmierć. Tory! To jest przyszłość"
+                c "To tyle z mojej audiencji teraz idż w chuj."
             jump rozstaje
 
 label warsztat:
@@ -454,6 +467,24 @@ label klinika:
     else:
         jump rozstaje
 
+label jhinownia
+    scene takiten
+    show jhin
+    j "Hejka naklejka jestem Jhin Taki-Ten"
+    j "To nazwisko zawdzięczam swoim rodzicom"
+    j "Czyli udało Ci się nakraść w gnieździe Vist"
+    j "Powiem Ci, jestem pod wrażeniem"
+    $ postacie["Jhin"] += 1
+    j "Powiedz mi jak tam było?"
+    j "Czy to prawda że Visty rozmnażają się przez pączkowanie?"
+    j "Czy może po śmierci dzielą się na pół?"
+    menu:
+        "Zdecydowanie pączkowanie":
+            j "O cholipka, wiedziałem"
+            j "To oznacza że trzeba zabić każdego piekarza w mieście"
+            j "Wyruszam natychmiast"
+            "I se poszedł"
+            jump rozstaje
 
 label sypialnia:
     scene pokoj
@@ -483,7 +514,7 @@ label sypialnia:
                 jump sypialnia
 
         "Jak mnie inni lubią?":
-            '[postacie]'
+            "Cypher: [postacie[Cypher]], Kałach: [postacie[Kalach]], Gun: [postacie[Gun]], Hartmann: [postacie[Hartmann]], Łaskawca: [postacie[Laskawca]]"
             jump sypialnia
 
 
@@ -1038,7 +1069,7 @@ label vending:
                         p "Takie tabsy tylko po konsultacji z Łaskawcą lub farmaceutą"
 
             elif vagroda == 3 :
-                p " Guma vurbo"
+                p "Guma vurbo, a se opierdole"
 
             else:
                 p "Spermastycznie, nic nie wpyadło"
@@ -1177,4 +1208,15 @@ label amongthevpods:
     c "RICHTIG (:"
     g "Zamknij się Cypher"
     g "Dobra, idź do siebie, potrzebuje trochę czasu"
-    jump sypialnia
+    jump tempend
+
+
+label tempend:
+    "Doszedłeś do końca tej historii"
+    "Na ten moment nie ma nic więcej do odkrycia"
+    "Możesz dumnie wypierdalać"
+    "Jak powiesz mi tajne hasło"
+    "Vista sztuk trzysta"
+    "Dostaniesz kartę do KTG"
+    "A teraz czekaj na następny update i wypierdalaj"
+    return

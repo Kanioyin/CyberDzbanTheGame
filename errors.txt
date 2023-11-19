@@ -3,8 +3,8 @@ errors listed below, and try again.
 
 
 File "game/script.rpy", line 486: expected statement.
-    print(postacie)
-                   ^
+    "Cypher " + postacie["Cypher"]
+              ^
 
 Ren'Py Version: Ren'Py 8.1.3.23091805
-Fri Nov 17 13:20:04 2023
+Sun Nov 19 12:57:19 2023
