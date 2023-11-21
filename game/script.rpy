@@ -268,6 +268,7 @@ label kuchnia:
     elif akt == 1:
         $ czas -= 1
         g "Ser dobry, [player_name]"
+        g "Daj mi trochę czasu roboty szukam"
         if inventory.has_item(Klapek) == True:
             p "Mam przesyłkę od Cyphera"
             g "Co on znowu chce?"
@@ -283,7 +284,7 @@ label kuchnia:
             jump rozstaje
         else:
             pass
-        if dzien > 5 and bigquest != 0:
+        if dzien > 5 and bigquest == 0:
             show jhin at right
             g "Robota się znalazła"
             j "Zostaniesz naszym tajnym agentem"
@@ -330,13 +331,14 @@ label kosciol:
         k "Może coś popiłeś?"
         if wojownik == True:
             k "Czyli coś postrzelałeś, milutko"
+            $ postacie["Kalach"] += 1
 
         else:
             k "Jedyne co strzeliłeś to foch, ciper moment"
             show cypher at left
             c "Falsh"
-
-            k "Spierdalaj sypher"
+            hide cypher with dissolve
+            k "Spierdalaj syfer"
 
         "Zdupcaj, wracam do picia"
         jump rozstaje
@@ -458,6 +460,7 @@ label warsztat:
     scene warsztat
     show hartmann at right
     if akt == 0:
+        $ gun_stan += 1
         "Wchodząc do pokoju słyszysz agresywne napierdalanie młotkiem, a w tle leci niemiecki metal"
         h "Kim ty kurwa jesteś?"
         h "Dlaczego mi kurwa przeszkadzasz w robocie?"
@@ -494,6 +497,7 @@ label klinika:
     scene klinika
     show laskawca at right
     if akt == 0:
+        $gun_stan += 1
         pl "Siema, chcesz kokosa kurwa ten?"
         if inventory.has_item(Kokos) == True:
             pl "No wciągnij no"
@@ -570,7 +574,9 @@ label jhinownia:
             "Dzielą się na pół":
                 j "A niech to dunder świśnie"
                 j "To oznacza że przegrałem zakład z Cypherem"
+                show sypher at left
                 c "RICHTIG"
+                hide cypher with dissolve
                 j "On już tu jest, uceikam"
                 "I spierdolił"
                 $ jhin_stan = 1
@@ -597,8 +603,13 @@ label sypialnia:
         "Idę spać":
             $ dzien += 1
             $ czas = 20
-            if HP != MaxHP:
-                $ HP = BC
+            if HP != MaxHP and  edki > 10:
+                "Przed snem zjadłeś jeszcze coś z automatu"
+                $ edki -= 10
+                $ HP += BC
+            else:
+                "Zasnąłeś z pustym brzuchem"
+
             jump rozstaje
 
         "Sprawdzę swój portfel":
@@ -789,7 +800,8 @@ menu:
             $ wpierdol = renpy.random.randint(2, 11)
             play sound "hit.mp3"
             "Dostałeś wpierdol"
-            $ HP -= wpierdol
+            $ HP -= wpierdol - armor
+            $ armor -= 1
             if umieram == 1:
                 "Git gud"
                 return
@@ -810,7 +822,7 @@ menu:
 
         elif cel == 5:
             "Wszedłeś do bloku furrasów"
-            if (dzien/7)%3 == 0:
+            if dzien % 3 == 0:
                 "Futrzana domina Cię dopadła"
                 $ HP = 1
                 $ czas = 0
@@ -1081,6 +1093,8 @@ if varchiva_stage == 0:
         p "Ty kurwa, wysadzę to ich własną bronią"
         $ inventory.remove_item(Vomba)
         $ varchiva_stage = 1
+        p "Ała kurwa, cóż za siła eksplozji."
+        $ HP -= 10
         p "Get bombed, lmao"
 
     else:
@@ -1096,7 +1110,8 @@ elif varchiva_stage == 1:
     menu:
         "Co zrobić?"
         "Rozpoczynam pvp!":
-            $ HP -= 19
+            $ HP -= 19 - armor
+            $ armor -= 1
             $ fragi += 1
             p "essa wariacie"
             if HP <= 0:
@@ -1197,7 +1212,7 @@ label vending:
                 p "Guma vurbo, a se opierdole"
 
             else:
-                p "Spermastycznie, nic nie wpyadło"
+                p "Spermastycznie, nic nie vypadło"
 
         "Szanuję swoje vdolce":
             return
@@ -1334,7 +1349,9 @@ label amongthevpods:
     g  "Prawie zapomłem, oto twoja nagroda"
     $ edki += 2000
     g "Od teraz jesteś prawdziwym bazownikiem"
+    show cypher at left
     c "RICHTIG (:"
+    hide cypher with dissolve 
     g "Zamknij się Cypher"
     g "Dobra, idź do siebie, potrzebuje trochę czasu"
     jump tempend
