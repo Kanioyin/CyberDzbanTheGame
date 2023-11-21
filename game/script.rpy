@@ -102,14 +102,23 @@ label start:
     default BC = 2
     default EMP = 2
 
+    #Stany posraci
+    default gun_stan = 0
+    default kalach_stan = 0
+    default laskawca_stan = 0
+    default hartmann_stan = 0
+    default jhin_stan = 0
+    default cypher_stan = 0
+
 
     #deklaracja reszty
     default edki = 0
     default vdolce = 0
     default MaxHP = 10 + (5*((BC+SW)/2))
-    default HP = 25
     default Fragi = 0
     default akt = 0
+    default HP = 0
+    $ HP = MaxHP
     default Frakcja = 0
     # 0 = Niezrzeszony
     # 1 = DH
@@ -121,7 +130,8 @@ label start:
     default maxarmor = 0
     default czas = 20
     default veq = 0
-    default psycha = EMP * 10
+    default psycha = 0
+    $ psycha = EMP * 10
     default znajOkol = 0
     default lilquest = 0
     default vrrr = 0
@@ -228,8 +238,9 @@ label kuchnia:
     show gun
     if akt == 0:
         g "Szybko Ci poszło"
-        if postacie["Kalach"] == 0:
+        if gun_stan == 0:
             if inventory.has_item(Flaszka) == True:
+                g "To pomoże Ci z kałachem"
                 g "Daj mu tę flachę"
                 jump rozstaje
             else:
@@ -238,22 +249,24 @@ label kuchnia:
                 $ inventory.add_item(Flaszka)
                 g "Daj mu to, powinien Cię polubić"
                 jump rozstaje
-        g "Skończyłeś już pogaduszki?"
-        menu:
-            "Skończyłem?"
+        elif gun_stan == 3:
+            g "Skończyłeś już pogaduszki?"
+            menu:
+                "Skończyłem?"
 
-            "Ta, lecimy dalej":
-                stop music fadeout 1.0
-                jump akt1
+                "Ta, lecimy dalej":
+                    stop music fadeout 1.0
+                    jump akt1
 
-            "Jeszcze chwilka":
-                jump rozstaje
+                "Jeszcze chwilka":
+                    jump rozstaje
 
-            "Po gadaniu z takimi deklami, jednak spierdalam":
-                "Good Ending"
-                return
+                "Po gadaniu z takimi deklami, jednak spierdalam":
+                    "Good Ending"
+                    return
 
     elif akt == 1:
+        $ czas -= 1
         g "Ser dobry, [player_name]"
         if inventory.has_item(Klapek) == True:
             p "Mam przesyłkę od Cyphera"
@@ -298,17 +311,34 @@ label kosciol:
         k "Wezmę sobie"
         $ postacie["Kalach"] += 1
         $ inventory.remove_item(Flaszka)
+        $ gun_stan += 1
 
     if postacie["Kalach"] == 0:
         k "Kim ty kurwa jesteś?"
         k "Wypierdalaj"
+        $ gun_stan += 1
 
     else:
         play sound "BURP.mp3"
         k "Pijesz?"
 
     if akt == 1:
+        $ czas -= 1
         k "Jak tam poszło?"
+        k "Postrzelałeś?"
+        k "Poruchałeś?"
+        k "Może coś popiłeś?"
+        if wojownik == True:
+            k "Czyli coś postrzelałeś, milutko"
+
+        else:
+            k "Jedyne co strzeliłeś to foch, ciper moment"
+            show cypher at left
+            c "Falsh"
+
+            k "Spierdalaj sypher"
+
+        "Zdupcaj, wracam do picia"
         jump rozstaje
     jump rozstaje
 
@@ -317,9 +347,15 @@ label kibel:
     if akt == 0:
         show grat at left
         "Ić stont"
+        $ gun_stan += 1
         jump rozstaje
 
     elif akt == 1:
+        $ czsa -= 1
+        if inventory.has_item(Rat):
+            show grat at left
+            r "Bywaj [playre_name]"
+            jump rozstaje
         "Spokojnie tu, zbyt spokojnie"
         "Ciekawe gdzie podziały się wszystkie szczury?"
         if inventory.has_item(Rat):
@@ -343,7 +379,7 @@ label kibel:
 label dach:
     scene dach
     show cypher
-    if akt == 0:
+    if akt == 0 and cypher_stan == 0:
         "Cypher skończył morbowanie"
         c "Chcesz zostać najemnikiem?"
         c "A może wolisz wynająć najemników?"
@@ -354,9 +390,41 @@ label dach:
         scene kuchnia
         show gun
         g "Lepiej nie zawieraj żadnych umów z Cypherem, to nigdy nie kończy się dobrze"
-        jump kuchnia
+        $ gun_stan += 1
+        $ cypher_stan += 1
+        jump rozstaje
+
+    elif akt == 0 and cypher_stan == 1:
+        "Widzisz że Cypher nad czymś pracuje"
+        c "Nie przeszkadzaj mi, przygotowuję coś niesamowitego"
+        c "Jeśli dołączysz do DH, to dostaniesz bojowe zadanie"
+        $ cypher_stan += 1
+        jump rozstaje
+
+    elif akt == 0 and cypher_stan == 2:
+        c "Czy ty chcesz usłyszeć każdy dialog z mną?"
+        c "Czy może stwierdziłeś że chcesz truć mi dupę"
+        c "Powiedz mi kasztanie, wierzysz w kobiety?"
+        c "Zastanów się nad odpowiedzią"
+        $ cypher_stan += 1
+        jump rozstaje
+
+    elif akt == 0 and cypher_stan == 3:
+        c "No pierdolne Ci"
+        c "Literealnie Ci pierdolnę"
+        c "Jeszcze raz tu kurwa przyjdź a poszczuję Cię Młynarczykiem"
+        $ cypher_stan += 1
+        jump rozstaje
+
+    elif akt == 0 and cypher_stan == 4:
+        c "No to masz przepierdolone"
+        c "Młynarczyk! Bierz go!"
+        "I kulawy mściciel postanowił pozbyć się szkodnika"
+        "Git Gud"
+        jump gameover
 
     elif akt == 1:
+        $ czas -= 1
         c "Co tam [player_name]?"
         if Frakcja == 1 and postacie["Cypher"] == 4:
             c "Dobra, robotę masz"
@@ -368,6 +436,8 @@ label dach:
             c "Witaj mój najodważniejszy wojowniku"
             c "Nie mam teraz dla ciebie nowego zadania"
             c "Ale nie martw się, DH jeszcze zabłyśnie"
+            $ cypher_stan = 1
+            jump rozstaje
 
         elif Frakcja != 1:
             c "Jakbyś dołączył do DH to miałbyś teraz niesamowicie ciekawego kłesta"
@@ -395,6 +465,7 @@ label warsztat:
         jump rozstaje
 
     elif akt == 1:
+        $ czas -= 1
         c "Co tam [player_name]?"
         if armor == 0:
             h "Chcesz kupić jakiś pancerz? Tylko 100 edków"
@@ -437,8 +508,9 @@ label klinika:
             jump rozstaje
 
     elif akt > 0:
+        $ czas -= 1
         c "Co tam [player_name]?"
-        if HP<MaxHP:
+        if HP < MaxHP:
             pl "Może Cię uleczyć?"
             pl "Tylko 50 edków"
             menu:
@@ -446,6 +518,7 @@ label klinika:
                 "Lecz mnie":
                     $ HP = MaxHP
                     $ umieram = 0
+                    $ edki -= 50
                     $ czas -= 5
                 "Podziękuje":
                     pass
@@ -462,29 +535,58 @@ label klinika:
                         p "Nie stać mnie"
                 "Podziękuje":
                     pass
+
+        if laksawca_stan == 0:
+            pl "No to opowiadaj, jak Ci życie mija"
+            pl "Powiem ci, u mnie jest dość ciężko. Szukam servera dla baby"
         jump rozstaje
 
     else:
         jump rozstaje
 
-label jhinownia
+label jhinownia:
+    $ czas -= 1
     scene takiten
-    show jhin
-    j "Hejka naklejka jestem Jhin Taki-Ten"
-    j "To nazwisko zawdzięczam swoim rodzicom"
-    j "Czyli udało Ci się nakraść w gnieździe Vist"
-    j "Powiem Ci, jestem pod wrażeniem"
-    $ postacie["Jhin"] += 1
-    j "Powiedz mi jak tam było?"
-    j "Czy to prawda że Visty rozmnażają się przez pączkowanie?"
-    j "Czy może po śmierci dzielą się na pół?"
-    menu:
-        "Zdecydowanie pączkowanie":
-            j "O cholipka, wiedziałem"
-            j "To oznacza że trzeba zabić każdego piekarza w mieście"
-            j "Wyruszam natychmiast"
-            "I se poszedł"
-            jump rozstaje
+    if jhin_stan == 0:
+        show jhin
+        j "Hejka naklejka jestem Jhin Taki-Ten"
+        j "To nazwisko zawdzięczam swoim rodzicom"
+        j "Czyli udało Ci się nakraść w gnieździe Vist"
+        j "Powiem Ci, jestem pod wrażeniem"
+        $ postacie["Jhin"] += 1
+        j "Powiedz mi jak tam było?"
+        j "Czy to prawda że Visty rozmnażają się przez pączkowanie?"
+        j "Czy może po śmierci dzielą się na pół?"
+        menu:
+            "Zdecydowanie pączkowanie":
+                j "O cholipka, wiedziałem"
+                $ postacie["Jhin"] += 1
+                j "To oznacza że trzeba zabić każdego piekarza w mieście"
+                j "Wyruszam natychmiast"
+                "I se poszedł"
+                $ jhin_stan = 1
+                jump rozstaje
+
+            "Dzielą się na pół":
+                j "A niech to dunder świśnie"
+                j "To oznacza że przegrałem zakład z Cypherem"
+                c "RICHTIG"
+                j "On już tu jest, uceikam"
+                "I spierdolił"
+                $ jhin_stan = 1
+                jump rozstaje
+
+            "Co ty pierdolisz Ken-Taki?":
+                j "Ej to nie było miłe"
+                j "Staram się napisać książkę o Vistach"
+                j "I mam teraz rozdział o rozmnażaniu"
+                j "3.14rdol się chamie"
+                $ postacie["Jhin"] -= 1
+                $ jhin_stan = 1
+                jump rozstaje
+
+    elif jhin_stan == 1 and dzien < 10:
+        "Pokój jest pusty, Jhin gdzieś wybył"
 
 label sypialnia:
     scene pokoj
@@ -525,6 +627,12 @@ label sypialnia:
 label akt1:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
     scene akt1
+    $ cypher_stan = 0
+    $ gun_stan = 0
+    $ hartmann_stan = 0
+    $ kalach_stan = 0
+    $ jhin_stan = 0
+    $ laskawca_stan = 0
     $ akt = 1
     $ wojownik = False
     "A więc zostałeś w tej bazie pełnej degeneratów"
@@ -541,7 +649,7 @@ label akt1:
     show gun
     g "Nie wiem jeszcze"
     hide gun
-    show cypher
+    show cypher with dissolve
     c "To nie zawracaj mi dupy"
     hide cypher with dissolve
     "Cypher opuszcza scenę"
@@ -616,7 +724,7 @@ menu:
     "Masz kolejną szansę się wykazać, co robisz?"
     "ZOSTAJĘ PIERDOLONYM BOGIEM WOJNY":
         $ Fragi += 3
-        $ HP -= 15
+        $ HP -= 10
         $ postacie["Laskawca"] += 2
     "Zbieram jeszcze więcej":
         $ inventory.add_item(Pistolecik)
@@ -648,6 +756,7 @@ else:
     $ postacie["Gun"] -= 2
 
 "Nadszedł czas chwilowego odpoczynku"
+g "Daj mi kilka dni to może znajdę jakąś robotę"
 g "Na piętrze masz pokój, czuj się jak w gościach"
 $ czas -= 20
 jump rozstaje
@@ -659,7 +768,8 @@ menu:
     "Bazy":
         jump rozstaje
 
-    "Sklepiku" if znajOkol == 1:
+    "Sklepiku" if znajOkol == 1 and czas > 2:
+        $ czas -= 2
         jump trader
 
     "Nikąd, pospaceruje sobię" if czas > 0:
@@ -834,13 +944,14 @@ if vechnik_stage == 1:
             "Będę przyszłym Vogiem Vojny" if vdolce >= 1:
                 $veq += 2
                 $vdolce -= 1
+                $ vron = 1
                 $ veq += 1
                 v "Volecam się na vrzyszłość"
 
             "Kurde balans, nie posiadam kapitału":
                 v "Vbacz, młody. Nie dostaniesz vorzyczki! Vróc później kiedy będziesz... MMMMMMM... VOGATRZY!"
 
-    if lilquest == 1:
+    if lilquest == 1 and Inventory.has_item(Vomba) == True:
         menu:
             "W swoim eq znajduje się vomba, co z nią robisz?"
 
@@ -848,6 +959,7 @@ if vechnik_stage == 1:
                 $inventory.remove_item(Vomba)
                 p "Pora vpierdalać"
                 $ vechnik_stage = 7
+                $ lilquest = 2
                 "Vomba vybuchła"
                 "Siła eksplozji wystrzeliła cię aż pod warzywniak"
 
@@ -861,7 +973,13 @@ if vechnik_stage == 1:
                 v "Voo ma ga, ale z niego vjut"
                 v "Ale kalmuj koka i wysadź tego fjuta"
                 v "Vostiesz gifta"
-                $ lilquest = 2
+                $ lilquest = 3
+
+    if lilquest == 4:
+        v "Vobra robota"
+        v "masz tu dwa vidolce"
+        $ vdolce += 2
+        v "Tylko nie przepierdol na głupoty"
 
 jump vtimefri
 
@@ -904,24 +1022,24 @@ elif voktor_stage == 1:
         if inventory.has_item(Vomba) == True:
             v "Veź się za vobotę"
 
-        else:
-            v "Vobra vobora, oto twoja naroda:"
-            $ HP = MaxHP
-            "Zostałeś uleczony"
-            p "I co? To tyle?"
-            v "A czego się vpodziewałeś? Miliarda edków i miliona avałek?"
-            v "Lmao"
-            $ voktor_stage = 2
-            $ lilquest = 0
+    if lilquest == 2:
+        v "Vobra vobora, oto twoja naroda:"
+        $ HP = MaxHP
+        "Zostałeś uleczony"
+        p "I co? To tyle?"
+        v "A czego się vpodziewałeś? Miliarda edków i miliona avałek?"
+        v "Lmao"
+        $ voktor_stage = 2
+        $ lilquest = 7
 
-    elif lilquest == 2:
+    if lilquest == 3:
         if inventory.has_item(Vomba) == True:
             p "Mogę teraz vsadzić voktora"
             menu:
                 "Vpierdolić go v vovietrze?"
                 "Vpierdalam":
                     $ inventory.remove_item(Vomba)
-                    $ lilquest = 3
+                    $ lilquest = 4
                     $ voktor_stage = 7
                     p "Pora na eksplodatora"
                     p "Nigerundajo!"
@@ -958,6 +1076,13 @@ if varchiva_stage == 0:
         $ inventory.remove_item(Wytrych)
         "Udało Ci się dostać do środka"
         $ varchiva_stage = 1
+
+    elif inventory.has_item(Vomba) == True:
+        p "Ty kurwa, wysadzę to ich własną bronią"
+        $ inventory.remove_item(Vomba)
+        $ varchiva_stage = 1
+        p "Get bombed, lmao"
+
     else:
         p "Dupa sraka Arasaka, nie wejdę. Przydałby mi się wytrych"
         jump vtimefri
@@ -1127,14 +1252,15 @@ menu:
 label vlepa:
 scene black
 "Zobaczmy jak Ci poszło"
-if Vron == 1 AND vrrr < 4:
+if vron == 1 AND vrrr < 4:
     "Jesteś popierdolony, że przyszedłeś z vronią na arenę"
     "Vgrałeś, reszta się Vstraszyła"
     $ valki = 0
     $ vdolce += 5
     $ vrrr += 1
+    jump vtimefri
 
-elif Vron == 1 AND vrrr > 4:
+elif vrrr > 4:
     "Nikt już nie chce z tobą walczyć"
 
 else:
@@ -1151,6 +1277,9 @@ else:
         "Jebaniec, udało Ci się wygrać"
         $ vdolce +=1
         $ valki -= 1
+
+if valki == 0:
+    $ vrrr += 1
 
 jump vtimefri
 
