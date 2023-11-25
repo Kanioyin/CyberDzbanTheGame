@@ -1,32 +1,30 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "renpy/common/00start.rpy", line 189, in script
-    python:
-  File "renpy/common/00start.rpy", line 190, in <module>
-    renpy.execute_default_statement(True)
-  File "game/screens.rpy", line 267, in execute_default
-    default quick_menu = True
-Exception: store.quick_menu is being given a default a second time.
+  File "game/script.rpy", line 227, in script
+    menu:
+  File "game/script.rpy", line 236, in <module>
+    "Przycisło mnie" if akt == 0 and kible_stan == 1:
+NameError: name 'kible_stan' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "renpy/common/00start.rpy", line 189, in script
-    python:
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 1138, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1122, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "renpy/common/00start.rpy", line 190, in <module>
-    renpy.execute_default_statement(True)
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\exports.py", line 3982, in execute_default_statement
-    i.execute_default(start)
-  File "game/screens.rpy", line 267, in execute_default
-    default quick_menu = True
-Exception: store.quick_menu is being given a default a second time.
+  File "game/script.rpy", line 227, in script
+    menu:
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1922, in execute
+    choice = renpy.exports.menu(choices, self.set, args, kwargs, item_arguments)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports.py", line 1072, in menu
+    condition = renpy.python.py_eval(condition)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1153, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1146, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 236, in <module>
+    "Przycisło mnie" if akt == 0 and kible_stan == 1:
+NameError: name 'kible_stan' is not defined
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.1.3.23091805
-CyberDzban 0.0000000003
-Tue Nov 21 10:53:00 2023
+CyberDzban 0.0000000005
+Sat Nov 25 18:26:26 2023

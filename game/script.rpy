@@ -109,6 +109,7 @@ label start:
     default hartmann_stan = 0
     default jhin_stan = 0
     default cypher_stan = 0
+    default kibel_stan = 0
 
 
     #deklaracja reszty
@@ -137,10 +138,44 @@ label start:
     default vrrr = 0
     default bigquest = 0
     default vron = 0
-    default helper = 0
+    default helper = 1
 
     play music "Bongo_Madness.mp3" volume 0.2
-    $ player_name = renpy.input("Nazywasz się")
+    while helper == 1:
+        $ player_name = renpy.input("Nazywasz się")
+        if player_name == "Gun":
+            g "Prawa autorskie kurwa"
+
+        elif player_name == "Kałach":
+            k "Odpierdol się"
+
+        elif player_name == "Cypher":
+            c "Cypher może być tylko jeden"
+            c "GIŃ"
+            jump gameover
+
+        elif player_name == "Łaskawca":
+            pl "Koleżko, nie pozwalaj sobie"
+
+        elif player_name == "Jhin":
+            j "Obawiam się, że to imię jest już zajęte."
+
+        elif player_name == "Hartmann":
+            h "A Ci migomatem pierdolne"
+
+        elif player_name == "Vista":
+            v "Vtamy w koloni"
+            $ Frakcja = 3
+            $ helper = 0
+
+        elif player_name == "Szczur":
+            g "Na tym etapie jeszcze z tobą nie gadam"
+
+        elif player_name == "Debil":
+            g "To brzmi debilnie"
+
+        else:
+            $ helper = 0
 
     "Nie miałeś edków"
     "Sensu życia"
@@ -175,6 +210,7 @@ label start:
     hide cypher with fade
 
     g "Łap rata"
+    play sound "THROWING.mp3"
     $ inventory.add_item(Rat)
     show grab
 
@@ -195,7 +231,8 @@ label intro:
     jump rozstaje
 
 label gameover:
-"Przegrałeś lol"
+    "Przegrałeś lol"
+    return
 
 label rozstaje:
     scene black
@@ -212,7 +249,7 @@ label rozstaje:
         "Może się pomodlę?":
             jump kosciol
 
-        "Przycisło mnie":
+        "Przycisło mnie" if akt == 0 and kibel_stan == 0:
             jump kibel
 
         "Nie boję się śmierci":
@@ -249,7 +286,7 @@ label kuchnia:
                 $ inventory.add_item(Flaszka)
                 g "Daj mu to, powinien Cię polubić"
                 jump rozstaje
-        elif gun_stan == 3:
+        elif gun_stan > 2:
             g "Skończyłeś już pogaduszki?"
             menu:
                 "Skończyłem?"
@@ -350,6 +387,7 @@ label kibel:
         show grat at left
         "Ić stont"
         $ gun_stan += 1
+        $ kibel_stan +=1
         jump rozstaje
 
     elif akt == 1:
@@ -430,6 +468,7 @@ label dach:
         c "Co tam [player_name]?"
         if Frakcja == 1 and postacie["Cypher"] == 4:
             c "Dobra, robotę masz"
+            play sound "THROWING.mp3"
             $ inventory.add_item(Klapek)
             c "Zanieś to Gunowi, jako symbol naszej przyjaźni"
             jump rozstaje
@@ -532,6 +571,7 @@ label klinika:
             menu:
                 "Dawaj tego kokosa":
                     if edki > 20:
+                        play sound "THROWING.mp3"
                         $ inventory.add_item(Kokos)
                         $ edki -= 20
 
@@ -1351,7 +1391,7 @@ label amongthevpods:
     g "Od teraz jesteś prawdziwym bazownikiem"
     show cypher at left
     c "RICHTIG (:"
-    hide cypher with dissolve 
+    hide cypher with dissolve
     g "Zamknij się Cypher"
     g "Dobra, idź do siebie, potrzebuje trochę czasu"
     jump tempend
