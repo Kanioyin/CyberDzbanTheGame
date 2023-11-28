@@ -72,7 +72,7 @@ label checktime:
         call sypialnia from _call_sypialnia
 
 label start:
-    default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0}
+    default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0}
     #deklaracja inventory
     default inventory = Inventory([],0)
 
@@ -139,6 +139,7 @@ label start:
     default bigquest = 0
     default vron = 0
     default helper = 1
+    default part = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
     while helper == 1:
@@ -249,7 +250,7 @@ label rozstaje:
         "Może się pomodlę?":
             jump kosciol
 
-        "Przycisło mnie" if akt == 0 and kibel_stan == 0:
+        "Przycisło mnie":
             jump kibel
 
         "Nie boję się śmierci":
@@ -302,7 +303,7 @@ label kuchnia:
                     "Good Ending"
                     return
 
-    elif akt == 1:
+    elif akt == 1 and bigquest == 0:
         $ czas -= 1
         g "Ser dobry, [player_name]"
         g "Daj mi trochę czasu roboty szukam"
@@ -327,7 +328,7 @@ label kuchnia:
             j "Zostaniesz naszym tajnym agentem"
             j "Będziesz inwigilował wrogie społeczeństwo"
             j "Niczym Dżejms Bond"
-            g "Nie zestaj się ten taki"
+            g "Nie zesraj się ten taki"
             g "Ale wracając do roboty, od dzisiaj nazywasz się Vładek"
             g "Zostaniesz szpiegiem, może nie z krainy deszczowców"
             g "Tylko z bazy, wślizgniesz się w szeregi Vistów"
@@ -336,49 +337,68 @@ label kuchnia:
             g "Zaczynasz bezzwłocznie"
             jump amongthev
 
-        elif bigquest == 2:
-            g "Daj mi trochę czasu, vista ma chujowy charakter pisma."
-        else:
-            jump rozstaje
+    elif akt == 1 and bigquest == 2:
+        g "Daj mi trochę czasu, vista ma chujowy charakter pisma."
+    else:
+        jump rozstaje
 
 label kosciol:
     scene kosciul
     show kalach at right
-    if inventory.has_item(Flaszka):
-        k "Wyczuwam flachę"
-        k "Wezmę sobie"
-        $ postacie["Kalach"] += 1
-        $ inventory.remove_item(Flaszka)
-        $ gun_stan += 1
-
-    if postacie["Kalach"] == 0:
-        k "Kim ty kurwa jesteś?"
-        k "Wypierdalaj"
-        $ gun_stan += 1
-
-    else:
-        play sound "BURP.mp3"
-        k "Pijesz?"
-
-    if akt == 1:
-        $ czas -= 1
-        k "Jak tam poszło?"
-        k "Postrzelałeś?"
-        k "Poruchałeś?"
-        k "Może coś popiłeś?"
-        if wojownik == True:
-            k "Czyli coś postrzelałeś, milutko"
+    if akt == 0:
+        if inventory.has_item(Flaszka):
+            k "Wyczuwam flachę"
+            k "Wezmę sobie"
             $ postacie["Kalach"] += 1
+            $ inventory.remove_item(Flaszka)
+            $ gun_stan += 1
+
+        if postacie["Kalach"] == 0:
+            k "Kim ty kurwa jesteś?"
+            k "Wypierdalaj"
+            $ gun_stan += 1
 
         else:
-            k "Jedyne co strzeliłeś to foch, ciper moment"
-            show cypher at left
-            c "Falsh"
-            hide cypher with dissolve
-            k "Spierdalaj syfer"
+            play sound "BURP.mp3"
+            k "Pijesz?"
 
-        "Zdupcaj, wracam do picia"
+    if akt == 1 and bigquest == 0:
+        $ czas -= 1
+        if kalach_stan == 0:
+            k "Jak tam poszło?"
+            k "Postrzelałeś?"
+            k "Poruchałeś?"
+            k "Może coś popiłeś?"
+            if wojownik == True:
+                k "Czyli coś postrzelałeś, milutko"
+                $ postacie["Kalach"] += 1
+
+            else:
+                k "Jedyne co strzeliłeś to foch, ciper moment"
+                show cypher at left
+                c "Falsh"
+                hide cypher with dissolve
+                k "Spierdalaj syfer"
+            $ kalach_stan += 1
+            "Zdupcaj, wracam do picia"
+        if kalach_stan == 1:
+            "Kałach alkoholizuje się, jepiej mu nie przeszkadzaj"
         jump rozstaje
+
+    elif akt == 1 and bigquest == 2:
+        if kalach_stan == 0:
+            k "Niech mnie uda i zimna wóda"
+            k "Wróciłeś żywy z siedliska Vist"
+            $ postacie["Kalach"] += 1
+            k "Masz nagrodę"
+            $ inventory.add_item("Flacha")
+            k "Zachowaj na specjalną okazję, albo chlej teraz"
+            $ kalach_stan += 1
+
+        elif kalach_stan == 1:
+            "Kościół jest zamknięty, wróc później"
+
+
     jump rozstaje
 
 label kibel:
@@ -390,27 +410,40 @@ label kibel:
         $ kibel_stan +=1
         jump rozstaje
 
-    elif akt == 1:
-        $ czsa -= 1
-        if inventory.has_item(Rat):
-            show grat at left
-            r "Bywaj [playre_name]"
+    elif akt == 1 and bigquest == 0:
+        $ czas -= 1
+        if kibel_stan == 0:
+            "Spokojnie tu, zbyt spokojnie"
+            "Ciekawe gdzie podziały się wszystkie szczury?"
+            if inventory.has_item(Rat):
+                menu:
+                    "Mam jednego w kieszeni"
+                    "Wracaj do rodziny słoneczko":
+                        "Zostawiłeś szczura w kiblu"
+                        $ inventory.remove_item(Rat)
+                        show grat at left
+                        r "Dziękuje, dobry człowieku"
+                        $ postacie["Gun"] += 1
+                        jump rozstaje
+                    "Kontynuuj sranie w kieszeni":
+                        p "Tu będzie Ci bezpieczniej"
+                        jump rozstaje
             jump rozstaje
-        "Spokojnie tu, zbyt spokojnie"
-        "Ciekawe gdzie podziały się wszystkie szczury?"
-        if inventory.has_item(Rat):
-            menu:
-                "Mam jednego w kieszeni"
-                "Wracaj do rodziny słoneczko":
-                    "Zostawiłeś szczura w kiblu"
-                    $ inventory.remove_item(Rat)
-                    show grat at left
-                    r "Dziękuje, dobry człowieku"
-                    $ postacie["Gun"] += 1
-                    jump rozstaje
-                "Kontynuuj sranie w kieszeni":
-                    p "Tu będzie Ci bezpieczniej"
-                    jump rozstaje
+        elif kibel_stan == 1:
+            show grat
+            r "Witaj dobry człowieku"
+            r "Pozwól mi egzystować w tym niebezpiecznym środowisku samotnie"
+            g "Kurwa, gadasz ze szczurami"
+            g "Będą z Ciebie ludzie"
+            $ postacie["Gun"] += 1
+            $ kible_stan += 1
+            jump rozstaje
+
+        elif kibel_stan == 2:
+            "Raty raują"
+
+    elif akt == 1 and bigquest == 2:
+        "Raty ratują"
         jump rozstaje
 
     else:
@@ -419,85 +452,90 @@ label kibel:
 label dach:
     scene dach
     show cypher
-    if akt == 0 and cypher_stan == 0:
-        "Cypher skończył morbowanie"
-        c "Chcesz zostać najemnikiem?"
-        c "A może wolisz wynająć najemników?"
-        c "Wykonujemy każde zadanie, nawet niemożliwe damy radę zrobić"
-        c "Za odpoiwednią opłatą oczywiscie"
-        g "Te młody, dawaj na dół"
-        hide cypher
-        scene kuchnia
-        show gun
-        g "Lepiej nie zawieraj żadnych umów z Cypherem, to nigdy nie kończy się dobrze"
-        $ gun_stan += 1
-        $ cypher_stan += 1
-        jump rozstaje
+    if akt == 0:
+        if cypher_stan == 0:
+            "Cypher skończył morbowanie"
+            c "Chcesz zostać najemnikiem?"
+            c "A może wolisz wynająć najemników?"
+            c "Wykonujemy każde zadanie, nawet niemożliwe damy radę zrobić"
+            c "Za odpoiwednią opłatą oczywiscie"
+            g "Te młody, dawaj na dół"
+            hide cypher
+            scene kuchnia
+            show gun
+            g "Lepiej nie zawieraj żadnych umów z Cypherem, to nigdy nie kończy się dobrze"
+            $ gun_stan += 1
+            $ cypher_stan += 1
+            jump rozstaje
 
-    elif akt == 0 and cypher_stan == 1:
-        "Widzisz że Cypher nad czymś pracuje"
-        c "Nie przeszkadzaj mi, przygotowuję coś niesamowitego"
-        c "Jeśli dołączysz do DH, to dostaniesz bojowe zadanie"
-        $ cypher_stan += 1
-        jump rozstaje
+        elif cypher_stan == 1:
+            "Widzisz że Cypher nad czymś pracuje"
+            c "Nie przeszkadzaj mi, przygotowuję coś niesamowitego"
+            c "Jeśli dołączysz do DH, to dostaniesz bojowe zadanie"
+            $ cypher_stan += 1
+            jump rozstaje
 
-    elif akt == 0 and cypher_stan == 2:
-        c "Czy ty chcesz usłyszeć każdy dialog z mną?"
-        c "Czy może stwierdziłeś że chcesz truć mi dupę"
-        c "Powiedz mi kasztanie, wierzysz w kobiety?"
-        c "Zastanów się nad odpowiedzią"
-        $ cypher_stan += 1
-        jump rozstaje
+        elif cypher_stan == 2:
+            c "Czy ty chcesz usłyszeć każdy dialog z mną?"
+            c "Czy może stwierdziłeś że chcesz truć mi dupę"
+            c "Powiedz mi kasztanie, wierzysz w kobiety?"
+            c "Zastanów się nad odpowiedzią"
+            $ cypher_stan += 1
+            jump rozstaje
 
-    elif akt == 0 and cypher_stan == 3:
-        c "No pierdolne Ci"
-        c "Literealnie Ci pierdolnę"
-        c "Jeszcze raz tu kurwa przyjdź a poszczuję Cię Młynarczykiem"
-        $ cypher_stan += 1
-        jump rozstaje
+        elif cypher_stan == 3:
+            c "No pierdolne Ci"
+            c "Literealnie Ci pierdolnę"
+            c "Jeszcze raz tu kurwa przyjdź a poszczuję Cię Młynarczykiem"
+            $ cypher_stan += 1
+            jump rozstaje
 
-    elif akt == 0 and cypher_stan == 4:
-        c "No to masz przepierdolone"
-        c "Młynarczyk! Bierz go!"
-        "I kulawy mściciel postanowił pozbyć się szkodnika"
-        "Git Gud"
-        jump gameover
+        elif cypher_stan == 4:
+            c "No to masz przepierdolone"
+            c "Młynarczyk! Bierz go!"
+            "I kulawy mściciel postanowił pozbyć się szkodnika"
+            "Git Gud"
+            jump gameover
 
     elif akt == 1:
-        $ czas -= 1
-        c "Co tam [player_name]?"
-        if Frakcja == 1 and postacie["Cypher"] == 4:
-            c "Dobra, robotę masz"
-            play sound "THROWING.mp3"
-            $ inventory.add_item(Klapek)
-            c "Zanieś to Gunowi, jako symbol naszej przyjaźni"
-            jump rozstaje
+        if bigquest == 0:
+            $ czas -= 1
+            c "Co tam [player_name]?"
+            if Frakcja == 1 and postacie["Cypher"] == 4:
+                c "Dobra, robotę masz"
+                play sound "THROWING.mp3"
+                $ inventory.add_item(Klapek)
+                c "Zanieś to Gunowi, jako symbol naszej przyjaźni"
+                jump rozstaje
 
-        elif postacie["Cypher"] == 5:
-            c "Witaj mój najodważniejszy wojowniku"
-            c "Nie mam teraz dla ciebie nowego zadania"
-            c "Ale nie martw się, DH jeszcze zabłyśnie"
-            $ cypher_stan = 1
-            jump rozstaje
+            elif postacie["Cypher"] == 5:
+                c "Witaj mój najodważniejszy wojowniku"
+                c "Nie mam teraz dla ciebie nowego zadania"
+                c "Ale nie martw się, DH jeszcze zabłyśnie"
+                $ cypher_stan = 1
+                jump rozstaje
 
-        elif Frakcja != 1:
-            c "Jakbyś dołączył do DH to miałbyś teraz niesamowicie ciekawego kłesta"
-            c "Tak to możesz spierdalać"
-            if bigquest == 2:
-                c "Albo czekaj, wróciłeś właśnie od Vistów co nie?"
-                c "Jak tam było? Dobrze się bawiłeś?"
-                c "Powiem Ci w sekrecie, który jednak każdy zna"
-                c "Kiedyś, za czasów swojej światłości, polowałem na Visty"
-                c "Ale moja umowa z wojskiem poszła się jebać gdy ten chuj Kennedy nie dał mi wsparcia"
-                c "Jakby ta Avałka wleciała do metra, byłbym niepokonany"
-                c "A tak to Jhin prawie się zabił tnąc kable"
-                c "Mówiłem mu, trakcja to śmierć. Tory! To jest przyszłość"
-                c "To tyle z mojej audiencji teraz idż w chuj."
+            elif Frakcja != 1:
+                c "Jakbyś dołączył do DH to miałbyś teraz niesamowicie ciekawego kłesta"
+                c "Tak to możesz spierdalać"
+                jump rozstaje
+
+        elif akt == 1 and bigquest == 2:
+            c "Czekaj, wróciłeś właśnie od Vistów co nie?"
+            c "Jak tam było? Dobrze się bawiłeś?"
+            c "Powiem Ci w sekrecie, który jednak każdy zna"
+            c "Kiedyś, za czasów swojej światłości, polowałem na Visty"
+            c "Ale moja umowa z wojskiem poszła się jebać gdy ten chuj Kennedy nie dał mi wsparcia"
+            c "Jakby ta Avałka wleciała do metra, byłbym niepokonany"
+            c "A tak to Jhin prawie się zabił tnąc kable"
+            c "Mówiłem mu, trakcja to śmierć. Tory! To jest przyszłość"
+            c "To tyle z mojej audiencji teraz idż w chuj."
             jump rozstaje
 
 label warsztat:
     scene warsztat
     show hartmann at right
+    $ czas -= 1
     if akt == 0:
         $ gun_stan += 1
         "Wchodząc do pokoju słyszysz agresywne napierdalanie młotkiem, a w tle leci niemiecki metal"
@@ -507,27 +545,66 @@ label warsztat:
         jump rozstaje
 
     elif akt == 1:
-        $ czas -= 1
-        c "Co tam [player_name]?"
-        if armor == 0:
-            h "Chcesz kupić jakiś pancerz? Tylko 100 edków"
-            h "Nie padniesz na pierda"
-            menu:
-                "Czy potrzebny mi jest pancerz?"
+        if bigquest == 0:
+            c "Co tam [player_name]?"
+            if armor == 0:
+                h "Chcesz kupić jakiś pancerz? Tylko 100 edków"
+                h "Nie padniesz na pierda"
+                menu:
+                    "Czy potrzebny mi jest pancerz?"
 
-                "Kurwa biorę":
-                    if edki > 100:
-                        $ inventory.add_item(MalyArmor)
-                        $ edki -= 100
-                        $ armor = 11
-                        h "Jak Ci się rozpierdoli, to wiesz gdzie mnie szukać"
+                    "Kurwa biorę":
+                        if edki > 100:
+                            $ inventory.add_item(MalyArmor)
+                            $ edki -= 100
+                            $ armor = 11
+                            h "Jak Ci się rozpierdoli, to wiesz gdzie mnie szukać"
 
-                    else:
-                        p "Nie stać mnie"
+                        else:
+                            p "Nie stać mnie"
 
-                "A spierdalaj, unikać będę":
-                    h "Jak dostaniesz wpierdol, to wiesz gdzie mnie szukać"
-        jump rozstaje
+                    "A spierdalaj, unikać będę":
+                        h "Jak dostaniesz wpierdol, to wiesz gdzie mnie szukać"
+            jump rozstaje
+
+        elif bigquest == 2:
+            if hatrmann_stan == 0:
+                $ hartmann_stan += 1
+                h "Powiedz mi przetrwańcze"
+                h "Czy Visty mają migomat na stanie?"
+                h "Bo słyszałem że vigomat podobno spawa tylko gówno"
+                menu:
+                    "Czym jest kurwa migomat?":
+                        h "Ty pierdolony betoniarzu"
+                        h "Migomat to popularna nazwa spawarki, służącej do spawania metodą MIG-MAG."
+                        h "Technologia MIG umożliwia spawanie w osłonie gazów obojętnych (argon lub hel), natomiast technologia MAG w osłonie gazów aktywnych (dwutlenek węgla)."
+                        h "Spawanie migomatem jest efektywne, wydajne i precyzyjne."
+                        h "Uzyskiwane spoiny charakteryzują się wysoką jakością wykonania."
+                        h "A teraz powiem Ci jak to działa"
+                        h "Spawanie MIG (Metal Inert Gas) to metoda 131, natomiast spawanie MAG (Metal Active Gas) to metoda 135. "
+                        h "Migomaty to urządzenia półautomatyczne. Najważniejsze elementy układu to źródło prądu, połączone z układem sterującym;"
+                        h "podajnik drutu (jeżeli umieszczony jest na zewnątrz, to łączy się go ze źródłem prądu za pomocą przewodu zespolonego); przewód masowy, łączący przedmiot spawany ze źródłem prądu"
+                        h " butla z gazem osłonowym; uchwyt doprowadzający prąd do drutu."
+                        h "Proces spawania rozpoczyna się od naciśnięcia przycisku na uchwycie MIG-MAG. Uchwyt spawalniczy przemieszczany jest równomiernie w stosunku do spoiny."
+                        h "Należy określić prędkość wysuwania się drutu. Wysuwający się drut ulega stopieniu w łuku elektrycznym."
+                        h "Tworzy się on pomiędzy drutem (elektrodą topliwą), a materiałem spawanym. Długość łuku utrzymywana jest na stałym poziomie."
+                        h "Łuk elektryczny i stopiony metal (jeziorko) ochraniane są przez gaz osłonowy przed oddziaływaniem atmosfery. Krzepnące jeziorko spawalnicze tworzy trwałe złącze."
+                        h "I to chyba tyle"
+                        h "Teraz ić se w chuj, muszę ochłonąć"
+                        jump rozstaje
+
+                    "Nie widziałem żadnego Vigomatu":
+                        h "Scheise"
+                        h "Albo jesteś ślepy, albo to vigomat jest mitem"
+                        h "Tak czy siak, daj mi trochę czasu, muszę to przemyśleć"
+                        jump rozstaje
+
+                    "Opowiem Ci kawał, Vista gówno spawał":
+                        h "KURWA WIEDZIAŁEM"
+                        h "MUSZĘ GO ZDOBYĆ"
+                        h "WYRUSZAM BEZZWŁOCZNIE"
+                        $ hartmann_stan += 1
+                        jump rozstaje
 
     else:
         jump rozstaje
@@ -580,7 +657,7 @@ label klinika:
                 "Podziękuje":
                     pass
 
-        if laksawca_stan == 0:
+        if laskawca_stan == 0:
             pl "No to opowiadaj, jak Ci życie mija"
             pl "Powiem ci, u mnie jest dość ciężko. Szukam servera dla baby"
         jump rozstaje
@@ -1003,7 +1080,7 @@ if vechnik_stage == 1:
             "Kurde balans, nie posiadam kapitału":
                 v "Vbacz, młody. Nie dostaniesz vorzyczki! Vróc później kiedy będziesz... MMMMMMM... VOGATRZY!"
 
-    if lilquest == 1 and Inventory.has_item(Vomba) == True:
+    if lilquest == 1 and inventory.has_item(Vomba) == True:
         menu:
             "W swoim eq znajduje się vomba, co z nią robisz?"
 
@@ -1128,6 +1205,7 @@ if varchiva_stage == 0:
         $ inventory.remove_item(Wytrych)
         "Udało Ci się dostać do środka"
         $ varchiva_stage = 1
+        jump varchiwa
 
     elif inventory.has_item(Vomba) == True:
         p "Ty kurwa, wysadzę to ich własną bronią"
@@ -1136,6 +1214,7 @@ if varchiva_stage == 0:
         p "Ała kurwa, cóż za siła eksplozji."
         $ HP -= 10
         p "Get bombed, lmao"
+        jump varchiwa
 
     else:
         p "Dupa sraka Arasaka, nie wejdę. Przydałby mi się wytrych"
@@ -1152,24 +1231,27 @@ elif varchiva_stage == 1:
         "Rozpoczynam pvp!":
             $ HP -= 19 - armor
             $ armor -= 1
-            $ fragi += 1
+            $ Fragi += 1
             p "essa wariacie"
             if HP <= 0:
                 "Jesteś prawie trupem"
                 "Powinieneś iść się leczyć"
                 $ umieram = 1
             $ varchiva_stage = 2
+            jump varchiwa
 
         "Pa te trick" if inventory.has_item(AR) == True:
             "Wyciągasz AR"
             v "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
             "vochroniaż opuszcza scenę, vgrałeś valkę"
             $ varchiva_stage = 2
+            jump varchiwa
 
         "Vpierdalam":
             jump vtimefri
 
 elif varchiva_stage == 2:
+    $ helper = 0
     "Varchiva stoją przed tobą otworem"
     "Nie będę mówił którym"
     "Pozostaje Ci spędzić resztę swych dni szukając dokumentu"
@@ -1179,49 +1261,58 @@ elif varchiva_stage == 2:
     "Na ścianie vsi platat vupermena"
     "Na podłodze jest dyvan"
     "I jest nawet 1 (słownie jedno) pudełko"
-    menu:
-        "Co teraz robisz?"
-        "Tracę swój czas szukając papierku":
-            if renpy.random.randint(0,3) == 2:
-                $ bigquest = 2
-                p "No i się udało, lmao"
+    while helper == 0:
+        menu:
+            "Co teraz robisz?"
+            "Tracę swój czas szukając papierku":
+                if renpy.random.randint(0,3) == 2:
+                    $ bigquest = 2
+                    p "No i się udało, lmao"
+                else:
+                    "Chuja znalazłem"
+                    jump varchiwa
 
-        "Vautomat???":
-            call vending from _call_vending
+            "Vautomat???":
+                jump vending
 
-        "Vlakat?":
-            "Podchodzisz bliżej tego arcydzieła graficznego"
-            "Z każdym kolejnym krokiem chcesz valnąć ten głupi ryj"
-            menu:
-                "Znów bijatyka?"
-                "Bijatyka cały dzień":
-                    "Sprzedałeś vupermanowi hita"
-                    "Niestety za plakatem były kolce"
-                    "Straciłeś trochę hp"
-                    $ HP -= 5
+            "Vlakat?":
+                "Podchodzisz bliżej tego arcydzieła graficznego"
+                "Z każdym kolejnym krokiem chcesz valnąć ten głupi ryj"
+                menu:
+                    "Znów bijatyka?"
+                    "Bijatyka cały dzień":
+                        "Sprzedałeś vupermanowi hita"
+                        "Niestety za plakatem były kolce"
+                        "Straciłeś trochę hp"
+                        $ HP -= 5
 
-                "Nie mam problemów z agresją":
-                    "Zostawiłeś plakat w spokoju"
-                    pass
+                    "Nie mam problemów z agresją":
+                        "Zostawiłeś plakat w spokoju"
+                        jump varchiwa
 
-        "Dyvan?":
-            "Podchodzisz do dyvanu"
-            "Vgląda dość normalnie na pierwszy rzut oka"
-            "Po kolejnym rzucie okiem, skończyły Ci się oczy"
-            "Ale jest to najzwyklejszy dyvan"
+            "Dyvan?":
+                "Podchodzisz do dyvanu"
+                "Vgląda dość normalnie na pierwszy rzut oka"
+                "Po kolejnym rzucie okiem, skończyły Ci się oczy"
+                "Ale jest to najzwyklejszy dyvan"
+                jump varchiwa
 
-        "Pudełeczko" if helper == 0:
-            "Normalnie jedno pudełeczko"
-            "Po chuj ktoś je tu zostawił"
-            menu:
-                "Otwierasz?"
-                "Kurwa no powex":
-                    "Znalazłeś 4 vdolce"
-                    $ vdolce += 4
-                    $ helper = 1
+            "Pudełeczko" if helper == 0:
+                "Normalnie jedno pudełeczko"
+                "Po chuj ktoś je tu zostawił"
+                menu:
+                    "Otwierasz?"
+                    "Kurwa no powex":
+                        "Znalazłeś 4 vdolce"
+                        $ vdolce += 4
+                        $ helper = 1
 
-                "A chuj z tym":
-                    pass
+                    "A chuj z tym":
+                        pass
+
+            "Vchodzę":
+                $ helper = 1
+                jump vtimefri
 
 label vending:
     scene vautom
@@ -1255,7 +1346,7 @@ label vending:
                 p "Spermastycznie, nic nie vypadło"
 
         "Szanuję swoje vdolce":
-            return
+            jump varchiwa
 
 
 label vrade:
@@ -1307,7 +1398,7 @@ menu:
 label vlepa:
 scene black
 "Zobaczmy jak Ci poszło"
-if vron == 1 AND vrrr < 4:
+if vron == 1 and vrrr < 4:
     "Jesteś popierdolony, że przyszedłeś z vronią na arenę"
     "Vgrałeś, reszta się Vstraszyła"
     $ valki = 0
@@ -1319,7 +1410,7 @@ elif vrrr > 4:
     "Nikt już nie chce z tobą walczyć"
 
 else:
-    $ cel = renpy.random.radint(1,3)
+    $ cel = renpy.random.randint(1,3)
     if cel == 1:
         "Chujowo jak zwykle"
         $ valki -= 1
@@ -1376,7 +1467,8 @@ label vokum:
 label amongthevpods:
     scene kuchnia
     "Wróciłeś do bazy po analizie Vist"
-    $ if Frakcja == 3: "A nawet dołączyłeś do nich"
+    if Frakcja == 3: 
+        "A nawet dołączyłeś do nich"
     "Wszedłeś do kuchni"
     show gun
     g "Na raty chrystusa, ty żyjesz!"
@@ -1394,6 +1486,13 @@ label amongthevpods:
     hide cypher with dissolve
     g "Zamknij się Cypher"
     g "Dobra, idź do siebie, potrzebuje trochę czasu"
+    $ gun_stan = 0
+    $ kalach_stan = 0
+    $ laskawca_stan = 0
+    $ hartmann_stan = 0
+    $ jhin_stan = 0
+    $ cypher_stan = 0
+    $ kibel_stan = 0
     jump tempend
 
 
