@@ -392,6 +392,7 @@ label kosciol:
             $ postacie["Kalach"] += 1
             k "Masz nagrodę"
             $ inventory.add_item("Flacha")
+            play sound "THROWING.mp3"
             k "Zachowaj na specjalną okazję, albo chlej teraz"
             $ kalach_stan += 1
 
@@ -436,7 +437,7 @@ label kibel:
             g "Kurwa, gadasz ze szczurami"
             g "Będą z Ciebie ludzie"
             $ postacie["Gun"] += 1
-            $ kible_stan += 1
+            $ kibel_stan += 1
             jump rozstaje
 
         elif kibel_stan == 2:
@@ -1334,6 +1335,7 @@ label vending:
                     "Czy mam psychę by łyknąć?"
                     "Pewex!":
                         $ HP -= 5
+                        play sound "EAT OR MUNCH.mp3"
                         p "Kurde balans, lukrecja"
 
                     "Nie jestem vebilem":
@@ -1341,6 +1343,7 @@ label vending:
 
             elif vagroda == 3 :
                 p "Guma vurbo, a se opierdole"
+                play sound "EAT OR MUNCH.mp3"
 
             else:
                 p "Spermastycznie, nic nie vypadło"
@@ -1467,7 +1470,7 @@ label vokum:
 label amongthevpods:
     scene kuchnia
     "Wróciłeś do bazy po analizie Vist"
-    if Frakcja == 3: 
+    if Frakcja == 3:
         "A nawet dołączyłeś do nich"
     "Wszedłeś do kuchni"
     show gun
@@ -1500,8 +1503,9 @@ label tempend:
     "Doszedłeś do końca tej historii"
     "Na ten moment nie ma nic więcej do odkrycia"
     "Możesz dumnie wypierdalać"
-    "Jak powiesz mi tajne hasło"
+    "Albo czekaj"
+    "Zrób ss następnego okienka i wyślij mi"
     "Vista sztuk trzysta"
-    "Dostaniesz kartę do KTG"
+    "Dostaniesz kartę do KTG i 20 exp do cybera"
     "A teraz czekaj na następny update i wypierdalaj"
     return
