@@ -7,6 +7,12 @@ screen hud():
         unhovered SetVariable("screen_tooltip", "")
         action Show("inventory") , Hide("hud")
 
+    imagebutton auto "phone_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "phone")
+        unhovered SetVariable("screen_tooltip", "")
+        action Show("phone"), Hide("hud")
+
 screen inventory():
     add "bg_inventory_screen"
     modal True
@@ -21,3 +27,9 @@ screen inventory():
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("inventory"), Show("hud")
+
+screen phone():
+    add "cyberfon.png"
+    modal True
+    
+    

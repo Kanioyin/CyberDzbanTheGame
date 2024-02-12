@@ -29,7 +29,7 @@ init python:
 
         def list_items(self):
             if self.quantity <= 0:
-                 p("Nie mam nic przy sobie")
+                p("Nie mam nic przy sobie")
 
             else:
                 p("Mam w plecaku:")
@@ -717,7 +717,7 @@ label sypialnia:
     show screen hud
     p "Pusto tu"
     menu:
-        "Jesteś w stoim pokoju, co chcesz zrobić?"
+        "Jesteś w swoim pokoju, co chcesz zrobić?"
         "Idę spać":
             $ dzien += 1
             $ czas = 20
