@@ -67,7 +67,7 @@ init python:
 
 
 label checktime:
-    if czas = 0:
+    if czas == 0:
         $dzien += 1
         call sypialnia from _call_sypialnia
 
