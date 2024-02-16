@@ -10,6 +10,7 @@ define j = Character(_("Jhin"),color = "444444")
 define v = Character(_("Vista"), color = "213769")
 define kk = Character(_("Krateus"), color = "ABCDEF")
 define t = Character(_("Toro"), color = "6969EE")
+define gk = Character(_("Gen. Kennedy"), color = "098703")
 
 init python:
     class Inventory():
@@ -72,7 +73,7 @@ label checktime:
         call sypialnia from _call_sypialnia
 
 label start:
-    default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0}
+    default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0}
     #deklaracja inventory
     default inventory = Inventory([],0)
 
@@ -89,6 +90,7 @@ label start:
     default Wytrych = InventoryItem("Wytrych","Cudowny sprzęt do otwierania drzwi i nie tylko")
     default Vomba = InventoryItem("Bomba","Bomba, tylko produkcji Vist")
     default Vranat = InventoryItem("Vranat","Wabajack tego uniwersum")
+    default Ser = InventoryItem("Ser","Strasznie cheesy, Gun musi go lubić")
 
     #deklaracja cech
     default INT = 2
@@ -132,7 +134,7 @@ label start:
     default czas = 20
     default veq = 0
     default psycha = 0
-    $ psycha = EMP * 10
+    $ psycha = [EMP] * 10
     default znajOkol = 0
     default lilquest = 0
     default vrrr = 0
@@ -174,6 +176,10 @@ label start:
 
         elif player_name == "Debil":
             g "To brzmi debilnie"
+
+        elif player_name == "Bezi":
+            p "Nie żyję lmao"
+            jump gameover
 
         else:
             $ helper = 0
@@ -276,7 +282,7 @@ label kuchnia:
     show gun
     if akt == 0:
         g "Szybko Ci poszło"
-        if gun_stan == 0:
+        if gun_stan < 3:
             if inventory.has_item(Flaszka) == True:
                 g "To pomoże Ci z kałachem"
                 g "Daj mu tę flachę"
@@ -322,7 +328,7 @@ label kuchnia:
             jump rozstaje
         else:
             pass
-        if dzien > 5 and bigquest == 0:
+        if dzien > 3 and bigquest == 0:
             show jhin at right
             g "Robota się znalazła"
             j "Zostaniesz naszym tajnym agentem"
@@ -337,8 +343,25 @@ label kuchnia:
             g "Zaczynasz bezzwłocznie"
             jump amongthev
 
-    elif akt == 1 and bigquest == 2:
-        g "Daj mi trochę czasu, vista ma chujowy charakter pisma."
+    elif akt == 1 and bigquest == 3:
+        if dzien < 10:
+            g "Daj mi trochę czasu, vista ma chujowy charakter pisma."
+        
+        else:
+            g "Dobra [player_name], powiem Ci że jesteśmy w piździe."
+            g "Jeśli dobrze rozumiem te papiery."
+            g "To Visty wypuszczają jakąś nową broń."
+            g "Polecisz teraz do naszego kontaktu, generała Kenediego"
+            g "On da Ci broń do walki z Vinfekcją"
+            $ bigquest = 4
+
+    if inventory.has_item(Ser) == True:
+        p "Mam coś dla Ciebie gun"
+        $ inventory.remove_item(Ser)
+        g "Hmmm, tajemniczy mysi sprzęt."
+        g "To mi się przyda."
+        g "Dzięki"
+        $ postacie["Gun"] += 1
     else:
         jump rozstaje
 
@@ -385,20 +408,43 @@ label kosciol:
             "Kałach alkoholizuje się, jepiej mu nie przeszkadzaj"
         jump rozstaje
 
-    elif akt == 1 and bigquest == 2:
+    elif akt == 1 and bigquest == 3:
         if kalach_stan == 0:
             k "Niech mnie uda i zimna wóda"
             k "Wróciłeś żywy z siedliska Vist"
             $ postacie["Kalach"] += 1
             k "Masz nagrodę"
-            $ inventory.add_item("Flacha")
+            $ inventory.add_item(Flaszka)
             play sound "THROWING.mp3"
             k "Zachowaj na specjalną okazję, albo chlej teraz"
             $ kalach_stan += 1
 
-        elif kalach_stan == 1:
+        elif kalach_stan == 1 and dzien < 10:
             "Kościół jest zamknięty, wróc później"
 
+        elif kalach_stan == 1 and dzien > 9:
+            k "Wróciłem z krucjaty."
+            k "I niech mnie dunder świśnie, tak mnie w krzyżu napierdala."
+            k "Jeśli kiedykolwiek dołączysz do fanów stupek."
+            k "To zostaniesz zgilotynowany."
+            k "I granie Briar też się liczy."
+            if Frakcja == 0:
+                k "Może chcesz dołączyć do kościoła?"
+                k "Dostaniesz błogosławienie i coś jeszcze"
+                k "Co konkretnie, to jeszcze nie wiem"
+                k "Ale na 69% coś będzie."
+                menu:
+                    k "To co, piszesz się?"
+
+                    "Proste że tak, Uden":
+                        $ Frakcja = 4
+                        $ postacie["Kałach"] += 2
+                        k "Niech wszystko Ci się teraz UDA!"
+
+                    "Sory Kałach, jestem ateistą":
+                        k "Dobrze więc."
+                        k "Ale pamiętaj, nigdy stopy."
+            $ kalach_stan = 2
 
     jump rozstaje
 
@@ -443,7 +489,7 @@ label kibel:
         elif kibel_stan == 2:
             "Raty raują"
 
-    elif akt == 1 and bigquest == 2:
+    elif akt == 1 and bigquest > 2:
         "Raty ratują"
         jump rozstaje
 
@@ -494,7 +540,7 @@ label dach:
         elif cypher_stan == 4:
             c "No to masz przepierdolone"
             c "Młynarczyk! Bierz go!"
-            "I kulawy mściciel postanowił pozbyć się szkodnika"
+            "I coolawy mściciel postanowił pozbyć się szkodnika"
             "Git Gud"
             jump gameover
 
@@ -521,7 +567,7 @@ label dach:
                 c "Tak to możesz spierdalać"
                 jump rozstaje
 
-        elif akt == 1 and bigquest == 2:
+        elif akt == 1 and bigquest == 3:
             c "Czekaj, wróciłeś właśnie od Vistów co nie?"
             c "Jak tam było? Dobrze się bawiłeś?"
             c "Powiem Ci w sekrecie, który jednak każdy zna"
@@ -568,8 +614,8 @@ label warsztat:
                         h "Jak dostaniesz wpierdol, to wiesz gdzie mnie szukać"
             jump rozstaje
 
-        elif bigquest == 2:
-            if hatrmann_stan == 0:
+        elif bigquest == 3:
+            if hartmann_stan == 0:
                 $ hartmann_stan += 1
                 h "Powiedz mi przetrwańcze"
                 h "Czy Visty mają migomat na stanie?"
@@ -711,6 +757,7 @@ label jhinownia:
 
     elif jhin_stan == 1 and dzien < 10:
         "Pokój jest pusty, Jhin gdzieś wybył"
+        jump rozstaje
 
 label sypialnia:
     scene pokoj
@@ -730,10 +777,6 @@ label sypialnia:
 
             jump rozstaje
 
-        "Sprawdzę swój portfel":
-            "Mam w portfelu [edki]"
-            jump sypialnia
-
         "Czy ja przypadkiem nie dostałem?":
             if HP != MaxHP:
                 p "Faktycznie mam tylko [HP] na [MaxHP]."
@@ -743,11 +786,6 @@ label sypialnia:
             else:
                 p "Zadawało mi się."
                 jump sypialnia
-
-        "Jak mnie inni lubią?":
-            "Cypher: [postacie[Cypher]], Kałach: [postacie[Kalach]], Gun: [postacie[Gun]], Hartmann: [postacie[Hartmann]], Łaskawca: [postacie[Laskawca]]"
-            jump sypialnia
-
 
         "Wyjść" if czas > 0:
             jump rozstaje
@@ -901,6 +939,9 @@ menu:
         $ czas -= 2
         jump trader
 
+    "Wojsko" if bigquest > 3:
+        jump wojsko
+
     "Nikąd, pospaceruje sobię" if czas > 0:
         $ czas -= 5
         $ cel = renpy.random.randint(1, 5)
@@ -952,49 +993,55 @@ menu:
 jump rozstaje
 
 label trader:
-scene szop
-p "A se coś kupię"
-p "Ile mam mamony? [edki] edków, mogło być mniej"
-menu:
-    "Szopping tajm"
-    "Ale fajna Aerka" if edki >= 500:
-        $ inventory.add_item(AR)
-        $ edki -= 500
+    scene szop
+    p "A se coś kupię"
+    p "Ile mam mamony? [edki] edków, mogło być mniej"
+    menu:
+        "Szopping tajm"
+        "Ale fajna Aerka" if edki >= 500:
+            $ inventory.add_item(AR)
+            $ edki -= 500
 
-    "Wytrych? " if edki >= 200:
-        $ inventory.add_item(Wytrych)
-        $ edki -= 200
+        "Wytrych? " if edki >= 200:
+            $ inventory.add_item(Wytrych)
+            $ edki -= 200
 
-    "Na nic więcej mnie nie stać":
-        p "Get zakuped"
+        "Na nic więcej mnie nie stać":
+            p "Get zakuped"
+    jump miasto
 
-jump miasto
+
+label wojsko:
+    scene wojsko
+    gk "Witamy w armi młody"
+    jump tempend
+
 
 label amongthev:
-stop music fadeout 1.0
+    stop music fadeout 1.0
 
-scene black
-p "Wysłali mnie prosto do wypizdowa"
-p "Nie dali jakichkolwiek wytycznych"
-p "Przyjaciele po chuju"
-p "Ale chuj, podobno dostanę 2k edków"
-scene vland
-play music "dickdisco.mp3" volume 0.2
-show vista
-v "Vitam v vlubie"
-v "Jestem Viesiek"
-v "Będę twoim vrzewodnikiem"
-v "Oprowadzę Cię po vokolicy"
-show vechnik
-v "Tutaj mamy vechnika"
-v "Nie przeszkadzaj mu lepiej"
-v "Jak go wkurwisz, to Ci jeszcze Vpierdoli"
-hide vechnik
-v "Vobra, przejdź się po okolicy, poszukaj dla siebie roboty"
-v "Vajo"
-$ bigquest = 1
-hide vista
-jump vtimefri
+    scene black
+    p "Wysłali mnie prosto do wypizdowa"
+    p "Nie dali jakichkolwiek wytycznych"
+    p "Przyjaciele po chuju"
+    p "Ale chuj, podobno dostanę 2k edków"
+    scene vland
+    play music "dickdisco.mp3" volume 0.2
+    show vista
+    v "Vitam v vlubie"
+    v "Jestem Viesiek"
+    v "Będę twoim vrzewodnikiem"
+    v "Oprowadzę Cię po vokolicy"
+    show vechnik
+    v "Tutaj mamy vechnika"
+    v "Nie przeszkadzaj mu lepiej"
+    v "Jak go wkurwisz, to Ci jeszcze Vpierdoli"
+    hide vechnik
+    v "Vobra, przejdź się po okolicy, poszukaj dla siebie roboty"
+    v "Vajo"
+    $ bigquest = 1
+    hide vista
+    jump vtimefri
 
 # deklaracje co do V
 default vechnik_stage = 0
@@ -1043,101 +1090,144 @@ menu:
         jump amongthevpods
 
 label vechnik_wst:
-scene vechnik
-if vechnik_stage == 0:
-    v "Vtam, jestem vechnikiem."
-    v "Vogę Ci zaoferować potężne vposażenie."
-    v "Ale oczyViście, jeśli vasz odpowiednią ilość Vdolców."
-    $vechnik_stage = 1
-    menu:
-        "Zdobądź potężne Vposażenie"
-
-        "Będę przyszłym Vogiem Vojny" if vdolce == 1:
-            $veq += 2
-            v "Volecam się na vrzyszłość"
-            $ vron = 1
-            jump vtimefri
-
-        "Kurde balans, nie posiadam kapitału":
-            v "Vbacz, młody. Nie dostaniesz vorzyczki! Vróc później kiedy będziesz... MMMMMMM... VOGATRZY!"
-            jump vtimefri
-
-
-
-if vechnik_stage == 1:
-    v "Vtam znowu"
-    if vron < 1:
-        v "Chcesz vupić vrońkę?"
+    scene vechnik
+    if vechnik_stage == 0:
+        v "Vtam, jestem vechnikiem."
+        v "Vogę Ci zaoferować potężne vposażenie."
+        v "Ale oczyViście, jeśli vasz odpowiednią ilość Vdolców."
+        $vechnik_stage = 1
         menu:
             "Zdobądź potężne Vposażenie"
 
-            "Będę przyszłym Vogiem Vojny" if vdolce >= 1:
+            "Będę przyszłym Vogiem Vojny" if vdolce == 1:
                 $veq += 2
-                $vdolce -= 1
-                $ vron = 1
-                $ veq += 1
                 v "Volecam się na vrzyszłość"
+                $ vron = 1
+                jump vtimefri
 
             "Kurde balans, nie posiadam kapitału":
                 v "Vbacz, młody. Nie dostaniesz vorzyczki! Vróc później kiedy będziesz... MMMMMMM... VOGATRZY!"
+                jump vtimefri
 
-    if lilquest == 1 and inventory.has_item(Vomba) == True:
-        menu:
-            "W swoim eq znajduje się vomba, co z nią robisz?"
 
-            "Vsadzam technika":
-                $inventory.remove_item(Vomba)
-                p "Pora vpierdalać"
-                $ vechnik_stage = 7
-                $ lilquest = 2
-                "Vomba vybuchła"
-                "Siła eksplozji wystrzeliła cię aż pod warzywniak"
 
-            "Ja się trochę cykam, potem zdecyduję":
-                pass
+    if vechnik_stage == 1:
+        v "Vtam znowu"
+        if vron < 1:
+            v "Chcesz vupić vrońkę?"
+            menu:
+                "Zdobądź potężne Vposażenie"
 
-            "A powiem vechnikowi":
-                p "Te panie vechnik, mam dla ciebie rozrywkę"
-                v "O vuj Ci chodzi?"
-                p "Bo voktor kazał mi cię vsadzić"
-                v "Voo ma ga, ale z niego vjut"
-                v "Ale kalmuj koka i wysadź tego fjuta"
-                v "Vostiesz gifta"
-                $ lilquest = 3
+                "Będę przyszłym Vogiem Vojny" if vdolce >= 1:
+                    $veq += 2
+                    $vdolce -= 1
+                    $ vron = 1
+                    $ veq += 1
+                    v "Volecam się na vrzyszłość"
 
-    if lilquest == 4:
-        v "Vobra robota"
-        v "masz tu dwa vidolce"
-        $ vdolce += 2
-        v "Tylko nie przepierdol na głupoty"
+                "Kurde balans, nie posiadam kapitału":
+                    v "Vbacz, młody. Nie dostaniesz vorzyczki! Vróc później kiedy będziesz... MMMMMMM... VOGATRZY!"
 
-jump vtimefri
+        if lilquest == 1 and inventory.has_item(Vomba) == True:
+            menu:
+                "W swoim eq znajduje się vomba, co z nią robisz?"
+
+                "Vsadzam technika":
+                    $inventory.remove_item(Vomba)
+                    p "Pora vpierdalać"
+                    $ vechnik_stage = 7
+                    $ lilquest = 2
+                    "Vomba vybuchła"
+                    "Siła eksplozji wystrzeliła cię aż pod warzywniak"
+
+                "Ja się trochę cykam, potem zdecyduję":
+                    pass
+
+                "A powiem vechnikowi":
+                    p "Te panie vechnik, mam dla ciebie rozrywkę"
+                    v "O vuj Ci chodzi?"
+                    p "Bo voktor kazał mi cię vsadzić"
+                    v "Voo ma ga, ale z niego vjut"
+                    v "Ale kalmuj koka i wysadź tego fjuta"
+                    v "Vostiesz gifta"
+                    $ lilquest = 3
+
+        if lilquest == 4:
+            v "Vobra robota"
+            v "masz tu dwa vidolce"
+            $ vdolce += 2
+            v "Tylko nie przepierdol na głupoty"
+
+    jump vtimefri
 
 label voktor_wst:
-scene voktor
-if voktor_stage == 0:
-    v "Viema variacie!"
-    v "Chcesz vokosa kurde ten?"
-    v "Nie no, yaycuję. W tym obozie nic nie ma za darmo."
-    v "Możesz wykonać dla mnie bojowe zadanie"
-    if lilquest == 0:
-        menu:
-            "Chcesz kolejne bojowe zadanie?"
-            "Vevnie lmao":
-                $ inventory.add_item(Vomba)
-                $ veq += 1
-                v "Vpierdol w vovietrze varsztat"
-                $ lilquest +=1
-                $ voktor_stage +=1
+    scene voktor
+    if voktor_stage == 0:
+        v "Viema variacie!"
+        v "Chcesz vokosa kurde ten?"
+        v "Nie no, yaycuję. W tym obozie nic nie ma za darmo."
+        v "Możesz wykonać dla mnie bojowe zadanie"
+        if lilquest == 0:
+            menu:
+                "Chcesz kolejne bojowe zadanie?"
+                "Vevnie lmao":
+                    $ inventory.add_item(Vomba)
+                    $ veq += 1
+                    v "Vpierdol w vovietrze varsztat"
+                    $ lilquest +=1
+                    $ voktor_stage +=1
 
-            "Vole nie":
-                v "To mnie nie vkurwiaj"
-                $ voktor_stage +=1
-    else:
-        pass
+                "Vole nie":
+                    v "To mnie nie vkurwiaj"
+                    $ voktor_stage +=1
+        else:
+            jump vtimefri
 
-elif voktor_stage == 1:
-    if lilquest == 0:
+    elif voktor_stage == 1:
+        if lilquest == 0:
+            v "Uleczyć cię?"
+            menu:
+                "Medycyna?"
+                "Lecz mnie voktorze!" if HP != MaxHP AND vdolce > 0:
+                    $ HP = MaxHP
+                    $ vdolce -= 1
+
+                "A ić pan w chuj":
+                    jump vtimefri
+
+        elif lilquest == 1:
+            if inventory.has_item(Vomba) == True:
+                v "Veź się za vobotę"
+
+        if lilquest == 2:
+            v "Vobra vobora, oto twoja naroda:"
+            $ HP = MaxHP
+            "Zostałeś uleczony"
+            p "I co? To tyle?"
+            v "A czego się vpodziewałeś? Miliarda edków i miliona avałek?"
+            v "Lmao"
+            $ voktor_stage = 2
+            $ lilquest = 7
+
+        if lilquest == 3:
+            if inventory.has_item(Vomba) == True:
+                p "Mogę teraz vsadzić voktora"
+                menu:
+                    "Vpierdolić go v vovietrze?"
+                    "Vpierdalam":
+                        $ inventory.remove_item(Vomba)
+                        $ lilquest = 4
+                        $ voktor_stage = 7
+                        p "Pora na eksplodatora"
+                        p "Nigerundajo!"
+
+                    "A w piździe mam to zadanie":
+                        $ lilquest = 7
+
+                    "Jeszcze się muszę zastanowić":
+                        pass
+
+    elif voktor_stage == 2:
         v "Uleczyć cię?"
         menu:
             "Medycyna?"
@@ -1146,174 +1236,131 @@ elif voktor_stage == 1:
                 $ vdolce -= 1
 
             "A ić pan w chuj":
-                pass
+                jump vtimefri
 
-    elif lilquest == 1:
-        if inventory.has_item(Vomba) == True:
-            v "Veź się za vobotę"
-
-    if lilquest == 2:
-        v "Vobra vobora, oto twoja naroda:"
-        $ HP = MaxHP
-        "Zostałeś uleczony"
-        p "I co? To tyle?"
-        v "A czego się vpodziewałeś? Miliarda edków i miliona avałek?"
-        v "Lmao"
-        $ voktor_stage = 2
-        $ lilquest = 7
-
-    if lilquest == 3:
-        if inventory.has_item(Vomba) == True:
-            p "Mogę teraz vsadzić voktora"
-            menu:
-                "Vpierdolić go v vovietrze?"
-                "Vpierdalam":
-                    $ inventory.remove_item(Vomba)
-                    $ lilquest = 4
-                    $ voktor_stage = 7
-                    p "Pora na eksplodatora"
-                    p "Nigerundajo!"
-
-                "A w piździe mam to zadanie":
-                    $ lilquest = 7
-
-                "Jeszcze się muszę zastanowić":
-                    pass
-
-elif voktor_stage == 2:
-    v "Uleczyć cię?"
-    menu:
-        "Medycyna?"
-        "Lecz mnie voktorze!" if HP != MaxHP AND vdolce > 0:
-            $ HP = MaxHP
-            $ vdolce -= 1
-
-        "A ić pan w chuj":
-            pass
-
-jump vtimefri
+    jump vtimefri
 
 label varchiwa:
-scene drzv
-if umieram == 1:
-    "Powiniemem się wcześniej uleczyć"
-    jump gameover
+    scene drzv
+    if umieram == 1:
+        "Powiniemem się wcześniej uleczyć"
+        jump gameover
 
-if varchiva_stage == 0:
-    "Trafiając do varchiw stają Ci na drodze drzwi"
-    if inventory.has_item(Wytrych) == True:
-        p "Essa mam wytrycha"
-        $ inventory.remove_item(Wytrych)
-        "Udało Ci się dostać do środka"
-        $ varchiva_stage = 1
-        jump varchiwa
-
-    elif inventory.has_item(Vomba) == True:
-        p "Ty kurwa, wysadzę to ich własną bronią"
-        $ inventory.remove_item(Vomba)
-        $ varchiva_stage = 1
-        p "Ała kurwa, cóż za siła eksplozji."
-        $ HP -= 10
-        p "Get bombed, lmao"
-        jump varchiwa
-
-    else:
-        p "Dupa sraka Arasaka, nie wejdę. Przydałby mi się wytrych"
-        jump vtimefri
-
-elif varchiva_stage == 1:
-    "Dostałeś się do środka"
-    "Ale na twojej drodze staje vrażnik"
-    v "vrrrr"
-    v "vpierdalaj stond"
-    v "albo ci vpierdole"
-    menu:
-        "Co zrobić?"
-        "Rozpoczynam pvp!":
-            $ HP -= 19 - armor
-            $ armor -= 1
-            $ Fragi += 1
-            p "essa wariacie"
-            if HP <= 0:
-                "Jesteś prawie trupem"
-                "Powinieneś iść się leczyć"
-                $ umieram = 1
-            $ varchiva_stage = 2
+    if varchiva_stage == 0:
+        "Trafiając do varchiw stają Ci na drodze drzwi"
+        if inventory.has_item(Wytrych) == True:
+            p "Essa mam wytrycha"
+            $ inventory.remove_item(Wytrych)
+            "Udało Ci się dostać do środka"
+            $ varchiva_stage = 1
             jump varchiwa
 
-        "Pa te trick" if inventory.has_item(AR) == True:
-            "Wyciągasz AR"
-            v "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-            "vochroniaż opuszcza scenę, vgrałeś valkę"
-            $ varchiva_stage = 2
+        elif inventory.has_item(Vomba) == True:
+            p "Ty kurwa, wysadzę to ich własną bronią"
+            $ inventory.remove_item(Vomba)
+            $ varchiva_stage = 1
+            p "Ała kurwa, cóż za siła eksplozji."
+            $ HP -= 10
+            p "Get bombed, lmao"
             jump varchiwa
 
-        "Vpierdalam":
+        else:
+            p "Dupa sraka Arasaka, nie wejdę. Przydałby mi się wytrych"
             jump vtimefri
 
-elif varchiva_stage == 2:
-    $ helper = 0
-    "Varchiva stoją przed tobą otworem"
-    "Nie będę mówił którym"
-    "Pozostaje Ci spędzić resztę swych dni szukając dokumentu"
-    "Zobaczyłeś że w rogu pomieszczenia stoi automat"
-    "Gdy zbliżyłeś się do niego widzisz że ma nawet nagrody"
-    "Rozglądasz się dalej po pomieszczeniu"
-    "Na ścianie vsi platat vupermena"
-    "Na podłodze jest dyvan"
-    "I jest nawet 1 (słownie jedno) pudełko"
-    while helper == 0:
+    elif varchiva_stage == 1:
+        "Dostałeś się do środka"
+        "Ale na twojej drodze staje vrażnik"
+        v "vrrrr"
+        v "vpierdalaj stond"
+        v "albo ci vpierdole"
         menu:
-            "Co teraz robisz?"
-            "Tracę swój czas szukając papierku":
-                if renpy.random.randint(0,3) == 2:
-                    $ bigquest = 2
-                    p "No i się udało, lmao"
-                else:
-                    "Chuja znalazłem"
-                    jump varchiwa
-
-            "Vautomat???":
-                jump vending
-
-            "Vlakat?":
-                "Podchodzisz bliżej tego arcydzieła graficznego"
-                "Z każdym kolejnym krokiem chcesz valnąć ten głupi ryj"
-                menu:
-                    "Znów bijatyka?"
-                    "Bijatyka cały dzień":
-                        "Sprzedałeś vupermanowi hita"
-                        "Niestety za plakatem były kolce"
-                        "Straciłeś trochę hp"
-                        $ HP -= 5
-
-                    "Nie mam problemów z agresją":
-                        "Zostawiłeś plakat w spokoju"
-                        jump varchiwa
-
-            "Dyvan?":
-                "Podchodzisz do dyvanu"
-                "Vgląda dość normalnie na pierwszy rzut oka"
-                "Po kolejnym rzucie okiem, skończyły Ci się oczy"
-                "Ale jest to najzwyklejszy dyvan"
+            "Co zrobić?"
+            "Rozpoczynam pvp!":
+                $ HP -= 19 - armor
+                $ armor -= 1
+                $ Fragi += 1
+                p "essa wariacie"
+                if HP <= 0:
+                    "Jesteś prawie trupem"
+                    "Powinieneś iść się leczyć"
+                    $ umieram = 1
+                $ varchiva_stage = 2
                 jump varchiwa
 
-            "Pudełeczko" if helper == 0:
-                "Normalnie jedno pudełeczko"
-                "Po chuj ktoś je tu zostawił"
-                menu:
-                    "Otwierasz?"
-                    "Kurwa no powex":
-                        "Znalazłeś 4 vdolce"
-                        $ vdolce += 4
-                        $ helper = 1
+            "Pa te trick" if inventory.has_item(AR) == True:
+                "Wyciągasz AR"
+                v "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                "vochroniaż opuszcza scenę, vgrałeś valkę"
+                $ varchiva_stage = 2
+                jump varchiwa
 
-                    "A chuj z tym":
-                        pass
-
-            "Vchodzę":
-                $ helper = 1
+            "Vpierdalam":
                 jump vtimefri
+
+    elif varchiva_stage == 2:
+        $ helper = 0
+        "Varchiva stoją przed tobą otworem"
+        "Nie będę mówił którym"
+        "Pozostaje Ci spędzić resztę swych dni szukając dokumentu"
+        "Zobaczyłeś że w rogu pomieszczenia stoi automat"
+        "Gdy zbliżyłeś się do niego widzisz że ma nawet nagrody"
+        "Rozglądasz się dalej po pomieszczeniu"
+        "Na ścianie vsi platat vupermena"
+        "Na podłodze jest dyvan"
+        "I jest nawet 1 (słownie jedno) pudełko"
+        while helper == 0:
+            menu:
+                "Co teraz robisz?"
+                "Tracę swój czas szukając papierku":
+                    if renpy.random.randint(0,3) == 2:
+                        $ bigquest = 2
+                        p "No i się udało, lmao"
+                    else:
+                        "Chuja znalazłem"
+                        jump varchiwa
+
+                "Vautomat???":
+                    jump vending
+
+                "Vlakat?":
+                    "Podchodzisz bliżej tego arcydzieła graficznego"
+                    "Z każdym kolejnym krokiem chcesz valnąć ten głupi ryj"
+                    menu:
+                        "Znów bijatyka?"
+                        "Bijatyka cały dzień":
+                            "Sprzedałeś vupermanowi hita"
+                            "Niestety za plakatem były kolce"
+                            "Straciłeś trochę hp"
+                            $ HP -= 5
+
+                        "Nie mam problemów z agresją":
+                            "Zostawiłeś plakat w spokoju"
+                            jump varchiwa
+
+                "Dyvan?":
+                    "Podchodzisz do dyvanu"
+                    "Vgląda dość normalnie na pierwszy rzut oka"
+                    "Po kolejnym rzucie okiem, skończyły Ci się oczy"
+                    "Ale jest to najzwyklejszy dyvan"
+                    jump varchiwa
+
+                "Pudełeczko" if helper == 0:
+                    "Normalnie jedno pudełeczko"
+                    "Po chuj ktoś je tu zostawił"
+                    menu:
+                        "Otwierasz?"
+                        "Kurwa no powex":
+                            "Znalazłeś 4 vdolce"
+                            $ vdolce += 4
+                            $ helper = 1
+
+                        "A chuj z tym":
+                            pass
+
+                "Vchodzę":
+                    $ helper = 1
+                    jump vtimefri
 
 label vending:
     scene vautom
@@ -1353,84 +1400,84 @@ label vending:
 
 
 label vrade:
-scene vshop
-menu:
-    v "Co chciałbyś zakupić?"
-    "Ale fajna Aerka" if vdolce >= 5 :
-        $ inventory.add_item(AR)
-        $ vdolce -= 5
-        $ veq += 1
-        "Wydałeś 5 vdolce na AR-kę"
+    scene vshop
+    menu:
+        v "Co chciałbyś zakupić?"
+        "Ale fajna Aerka" if vdolce >= 5 :
+            $ inventory.add_item(AR)
+            $ vdolce -= 5
+            $ veq += 1
+            "Wydałeś 5 vdolce na AR-kę"
 
-    "Wytrych? " if vdolce >= 2:
-        $ inventory.add_item(Wytrych)
-        $ vdolce -= 2
-        $ veq += 1
-        "Wydałeś 2 vdolce na Wytrych"
+        "Wytrych? " if vdolce >= 2:
+            $ inventory.add_item(Wytrych)
+            $ vdolce -= 2
+            $ veq += 1
+            "Wydałeś 2 vdolce na Wytrych"
 
-    "Flaszka?" if vdolce >= 1:
-        $ inventory.add_item(Flaszka)
-        $ vdolce -= 1
-        $ veq += 1
-        "Wydałeś 1 vdolca na Flaszkę"
+        "Flaszka?" if vdolce >= 1:
+            $ inventory.add_item(Flaszka)
+            $ vdolce -= 1
+            $ veq += 1
+            "Wydałeś 1 vdolca na Flaszkę"
 
-    "Varmor" if vdolce >= 3:
-        $ inventory.add_item(MalyArmor)
-        $ vdolce -= 3
-        $ veq += 1
-        "Wydałeś 3 vdolce na lil varmor"
+        "Varmor" if vdolce >= 3:
+            $ inventory.add_item(MalyArmor)
+            $ vdolce -= 3
+            $ veq += 1
+            "Wydałeś 3 vdolce na lil varmor"
 
-    "Nie potrzebuję twoich towarów":
-        jump vtimefri
+        "Nie potrzebuję twoich towarów":
+            jump vtimefri
 
 label varena:
-scene vare
-show vista
-v "Velo, vtam na vaernie"
-v "Jeśli chcesz valczyć, to zapraszam. Możesz walczyć tylko [valki] razy"
-menu:
-    "Zostaję vojownikiem?"
+    scene vare
+    show vista
+    v "Velo, vtam na vaernie"
+    v "Jeśli chcesz valczyć, to zapraszam. Możesz walczyć tylko [valki] razy"
+    menu:
+        "Zostaję vojownikiem?"
 
-    "Vewnie":
-        jump vlepa
+        "Vewnie":
+            jump vlepa
 
-    "Volę nie":
-        v "Varena nie ucieknie, vracaj kiedy chcesz"
-        jump vtimefri
+        "Volę nie":
+            v "Varena nie ucieknie, vracaj kiedy chcesz"
+            jump vtimefri
 
 label vlepa:
-scene black
-"Zobaczmy jak Ci poszło"
-if vron == 1 and vrrr < 4:
-    "Jesteś popierdolony, że przyszedłeś z vronią na arenę"
-    "Vgrałeś, reszta się Vstraszyła"
-    $ valki = 0
-    $ vdolce += 5
-    $ vrrr += 1
-    jump vtimefri
+    scene black
+    "Zobaczmy jak Ci poszło"
+    if vron == 1 and vrrr < 4:
+        "Jesteś popierdolony, że przyszedłeś z vronią na arenę"
+        "Vgrałeś, reszta się Vstraszyła"
+        $ valki = 0
+        $ vdolce += 5
+        $ vrrr += 1
+        jump vtimefri
 
-elif vrrr > 4:
-    "Nikt już nie chce z tobą walczyć"
-
-else:
-    $ cel = renpy.random.randint(1,3)
-    if cel == 1:
-        "Chujowo jak zwykle"
-        $ valki -= 1
-
-    elif cel == 2:
-        "Remis bałwany"
-        $ valki -= 1
+    elif vrrr > 4:
+        "Nikt już nie chce z tobą walczyć"
 
     else:
-        "Jebaniec, udało Ci się wygrać"
-        $ vdolce +=1
-        $ valki -= 1
+        $ cel = renpy.random.randint(1,3)
+        if cel == 1:
+            "Chujowo jak zwykle"
+            $ valki -= 1
 
-if valki == 0:
-    $ vrrr += 1
+        elif cel == 2:
+            "Remis bałwany"
+            $ valki -= 1
 
-jump vtimefri
+        else:
+            "Jebaniec, udało Ci się wygrać"
+            $ vdolce +=1
+            $ valki -= 1
+
+    if valki == 0:
+        $ vrrr += 1
+        
+    jump vtimefri
 
 label vokum:
     scene black
@@ -1463,9 +1510,9 @@ label vokum:
             "Vo volera"
 
         "Nigdy nie zostanę V":
-            pass
+            jump vtimefri
 
-    jump vtimefri
+    
 
 label amongthevpods:
     scene kuchnia
@@ -1496,7 +1543,8 @@ label amongthevpods:
     $ jhin_stan = 0
     $ cypher_stan = 0
     $ kibel_stan = 0
-    jump tempend
+    $ bigquest += 1
+    jump rozstaje
 
 
 label tempend:
@@ -1506,6 +1554,6 @@ label tempend:
     "Albo czekaj"
     "Zrób ss następnego okienka i wyślij mi"
     "Vista sztuk trzysta"
-    "Dostaniesz kartę do KTG i 20 exp do cybera"
+    "Dostaniesz kartę do KTG i 40 exp do cybera"
     "A teraz czekaj na następny update i wypierdalaj"
     return

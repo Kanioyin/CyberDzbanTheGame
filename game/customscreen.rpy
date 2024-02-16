@@ -80,7 +80,8 @@ screen day():
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.25
-        text "{color=000} Dzień: [dzien]"
+        text "{color=000} Dzień: [dzien] \n"
+        text "{color=000} Zostało mi jeszcze [czas] \n jednostek czasu"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
