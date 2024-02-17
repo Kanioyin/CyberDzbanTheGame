@@ -107,7 +107,17 @@ screen frak():
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.25
-        text "{color=000} Należysz do: [Frakcja]"
+        text "{color=000} Należysz do:"
+        if Frakcja == 0:
+            text "{color=000} Nikogo"
+        elif Frakcja == 1:
+            text "{color=000} DiamandHunde"
+        elif Frakcja == 2:
+            text "{color=000} Draco Nero"
+        elif Frakcja == 3:
+            text "{color=000} Vist"
+        elif Frakcja == 4:
+            text "{color=000} Kościołu Ud"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True

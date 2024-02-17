@@ -127,6 +127,7 @@ label start:
     # 1 = DH
     # 2 = DN
     # 3 = Visty
+    # 4 = Uda
     default dzien = 1
     default armor = 0
     default umieram = 0
@@ -180,6 +181,9 @@ label start:
         elif player_name == "Bezi":
             p "Nie żyję lmao"
             jump gameover
+
+        elif player_name == "Jan":
+            "Jebany dzban"
 
         else:
             $ helper = 0
@@ -375,15 +379,18 @@ label kosciol:
             $ postacie["Kalach"] += 1
             $ inventory.remove_item(Flaszka)
             $ gun_stan += 1
+            jump rozstaje
 
         if postacie["Kalach"] == 0:
             k "Kim ty kurwa jesteś?"
             k "Wypierdalaj"
             $ gun_stan += 1
+            jump rozstaje
 
         else:
             play sound "BURP.mp3"
             k "Pijesz?"
+            jump rozstaje
 
     if akt == 1 and bigquest == 0:
         $ czas -= 1
@@ -403,12 +410,14 @@ label kosciol:
                 hide cypher with dissolve
                 k "Spierdalaj syfer"
             $ kalach_stan += 1
-            "Zdupcaj, wracam do picia"
+            k "Zdupcaj, wracam do picia"
+            jump rozstaje
         if kalach_stan == 1:
             "Kałach alkoholizuje się, jepiej mu nie przeszkadzaj"
         jump rozstaje
 
     elif akt == 1 and bigquest == 3:
+        $ czas -= 1
         if kalach_stan == 0:
             k "Niech mnie uda i zimna wóda"
             k "Wróciłeś żywy z siedliska Vist"
@@ -436,7 +445,7 @@ label kosciol:
                 menu:
                     k "To co, piszesz się?"
 
-                    "Proste że tak, Uden":
+                    "Proste że tak, Umen":
                         $ Frakcja = 4
                         $ postacie["Kałach"] += 2
                         k "Niech wszystko Ci się teraz UDA!"
@@ -490,6 +499,7 @@ label kibel:
             "Raty raują"
 
     elif akt == 1 and bigquest > 2:
+        $ czas -= 1
         "Raty ratują"
         jump rozstaje
 
@@ -568,6 +578,7 @@ label dach:
                 jump rozstaje
 
         elif akt == 1 and bigquest == 3:
+            $ czas -= 1
             c "Czekaj, wróciłeś właśnie od Vistów co nie?"
             c "Jak tam było? Dobrze się bawiłeś?"
             c "Powiem Ci w sekrecie, który jednak każdy zna"
@@ -652,7 +663,6 @@ label warsztat:
                         h "WYRUSZAM BEZZWŁOCZNIE"
                         $ hartmann_stan += 1
                         jump rozstaje
-
     else:
         jump rozstaje
 
@@ -676,8 +686,8 @@ label klinika:
 
     elif akt > 0:
         $ czas -= 1
-        c "Co tam [player_name]?"
-        if HP < MaxHP:
+        pl "Co tam [player_name]?"
+        if HP != MaxHP:
             pl "Może Cię uleczyć?"
             pl "Tylko 50 edków"
             menu:
@@ -687,6 +697,7 @@ label klinika:
                     $ umieram = 0
                     $ edki -= 50
                     $ czas -= 5
+                    "Zostałeś Healnięty"
                 "Podziękuje":
                     pass
 
@@ -706,7 +717,32 @@ label klinika:
 
         if laskawca_stan == 0:
             pl "No to opowiadaj, jak Ci życie mija"
-            pl "Powiem ci, u mnie jest dość ciężko. Szukam servera dla baby"
+            pl "Powiem Ci, u mnie jest dość ciężko. Szukam servera dla baby"
+            pl "Kiedyś w bazie mieliśmy cały czas jakiegoś netrunnera"
+            pl "Ale przez cały ten konflikt z Vistami"
+            pl "To mało kto chce się pojawić"
+            pl "Raz mieliśmy taki zajebisty serwer"
+            pl "To się okazało że pali ludzi, jak się do niego wpięli"
+            pl "Przez trzy tygodnie się kłócili co z nim zrobić"
+            pl "I kurwa nawet nie pamiętam co się z nim stało"
+            pl "Jakbyś znalazł jakiś fajny serwerek"
+            pl "To daj mi cynk, wynagrodzę cię"
+            menu:
+                "Mam nadzieję że w naturze ( ͡° ͜ʖ ͡°)":
+                    pl "Kto wie kotku."
+                
+                "Mam nadzieję że w edkach":
+                    pl "Pitos się znajdos"
+
+                "Dla Ciebie, poszukam za friko":
+                    pl "No to mam u Ciebie dług"
+                    $ postacie["Laskawca"] += 2
+            pl "No to czekam na info z niecierpliwością"
+            $ laskawca_stan = 1
+
+        if laskawca_stan == 1:
+            pl "Czekam dalej"
+        
         jump rozstaje
 
     else:
@@ -858,139 +894,139 @@ label akt1:
                     jump podsumowanie1
 
 label akcja:
-scene combat1
-show gun at left
-g "Plan jest prosty, strzelamy, lootujemy"
-show laskawca at right
-pl "Nie musisz mnie namawiać"
-hide laskawca with dissolve
-"Łaskawca zaczął eksterminację oponentów"
-hide gun
-menu:
-    "A co ty robisz?"
-    "Zaczynam strzelać":
-        $ HP -= 7
-        "Udało Ci się zdjąć jednego ale sam też oberwałeś"
-        $ Fragi += 1
-        $ postacie["Gun"] += 1
-    "Zbieram co mogę":
-        $ inventory.add_item(AR)
-        $ edki += 15
-        $ HP -= 5
-    "Cykam się trochę":
-        "Przeczekałeś część ostrzału"
+    scene combat1
+    show gun at left
+    g "Plan jest prosty, strzelamy, lootujemy"
+    show laskawca at right
+    pl "Nie musisz mnie namawiać"
+    hide laskawca with dissolve
+    "Łaskawca zaczął eksterminację oponentów"
+    hide gun
+    menu:
+        "A co ty robisz?"
+        "Zaczynam strzelać":
+            $ HP -= 7
+            "Udało Ci się zdjąć jednego ale sam też oberwałeś"
+            $ Fragi += 1
+            $ postacie["Gun"] += 1
+        "Zbieram co mogę":
+            $ inventory.add_item(AR)
+            $ edki += 15
+            $ HP -= 5
+        "Cykam się trochę":
+            "Przeczekałeś część ostrzału"
 
-"Wrogowie padali jak muchy"
-show laskawca
-pl "JESTEM PIERDOLONYM BOGIEM WOJNY"
-hide laskawca
-"Słyszysz krzyk z daleka"
-h "KTO KURWA SPAWA CIENKĄ BLACHĘ ELEKTRODOWĄ"
-"Seria pocisków rozsmarowała biedne kurwinoxy"
-menu:
-    "Masz kolejną szansę się wykazać, co robisz?"
-    "ZOSTAJĘ PIERDOLONYM BOGIEM WOJNY":
-        $ Fragi += 3
-        $ HP -= 10
-        $ postacie["Laskawca"] += 2
-    "Zbieram jeszcze więcej":
-        $ inventory.add_item(Pistolecik)
-        $ inventory.add_item(Granat)
-        $ edki += 50
-        $ HP -= 5
-    "Czekam aż reszta nabije sobie fragi":
-        "Kitrałeś się do końca"
+    "Wrogowie padali jak muchy"
+    show laskawca
+    pl "JESTEM PIERDOLONYM BOGIEM WOJNY"
+    hide laskawca
+    "Słyszysz krzyk z daleka"
+    h "KTO KURWA SPAWA CIENKĄ BLACHĘ ELEKTRODOWĄ"
+    "Seria pocisków rozsmarowała biedne kurwinoxy"
+    menu:
+        "Masz kolejną szansę się wykazać, co robisz?"
+        "ZOSTAJĘ PIERDOLONYM BOGIEM WOJNY":
+            $ Fragi += 3
+            $ HP -= 10
+            $ postacie["Laskawca"] += 2
+        "Zbieram jeszcze więcej":
+            $ inventory.add_item(Pistolecik)
+            $ inventory.add_item(Granat)
+            $ edki += 50
+            $ HP -= 5
+        "Czekam aż reszta nabije sobie fragi":
+            "Kitrałeś się do końca"
 
-show gun
-g "Dobra robota panowie"
-show laskawca at right
-pl "KREW DLA BOGA KRWI"
-g "Ta, pewnie... pora wracać do bazy"
-jump podsumowanie1
+    show gun
+    g "Dobra robota panowie"
+    show laskawca at right
+    pl "KREW DLA BOGA KRWI"
+    g "Ta, pewnie... pora wracać do bazy"
+    jump podsumowanie1
 
 label podsumowanie1:
-scene kuchnia
-show gun
-if wojownik == True:
-    g "Nie poszło najgorzej, masz zasłużyłeś"
-    $ edki += 200
-    "Dostałeś 200 edków"
+    scene kuchnia
+    show gun
+    if wojownik == True:
+        g "Nie poszło najgorzej, masz zasłużyłeś"
+        $ edki += 200
+        "Dostałeś 200 edków"
 
-else:
-    g "Szkoda że Cię nie było, zarobił byś coś"
-    g "Mówiłem, nie gadaj z Cypherem"
-    g "Następnym razem postaraj się bardziej"
-    $ postacie["Gun"] -= 2
+    else:
+        g "Szkoda że Cię nie było, zarobił byś coś"
+        g "Mówiłem, nie gadaj z Cypherem"
+        g "Następnym razem postaraj się bardziej"
+        $ postacie["Gun"] -= 2
 
-"Nadszedł czas chwilowego odpoczynku"
-g "Daj mi kilka dni to może znajdę jakąś robotę"
-g "Na piętrze masz pokój, czuj się jak w gościach"
-$ czas -= 20
-jump rozstaje
+    "Nadszedł czas chwilowego odpoczynku"
+    g "Daj mi kilka dni to może znajdę jakąś robotę"
+    g "Na piętrze masz pokój, czuj się jak w gościach"
+    $ czas -= 20
+    jump rozstaje
 
 label miasto:
-scene miasto
-menu:
-    "Wyruszyłem do:"
-    "Bazy":
-        jump rozstaje
+    scene miasto
+    menu:
+        "Wyruszyłem do:"
+        "Bazy":
+            jump rozstaje
 
-    "Sklepiku" if znajOkol == 1 and czas > 2:
-        $ czas -= 2
-        jump trader
+        "Sklepiku" if znajOkol == 1 and czas > 2:
+            $ czas -= 2
+            jump trader
 
-    "Wojsko" if bigquest > 3:
-        jump wojsko
+        "Wojsko" if bigquest > 3:
+            jump wojsko
 
-    "Nikąd, pospaceruje sobię" if czas > 0:
-        $ czas -= 5
-        $ cel = renpy.random.randint(1, 5)
-        if cel == 1:
-            "Znalazłeś jakieś drobniaki"
-            $ zysk = renpy.random.randint(1, 100)
-            $ edki += zysk
-            p "Znalazłem [zysk] edków"
+        "Nikąd, pospaceruje sobię" if czas > 0:
+            $ czas -= 5
+            $ cel = renpy.random.randint(1, 5)
+            if cel == 1:
+                "Znalazłeś jakieś drobniaki"
+                $ zysk = renpy.random.randint(1, 100)
+                $ edki += zysk
+                p "Znalazłem [zysk] edków"
 
-        elif cel == 2:
-            "Ni chuja, same nudy"
+            elif cel == 2:
+                "Ni chuja, same nudy"
 
-        elif cel == 3:
-            "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-            $ wpierdol = renpy.random.randint(2, 11)
-            play sound "hit.mp3"
-            "Dostałeś wpierdol"
-            $ HP -= wpierdol - armor
-            $ armor -= 1
-            if umieram == 1:
-                "Git gud"
-                return
+            elif cel == 3:
+                "Przez przypadek wszedłeś do Bloku Władcy Demonów"
+                $ wpierdol = renpy.random.randint(2, 11)
+                play sound "hit.mp3"
+                "Dostałeś wpierdol"
+                $ HP -= abs(wpierdol - armor)
+                $ armor -= 1
+                if umieram == 1:
+                    "Git gud"
+                    return
 
-        elif cel == 4:
-            if znajOkol == 0:
-                "Udało Ci się odkryć fajny osiedlowy sklepik"
-                $ znajOkol = 1
+            elif cel == 4:
+                if znajOkol == 0:
+                    "Udało Ci się odkryć fajny osiedlowy sklepik"
+                    $ znajOkol = 1
 
-            else:
-                p "Jaki fajny plasterek"
-                if HP < MaxHP:
-                    p "A se przykleję"
-                    $ HP += 1
                 else:
-                    p "Ta? To zajebiście."
-                    "Plasterek trafił do kosza."
+                    p "Jaki fajny plasterek"
+                    if HP < MaxHP:
+                        p "A se przykleję"
+                        $ HP += 1
+                    else:
+                        p "Ta? To zajebiście."
+                        "Plasterek trafił do kosza."
 
-        elif cel == 5:
-            "Wszedłeś do bloku furrasów"
-            if dzien % 3 == 0:
-                "Futrzana domina Cię dopadła"
-                $ HP = 1
-                $ czas = 0
+            elif cel == 5:
+                "Wszedłeś do bloku furrasów"
+                if dzien % 3 == 0:
+                    "Futrzana domina Cię dopadła"
+                    $ HP = 1
+                    $ czas = 0
+                else:
+                    "Masz farta, był zamknięty"
             else:
-                "Masz farta, był zamknięty"
-        else:
-            "Print dupa, nie powinno Cię tu być."
+                "Print dupa, nie powinno Cię tu być."
 
-jump rozstaje
+    jump rozstaje
 
 label trader:
     scene szop
@@ -1005,6 +1041,10 @@ label trader:
         "Wytrych? " if edki >= 200:
             $ inventory.add_item(Wytrych)
             $ edki -= 200
+
+        "Kurwa ser?" if edki >= 50:
+            $ inventory.add_item(Ser)
+            $ edki -= 50
 
         "Na nic więcej mnie nie stać":
             p "Get zakuped"
@@ -1269,6 +1309,7 @@ label varchiwa:
             jump vtimefri
 
     elif varchiva_stage == 1:
+        scene vard
         "Dostałeś się do środka"
         "Ale na twojej drodze staje vrażnik"
         v "vrrrr"
@@ -1299,6 +1340,7 @@ label varchiwa:
                 jump vtimefri
 
     elif varchiva_stage == 2:
+        scene varch
         $ helper = 0
         "Varchiva stoją przed tobą otworem"
         "Nie będę mówił którym"
@@ -1543,7 +1585,7 @@ label amongthevpods:
     $ jhin_stan = 0
     $ cypher_stan = 0
     $ kibel_stan = 0
-    $ bigquest += 1
+    $ bigquest = 3
     jump rozstaje
 
 
@@ -1553,7 +1595,7 @@ label tempend:
     "Możesz dumnie wypierdalać"
     "Albo czekaj"
     "Zrób ss następnego okienka i wyślij mi"
-    "Vista sztuk trzysta"
+    "Ogarnij chhoja i idź do woja"
     "Dostaniesz kartę do KTG i 40 exp do cybera"
     "A teraz czekaj na następny update i wypierdalaj"
     return

@@ -1,26 +1,68 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 417, in script
-    $ inventory.add_item(Flacha)
-  File "game/script.rpy", line 417, in <module>
-    $ inventory.add_item(Flacha)
-NameError: name 'Flacha' is not defined
+  File "game/script.rpy", line 774, in script
+    p "Pusto tu"
+  File "game/customscreen.rpy", line 105, in execute
+    screen frak():
+  File "game/customscreen.rpy", line 105, in execute
+    screen frak():
+  File "game/customscreen.rpy", line 108, in execute
+    vbox:
+  File "game/customscreen.rpy", line 111, in execute
+    if [edki] > 0:
+  File "game/customscreen.rpy", line 111, in <module>
+    if [edki] > 0:
+TypeError: '>' not supported between instances of 'RevertableList' and 'int'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 417, in script
-    $ inventory.add_item(Flacha)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1138, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1122, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "game/script.rpy", line 417, in <module>
-    $ inventory.add_item(Flacha)
-NameError: name 'Flacha' is not defined
+  File "game/script.rpy", line 774, in script
+    p "Pusto tu"
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 930, in execute
+    renpy.exports.say(who, what, *args, **kwargs)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports.py", line 1474, in say
+    who(what, *args, **kwargs)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1352, in __call__
+    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1003, in do_display
+    display_say(who,
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 693, in display_say
+    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 299, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 3582, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 4055, in interact_core
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 684, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 684, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 684, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 476, in visit_all
+    callback(self)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 4055, in <lambda>
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 487, in per_interact
+    self.update()
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 680, in update
+    self.screen.function(**self.scope)
+  File "game/customscreen.rpy", line 105, in execute
+    screen frak():
+  File "game/customscreen.rpy", line 105, in execute
+    screen frak():
+  File "game/customscreen.rpy", line 108, in execute
+    vbox:
+  File "game/customscreen.rpy", line 111, in execute
+    if [edki] > 0:
+  File "game/customscreen.rpy", line 111, in <module>
+    if [edki] > 0:
+TypeError: '>' not supported between instances of 'RevertableList' and 'int'
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.1.3.23091805
 CyberDzban 0.0000000006
-Fri Feb 16 19:07:25 2024
+Sat Feb 17 12:04:51 2024
