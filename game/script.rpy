@@ -183,7 +183,13 @@ label start:
             jump gameover
 
         elif player_name == "Jan":
-            "Jebany dzban"
+            g "Jebany dzban"
+            $ helper = 0
+
+        elif player_name == "Joon Goo":
+            g "Jak ja Cię kurwa nienawidzę"
+            $ postacie["Gun"] = -99
+            $ helper = 0
 
         else:
             $ helper = 0
@@ -497,6 +503,7 @@ label kibel:
 
         elif kibel_stan == 2:
             "Raty raują"
+            jump rozstaje
 
     elif akt == 1 and bigquest > 2:
         $ czas -= 1
@@ -992,14 +999,19 @@ label miasto:
 
             elif cel == 3:
                 "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-                $ wpierdol = renpy.random.randint(2, 11)
-                play sound "hit.mp3"
-                "Dostałeś wpierdol"
-                $ HP -= abs(wpierdol - armor)
-                $ armor -= 1
-                if umieram == 1:
-                    "Git gud"
-                    return
+                $ wpierdol = renpy.random.randint(4, 18)
+                if wpierdol > armor:
+                    play sound "hit.mp3"
+                    "Dostałeś wpierdol"
+                    $ HP -= wpierdol - armor
+                    $ armor -= 1
+                    if umieram == 1:
+                        "Git gud"
+                        return
+                    jump miasto
+                else:
+                    "Ale nawet Cię nie drasnęli"
+                    jump miasto
 
             elif cel == 4:
                 if znajOkol == 0:
@@ -1282,10 +1294,6 @@ label voktor_wst:
 
 label varchiwa:
     scene drzv
-    if umieram == 1:
-        "Powiniemem się wcześniej uleczyć"
-        jump gameover
-
     if varchiva_stage == 0:
         "Trafiając do varchiw stają Ci na drodze drzwi"
         if inventory.has_item(Wytrych) == True:
@@ -1318,7 +1326,10 @@ label varchiwa:
         menu:
             "Co zrobić?"
             "Rozpoczynam pvp!":
-                $ HP -= 19 - armor
+                $ HP -= (19 - armor)
+                if umieram == 1:
+                    "Powiniemem się wcześniej uleczyć"
+                    jump gameover
                 $ armor -= 1
                 $ Fragi += 1
                 p "essa wariacie"
