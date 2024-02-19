@@ -91,6 +91,7 @@ label start:
     default Vomba = InventoryItem("Bomba","Bomba, tylko produkcji Vist")
     default Vranat = InventoryItem("Vranat","Wabajack tego uniwersum")
     default Ser = InventoryItem("Ser","Strasznie cheesy, Gun musi go lubić")
+    default THeal = InventoryItem("Turbouzdrawiacz","Turbo uzdrawia")
 
     #deklaracja cech
     default INT = 2
@@ -292,7 +293,7 @@ label kuchnia:
     show gun
     if akt == 0:
         g "Szybko Ci poszło"
-        if gun_stan < 3:
+        if gun_stan < 5:
             if inventory.has_item(Flaszka) == True:
                 g "To pomoże Ci z kałachem"
                 g "Daj mu tę flachę"
@@ -584,7 +585,7 @@ label dach:
                 c "Tak to możesz spierdalać"
                 jump rozstaje
 
-        elif akt == 1 and bigquest == 3:
+        elif bigquest == 3:
             $ czas -= 1
             c "Czekaj, wróciłeś właśnie od Vistów co nie?"
             c "Jak tam było? Dobrze się bawiłeś?"
@@ -595,6 +596,7 @@ label dach:
             c "A tak to Jhin prawie się zabił tnąc kable"
             c "Mówiłem mu, trakcja to śmierć. Tory! To jest przyszłość"
             c "To tyle z mojej audiencji teraz idż w chuj."
+            $ cypher_stan = 1
             jump rozstaje
 
 label warsztat:
@@ -1071,12 +1073,37 @@ label wojsko:
 
 label amongthev:
     stop music fadeout 1.0
-
     scene black
-    p "Wysłali mnie prosto do wypizdowa"
-    p "Nie dali jakichkolwiek wytycznych"
-    p "Przyjaciele po chuju"
-    p "Ale chuj, podobno dostanę 2k edków"
+    if Frakcja != 1:
+        p "Wysłali mnie prosto do wypizdowa"
+        p "Nie dali jakichkolwiek wytycznych"
+        p "Wiem że mam wykraść coś z archiw"
+        p "Przyjaciele po chuju"
+        p "Ale chuj, podobno dostanę 2k edków"
+    
+    elif Frakcja == 1:
+        scene dach
+        show cypher
+        c "No to młody, robota jest"
+        c "Fun pewnie Ci już powiedział"
+        c "Ale tak dla przypomnienia"
+        c "Visty to debile"
+        c "Cienkie pizdeczki"
+        if inventory.has_item(AR) == True:
+            c "Widzę że jakąś broń już masz"
+            c "To masz ode mnie inny gadżet"
+            $ inventory.add_item(THeal)
+            c "Zajebałem Łaskawcy"
+            c "Tylko nie zjedz od razu"
+
+        else: 
+            c "Dostaniesz ode mnie śmieszną zabaweczkę"
+            $ inventory.add_item(AR)
+            c "Zajabałem Kałachowi"
+            c "W sensie"
+            c "Wyrzucał go do śmieci"
+            c "A 500 edków piechotą nie chodzi"
+
     scene vland
     play music "dickdisco.mp3" volume 0.2
     show vista
@@ -1568,27 +1595,6 @@ label vokum:
     
 
 label amongthevpods:
-    scene kuchnia
-    "Wróciłeś do bazy po analizie Vist"
-    if Frakcja == 3:
-        "A nawet dołączyłeś do nich"
-    "Wszedłeś do kuchni"
-    show gun
-    g "Na raty chrystusa, ty żyjesz!"
-    g "Znaczy ten, gratulacje, udało Ci się"
-    g "Zobaczmy co tam przyniosłeś ciekawego"
-    "Oddałeś znaleziska"
-    $ postacie["Gun"] += vron
-    $ vron = 0
-    g "Oj karamba, grube dowody"
-    g  "Prawie zapomłem, oto twoja nagroda"
-    $ edki += 2000
-    g "Od teraz jesteś prawdziwym bazownikiem"
-    show cypher at left
-    c "RICHTIG (:"
-    hide cypher with dissolve
-    g "Zamknij się Cypher"
-    g "Dobra, idź do siebie, potrzebuje trochę czasu"
     $ gun_stan = 0
     $ kalach_stan = 0
     $ laskawca_stan = 0
@@ -1597,7 +1603,51 @@ label amongthevpods:
     $ cypher_stan = 0
     $ kibel_stan = 0
     $ bigquest = 3
-    jump rozstaje
+
+    if Frakcja != 1:
+        if Frakcja == 3
+        scene kuchnia
+        "Wróciłeś do bazy po analizie Vist"
+        if Frakcja == 3:
+            "A nawet dołączyłeś do nich"
+        "Wszedłeś do kuchni"
+        show gun
+        g "Na raty chrystusa, ty żyjesz!"
+        g "Znaczy ten, gratulacje, udało Ci się"
+        g "Zobaczmy co tam przyniosłeś ciekawego"
+        "Oddałeś znaleziska"
+        $ postacie["Gun"] += vron
+        $ vron = 0
+        g "Oj karamba, grube dowody"
+        g  "Prawie zapomłem, oto twoja nagroda"
+        $ edki += 2 * randint(1,10)
+        p "Miało być 2K"
+        g "No i masz"
+        g "2K10"
+        p "Ale skam"
+        g "Dobra, nie pierdol"
+        g "Od teraz jesteś prawdziwym bazownikiem"
+        show cypher at left
+        c "RICHTIG (:"
+        hide cypher with dissolve
+        g "Zamknij się Cypher"
+        g "Dobra, idź do siebie, potrzebuje trochę czasu"
+        jump rozstaje
+
+    if Frakcja == 1:
+        scene dach
+        show cypher
+        c "Dzień dobry, mój ulubiony kurierze"
+        c "Pokazuj co tam zajebałeś Vistą"
+        c "Scheiße, ciekawe dokumenty"
+        c "Chuja rozumiem"
+        c "Ale na spokojnie, zrobię sobie kopie a Gun dostanie reszte"
+        c "Masz, trochę drobniaków"
+        $ edki += 400
+        p "Nie spodziewałem się że dasz mi pieniądze Cypher"
+        c "Masz mnie za żyda, proszę Cię, ja nie Gajda"
+        c "Doceniam swoich oddanych pracowników"
+        c "Zmykaj do siebie, należy Ci się odpoczynek"
 
 
 label tempend:
