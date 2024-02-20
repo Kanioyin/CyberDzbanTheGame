@@ -1605,7 +1605,6 @@ label amongthevpods:
     $ bigquest = 3
 
     if Frakcja != 1:
-        if Frakcja == 3
         scene kuchnia
         "Wróciłeś do bazy po analizie Vist"
         if Frakcja == 3:

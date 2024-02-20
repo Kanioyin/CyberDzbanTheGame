@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/customscreen.rpy", line 66: expected a keyword argument, colon, or end of line.
-    text color=black "Cypher: [postacie[Cypher]] \n Kałach: [postacie[Kalach]] \n Gun: [postacie[Gun]] \n Hartmann: [postacie[Hartmann]] \n Łaskawca: [postacie[Laskawca]]"
-              ^
+File "game/script.rpy", line 1608: reached end of line when expecting ':'.
+    if Frakcja == 3
+                   ^
 
 Ren'Py Version: Ren'Py 8.1.3.23091805
-Tue Feb 13 14:04:32 2024
+Mon Feb 19 19:24:26 2024
