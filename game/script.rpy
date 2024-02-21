@@ -114,7 +114,6 @@ label start:
     default cypher_stan = 0
     default kibel_stan = 0
 
-
     #deklaracja reszty
     default edki = 0
     default vdolce = 0
@@ -293,7 +292,7 @@ label kuchnia:
     show gun
     if akt == 0:
         g "Szybko Ci poszło"
-        if gun_stan < 5:
+        if gun_stan < 4:
             if inventory.has_item(Flaszka) == True:
                 g "To pomoże Ci z kałachem"
                 g "Daj mu tę flachę"
@@ -411,7 +410,7 @@ label kosciol:
                 $ postacie["Kalach"] += 1
 
             else:
-                k "Jedyne co strzeliłeś to foch, ciper moment"
+                k "Jedyne co strzeliłeś to foch, Ciper moment"
                 show cypher at left
                 c "Falsh"
                 hide cypher with dissolve
@@ -419,6 +418,7 @@ label kosciol:
             $ kalach_stan += 1
             k "Zdupcaj, wracam do picia"
             jump rozstaje
+
         if kalach_stan == 1:
             "Kałach alkoholizuje się, jepiej mu nie przeszkadzaj"
         jump rozstaje
@@ -430,8 +430,8 @@ label kosciol:
             k "Wróciłeś żywy z siedliska Vist"
             $ postacie["Kalach"] += 1
             k "Masz nagrodę"
-            $ inventory.add_item(Flaszka)
             play sound "THROWING.mp3"
+            $ inventory.add_item(Flaszka)
             k "Zachowaj na specjalną okazję, albo chlej teraz"
             $ kalach_stan += 1
 
@@ -817,6 +817,8 @@ label sypialnia:
                 "Przed snem zjadłeś jeszcze coś z automatu"
                 $ edki -= 10
                 $ HP += BC
+            elif HP == MaxHP:
+                "Śpisz słodko, jak aniołek"
             else:
                 "Zasnąłeś z pustym brzuchem"
 
@@ -892,7 +894,7 @@ label akt1:
             c "Oferujemy sporo kozyści, na twoim miejscu bym dołączył"
             menu:
                 "Czy chcesz dołączyć do DH?"
-                "W sumie czemu nie":
+                "W sumie czemu nie" if Frakcja == 0:
                     $ Frakcja = 1
                     $ czlonekFrakcji = True
                     $ postacie["Cypher"] += 3
@@ -970,8 +972,24 @@ label podsumowanie1:
     "Nadszedł czas chwilowego odpoczynku"
     g "Daj mi kilka dni to może znajdę jakąś robotę"
     g "Na piętrze masz pokój, czuj się jak w gościach"
-    $ czas -= 20
+    $ czas = 0
     jump rozstaje
+
+label vniazdo:
+    scene vland
+    "Jesteś u Vist"
+    menu:
+        "Co chcesz zrobić?"
+        "Wymiana edków na vdolce" if ekdi > 99:
+            $ vdolce += 1
+            $ edki -= 100
+
+        "Wymiana vdolców na edki" if vdolce > 0:
+            $ vdolce -= 1
+            $ edki += 100
+
+        "Vracam":
+            jump miasto
 
 label miasto:
     scene miasto
@@ -986,6 +1004,9 @@ label miasto:
 
         "Wojsko" if bigquest > 3:
             jump wojsko
+
+        "Dziupli Vist" if Frakcja == 3:
+            jump vniazdo
 
         "Nikąd, pospaceruje sobię" if czas > 0:
             $ czas -= 5
@@ -1092,12 +1113,14 @@ label amongthev:
         if inventory.has_item(AR) == True:
             c "Widzę że jakąś broń już masz"
             c "To masz ode mnie inny gadżet"
+            play sound "THROWING.mp3"
             $ inventory.add_item(THeal)
             c "Zajebałem Łaskawcy"
             c "Tylko nie zjedz od razu"
 
         else: 
             c "Dostaniesz ode mnie śmieszną zabaweczkę"
+            play sound "THROWING.mp3"
             $ inventory.add_item(AR)
             c "Zajabałem Kałachowi"
             c "W sensie"
@@ -1179,7 +1202,7 @@ label vechnik_wst:
             "Zdobądź potężne Vposażenie"
 
             "Będę przyszłym Vogiem Vojny" if vdolce == 1:
-                $veq += 2
+                $ veq += 2
                 v "Volecam się na vrzyszłość"
                 $ vron = 1
                 jump vtimefri
@@ -1250,6 +1273,7 @@ label voktor_wst:
             menu:
                 "Chcesz kolejne bojowe zadanie?"
                 "Vevnie lmao":
+                    play sound "THROWING.mp3"
                     $ inventory.add_item(Vomba)
                     $ veq += 1
                     v "Vpierdol w vovietrze varsztat"
@@ -1420,8 +1444,8 @@ label varchiwa:
 
                 "Dyvan?":
                     "Podchodzisz do dyvanu"
-                    "Vgląda dość normalnie na pierwszy rzut oka"
-                    "Po kolejnym rzucie okiem, skończyły Ci się oczy"
+                    "Vgląda dość normalnie na pierwszy rzut voka"
+                    "Po kolejnym rzucie vokiem, skończyły Ci się voczy"
                     "Ale jest to najzwyklejszy dyvan"
                     jump varchiwa
 
@@ -1436,7 +1460,7 @@ label varchiwa:
                             $ helper = 1
 
                         "A chuj z tym":
-                            pass
+                            "To pewnie pułapka"
 
                 "Vchodzę":
                     $ helper = 1
@@ -1487,7 +1511,7 @@ label vrade:
             $ inventory.add_item(AR)
             $ vdolce -= 5
             $ veq += 1
-            "Wydałeś 5 vdolce na AR-kę"
+            "Wydałeś 5 vdolcy na AR-kę"
 
         "Wytrych? " if vdolce >= 2:
             $ inventory.add_item(Wytrych)
@@ -1609,6 +1633,35 @@ label amongthevpods:
         "Wróciłeś do bazy po analizie Vist"
         if Frakcja == 3:
             "A nawet dołączyłeś do nich"
+            "Teraz, jako Vista, czy na pewno chcesz dawać wasze dokumenty?"
+            menu: 
+                "Fejkujemy ":
+                    "Delikatnie pozmieniałeś papiery, raczej Gun się nie połapie"
+                    "Wszedłeś do kuchni"
+                    show gun
+                    g "Na raty chrystusa, ty żyjesz!"
+                    g "Znaczy ten, gratulacje, udało Ci się"
+                    g "Zobaczmy co tam przyniosłeś ciekawego"
+                    "Oddałeś podrobione papiery"
+                    g "Oj karamba, grube dowody"
+                    g  "Prawie zapomłem, oto twoja nagroda"
+                    $ edki += 2 * renpy.random.randint(1,10)
+                    p "Miało być 2K"
+                    g "No i masz"
+                    g "2K10"
+                    p "Ale skam"
+                    g "Dobra, nie pierdol"
+                    g "Od teraz jesteś prawdziwym bazownikiem"
+                    show cypher at left
+                    c "RICHTIG (:"
+                    hide cypher with dissolve
+                    g "Zamknij się Cypher"
+                    g "Dobra, idź do siebie, potrzebuje trochę czasu"
+                    jump rozstaje
+
+                "Boję się fałszerstwa":
+                    v "Ale z Ciebie vipa"
+
         "Wszedłeś do kuchni"
         show gun
         g "Na raty chrystusa, ty żyjesz!"
@@ -1619,7 +1672,7 @@ label amongthevpods:
         $ vron = 0
         g "Oj karamba, grube dowody"
         g  "Prawie zapomłem, oto twoja nagroda"
-        $ edki += 2 * randint(1,10)
+        $ edki += 2 * renpy.random.randint(1,10)
         p "Miało być 2K"
         g "No i masz"
         g "2K10"
@@ -1631,7 +1684,7 @@ label amongthevpods:
         hide cypher with dissolve
         g "Zamknij się Cypher"
         g "Dobra, idź do siebie, potrzebuje trochę czasu"
-        jump rozstaje
+        jump rozstaje   
 
     if Frakcja == 1:
         scene dach
