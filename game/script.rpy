@@ -113,6 +113,7 @@ label start:
     default jhin_stan = 0
     default cypher_stan = 0
     default kibel_stan = 0
+    default wojsko_stan = 0
 
     #deklaracja reszty
     default edki = 0
@@ -128,6 +129,7 @@ label start:
     # 2 = DN
     # 3 = Visty
     # 4 = Uda
+    # 5 = Wojsko
     default dzien = 1
     default armor = 0
     default umieram = 0
@@ -1087,9 +1089,63 @@ label trader:
 
 
 label wojsko:
-    scene wojsko
-    gk "Witamy w armi młody"
-    jump tempend
+    if wojsko_stan == 0:
+        scene wojsko
+        show genken at left
+        gk "Witamy w armi młody"
+        gk "Jestem Generał Kennedy, przywódca tego pierdolnika"
+        if Frakcja == 0 or Frakcja == 3:
+            gk "I jesteś tu z woli Guna"
+        elif Frakcja == 1:
+            gk "Jasna cholera, jesteś od Cyphera"
+        gk "To co masz ogarnąć to destrukcja Vist"
+        gk "Jakaś kurwa z Arasaki chce przejąć nad nimi kontrolę"
+        p "Ależ to skurwysyn musi być"
+        gk "To prawda, każdy pracownik kopro to skurwysyn"
+        gk "Ale ten skurwysyn, to taki super skurwysyn"
+        gk "Będziesz musiał zebrać drużynę"
+        gk "I razem wyruszycie pozbyć się kutasa"
+        p "Ja pierdolę"
+        p "Ty na prawdę wymagasz ode mnie, żebym się dogadał z tymi debilami"
+        p "Przecież to jest kurwa niewykonalne"
+        gk "Dlatego to zadanie będzie dla ciebie wyzwaniem"
+        gk "Jeśli je wykonasz, to dostaniesz potężną wypłatę"
+        p "Już trzeci raz słyszę o ogromnej wypłacie"
+        p "Opowiedz mi dokładnie, co JA KURWA DOSTANĘ"
+        gk "Wpyłatę"
+        show cypher at right
+        c "Hi Hi ha ha"
+        hide cypher with dissolve
+        gk "O nie, ta kreatura się tu materializuje"
+        gk "Potem Ci wyjaśnie, teraz muszę się ukryć"
+        gk "Pamiętaj, musisz się zaprzyjaźnić z CyberDzbanami"
+        show cypher at right
+        c "The Game ©"
+        hide cypher with dissolve
+        gk "To jest coraz mocniejsze"
+        gk "Znikam"
+        hide genken
+        p "Mo i zniknął"
+        $ wojsko_stan = 1
+        p "No to wracam do bazy"
+        jump rozstaje
+
+    elif wojsko_stan > 5: 
+        jump tempend
+
+    elif wojsko_stan > 0:
+        if postacie["Laskawca"] > 5:
+            wojsko_stan += 1
+        if postacie["Laskawca"] > 5:
+            wojsko_stan += 1
+        if postacie["Laskawca"] > 5:
+            wojsko_stan += 1
+        if postacie["Laskawca"] > 5:
+            wojsko_stan += 1
+        if postacie["Laskawca"] > 5:
+            wojsko_stan += 1
+        if postacie["Laskawca"] > 5:
+            wojsko_stan += 1
 
 
 label amongthev:
