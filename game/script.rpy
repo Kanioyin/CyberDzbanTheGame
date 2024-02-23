@@ -525,7 +525,7 @@ label dach:
             c "Chcesz zostać najemnikiem?"
             c "A może wolisz wynająć najemników?"
             c "Wykonujemy każde zadanie, nawet niemożliwe damy radę zrobić"
-            c "Za odpoiwednią opłatą oczywiscie"
+            c "Za odpowiednią opłatę oczywiście"
             g "Te młody, dawaj na dół"
             hide cypher
             scene kuchnia
@@ -691,7 +691,7 @@ label klinika:
             pl "Łap, pierwszy za darmoszkę"
             play sound "THROWING.mp3"
             $ inventory.add_item(Kokos)
-            pl "Kozystaj do woli, nic złego się nie stanie"
+            pl "Korzystaj do woli, nic złego się nie stanie"
             pl "Papatki"
             jump rozstaje
 
@@ -1112,7 +1112,7 @@ label wojsko:
         gk "Jeśli je wykonasz, to dostaniesz potężną wypłatę"
         p "Już trzeci raz słyszę o ogromnej wypłacie"
         p "Opowiedz mi dokładnie, co JA KURWA DOSTANĘ"
-        gk "Wpyłatę"
+        gk "Wypłatę"
         show cypher at right
         c "Hi Hi ha ha"
         hide cypher with dissolve
@@ -1133,20 +1133,20 @@ label wojsko:
     elif wojsko_stan > 5: 
         jump tempend
 
+    
     elif wojsko_stan > 0:
         if postacie["Laskawca"] > 5:
-            wojsko_stan += 1
+            $ wojsko_stan += 1
         if postacie["Laskawca"] > 5:
-            wojsko_stan += 1
+            $ wojsko_stan += 1
         if postacie["Laskawca"] > 5:
-            wojsko_stan += 1
+            $ wojsko_stan += 1
         if postacie["Laskawca"] > 5:
-            wojsko_stan += 1
+            $ wojsko_stan += 1
         if postacie["Laskawca"] > 5:
-            wojsko_stan += 1
+            $ wojsko_stan += 1
         if postacie["Laskawca"] > 5:
-            wojsko_stan += 1
-
+            $ wojsko_stan += 1
 
 label amongthev:
     stop music fadeout 1.0
