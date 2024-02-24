@@ -11,6 +11,7 @@ define v = Character(_("Vista"), color = "213769")
 define kk = Character(_("Krateus"), color = "ABCDEF")
 define t = Character(_("Toro"), color = "6969EE")
 define gk = Character(_("Gen. Kennedy"), color = "098703")
+define kr = Character(_("Krateus"), color = "#023a10")
 
 init python:
     class Inventory():
@@ -73,7 +74,7 @@ label checktime:
         call sypialnia from _call_sypialnia
 
 label start:
-    default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0}
+    default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
     #deklaracja inventory
     default inventory = Inventory([],0)
 
@@ -114,6 +115,7 @@ label start:
     default cypher_stan = 0
     default kibel_stan = 0
     default wojsko_stan = 0
+    default krateus_stan = 0
 
     #deklaracja reszty
     default edki = 0
@@ -183,6 +185,12 @@ label start:
         elif player_name == "Bezi":
             p "Nie żyję lmao"
             jump gameover
+
+        elif player_name == "Krateus":
+            kr "Zaraz będziesz celem jew dzitsu"
+
+        elif player_name == "Kretyneus":
+            g "Faktycznie kretyn"
 
         elif player_name == "Jan":
             g "Jebany dzban"
@@ -283,6 +291,9 @@ label rozstaje:
         "Dziupla Jhina" if bigquest > 2:
             jump jhinownia
 
+        "Lil Brazil" if bigquest > 4:
+            jump bruhzylia
+
         "Idę do siebie" if akt > 0:
             jump sypialnia
 
@@ -339,7 +350,8 @@ label kuchnia:
             g "Zdupcaj, muszę pomysleć"
             jump rozstaje
         else:
-            pass
+            jump rozstaje
+
         if dzien > 3 and bigquest == 0:
             show jhin at right
             g "Robota się znalazła"
@@ -367,6 +379,50 @@ label kuchnia:
             g "On da Ci broń do walki z Vinfekcją"
             $ bigquest = 4
 
+    elif akt == 1 and bigquest == 5 :
+        if gun_stan == 0:
+            g "No to mów, co Ci ten Kennedy powiedział ciekawego"
+            p "Musimy zostać przyjaciółmi"
+            g "Ja pierdole"
+            g "Ale my że my, czy my że ty i inni?"
+            p "Ja i inni"
+            g "Ser z serca. No to do robory żołnierzu"
+            g "Mocą przyjaźni zdobądź serca innych dzbanów"
+            $ gun_stan = 1
+
+        elif gun_stan == 1:
+            g "Czyli ze mną chcesz zacząć randkować?"
+            g "Daniel Krej z!"
+            g "No to zacznijmy rozmowę kwalifikacyjną"
+            g "Pytanie pierwsze"
+            menu:
+                "Jaki jest twój ulubiony kolor?"
+                "Zielony":
+                    g "Ok"
+                "Ciorny":
+                    g "Niepozorny"
+                "Fioletowy":
+                    g "Trochę gejowy"
+                "Żółty":
+                    g "2137"
+                "Szczurzy":
+                    g "I to mi się podoba"
+                    $ postacie["Gun"] += 1
+
+            g "Pytanie numero dos"
+            menu:
+                "Lubisz bigos"
+                "Co kurwa?":
+                    g "Pstro"
+                "Tak":
+                    g "To chujowo"
+                    $ postacie["Gun"] -= 1
+
+                "Nie":
+                    g "To dobrze"
+                    $ postacie["Gun"] += 1
+
+
     if inventory.has_item(Ser) == True:
         p "Mam coś dla Ciebie gun"
         $ inventory.remove_item(Ser)
@@ -374,6 +430,7 @@ label kuchnia:
         g "To mi się przyda."
         g "Dzięki"
         $ postacie["Gun"] += 1
+
     else:
         jump rozstaje
 
@@ -423,7 +480,7 @@ label kosciol:
 
         if kalach_stan == 1:
             "Kałach alkoholizuje się, jepiej mu nie przeszkadzaj"
-        jump rozstaje
+            jump rozstaje
 
     elif akt == 1 and bigquest == 3:
         $ czas -= 1
@@ -490,10 +547,12 @@ label kibel:
                         r "Dziękuje, dobry człowieku"
                         $ postacie["Gun"] += 1
                         jump rozstaje
+
                     "Kontynuuj sranie w kieszeni":
                         p "Tu będzie Ci bezpieczniej"
                         jump rozstaje
             jump rozstaje
+
         elif kibel_stan == 1:
             show grat
             r "Witaj dobry człowieku"
@@ -681,7 +740,7 @@ label klinika:
     scene klinika
     show laskawca at right
     if akt == 0:
-        $gun_stan += 1
+        $ gun_stan += 1
         pl "Siema, chcesz kokosa kurwa ten?"
         if inventory.has_item(Kokos) == True:
             pl "No wciągnij no"
@@ -709,6 +768,7 @@ label klinika:
                     $ edki -= 50
                     $ czas -= 5
                     "Zostałeś Healnięty"
+
                 "Podziękuje":
                     pass
 
@@ -723,6 +783,7 @@ label klinika:
 
                     else:
                         p "Nie stać mnie"
+
                 "Podziękuje":
                     pass
 
@@ -805,6 +866,12 @@ label jhinownia:
     elif jhin_stan == 1 and dzien < 10:
         "Pokój jest pusty, Jhin gdzieś wybył"
         jump rozstaje
+
+label bruhzylia:
+    scene brazil
+    show krateus at right
+    kr "Jeszcze tu nic nie ma"
+    jump rozstaje
 
 label sypialnia:
     scene pokoj
@@ -1127,6 +1194,7 @@ label wojsko:
         hide genken
         p "Mo i zniknął"
         $ wojsko_stan = 1
+        $ bigquest = 5
         p "No to wracam do bazy"
         jump rozstaje
 
