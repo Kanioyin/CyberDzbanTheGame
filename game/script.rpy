@@ -192,6 +192,10 @@ label start:
         elif player_name == "Kretyneus":
             g "Faktycznie kretyn"
 
+        elif player_name == "Chuj":
+            g "Pewnie mały"
+            $ helper = 0
+
         elif player_name == "Jan":
             g "Jebany dzban"
             $ helper = 0
@@ -378,6 +382,7 @@ label kuchnia:
             g "Polecisz teraz do naszego kontaktu, generała Kenediego"
             g "On da Ci broń do walki z Vinfekcją"
             $ bigquest = 4
+            jump rozstaje
 
     elif akt == 1 and bigquest == 5 :
         if gun_stan == 0:
@@ -389,6 +394,7 @@ label kuchnia:
             g "Ser z serca. No to do robory żołnierzu"
             g "Mocą przyjaźni zdobądź serca innych dzbanów"
             $ gun_stan = 1
+            jump rozstaje 
 
         elif gun_stan == 1:
             g "Czyli ze mną chcesz zacząć randkować?"
@@ -421,6 +427,18 @@ label kuchnia:
                 "Nie":
                     g "To dobrze"
                     $ postacie["Gun"] += 1
+
+            g "To chyba tyle z pytań"
+            p "I co to kurwa niby znaczy?"
+            g "Dowiesz się w swoim czasie"
+            $ gun_stan = 2
+            jump rozstaje
+
+        elif gun_stan == 2:
+            g "Kolego, to jest jeszcze wczesna alfa"
+            g "Nie spodziewaj się że wszystko już będzie"
+            g "Wróć za x updatów"
+            g "(2)"
 
 
     if inventory.has_item(Ser) == True:
@@ -619,6 +637,7 @@ label dach:
         elif cypher_stan == 4:
             c "No to masz przepierdolone"
             c "Młynarczyk! Bierz go!"
+            play sound "Bestia.mp3" 
             "I coolawy mściciel postanowił pozbyć się szkodnika"
             "Git Gud"
             jump gameover
@@ -823,54 +842,124 @@ label klinika:
 label jhinownia:
     $ czas -= 1
     scene takiten
-    if jhin_stan == 0:
-        show jhin
-        j "Hejka naklejka jestem Jhin Taki-Ten"
-        j "To nazwisko zawdzięczam swoim rodzicom"
-        j "Czyli udało Ci się nakraść w gnieździe Vist"
-        j "Powiem Ci, jestem pod wrażeniem"
-        $ postacie["Jhin"] += 1
-        j "Powiedz mi jak tam było?"
-        j "Czy to prawda że Visty rozmnażają się przez pączkowanie?"
-        j "Czy może po śmierci dzielą się na pół?"
-        menu:
-            "Zdecydowanie pączkowanie":
-                j "O cholipka, wiedziałem"
-                $ postacie["Jhin"] += 1
-                j "To oznacza że trzeba zabić każdego piekarza w mieście"
-                j "Wyruszam natychmiast"
-                "I se poszedł"
-                $ jhin_stan = 1
-                jump rozstaje
+    if akt == 1:
+        if jhin_stan == 0:
+            show jhin
+            j "Hejka naklejka jestem Jhin Taki-Ten"
+            j "To nazwisko zawdzięczam swoim rodzicom"
+            j "Czyli udało Ci się nakraść w gnieździe Vist"
+            j "Powiem Ci, jestem pod wrażeniem"
+            $ postacie["Jhin"] += 1
+            j "Powiedz mi jak tam było?"
+            j "Czy to prawda że Visty rozmnażają się przez pączkowanie?"
+            j "Czy może po śmierci dzielą się na pół?"
+            menu:
+                "Zdecydowanie pączkowanie":
+                    j "O cholipka, wiedziałem"
+                    $ postacie["Jhin"] += 1
+                    j "To oznacza że trzeba zabić każdego piekarza w mieście"
+                    j "Wyruszam natychmiast"
+                    "I se poszedł"
+                    $ jhin_stan = 1
+                    jump rozstaje
 
-            "Dzielą się na pół":
-                j "A niech to dunder świśnie"
-                j "To oznacza że przegrałem zakład z Cypherem"
-                show sypher at left
-                c "RICHTIG"
-                hide cypher with dissolve
-                j "On już tu jest, uceikam"
-                "I spierdolił"
-                $ jhin_stan = 1
-                jump rozstaje
+                "Dzielą się na pół":
+                    j "A niech to dunder świśnie"
+                    j "To oznacza że przegrałem zakład z Cypherem"
+                    show sypher at left
+                    c "RICHTIG"
+                    hide cypher with dissolve
+                    j "On już tu jest, uceikam"
+                    "I spierdolił"
+                    $ jhin_stan = 1
+                    jump rozstaje
 
-            "Co ty pierdolisz Ken-Taki?":
-                j "Ej to nie było miłe"
-                j "Staram się napisać książkę o Vistach"
-                j "I mam teraz rozdział o rozmnażaniu"
-                j "3.14rdol się chamie"
-                $ postacie["Jhin"] -= 1
-                $ jhin_stan = 1
-                jump rozstaje
+                "Co ty pierdolisz Ken-Taki?":
+                    j "Ej to nie było miłe"
+                    j "Staram się napisać książkę o Vistach"
+                    j "I mam teraz rozdział o rozmnażaniu"
+                    j "3.14rdol się chamie"
+                    $ postacie["Jhin"] -= 1
+                    $ jhin_stan = 1
+                    jump rozstaje
 
-    elif jhin_stan == 1 and dzien < 10:
-        "Pokój jest pusty, Jhin gdzieś wybył"
-        jump rozstaje
+        if jhin_stan == 1 and dzien < 10:
+            "Pokój jest pusty, Jhin gdzieś wybył"
+            if dzien > 9:
+                $ jhin_stan = 1
+            jump rozstaje
+
+        if jhin_stan == 2:
+            j "No hejka, dokonałem badań do mnożenia Vist"
+            j "Źródłem jest strona internetowa"
+            j "Krejzi.braindance.cum"
+            j "Niestety nie mam pozwolenia od rodziców"
+            j "Więc nie mogłem sprawdzić"
+            menu:
+                j "Może ty jesteś na tyle odważny żeby to zrobić?"
+
+                "Aż taki głupi nie jestem":
+                    j "Bardzo dobrze, to był tylko test"
+                    $ postacie["Jhin"] += 1
+                    j "Jednak jesteś mądrzejszy od ośmioklasisty"
+                
+                "Sprawdzę":
+                    j "Jesteś głupi, nie rób tego"
+                    j "Powiem Gunowi i zapierdolą Cię"
+                    j "Skończysz w sarnie"
+                    show gun at left
+                    g "SKOŃCZYSZ MARNIE DEBILU"
+                    hide gun
+                    j "Ano tak, skończysz marnie"
+
+                "Ja już jestem jednym z nich" if Frakcja == 3:
+                    j "Pierdolisz"
+                    p "Nie, masz przejebane"
+                    j "aaaaa"
+
+            j "No to ten, finito"
+            $ jhin_stan = 3
+
+        if jhin_stan == 3:
+            "No jhin?"
+
 
 label bruhzylia:
     scene brazil
     show krateus at right
-    kr "Jeszcze tu nic nie ma"
+    if krateus_stan == 0:
+        kr "Czyli to ty jesteś nowy."
+        kr "Witaj, jestem Krateus, a ty?"
+        p "Jestem [player_name]."
+        kr "No to zajebiście, formalności za nami"
+        kr "Teraz tylko jedna drobnostka została"
+        kr "Uściśnij mi dłoń"
+        menu:
+            "No dobra":
+                "Widzisz że Krateus wyjął siekierę"
+                kr "No to za znajomość"
+                "I zamachnął się w kierunku twojego ramienia"
+                p "Pojebało CIE"
+                kr "WIEM"
+                "I siekiera zatrzymała się kilka centymetrów od celu"
+
+            "Spierdalaj":
+                kr "Aha66"
+                "Krateus wyjął strzelbę"
+                kr "Może teraz zmienisz zdanie"
+                p "Na chuj chcesz uścisnąć mi dłoń?"
+                kr "Tak mnie nauczyli w KGB"
+                kr "Ale i tak"
+                
+        kr "W brazyli było gorzej"
+        p "A czy tu będzie gorzej?"
+        kr "Proste że tak"
+        "Nagle usłyszeliście krzyk dziecka"
+        kr "Jebane mutanty"
+        kr "Dobra, bywaj [player_name]. Idę polować"
+        $ krateus_stan = 1
+    if krateus_stan == 1:
+        "No chłop poluje"
     jump rozstaje
 
 label sypialnia:
