@@ -71,7 +71,32 @@ init python:
 label checktime:
     if czas == 0:
         $dzien += 1
-        call sypialnia from _call_sypialnia
+        jump sypialnia
+
+    else:
+        return
+
+label checkHP(dmg):
+    if armor > 10:
+        if dmg < (armor+1) :
+            $ HP = HP
+
+    else:
+        if armor != 0:
+            $ HP -= -(armor - dmg)
+            $ armor -= 1
+        else:
+            $ HP -= dmg
+
+    if umieram == 1:
+        jump gameover
+
+    elif HP < 1:
+        $ umieram = 1
+        return
+
+    else:
+        return
 
 label start:
     default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
@@ -246,6 +271,8 @@ label start:
     show grab
 
     g "Oto symbol twojej przynależności do Drako Nero"
+    g "Znaczy, jeszcze nie jesteś jego członkiem"
+    g "Ale na start masz rata. Ten chuj srał mi w kieszeni"
     g "Dawaj do środka"
     jump intro
 
@@ -267,10 +294,7 @@ label gameover:
 
 label rozstaje:
     scene black
-    if HP <= 0:
-        "Jesteś prawie trupem"
-        "Powinieneś iść do Łaskawcy"
-        $ umieram = 1
+    call checktime
     menu:
         "Kaj leziesz?"
 
@@ -547,7 +571,7 @@ label kibel:
         show grat at left
         "Ić stont"
         $ gun_stan += 1
-        $ kibel_stan +=1
+        $ kibel_stan += 1
         jump rozstaje
 
     elif akt == 1 and bigquest == 0:
@@ -887,6 +911,7 @@ label jhinownia:
             "Pokój jest pusty, Jhin gdzieś wybył"
             if dzien > 9:
                 $ jhin_stan = 1
+
             jump rozstaje
 
         if jhin_stan == 2:
@@ -971,12 +996,16 @@ label sypialnia:
         "Idę spać":
             $ dzien += 1
             $ czas = 20
-            if HP != MaxHP and  edki > 10:
+            if HP < MaxHP and  edki > 10:
                 "Przed snem zjadłeś jeszcze coś z automatu"
                 $ edki -= 10
                 $ HP += BC
+                if HP > MaxHP:
+                    $ HP = MaxHP
+
             elif HP == MaxHP:
                 "Śpisz słodko, jak aniołek"
+
             else:
                 "Zasnąłeś z pustym brzuchem"
 
@@ -1074,14 +1103,14 @@ label akcja:
     menu:
         "A co ty robisz?"
         "Zaczynam strzelać":
-            $ HP -= 7
+            call checkHP(7)
             "Udało Ci się zdjąć jednego ale sam też oberwałeś"
             $ Fragi += 1
             $ postacie["Gun"] += 1
         "Zbieram co mogę":
             $ inventory.add_item(AR)
             $ edki += 15
-            $ HP -= 5
+            call checkHP(5)
         "Cykam się trochę":
             "Przeczekałeś część ostrzału"
 
@@ -1096,13 +1125,13 @@ label akcja:
         "Masz kolejną szansę się wykazać, co robisz?"
         "ZOSTAJĘ PIERDOLONYM BOGIEM WOJNY":
             $ Fragi += 3
-            $ HP -= 10
+            call checkHP(10)
             $ postacie["Laskawca"] += 2
         "Zbieram jeszcze więcej":
             $ inventory.add_item(Pistolecik)
             $ inventory.add_item(Granat)
             $ edki += 50
-            $ HP -= 5
+            call checkHP(5)
         "Czekam aż reszta nabije sobie fragi":
             "Kitrałeś się do końca"
 
@@ -1181,18 +1210,7 @@ label miasto:
             elif cel == 3:
                 "Przez przypadek wszedłeś do Bloku Władcy Demonów"
                 $ wpierdol = renpy.random.randint(4, 18)
-                if wpierdol > armor:
-                    play sound "hit.mp3"
-                    "Dostałeś wpierdol"
-                    $ HP -= wpierdol - armor
-                    $ armor -= 1
-                    if umieram == 1:
-                        "Git gud"
-                        return
-                    jump miasto
-                else:
-                    "Ale nawet Cię nie drasnęli"
-                    jump miasto
+                call checkHP(wpierdol)
 
             elif cel == 4:
                 if znajOkol == 0:
@@ -1366,10 +1384,6 @@ default valki = 5
 
 label vtimefri:
 scene vland
-if HP <= 0:
-    "Jesteś prawie trupem"
-    "Powinieneś iść się leczyć"
-    $ umieram = 1
 menu:
     "Gdzie chcesz iść?"
 
@@ -1434,8 +1448,8 @@ label vechnik_wst:
                 "Zdobądź potężne Vposażenie"
 
                 "Będę przyszłym Vogiem Vojny" if vdolce >= 1:
-                    $veq += 2
-                    $vdolce -= 1
+                    $ veq += 2
+                    $ vdolce -= 1
                     $ vron = 1
                     $ veq += 1
                     v "Volecam się na vrzyszłość"
@@ -1448,7 +1462,7 @@ label vechnik_wst:
                 "W swoim eq znajduje się vomba, co z nią robisz?"
 
                 "Vsadzam technika":
-                    $inventory.remove_item(Vomba)
+                    $ inventory.remove_item(Vomba)
                     p "Pora vpierdalać"
                     $ vechnik_stage = 7
                     $ lilquest = 2
@@ -1469,7 +1483,7 @@ label vechnik_wst:
 
         if lilquest == 4:
             v "Vobra robota"
-            v "masz tu dwa vidolce"
+            v "Masz tu dwa vidolce"
             $ vdolce += 2
             v "Tylko nie przepierdol na głupoty"
 
@@ -1572,7 +1586,7 @@ label varchiwa:
             $ inventory.remove_item(Vomba)
             $ varchiva_stage = 1
             p "Ała kurwa, cóż za siła eksplozji."
-            $ HP -= 10
+            call checkHP(10)
             p "Get bombed, lmao"
             jump varchiwa
 
@@ -1590,17 +1604,9 @@ label varchiwa:
         menu:
             "Co zrobić?"
             "Rozpoczynam pvp!":
-                $ HP -= (19 - armor)
-                if umieram == 1:
-                    "Powiniemem się wcześniej uleczyć"
-                    jump gameover
-                $ armor -= 1
+                call checkHP(15)
                 $ Fragi += 1
                 p "essa wariacie"
-                if HP <= 0:
-                    "Jesteś prawie trupem"
-                    "Powinieneś iść się leczyć"
-                    $ umieram = 1
                 $ varchiva_stage = 2
                 jump varchiwa
 
@@ -1649,7 +1655,7 @@ label varchiwa:
                             "Sprzedałeś vupermanowi hita"
                             "Niestety za plakatem były kolce"
                             "Straciłeś trochę hp"
-                            $ HP -= 5
+                            call checkHP(5)
 
                         "Nie mam problemów z agresją":
                             "Zostawiłeś plakat w spokoju"
@@ -1698,7 +1704,7 @@ label vending:
                 menu:
                     "Czy mam psychę by łyknąć?"
                     "Pewex!":
-                        $ HP -= 5
+                        call checkHP(3)
                         play sound "EAT OR MUNCH.mp3"
                         p "Kurde balans, lukrecja"
 
