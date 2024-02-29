@@ -1,41 +1,533 @@
-Tue Feb 27 10:43:03 2024
+Thu Feb 29 19:32:11 2024
 Windows-10-10.0.19045
 Ren'Py 8.1.3.23091805
  
 
-Bootstrap to the start of init.init. took 0.08s
-Early init. took 0.00s
-Loader init. took 0.05s
-Loading error handling. took 0.15s
-Loading script. took 1.74s
-Loading save slot metadata. took 0.10s
+Bootstrap to the start of init.init. took 0.37s
+Early init. took 0.02s
+Loader init. took 0.38s
+Loading error handling. took 0.49s
+Loading script. took 3.02s
+Loading save slot metadata. took 0.85s
 Loading persistent. took 0.00s
-Running init code. took 0.14s
-Loading analysis data. took 0.03s
-Analyze and compile ATL. took 0.00s
-Reloading save slot metadata. took 0.08s
+Running init code. took 0.48s
+Loading analysis data. took 0.08s
+Analyze and compile ATL. took 0.01s
+Reloading save slot metadata. took 0.30s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
-Dump and make backups. took 0.19s
+Dump and make backups. took 0.27s
 Cleaning cache. took 0.00s
 Making clean stores. took 0.00s
-Initial gc. took 0.05s
+Initial gc. took 0.07s
 DPI scale factor: 1.500000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: b"Couldn't load nvlib." (can be ignored)
 Creating interface object. took 0.01s
 Cleaning stores took 0.00s
-Init translation took 0.12s
+Init translation took 0.13s
+Build styles took 0.02s
+Load screen analysis took 0.02s
+Analyze screens took 0.05s
+Save screen analysis took 0.10s
+Prepare screens took 0.38s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.17s
+Running _start took 0.01s
+Performance test:
+Interface start. took 0.39s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'ATI Technologies Inc.'"
+Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+Resetting cache.
+Bootstrap to the start of init.init. took 83.54s
+Early init. took 0.00s
+Loader init. took 0.11s
+Loading error handling. took 0.14s
+Loading script. took 1.71s
+Loading save slot metadata. took 0.12s
+Loading persistent. took 0.00s
+Running init code. took 0.13s
+Loading analysis data. took 0.06s
+Analyze and compile ATL. took 0.01s
+Reloading save slot metadata. took 0.10s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups. took 0.23s
+Cleaning cache. took 0.00s
+Making clean stores. took 0.00s
+Initial gc. took 0.12s
+DPI scale factor: 1.500000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b"Couldn't load nvlib." (can be ignored)
+Creating interface object. took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.11s
+Build styles took 0.01s
+Load screen analysis took 0.00s
+Analyze screens took 0.03s
+Save screen analysis took 0.06s
+Prepare screens took 0.35s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.05s
+Running _start took 0.01s
+Performance test:
+Interface start. took 0.18s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'ATI Technologies Inc.'"
+Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+
+Full traceback:
+  File "game/script.rpy", line 311, in script call
+    call checktime
+  File "game/script.rpy", line 911, in script
+    $ inventory.add_item(Theal)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 1138, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1122, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 911, in <module>
+    $ inventory.add_item(Theal)
+NameError: name 'Theal' is not defined
+
+While running game code:
+  File "game/script.rpy", line 311, in script call
+    call checktime
+  File "game/script.rpy", line 911, in script
+    $ inventory.add_item(Theal)
+  File "game/script.rpy", line 911, in <module>
+    $ inventory.add_item(Theal)
+NameError: name 'Theal' is not defined
+Resetting cache.
+Bootstrap to the start of init.init. took 255.40s
+Early init. took 0.00s
+Loader init. took 0.09s
+Loading error handling. took 0.07s
+Loading script. took 1.51s
+Loading save slot metadata. took 0.09s
+Loading persistent. took 0.00s
+Running init code. took 0.10s
+Loading analysis data. took 0.07s
+Analyze and compile ATL. took 0.01s
+Reloading save slot metadata. took 0.08s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups. took 0.25s
+Cleaning cache. took 0.00s
+Making clean stores. took 0.00s
+Initial gc. took 0.11s
+DPI scale factor: 1.500000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b"Couldn't load nvlib." (can be ignored)
+Creating interface object. took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.11s
+Build styles took 0.01s
+Load screen analysis took 0.00s
+Analyze screens took 0.04s
+Save screen analysis took 0.08s
+Prepare screens took 0.29s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.05s
+Running _start took 0.01s
+Performance test:
+Interface start. took 0.16s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'ATI Technologies Inc.'"
+Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+
+Full traceback:
+  File "game/script.rpy", line 312, in script call
+    call checktime
+  File "game/script.rpy", line 912, in script
+    $ inventory.add_item(Theal)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 1138, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1122, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 912, in <module>
+    $ inventory.add_item(Theal)
+NameError: name 'Theal' is not defined
+
+While running game code:
+  File "game/script.rpy", line 312, in script call
+    call checktime
+  File "game/script.rpy", line 912, in script
+    $ inventory.add_item(Theal)
+  File "game/script.rpy", line 912, in <module>
+    $ inventory.add_item(Theal)
+NameError: name 'Theal' is not defined
+Resetting cache.
+Bootstrap to the start of init.init. took 287.12s
+Early init. took 0.00s
+Loader init. took 0.08s
+Loading error handling. took 0.13s
+Loading script. took 1.43s
+Loading save slot metadata. took 0.06s
+Loading persistent. took 0.00s
+Running init code. took 0.11s
+Loading analysis data. took 0.04s
+Analyze and compile ATL. took 0.01s
+Reloading save slot metadata. took 0.08s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups. took 0.25s
+Cleaning cache. took 0.00s
+Making clean stores. took 0.00s
+Initial gc. took 0.08s
+DPI scale factor: 1.500000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b"Couldn't load nvlib." (can be ignored)
+Creating interface object. took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.09s
+Build styles took 0.01s
+Load screen analysis took 0.00s
+Analyze screens took 0.03s
+Save screen analysis took 0.04s
+Prepare screens took 0.23s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.02s
+Running _start took 0.00s
+Performance test:
+Interface start. took 0.20s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'ATI Technologies Inc.'"
+Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+
+Full traceback:
+  File "game/script.rpy", line 313, in script call
+    call checktime
+  File "game/script.rpy", line 913, in script
+    $ inventory.add_item(Theal)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 1138, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1122, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 913, in <module>
+    $ inventory.add_item(Theal)
+NameError: name 'Theal' is not defined
+
+While running game code:
+  File "game/script.rpy", line 313, in script call
+    call checktime
+  File "game/script.rpy", line 913, in script
+    $ inventory.add_item(Theal)
+  File "game/script.rpy", line 913, in <module>
+    $ inventory.add_item(Theal)
+NameError: name 'Theal' is not defined
+Resetting cache.
+Bootstrap to the start of init.init. took 345.48s
+Early init. took 0.00s
+Loader init. took 0.08s
+Loading error handling. took 0.11s
+Loading script. took 1.34s
+Loading save slot metadata. took 0.07s
+Loading persistent. took 0.00s
+Running init code. took 0.12s
+Loading analysis data. took 0.05s
+Analyze and compile ATL. took 0.01s
+Reloading save slot metadata. took 0.08s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups. took 0.24s
+Cleaning cache. took 0.00s
+Making clean stores. took 0.00s
+Initial gc. took 0.14s
+DPI scale factor: 1.500000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b"Couldn't load nvlib." (can be ignored)
+Creating interface object. took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.20s
 Build styles took 0.01s
 Load screen analysis took 0.00s
 Analyze screens took 0.04s
 Save screen analysis took 0.05s
-Prepare screens took 0.26s
+Prepare screens took 0.20s
 Save pyanalysis. took 0.00s
-Save bytecode. took 0.08s
+Save bytecode. took 0.05s
+Running _start took 0.01s
+Performance test:
+Interface start. took 0.13s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'ATI Technologies Inc.'"
+Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+
+Full traceback:
+  File "game/script.rpy", line 314, in script call
+    call checktime
+  File "game/script.rpy", line 914, in script
+    $ inventory.add_item(Theal)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 1138, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1122, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 914, in <module>
+    $ inventory.add_item(Theal)
+NameError: name 'Theal' is not defined
+
+While running game code:
+  File "game/script.rpy", line 314, in script call
+    call checktime
+  File "game/script.rpy", line 914, in script
+    $ inventory.add_item(Theal)
+  File "game/script.rpy", line 914, in <module>
+    $ inventory.add_item(Theal)
+NameError: name 'Theal' is not defined
+Resetting cache.
+Bootstrap to the start of init.init. took 529.61s
+Early init. took 0.00s
+Loader init. took 0.10s
+Loading error handling. took 0.08s
+Loading script. took 1.33s
+Loading save slot metadata. took 0.07s
+Loading persistent. took 0.00s
+Running init code. took 0.10s
+Loading analysis data. took 0.03s
+Analyze and compile ATL. took 0.01s
+Reloading save slot metadata. took 0.07s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups. took 0.24s
+Cleaning cache. took 0.00s
+Making clean stores. took 0.00s
+Initial gc. took 0.11s
+DPI scale factor: 1.500000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b"Couldn't load nvlib." (can be ignored)
+Creating interface object. took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.13s
+Build styles took 0.01s
+Load screen analysis took 0.00s
+Analyze screens took 0.04s
+Save screen analysis took 0.07s
+Prepare screens took 0.32s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.06s
+Running _start took 0.01s
+Performance test:
+Interface start. took 0.22s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'ATI Technologies Inc.'"
+Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+Resetting cache.
+Bootstrap to the start of init.init. took 759.74s
+Early init. took 0.01s
+Loader init. took 0.40s
+Loading error handling. took 0.26s
+Loading script. took 6.39s
+Loading save slot metadata. took 0.35s
+Loading persistent. took 0.00s
+Running init code. took 0.42s
+Loading analysis data. took 0.16s
+Analyze and compile ATL. took 0.03s
+Reloading save slot metadata. took 0.28s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups. took 0.10s
+Cleaning cache. took 0.00s
+Making clean stores. took 0.00s
+Initial gc. took 0.08s
+DPI scale factor: 1.500000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b"Couldn't load nvlib." (can be ignored)
+Creating interface object. took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.07s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.05s
+Prepare screens took 0.23s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.04s
 Running _start took 0.00s
 Performance test:
-Interface start. took 0.19s
+Interface start. took 0.13s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'ATI Technologies Inc.'"
+Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+Resetting cache.
+Bootstrap to the start of init.init. took 787.32s
+Early init. took 0.00s
+Loader init. took 0.08s
+Loading error handling. took 0.06s
+Loading script. took 1.36s
+Loading save slot metadata. took 0.11s
+Loading persistent. took 0.00s
+Running init code. took 0.18s
+Loading analysis data. took 0.05s
+Analyze and compile ATL. took 0.01s
+Reloading save slot metadata. took 0.07s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups. took 0.18s
+Cleaning cache. took 0.00s
+Making clean stores. took 0.00s
+Initial gc. took 0.07s
+DPI scale factor: 1.500000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b"Couldn't load nvlib." (can be ignored)
+Creating interface object. took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.08s
+Build styles took 0.01s
+Load screen analysis took 0.00s
+Analyze screens took 0.03s
+Save screen analysis took 0.06s
+Prepare screens took 0.29s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.04s
+Running _start took 0.00s
+Performance test:
+Interface start. took 0.13s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'ATI Technologies Inc.'"
+Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+Resetting cache.
+Bootstrap to the start of init.init. took 920.37s
+Early init. took 0.00s
+Loader init. took 0.11s
+Loading error handling. took 0.06s
+Loading script. took 1.31s
+Loading save slot metadata. took 0.14s
+Loading persistent. took 0.00s
+Running init code. took 0.17s
+Loading analysis data. took 0.06s
+Analyze and compile ATL. took 0.01s
+Reloading save slot metadata. took 0.09s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups. took 0.22s
+Cleaning cache. took 0.00s
+Making clean stores. took 0.00s
+Initial gc. took 0.11s
+DPI scale factor: 1.500000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b"Couldn't load nvlib." (can be ignored)
+Creating interface object. took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.14s
+Build styles took 0.01s
+Load screen analysis took 0.00s
+Analyze screens took 0.05s
+Save screen analysis took 0.06s
+Prepare screens took 0.19s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.05s
+Running _start took 0.00s
+Performance test:
+Interface start. took 0.14s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'ATI Technologies Inc.'"
+Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+Resetting cache.
+Bootstrap to the start of init.init. took 942.46s
+Early init. took 0.00s
+Loader init. took 0.09s
+Loading error handling. took 0.05s
+Loading script. took 0.49s
+Loading save slot metadata. took 0.09s
+Loading persistent. took 0.00s
+Running init code. took 0.10s
+Loading analysis data. took 0.06s
+Analyze and compile ATL. took 0.01s
+Reloading save slot metadata. took 0.07s
+Index archives took 0.00s
+Dump and make backups. took 0.16s
+Cleaning cache. took 0.00s
+Making clean stores. took 0.00s
+Initial gc. took 0.10s
+DPI scale factor: 1.500000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b"Couldn't load nvlib." (can be ignored)
+Creating interface object. took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.11s
+Build styles took 0.01s
+Load screen analysis took 0.11s
+Analyze screens took 0.00s
+Save screen analysis took 0.00s
+Prepare screens took 0.35s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.00s
+Running _start took 0.00s
+Performance test:
+Interface start. took 0.24s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1920, 1080)
