@@ -781,7 +781,7 @@ label warsztat:
         jump rozstaje
 
     elif akt == 1:
-        if inventory.has_item(Armor) == False:
+        if inventory.has_item(MalyArmor) == False:
             h "Co tam [player_name]?"
             h "Chcesz kupić jakiś pancerz? Tylko 100 edków"
             h "Nie padniesz na pierda"
@@ -851,6 +851,42 @@ label warsztat:
                         h "MUSZĘ GO ZDOBYĆ"
                         h "WYRUSZAM BEZZWŁOCZNIE"
                         jump rozstaje
+
+            elif hartmann_stan == 1 and dzien > 14:
+                h "Pyk Pyk , jako tako i do Cyphera"
+                p "Cześć Hartmann!"
+                h "O Gluten morgen [player_name]!"
+                h "Potrzebujesz czegoś, jestem trochę zajęty"
+                p "A przyszedłem pogadać trochę"
+                p "Ale jak pracujesz to nie przeszkadzam"
+                h "Typie, robię brońkę dla Cyphera"
+                h "To nie jest jakkolwiek ważne"
+                show cypher
+                c "Wrrrr"
+                hide cypher
+                h "No widzisz, nic istotnego"
+                h "O czym chcesz pogadać?"
+                p "A tak, po prostu. Lubię znać swoich współpracowników"
+                h "No to siadaj, opowiem Ci zwykłą historię"
+                h "Byłem szczylem, spawałem złom"
+                h "Romansowałem sobie trochę"
+                h "Ale baby nie były gotowe na potężnego prawicowca"
+                h "Później pewna zajebana korporacja się pojawiła"
+                h "Rozstrzelała mój gang"
+                h "I w taki sposób trafiłem tu"
+                p "No to było szybkie"
+                h "A co ja mam Ci opowiadać historię mojego życia?"
+                h "Biografię chces mi pisać?"
+                p "No nie no, tyle mi wystarczy"
+                h "No i dobra, get pogadaned"
+                p "Tja, to ja spierdalam"
+                h "I słuszne"
+                h "Spawu, spawu, spawu"
+                $ hartmann_stan = 2
+                jump rozstaje
+
+            elif hartmann_stan == 2 and bigquest == 5:
+                h "Panie, to jest jeszcze w rozwoju"
     else:
         jump rozstaje
 
@@ -1393,7 +1429,7 @@ label miasto:
         "Bazy":
             jump rozstaje
 
-        "Sklepiku" if znajOkol == 1 and czas > 2:
+        "Sklepiku" if znajOkol > 0 and czas > 2:
             $ czas -= 2
             jump trader
 
@@ -1467,6 +1503,7 @@ label trader:
 
         "Na nic więcej mnie nie stać":
             p "Get zakuped"
+            
     jump miasto
 
 
