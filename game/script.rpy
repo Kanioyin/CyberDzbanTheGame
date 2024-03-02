@@ -311,7 +311,7 @@ label gameover:
 
 label rozstaje:
     scene black
-    call checktime
+    call checktime from _call_checktime
     menu:
         "Kaj leziesz?"
 
@@ -543,7 +543,7 @@ label kosciol:
                 "Kałach alkoholizuje się, jepiej mu nie przeszkadzaj"
                 jump rozstaje
 
-        elif bigquest > 3:
+        elif bigquest > 2:
             $ czas -= 1
             if kalach_stan == 0:
                 k "Niech mnie uda i zimna wóda"
@@ -1075,7 +1075,7 @@ label jhinownia:
                 "Dzielą się na pół":
                     j "A niech to dunder świśnie"
                     j "To oznacza że przegrałem zakład z Cypherem"
-                    show sypher at left
+                    show cypher at left
                     c "RICHTIG"
                     hide cypher with dissolve
                     j "On już tu jest, uceikam"
@@ -1346,14 +1346,14 @@ label akcja:
     menu:
         "A co ty robisz?"
         "Zaczynam strzelać":
-            call checkHP(7)
+            call checkHP(7) from _call_checkHP
             "Udało Ci się zdjąć jednego ale sam też oberwałeś"
             $ Fragi += 1
             $ postacie["Gun"] += 1
         "Zbieram co mogę":
             $ inventory.add_item(AR)
             $ edki += 15
-            call checkHP(5)
+            call checkHP(5) from _call_checkHP_1
         "Cykam się trochę":
             "Przeczekałeś część ostrzału"
 
@@ -1368,13 +1368,13 @@ label akcja:
         "Masz kolejną szansę się wykazać, co robisz?"
         "ZOSTAJĘ PIERDOLONYM BOGIEM WOJNY":
             $ Fragi += 3
-            call checkHP(10)
+            call checkHP(10) from _call_checkHP_2
             $ postacie["Laskawca"] += 2
         "Zbieram jeszcze więcej":
             $ inventory.add_item(Pistolecik)
             $ inventory.add_item(Granat)
             $ edki += 50
-            call checkHP(5)
+            call checkHP(5) from _call_checkHP_3
         "Czekam aż reszta nabije sobie fragi":
             "Kitrałeś się do końca"
 
@@ -1423,7 +1423,7 @@ label vniazdo:
 
 label miasto:
     scene miasto
-    call checktime
+    call checktime from _call_checktime_1
     menu:
         "Wyruszyłem do:"
         "Bazy":
@@ -1454,7 +1454,7 @@ label miasto:
             elif cel == 3:
                 "Przez przypadek wszedłeś do Bloku Władcy Demonów"
                 $ wpierdol = renpy.random.randint(4, 18)
-                call checkHP(wpierdol)
+                call checkHP(wpierdol) from _call_checkHP_4
 
             elif cel == 4:
                 if znajOkol == 0:
@@ -1844,7 +1844,7 @@ label varchiwa:
             $ inventory.remove_item(Vomba)
             $ varchiva_stage = 1
             p "Ała kurwa, cóż za siła eksplozji."
-            call checkHP(10)
+            call checkHP(10) from _call_checkHP_5
             p "Get bombed, lmao"
             jump varchiwa
 
@@ -1862,7 +1862,7 @@ label varchiwa:
         menu:
             "Co zrobić?"
             "Rozpoczynam pvp!":
-                call checkHP(15)
+                call checkHP(15) from _call_checkHP_6
                 $ Fragi += 1
                 p "essa wariacie"
                 $ varchiva_stage = 2
@@ -1918,7 +1918,7 @@ label varchiwa:
                             "Sprzedałeś vupermanowi hita"
                             "Niestety za plakatem były kolce"
                             "Straciłeś trochę hp"
-                            call checkHP(5)
+                            call checkHP(5) from _call_checkHP_7
 
                         "Nie mam problemów z agresją":
                             "Zostawiłeś plakat w spokoju"
@@ -1967,7 +1967,7 @@ label vending:
                 menu:
                     "Czy mam psychę by łyknąć?"
                     "Pewex!":
-                        call checkHP(3)
+                        call checkHP(3) from _call_checkHP_8
                         play sound "EAT OR MUNCH.mp3"
                         p "Kurde balans, lukrecja"
 
@@ -2054,7 +2054,7 @@ label vlepa:
         if cel == 1:
             "Chujowo jak zwykle"
             $ wpierdol = renpy.random.randint(1,7)
-            call checkHP(wpierdol)
+            call checkHP(wpierdol) from _call_checkHP_9
             $ valki -= 1
 
         elif cel == 2:
