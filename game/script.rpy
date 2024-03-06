@@ -559,7 +559,7 @@ label kosciol:
                 if dzien < 10:
                     "Kościół jest zamknięty, wróc później"
 
-                elif and dzien > 9:
+                elif dzien > 9:
                     k "Wróciłem z krucjaty."
                     k "I niech mnie dunder świśnie, tak mnie w krzyżu napierdala."
                     k "Jeśli kiedykolwiek dołączysz do fanów stupek."
@@ -767,6 +767,7 @@ label dach:
             
             else:
                 c "Nie wkurwiaj mnie, przyjdź w next update"
+    jump rozstaje            
 
 label warsztat:
     scene warsztat
@@ -887,8 +888,8 @@ label warsztat:
 
             elif hartmann_stan == 2 and bigquest == 5:
                 h "Panie, to jest jeszcze w rozwoju"
-    else:
-        jump rozstaje
+    
+    jump rozstaje
 
 label klinika:
     scene klinika
@@ -984,6 +985,7 @@ label klinika:
             p "To przestań czekać i ruszajmy na poszukiwania"
             pl "Karamba, jesteś dobrym mówcą"
             scene szop
+            show laskawca at right
             "Wyruszyliście do lokalnego sklepiku"
             "I poznaliście miejsce następnego nocnego"
             pl "Nocny market w Night City"
@@ -996,6 +998,7 @@ label klinika:
             "I wyruszyliście na nocny"
             scene nocny
             show gun at left
+            show laskawca at right
             pl "O! Witaj Gunie"
             g "Ser dobry panowie"
             pl "Czego tu szukasz"
@@ -1163,6 +1166,7 @@ label jhinownia:
 
         if jhin_stan == 3:
             "No jhin?"
+    jump rozstaje
 
 
 label bruhzylia:
@@ -1410,7 +1414,7 @@ label vniazdo:
     "Jesteś u Vist"
     menu:
         "Co chcesz zrobić?"
-        "Wymiana edków na vdolce" if ekdi > 99:
+        "Wymiana edków na vdolce" if edki > 99:
             $ vdolce += 1
             $ edki -= 100
 
@@ -1557,6 +1561,7 @@ label wojsko:
         jump tempend
 
     elif wojsko_stan > 0:
+        "Opowiedziałeś Kenowi o swoim progresie"
         if laskawca_stan == 2:
             $ wojsko_stan += 1
             $ laskawca_stan = 3
@@ -1578,6 +1583,7 @@ label wojsko:
         if krateus_stan == 5:
             $ wojsko_stan += 1
             $ krateus_stan = 6
+        jump rozstaje
 
 label amongthev:
     stop music fadeout 1.0
@@ -1776,7 +1782,7 @@ label voktor_wst:
             v "Uleczyć cię?"
             menu:
                 "Medycyna?"
-                "Lecz mnie voktorze!" if HP != MaxHP AND vdolce > 0:
+                "Lecz mnie voktorze!" if HP != MaxHP and vdolce > 0:
                     $ HP = MaxHP
                     $ vdolce -= 1
 
@@ -1819,7 +1825,7 @@ label voktor_wst:
         v "Uleczyć cię?"
         menu:
             "Medycyna?"
-            "Lecz mnie voktorze!" if HP != MaxHP AND vdolce > 0:
+            "Lecz mnie voktorze!" if HP != MaxHP and vdolce > 0:
                 $ HP = MaxHP
                 $ vdolce -= 1
 
@@ -1919,6 +1925,7 @@ label varchiwa:
                             "Niestety za plakatem były kolce"
                             "Straciłeś trochę hp"
                             call checkHP(5) from _call_checkHP_7
+                            jump varchiwa
 
                         "Nie mam problemów z agresją":
                             "Zostawiłeś plakat w spokoju"
@@ -1940,9 +1947,11 @@ label varchiwa:
                             "Znalazłeś 4 vdolce"
                             $ vdolce += 4
                             $ helper = 1
+                            jump varchiwa
 
                         "A chuj z tym":
                             "To pewnie pułapka"
+                            jump varchiwa
 
                 "Vchodzę":
                     $ helper = 1
@@ -2011,6 +2020,7 @@ label vrade:
 
             "Varmor" if vdolce >= 3:
                 $ inventory.add_item(MalyArmor)
+                $ armor = 11
                 $ vdolce -= 3
                 $ veq += 1
                 "Wydałeś 3 vdolce na lil varmor"
@@ -2100,6 +2110,7 @@ label vokum:
         "Co może być złego w pornografi":
             $ Frakcja = 3
             "Vo volera"
+            jump vtimefri
 
         "Nigdy nie zostanę V":
             jump vtimefri
@@ -2191,6 +2202,7 @@ label amongthevpods:
         c "Masz mnie za żyda, proszę Cię, ja nie Gajda"
         c "Doceniam swoich oddanych pracowników"
         c "Zmykaj do siebie, należy Ci się odpoczynek"
+        jump rozstaje
 
 
 label tempend:
