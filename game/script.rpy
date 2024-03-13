@@ -77,23 +77,22 @@ label checktime:
         return
 
 label checkHP(dmg):
-    if armor > 10:
-        if dmg < (armor+1) :
-            p "Pancerz wszystko zablokował"
-            $ HP = HP
-
-        elif dmg > armor:
-            if armor-1 < 0:
-                $ armor = 0
-                $ HP -= (dmg - armor)
-            else:
-                $ armor -= 1
+    if armor > dmg:
+        p "Armor wszystko zablokował"
+    
+    elif armor = dmg:
+        p "Armor wszystko zablokował"
+    
     else:
-        if armor > 0:
-            $ HP -= -(armor - dmg)
-            $ armor -= 1
-        else:
-            $ HP -= dmg
+        $ HP -= (armor - dmg)
+        $ armor -= 1
+
+    if armor < 0:
+        $ armor = 0
+        
+    if armor = 0 and inventory.has_item(MalyArmor):
+        $ inventory.remove_item(MalyArmor)
+        p "Pancerz się cały rozsypał"
 
     if HP < 0:
         $ HP = 0
@@ -2000,9 +1999,11 @@ label vending:
             if vagroda == 0:
                 p "Dostałem vranat"
                 $ inventory.add_item(Vranat)
+                jump vending
 
             elif vagroda == 1 :
                 p "Cukierek, szkoda że wylizazny"
+                jump vending 
 
             elif vagroda == 2 :
                 p "Jakaś dziwna vigółka"
@@ -2012,16 +2013,20 @@ label vending:
                         call checkHP(3) from _call_checkHP_8
                         play sound "EAT OR MUNCH.mp3"
                         p "Kurde balans, lukrecja"
+                        jump vending
 
                     "Nie jestem vebilem":
                         p "Takie tabsy tylko po konsultacji z Łaskawcą lub farmaceutą"
+                        jump vending
 
             elif vagroda == 3 :
                 p "Guma vurbo, a se opierdole"
                 play sound "EAT OR MUNCH.mp3"
+                jump vending
 
             else:
                 p "Spermastycznie, nic nie vypadło"
+                jump vending
 
         "Szanuję swoje vdolce":
             jump varchiwa
