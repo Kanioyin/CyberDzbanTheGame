@@ -80,22 +80,28 @@ label checkHP(dmg):
     if armor > dmg:
         p "Armor wszystko zablokował"
     
-    elif armor = dmg:
+    elif armor == dmg:
         p "Armor wszystko zablokował"
     
+    elif armor == 0:
+        $ HP -= dmg
+
     else:
-        $ HP -= (armor - dmg)
+        $ HP -= (dmg - armor)
         $ armor -= 1
 
     if armor < 0:
         $ armor = 0
         
-    if armor = 0 and inventory.has_item(MalyArmor):
+    if armor == 0 and inventory.has_item(MalyArmor):
         $ inventory.remove_item(MalyArmor)
         p "Pancerz się cały rozsypał"
 
     if HP < 0:
         $ HP = 0
+
+    if HP > MaxHP:
+        $ HP = MaxHP
 
     if umieram == 1:
         if inventory.has_item(THeal) == True:
@@ -479,11 +485,50 @@ label kuchnia:
                 jump rozstaje
 
             elif gun_stan == 2:
-                g "Kolego, to jest jeszcze wczesna alfa"
-                g "Nie spodziewaj się że wszystko już będzie"
-                g "Wróć za x updatów"
-                g "(1)"
-
+                g "No to witam ponownie, dziś zobaczysz Mączysława w akcji"
+                p "Kim jest kurwa Mączysław?"
+                g "To najlepszy telefon EUNE"
+                g "Polecany przez instytut matki z dzieckiem"
+                p "No dobra ale co to za tricki?"
+                g "Zaraz zobaczysz młody, ruszamy dzielnie"
+                scene black
+                "Gun zabrał cie co nowego miejsca"
+                "Zaskoczyło Cię to że pojechaliście tam autem"
+                scene idrive
+                p "JA PIERDOLĘ, KTO CI DAŁ PRAWO JAZDY?"
+                g "Paczka cheetosów serowych"
+                p "Mogłem się tego spodziewać"
+                g "Skończ pierdolić i powiedz mi gdzie jechać"
+                p "ALE TO TY KURWA MIAŁEŚ WIEDZIEĆ"
+                g "Zapomłem"
+                show laskawca
+                pl "Jeden token mniej (4)"
+                hide laskawca
+                g "Popierdoli mnie z tym pedantem, każdego trolla mi liczy"
+                p "O chuj chodzi w tej waszej relacji"
+                g "Nie mam zielonego pojęcia"
+                p "KURWA uważaj, baba na pasach"
+                g "Którym się hamuje"
+                "Baba poleciała"
+                g "Będzie padać, nisko latają"
+                p "Nawet kurwa nie pytam"
+                g "To dobrze, bo i tak bym nie odpowiedział"
+                p "Pewnie dlatego że nie wiesz co ty pierdolisz"
+                g "Nie. Dlatego że jesteśmy na miejscu"
+                p "O cholera"
+                g "Dokładnie, Fredi Fazber"
+                p "Co?"
+                g "Zobaczysz w środku"
+                g "Ale najpierw. Raty aktywacja!"
+                "Gun wyjął worek z plecaka i wypuścił 83 szczury."
+                scene badblok
+                show gun at left
+                g "W tym miejscu mieszkał jeden z większych zbrodniarzy"
+                p "Hitler?"
+                g "Pojebało Cię, Cypher"
+                p "To po chuj tu przyjechaliśmy?"
+                p "Wyprowadza się od nas?"
+                g "Nie, "
 
     if inventory.has_item(Ser) == True:
         p "Mam coś dla Ciebie gun"

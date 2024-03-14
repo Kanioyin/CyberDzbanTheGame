@@ -1,32 +1,32 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 314, in script call
-    call checktime
-  File "game/script.rpy", line 784, in script
-    if inventory.has_item(Armor) == False:
-  File "game/script.rpy", line 784, in <module>
-    if inventory.has_item(Armor) == False:
-NameError: name 'Armor' is not defined
+  File "game/script.rpy", line 1384, in script call
+    call checkHP(7) from _call_checkHP
+  File "game/script.rpy", line 80, in script
+    if armor > dmg:
+SyntaxError: invalid syntax (game/script.rpy, line 83)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 314, in script call
-    call checktime
-  File "game/script.rpy", line 784, in script
-    if inventory.has_item(Armor) == False:
+  File "game/script.rpy", line 1384, in script call
+    call checkHP(7) from _call_checkHP
+  File "game/script.rpy", line 80, in script
+    if armor > dmg:
   File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 2133, in execute
     if renpy.python.py_eval(condition):
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1153, in py_eval
-    return py_eval_bytecode(code, globals, locals)
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1146, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/script.rpy", line 784, in <module>
-    if inventory.has_item(Armor) == False:
-NameError: name 'Armor' is not defined
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1151, in py_eval
+    code = py_compile(code, 'eval')
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1088, in py_compile
+    raise e
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1034, in py_compile
+    raise orig_e
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1027, in py_compile
+    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, 1)
+SyntaxError: invalid syntax (game/script.rpy, line 83)
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.1.3.23091805
 CyberDzban 0.0000000008
-Fri Mar  1 12:00:03 2024
+Wed Mar 13 16:24:25 2024
