@@ -76,6 +76,20 @@ label checktime:
     else:
         return
 
+label testCech(cecha, PT):
+    $ d10 = renpy.random.randint(1,10)
+    if d10 == 1:
+        $ d10 -= renpy.random.randint(1,10)
+
+    if d10 == 10:
+        $ d10 += renpy.random.randint(1,10)
+
+    if cechy["cecha"]+d10 > PT-1:
+        return true
+
+    else:
+        return flase
+
 label checkHP(dmg):
     if armor > dmg:
         p "Armor wszystko zablokował"
@@ -122,6 +136,8 @@ label checkHP(dmg):
 
 label start:
     default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
+    default cechy = {"INT":2, "REF":2, "ZW":2, "TECH":2, "CHAR":2, "SW":2, "SZ":2, "RUCH":2, "BC":2, "EMP":2}
+    default skile = {"Atletyka": 0, "Pistole": 0, "Karabiny": 0}
     #deklaracja inventory
     default inventory = Inventory([],0)
 
@@ -141,18 +157,6 @@ label start:
     default Ser = InventoryItem("Ser","Strasznie cheesy, Gun musi go lubić")
     default THeal = InventoryItem("Turbouzdrawiacz","Turbo uzdrawia")
 
-    #deklaracja cech
-    default INT = 2
-    default REF = 2
-    default ZW = 2
-    default TECH = 2
-    default CHAR = 2
-    default SW = 2
-    default SZ = 2
-    default RUCH = 2
-    default BC = 2
-    default EMP = 2
-
     #Stany postaci
     default gun_stan = 0
     default kalach_stan = 0
@@ -167,7 +171,7 @@ label start:
     #deklaracja reszty
     default edki = 0
     default vdolce = 0
-    default MaxHP = 10 + (5*((BC+SW)/2))
+    default MaxHP = 10 + (5*((cechy["BC"]+cechy["SW"])/2))
     default Fragi = 0
     default akt = 0
     default HP = 0
@@ -186,7 +190,7 @@ label start:
     default czas = 20
     default veq = 0
     default psycha = 0
-    $ psycha = [EMP] * 10
+    $ psycha = cechy["EMP"] * 10
     default znajOkol = 0
     default lilquest = 0
     default vrrr = 0
@@ -196,6 +200,13 @@ label start:
     default part = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
+
+    $ tc = call testCech(BC, 3)
+    if tc == 1:
+        "Klawo"
+    elif tc == 0:
+        "Też git"
+
     while helper == 1:
         $ player_name = renpy.input("Nazywasz się")
         if player_name == "Gun":
@@ -509,6 +520,7 @@ label kuchnia:
                 g "Nie mam zielonego pojęcia"
                 p "KURWA uważaj, baba na pasach"
                 g "Którym się hamuje"
+                play sound "hit.mp3"
                 "Baba poleciała"
                 g "Będzie padać, nisko latają"
                 p "Nawet kurwa nie pytam"
@@ -528,7 +540,116 @@ label kuchnia:
                 g "Pojebało Cię, Cypher"
                 p "To po chuj tu przyjechaliśmy?"
                 p "Wyprowadza się od nas?"
-                g "Nie, "
+                g "Nie, zostawił tu swoje spodnie"
+                p "I to jest ten cały bojowy kłest"
+                g "Tak"
+                p "Dobra, chuj, mijemy to za sobą"
+                scene black
+                "Weszliście do środka"
+                p "Kurwa jak tu ciemno"
+                g "A to była jego matka"
+                p "Co?"
+                g "No bo było ciemno"
+                play sound "FrediFnaf.mp3"
+                p "CO TO KURWA BYŁO"
+                g "To jest właśnie niebezpieczeństwo"
+                g "Ten słynny Fryderyk FazNiedźwiedź"
+                p "I ON CHRONI SPODNI?"
+                g "Jak się nie będziesz darł to nas nie znajdzie"
+                p "Sorka"
+                g "Luz marki arbuz, rozdzielamy się, nie daj się zabić"
+                "I poszedł w pizdu"
+                p "Panie Ganie, jak pan mógł"
+                p "I znowu całe gówno na mojej głowie"
+                p "Jak znajdę pokój Cyphera"
+                p "Ten budynek ma kilkanaście pięter"
+                "Podszedłeś do pierwszych drzwi"
+                "Widzisz pierdalny napis Cypher"
+                p "No dobra, to nie było trudne"
+                "Drzwi nie były nawet zakluczone"
+                p "Zbyt łatwo"
+                "Wszedłeś do środka"
+                p "Chuja widzę"
+                p "Gdzie Cypher schowałby spodnie"
+                show cypher
+                c "W szafie"
+                hide cypher with dissolve  
+                p "No co ty kurwa nie powiesz"
+                "Sprawdziłeś pierwszą szafę"
+                "I były w niej spodnie"
+                p "Kurwa jackpot"
+                p "Zdecydowanie zbyt prosto to idzie"
+                "I nagle coś cię ugryzło"
+                play sound "EAT OR MUNCH.mp3"
+                call checkHP(15)
+                p "AŁA KURWA"
+                p "SPIERDALANDO"
+                "Zacząłeś uciekać ale Fryderyk stanął Ci na drodze"
+                p "JA PIERDOLĘ"
+                "W takzwanym międzyczasie"
+                scene badblok
+                show gun at left
+                g "Stawiam 10 że zdechnie"
+                show kalach at right
+                k "Stawiam flachę że ucieknie"
+                g "Stoi"
+                k "Stanął"
+                scene black
+                "Wracając"
+                "Walczyłeś dzielnie ale Fryderyk był zbyt silny"
+                "Nagle, jak Filip z konopi wyskoczył goblin z pościeli"
+                "Usłyszałeś głośne GOBELIN BLAST"
+                "I straciłeś przytomność"
+                scene badblok
+                show gun at left
+                g "Coś długo go nie ma"
+                show kalach at right
+                k "To go poszukaj lol"
+                g "Nie chce mi się"
+                k "To ja idę"
+                g "Nie spodziewałem się tego po Tobie"
+                k "Chcę sprawdzić, czy Fredi wypił flaszkę"
+                scene black
+                k "Kurwa, jak to ciemno"
+                k "Zaraz kurwa, czy on zdechł?"
+                k "Nie, ciężko ranny ale żywy"
+                k "O! Jest i moja flaszka"
+                k "He, to zaraz będzie jeszcze jedna"
+                "Kałach wyciągnął twoje ciało z bloku"
+                show kalach at right
+                k "Znalazłem go"
+                show gun at left
+                g "Czyli wygrałem"
+                k "Chuja prawda bananowcu, on żyje"
+                g "Pierdolisz"
+                k "No sprawdź se puls"
+                g "Kurwa, masz rację"
+                g "Ale pa ten trick"
+                "Gun przystawił topór to twojej głowy"
+                g "Ja to wygram, raz już przegrałem zakład"
+                "A ty odzyskałeś przytomność"
+                p "POJEBAŁO CIĘ"
+                g "No i dupa"
+                "Gun schował broń"
+                g "Masz te gacie?"
+                "Sprawdziłeś po kieszeniach"
+                p "Kurwa, miałem je, przysięgam"
+                g "Spokojnie szczylu, to jest zaklęty obiekt"
+                g "Nie możesz sobie tak po prostu go zabrać"
+                p "Ale skam"
+                g "To to prawda ale zadanie wykonałeś"
+                g "Wskakuj do auta, wracamy"
+                k "Ale ja prowadzę"
+                p "Popierdoli mnie"
+                "I w rodzinnej atmoswerze wróciliście do domu"
+                $ postacie["Gun"] += 1
+                $ postacie["Kalach"] += 1
+                $ gun_stan = 3
+                jump rozstaje
+            
+            if gun_stan == 3:
+                g "Hombre, to alfa, spierdalaj"
+                jump rozstaje
 
     if inventory.has_item(Ser) == True:
         p "Mam coś dla Ciebie gun"
@@ -1275,6 +1396,7 @@ label bruhzylia:
             kr "Jebane mutanty"
             kr "Dobra, bywaj [player_name]. Idę polować"
             $ krateus_stan = 1
+
         if krateus_stan == 1:
             if dzien < 19:
                 "No chłop poluje"
@@ -1300,9 +1422,11 @@ label bruhzylia:
                 p "No dobra, kiedy?"
                 kr "W następnym updacie pewnie"
                 $ krateus_stan = 2
+                jump rozstaje
 
         elif krateus_stan == 2:
             "Jeszcze trochę"
+
     jump rozstaje
 
 label sypialnia:
@@ -1322,7 +1446,7 @@ label sypialnia:
                 if edki > 10:
                     "Przed snem zjadłeś jeszcze coś z automatu"
                     $ edki -= 10
-                    $ HP += BC
+                    $ HP += cechy["BC"]
                     if HP > MaxHP:
                         $ HP = MaxHP
 
