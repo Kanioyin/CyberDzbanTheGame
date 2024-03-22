@@ -1,32 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 1384, in script call
-    call checkHP(7) from _call_checkHP
-  File "game/script.rpy", line 80, in script
-    if armor > dmg:
-SyntaxError: invalid syntax (game/script.rpy, line 83)
+  File "game/script.rpy", line 205, in script call
+    call testCech("BC", 3)
+  File "game/script.rpy", line 93, in script
+    label checkHP(dmg):
+TypeError: Missing required positional arguments: 'dmg'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 1384, in script call
-    call checkHP(7) from _call_checkHP
-  File "game/script.rpy", line 80, in script
-    if armor > dmg:
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 2133, in execute
-    if renpy.python.py_eval(condition):
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1151, in py_eval
-    code = py_compile(code, 'eval')
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1088, in py_compile
-    raise e
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1034, in py_compile
-    raise orig_e
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1027, in py_compile
-    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, 1)
-SyntaxError: invalid syntax (game/script.rpy, line 83)
+  File "game/script.rpy", line 205, in script call
+    call testCech("BC", 3)
+  File "game/script.rpy", line 93, in script
+    label checkHP(dmg):
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 1081, in execute
+    values = apply_arguments(self.parameters, renpy.store._args, renpy.store._kwargs)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 296, in apply_arguments
+    return parameters.apply(args, kwargs, ignore_errors)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 232, in apply
+    raise TypeError(
+TypeError: Missing required positional arguments: 'dmg'
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.1.3.23091805
-CyberDzban 0.0000000008
-Wed Mar 13 16:24:25 2024
+CyberDzban 0.0000000009
+Fri Mar 22 12:38:57 2024

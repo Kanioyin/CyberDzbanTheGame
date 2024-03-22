@@ -84,11 +84,13 @@ label testCech(cecha, PT):
     if d10 == 10:
         $ d10 += renpy.random.randint(1,10)
 
-    if cechy["cecha"]+d10 > PT-1:
-        return true
+    if cechy[cecha]+d10 > PT-1:
+        $ testPass = 1
+        return
 
     else:
-        return flase
+        $ testPass = 0
+        return
 
 label checkHP(dmg):
     if armor > dmg:
@@ -131,8 +133,7 @@ label checkHP(dmg):
         $ HP = 0
         return
 
-    else:
-        return
+    return
 
 label start:
     default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
@@ -198,14 +199,9 @@ label start:
     default vron = 0
     default helper = 1
     default part = 0
+    default testPass = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
-
-    $ tc = call testCech(BC, 3)
-    if tc == 1:
-        "Klawo"
-    elif tc == 0:
-        "Też git"
 
     while helper == 1:
         $ player_name = renpy.input("Nazywasz się")
@@ -581,7 +577,7 @@ label kuchnia:
                 p "Zdecydowanie zbyt prosto to idzie"
                 "I nagle coś cię ugryzło"
                 play sound "EAT OR MUNCH.mp3"
-                call checkHP(15)
+                call checkHP(15) from _call_checkHP_10
                 p "AŁA KURWA"
                 p "SPIERDALANDO"
                 "Zacząłeś uciekać ale Fryderyk stanął Ci na drodze"
