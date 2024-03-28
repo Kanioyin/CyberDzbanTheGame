@@ -76,7 +76,9 @@ label checktime:
     else:
         return
 
+# input call testCech("Cecha", PT), nie fogoruj ""
 label testCech(cecha, PT):
+    $ testPass = 0
     $ d10 = renpy.random.randint(1,10)
     if d10 == 1:
         $ d10 -= renpy.random.randint(1,10)
@@ -91,6 +93,8 @@ label testCech(cecha, PT):
     else:
         $ testPass = 0
         return
+
+
 
 label checkHP(dmg):
     if armor > dmg:
@@ -186,6 +190,7 @@ label start:
     # 5 = Wojsko
     default dzien = 1
     default armor = 0
+    default ammo = 0
     default umieram = 0
     default maxarmor = 0
     default czas = 20
@@ -315,7 +320,8 @@ label intro:
     show gun at right
     g "Więc nowy, witamy w bazie"
     g "Jak ty się w ogóle nazywasz"
-    g "[player_name], brzmi jak debil"
+    p "[player_name]"
+    g "Brzmi jak debil"
     g "Idź się przejdź, pogadaj z innymi"
     g "Przywitaj się jak człowiek"
     jump rozstaje
@@ -699,6 +705,8 @@ label kosciol:
                     c "Falsh"
                     hide cypher with dissolve
                     k "Spierdalaj syfer"
+                    $ postacie["Kalach"] -= 1
+
                 $ kalach_stan += 1
                 k "Zdupcaj, wracam do picia"
                 jump rozstaje
@@ -718,10 +726,12 @@ label kosciol:
                 $ inventory.add_item(Flaszka)
                 k "Zachowaj na specjalną okazję, albo chlej teraz"
                 $ kalach_stan += 1
+                jump rozstaje
 
             elif kalach_stan == 1:
                 if dzien < 10:
                     "Kościół jest zamknięty, wróc później"
+                    jump rozstaje
 
                 elif dzien > 9:
                     k "Wróciłem z krucjaty."
@@ -739,13 +749,17 @@ label kosciol:
 
                             "Proste że tak, Umen":
                                 $ Frakcja = 4
-                                $ postacie["Kalach"] += 2
+                                $ postacie["Kalach"] += 4
                                 k "Niech wszystko Ci się teraz UDA!"
+                                jump rozstaje
 
                             "Sory Kałach, jestem ateistą":
                                 k "Dobrze więc."
                                 k "Ale pamiętaj, nigdy stopy."
+                                jump rozstaje
+
                     $ kalach_stan = 2
+                    jump rozstaje
 
             elif kalach_stan == 2 and bigquest == 5:
                 k "No witam witam"
@@ -767,6 +781,7 @@ label kosciol:
                     c "Ale on już ma twój sprzęt"
                     k "Spierdalaj"
                     hide cypher with discolve
+                $ postacie["Kalach"] += 1
                 $ kalach_stan = 5
             
     jump rozstaje
@@ -894,9 +909,11 @@ label dach:
                 c "Jakbyś dołączył do DH to miałbyś teraz niesamowicie ciekawego kłesta"
                 c "Tak to możesz spierdalać"
                 jump rozstaje
-        if dzien > 4:
-            c "Dzielny wojowniku, idź do guna robotę ma"
-            c "Wróc potem do mnie, opowiem Ci więcej"
+
+            if dzien > 4:
+                c "Dzielny wojowniku, idź do guna robotę ma"
+                c "Wróc potem do mnie, opowiem Ci więcej"
+
         elif bigquest == 3:
             $ czas -= 1
             c "Czekaj, wróciłeś właśnie od Vistów co nie?"
@@ -995,10 +1012,11 @@ label warsztat:
             h "Zespawać Ci to, 10 za punkcik"
             menu:
                 "Naprawaić mam: [armor]/11 pancerza"
-                "Spawaj" if edki> (11-armor)*10:
+                "Spawaj" if edki > (11-armor)*10:
                     $ edki -= (11-armor)*10
                     $ armor = 11
                     h "Get spawed"
+
                 "Cholpika, nie stać mnie":
                     h "To idź do roboty lol"
                     
@@ -1041,7 +1059,7 @@ label warsztat:
                         jump rozstaje
 
             elif hartmann_stan == 1 and dzien > 14:
-                h "Pyk Pyk , jako tako i do Cyphera"
+                h "Pyk Pyk, jako tako i do Cyphera"
                 p "Cześć Hartmann!"
                 h "O Gluten morgen [player_name]!"
                 h "Potrzebujesz czegoś, jestem trochę zajęty"
@@ -1119,6 +1137,7 @@ label klinika:
             menu:
                 "Dawaj tego kokosa":
                     if edki > 20:
+                        $ postacie["Laskawca"] += 1
                         play sound "THROWING.mp3"
                         $ inventory.add_item(Kokos)
                         $ edki -= 20
@@ -1227,6 +1246,7 @@ label klinika:
             p "Luzik arbuzik"
             scene black
             p "Dobra, jeden z głowy"
+            $ postacie ["Laskawca"] += 1
             $ laskawca_stan = 2
         
         jump rozstaje
@@ -1286,7 +1306,7 @@ label jhinownia:
         if jhin_stan == 1 and dzien < 10:
             "Pokój jest pusty, Jhin gdzieś wybył"
             if dzien > 9:
-                $ jhin_stan = 1
+                $ jhin_stan = 2
 
             jump rozstaje
 
@@ -1331,6 +1351,7 @@ label jhinownia:
                             p "Za późno Jhin, Vózg rozkazuje"
                             p "Ja pociągam za spust"
                             "Wystrzał z broni, sprzątnął tentakiego"
+                            $ postacie["Jhin"] = -9999
                             $ jhin_stan = 9
                             jump rozstaje
 
@@ -1348,12 +1369,14 @@ label jhinownia:
                             p "No dobra, to ma sans"
                             p "Odwiedzę cię potem, bywaj Vhin"
                             j "Bywaj [player_name]!"
+                            $ postacie["Jhin"] += 1
                             $ jhin_stan = 3
 
             "Wychodzisz z pokoju"
 
         if jhin_stan == 3:
             "No jhin?"
+
     jump rozstaje
 
 
@@ -1437,6 +1460,7 @@ label sypialnia:
             if HP < MaxHP:
                 if inventory.has_item(Flaszka) == True and MaxHP>HP+5:
                     p "Flaszka, moja żono"
+                    $ inventory.remove_item(Flaszka)
                     $ HP += 5
 
                 if edki > 10:
@@ -1753,27 +1777,44 @@ label wojsko:
         p "No to wracam do bazy"
         jump rozstaje
 
-    elif wojsko_stan > 1: 
-        jump tempend
+    elif wojsko_stan > 4: 
+        gk "Dobra robota szczylu."
+        gk "Udało Ci się zdobyć przyjaźń z innymi dzbanami"
+        gk "Więc lecicie na super tajną misję"
 
     elif wojsko_stan > 0:
         "Opowiedziałeś Kenowi o swoim progresie"
         if laskawca_stan == 2:
+            "Pochwaliłeś się przyjaźnią z Łaskawcą"
+            gk "Czyli Łaskawca jest gotowy Ci pomóc"
+            gk "Healer zawsze się przyda"
             $ wojsko_stan += 1
             $ laskawca_stan = 3
         if gun_stan == 5:
+            "Pochwaliłeś się przyjaźnią z Gunem"
+            gk "Gun chce wykonać zadanie dla mnie"
+            gk "Nie wiem czy to dobry znak"
+            gk "Kiedyś jak dostał zadanie, to do teraz go nie skończył"
+            gk "Na szczęście kapitan Sójeczka był w okolicy"
+            gk "Tak im namieszał w papierach, że sami nam pojazd oddali"
             $ wojsko_stan += 1
             $ gun_stan = 6
         if kalach_stan == 5:
+            "Pochwaliłeś się przyjaśnią z Kałachem"
+            gk "Jeśli Kałach leci z tobą, musisz go pilnować"
+            gk "Jeśli znajdę jakiegokolwiek dildosa na terenie akcji"
+            gk "To Ciebie złapią konsekwencje"
             $ wojsko_stan += 1
             $ kalach_stan = 6
         if hartmann_stan == 5:
+            "Pochwalileś się przyjaźnią z Hatrmannem"
             $ wojsko_stan += 1
             $ hartmann_stan = 6
         if jhin_stan == 5:
             $ wojsko_stan += 1
             $ jhin_stan = 6
         if cypher_stan == 5:
+            gk "Dlaczego Cypher?"
             $ wojsko_stan += 1
             $ cypher_stan = 6
         if krateus_stan == 5:
@@ -2417,6 +2458,6 @@ label tempend:
     "Albo czekaj"
     "Zrób ss następnego okienka i wyślij mi"
     "Ogarnij choja i idź do woja"
-    "Dostaniesz kartę do KTG i 40 exp do cybera"
+    "Dostaniesz kartę do KTG i 50 exp do cybera"
     "A teraz czekaj na następny update i wypierdalaj"
     return

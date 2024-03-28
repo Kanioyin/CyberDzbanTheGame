@@ -1,36 +1,33 @@
-Fri Mar 22 12:52:32 2024
+2024-03-27 07:27:48 UTC
 Windows-10-10.0.19045
-Ren'Py 8.1.3.23091805
- 
+Ren'Py 8.2.1.24030407
 
-Bootstrap to the start of init.init. took 0.19s
-Early init. took 0.01s
-Loader init. took 0.10s
-Loading error handling. took 0.61s
-Loading script. took 10.79s
-Loading save slot metadata. took 0.19s
-Loading persistent. took 0.00s
- - Init at renpy/common/00library.rpy:442 took 0.32526 s.
-Running init code. took 0.62s
-Loading analysis data. took 0.00s
-Analyze and compile ATL. took 0.02s
-Reloading save slot metadata. took 0.12s
+Early init took 0.27s
+Loading error handling took 0.50s
+Loading script took 14.97s
+Loading save slot metadata took 0.26s
+Loading persistent took 0.00s
+ - Init at renpy/common/00library.rpy:429 took 0.48059 s.
+Running init code took 0.93s
+Loading analysis data took 0.00s
+Analyze and compile ATL took 0.04s
+Reloading save slot metadata took 0.16s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
-Dump and make backups. took 0.34s
-Cleaning cache. took 0.00s
-Making clean stores. took 0.00s
-Initial gc. took 0.07s
+Dump and make backups took 0.39s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.19s
 DPI scale factor: 1.500000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: b"Couldn't load nvlib." (can be ignored)
-Creating interface object. took 0.01s
+Creating interface object took 0.01s
 Cleaning stores took 0.00s
-Init translation took 0.18s
+Init translation took 0.19s
 Build styles took 0.02s
 Load screen analysis took 0.00s
-Analyze screens took 0.18s
-Save screen analysis took 0.09s
-Prepare screens took 0.64s
-Save pyanalysis. took 0.05s
-Save bytecode. took 0.22s
+Analyze screens took 0.24s
+Save screen analysis took 0.13s
+Prepare screens took 1.14s
+Save pyanalysis. took 0.08s
+Save bytecode. took 0.15s
