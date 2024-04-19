@@ -1444,7 +1444,76 @@ label bruhzylia:
                 jump rozstaje
 
         elif krateus_stan == 2:
-            "Jeszcze trochę"
+            "Wraz z Kreteusem wyruszyliście do miejskiej dźungli"
+            kr "Nasze polowania zaczniemy od tamtego burdelu"
+            p "A na co my będziemy w ogóle polować?"
+            kr "Głupie pytanie. Na ludzi oczywiście"
+            kr "Mam marzenie, które mnie napędza do działania"
+            kr "Gdyby mnie przyjęli do ASP to nie byłoby problemu"
+            kr "A tak to będą jaja jak sam skurwysyn"
+            p "Dlaczego akurat na ludzi chcesz polować?"
+            kr "Potrzebuję pracowników do nowego interesu"
+            kr "Ale o tym opowiem Ci później"
+            p "Pewnie w następnym..."
+            kr "Sklej, cele idą"
+            "Zatkaliście obaj mordy i przygotowaliście broń"
+            p "Kto strzela pierwszy"
+            show cypher
+            c "Ja, hihi haha"
+            "I widzicie jak ten debil jebany strzelił z bazooki"
+            c "HI HI HA HA"
+            hide cypher with disolve
+            "Rakieta przeleciała obok ludzi i eksplodowała fajerwerkami"
+            c "Hi....HI......HA......HA"
+            kr "Uwielbiam tego człowieka"
+            p "A to przypadkiem nie utrudniło nam polowania?"
+            kr "No gdzie, patrz! Lecą prosto w moją pułapkę."
+            p "Czyli?"
+            "Widzisz jak uciekający w panice ludzie wbiegają do sklepu wędkarskiego"
+            "Następnie w sklepie zamykają się wszystkie rolety antywłamaniowe"
+            kr "Jak szczury w pułapce"
+            show gun
+            g "Spierdalaj"
+            hide gun with disolve
+            p "Dobra, co teraz?"
+            kr "Musimy się tam włamać"
+            p "Pierdolisz"
+            kr "Tylko twoją matkę"
+            p "Czyli ta cała akcja była po to żeby zamknąć ludzi w sklepie?"
+            kr "No ta, teraz ich uwolnimy i będą robić co im powiemy"
+            kr "Tak to działą w brazylii więc tu też powinno"
+            p "To jak tam się dostaniemy?"
+            if inventory.has_item(Wytrych) == True:
+                p "Może tam się włamię wytrychem?"
+                $ postacie["Kreteus"] += 1
+                kr "Dobry pomysł ale nie teraz"
+                p "Czemu niby?"
+                kr "Niech trochę pogłodują to będą bardziej skłonni do słuchania"
+                p "Jesteś jebnięty"
+                kr "Dziękuję"
+
+            elif inventory.has_item(Vranat) == True or inventory.has_item(Vomba) == True or inventory.has_item(Granat) == True:
+                p "Mam trochę materiałów wybuchowych"
+                kr "Tylko to rzuć a upierdolę Ci ręcę"
+                p "Daj spokój, to tylko kilka cywii"
+                kr "Koło chuja mi to lata, idziemy do domu"
+
+            else:
+                p "No nie mam nic przy sobie"
+                kr "No ja też"
+                p "To po 10"
+                kr "Co?"
+                p "Jajco"
+                kr "A ci zaraz pierdolnę"
+                p "To mnie złap"
+                "I zacząłeś uciekać w kierunku bazy"
+
+            "Zostawiliście cywili na tymczasową (oby) głodówkę"
+            $ krateus_stan = 3 
+            jump rozstaje
+
+        elif krateus_stan == 3:
+            "Daj im głodować jeszcze trochę"
 
     jump rozstaje
 
@@ -1790,6 +1859,7 @@ label wojsko:
             gk "Healer zawsze się przyda"
             $ wojsko_stan += 1
             $ laskawca_stan = 3
+
         if gun_stan == 5:
             "Pochwaliłeś się przyjaźnią z Gunem"
             gk "Gun chce wykonać zadanie dla mnie"
@@ -1799,6 +1869,7 @@ label wojsko:
             gk "Tak im namieszał w papierach, że sami nam pojazd oddali"
             $ wojsko_stan += 1
             $ gun_stan = 6
+
         if kalach_stan == 5:
             "Pochwaliłeś się przyjaśnią z Kałachem"
             gk "Jeśli Kałach leci z tobą, musisz go pilnować"
@@ -1806,20 +1877,32 @@ label wojsko:
             gk "To Ciebie złapią konsekwencje"
             $ wojsko_stan += 1
             $ kalach_stan = 6
+
         if hartmann_stan == 5:
             "Pochwalileś się przyjaźnią z Hatrmannem"
+            gk "Twardy zawodnik dołączył do Ciebie?"
+            gk "Tylko musisz uważać, jak Gun dostanie auto w ręce"
+            gk "Mogą być straty w cywilach"
             $ wojsko_stan += 1
             $ hartmann_stan = 6
+
         if jhin_stan == 5:
+            "Pochwalileś się przyjaźnią z Jhinem"
+            gk "Ten Taki idzie z Tobą?"
+            gk "Szalone jak sam skurwysyn ale to jego decyzja"
             $ wojsko_stan += 1
             $ jhin_stan = 6
+
         if cypher_stan == 5:
-            gk "Dlaczego Cypher?"
+            "Dumnie ogłosiłeś dołączenie Cyphera"
+            gk "Dlaczego?"
             $ wojsko_stan += 1
             $ cypher_stan = 6
+
         if krateus_stan == 5:
             $ wojsko_stan += 1
             $ krateus_stan = 6
+
         jump rozstaje
 
 label amongthev:
