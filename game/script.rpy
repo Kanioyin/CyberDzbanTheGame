@@ -693,7 +693,7 @@ label kuchnia:
                     "Okazało się że na pierwszym piętrze mieszkają sebixy"
                     "W taki sposób rozpoczął się kombat"
                     play sound "hit.mp3"
-                    call checkHP(10)
+                    call checkHP(10) from _call_checkHP_11
                     "Dostałeś potężnego luja ale oddałeś pięknym za nadobne"
                     "Odwróciłeś się aby sprawdzić co z Jhinem"
                     "A Jhin leży na ziemi nieprzytomny"
@@ -734,7 +734,7 @@ label kuchnia:
                 g "Nigdy"
                 play sound "hit.mp3"
                 "I w tym momencie udeżyliście w lampę"
-                call checkHP(5)
+                call checkHP(5) from _call_checkHP_12
                 kr "Ała"
                 g "A mówiłem, nie kraczemy jak prowadzę"
                 kr "Spoko, w Brazyli było gorzej"
@@ -1133,7 +1133,7 @@ label dach:
                 $ cypher_stan = 2
                 jump rozstaje
             
-            if cypher_stan = 2:
+            if cypher_stan == 2:
                 c "Muszę odpocząć, wróc później"
                 
     jump rozstaje            
