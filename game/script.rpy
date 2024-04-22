@@ -182,6 +182,7 @@ label start:
     default HP = 0
     $ HP = MaxHP
     default Frakcja = 0
+    default BagLV = 1
     # 0 = Niezrzeszony
     # 1 = DH
     # 2 = DN
@@ -203,6 +204,7 @@ label start:
     default bigquest = 0
     default vron = 0
     default helper = 1
+    default helper2 = 0
     default part = 0
     default testPass = 0
 
@@ -266,6 +268,9 @@ label start:
 
         elif player_name == "Kennedy" or player_name == "Ken":
             gk "Szczylu, uspokuj się"
+
+        elif player_name == "Sex" or player_name = "sex":
+            "Kto jak kto ale ty raczej nie ruchasz"
 
         else:
             $ helper = 0
@@ -495,6 +500,7 @@ label kuchnia:
                 p "I co to kurwa niby znaczy?"
                 g "Dowiesz się w swoim czasie"
                 $ gun_stan = 2
+                $ czas -= 2
                 jump rozstaje
 
             elif gun_stan == 2:
@@ -647,10 +653,122 @@ label kuchnia:
                 $ postacie["Gun"] += 1
                 $ postacie["Kalach"] += 1
                 $ gun_stan = 3
+                $ czas = 0
                 jump rozstaje
             
-            if gun_stan == 3:
-                g "Hombre, to alfa, spierdalaj"
+            if gun_stan == 3 and jhin_stan == 3:
+                if jhin_stan == 9:
+                    g "Chciałem pojechać z Jhinem na zadanie bojowe ale mu się zdechło"
+                    g "Więc to mamy już z głowy"
+                    $ gun_stan = 4
+                    "Wychodzisz z kuchni"
+                    jump rozstaje
+                
+                else:
+                    show jhin at left
+                    g "Dzień dobry [player_name]"
+                    j "Siemaneczko"
+                    p "Czołem, co to za zebranie?"
+                    g "Wyruszamy na wycieczkę tosteroznawczą"
+                    p "Co kurwa?"
+                    g "Zaraz zobaczysz"
+                    scene idrive
+                    p "Nie rozjedź żadnej baby tym razem"
+                    j "Jak to tym razem?"
+                    j "Czy ja o czymś nie wiem?"
+                    g "O wielu sprawach ken taki"
+                    "Ale tym razem szybka podróż była bezpieczna"
+                    scene tostblok
+                    g "Panowie, tu macie papiery, wchodzicie do środka i wyłudzacie hajs"
+                    j "Gunie, to chyba nie jest legalne"
+                    p "Kurwa, jesteśmy w Night City"
+                    j "Co fakt, to fakt"
+                    g "To do pracy rodacy"
+                    scene klatka
+                    j "Dziwna robota się trafiła"
+                    p "Chłopie, ja to robę tylko dla main questa"
+                    j "Czyli?"
+                    p "Potem Ci opowiem"
+                    "Zapukaliście do pierwszych drzwi"
+                    "Okazało się że na pierwszym piętrze mieszkają sebixy"
+                    "W taki sposób rozpoczął się kombat"
+                    play sound "hit.mp3"
+                    call checkHP(10)
+                    "Dostałeś potężnego luja ale oddałeś pięknym za nadobne"
+                    "Odwróciłeś się aby sprawdzić co z Jhinem"
+                    "A Jhin leży na ziemi nieprzytomny"
+                    p "O MÓJ BOŻE JHIN"
+                    g "Co się tak tam prujesz"
+                    p "Chodź tu szybko Gun, Jhin dostał w cymbał"
+                    g "Szczur zjadł mojego agenta, zrób mu zdjęcie"
+                    p "Pomóż mi przenieść go do auta"
+                    g "No dobra"
+                    "Przenieśliście nieprzytomnego Jhina do kara i ruszyliście do bazy"
+                    scene idrive
+                    g "Co tam się w ogóle stało?"
+                    p "Sebixy wyklęte"
+                    g "O w mordę strzelił"
+                    p "A to było potem"
+                    g "To było bardzo niemiłe z ich strony, powinniśmy ich wysadzić"
+                    p "No to jest dobry plan ale gdzie dostanę bombę?"
+                    g "Pozwól mi gotować"
+                    "I w atmosferze skandalu wróciliście do bazy"
+                    $ gun_stan = 4
+                    $ postacie["Gun"] += 1
+                    $ postacie["Jhin"] += 1
+                    $ czas = 0
+                    jump rozstaje
+
+            if gun_stan == 4 and krateus_stan > 2:
+                g "No to lecimy, zadanie ostateczne"
+                show krateus at left
+                kr "Dokładnie kurwa"
+                kr "Pora rozpierdolić sebixów"
+                g "Ta, dokładnie. Kretynus znalazł bombę"
+                g "Ja ją podstawię i spierdalamy"
+                g "Twoim zadaniem będzie stanie na czatach"
+                p "Powinienem dać sobie radę"
+                g "No to w drogę"
+                scene idrive
+                kr "Powiedz Gun, kiedy nauczyłeś się prowadzić?"
+                g "Nigdy"
+                play sound "hit.mp3"
+                "I w tym momencie udeżyliście w lampę"
+                call checkHP(5)
+                kr "Ała"
+                g "A mówiłem, nie kraczemy jak prowadzę"
+                kr "Spoko, w Brazyli było gorzej"
+                p "A mnie siur boli"
+                g "Spokojnie, od bólu się powiększa"
+                kr "To dlatego walisz non stop ball breakerem?"
+                g "Pojebało cię?"
+                p "Panowie, co to tak pika?"
+                g "NA RATY CHRYSTUSA"
+                kr "Pierdolisz"
+                g "Bomba się uzbroiła"
+                "Otworzyliście bagaja i faktycznie bomba pika"
+                g "Wypierdol to z auta"
+                kr "Się robi"
+                play sound "THROWING.mp3"
+                "Krateus yeetnął bombę"
+                g "Będzie padać, nisko latają"
+                "Ładunek trafił do sklepu z narzędziami"
+                kr "To za brak promocji Kurwo"
+                "I pierdolło"
+                g "No to ponowie, chyba po robicie"
+                kr "Kurwa serio, ja chciałem bijatykę"
+                kr "No i ta bomba była na wynajem"
+                p "To ty miałeś to oddać"
+                kr "No, teraz będę miał problem"
+                g "Straszna chujnia, anyway"
+                g "Panowie wracamy, do Gunmobilu"
+                "I po niesamowicie sukcesywnym queście wróciliście do bazy"
+                g "To chyba tyle z syzyfowych prac"
+                g "Możemy się zając zadaniem Kennedyego"
+                p "Kurwa w końcu"
+                $ gun_stan = 5
+                "Zadowolony wyszedłeś"
+                $ czas = 0
                 jump rozstaje
 
     if inventory.has_item(Ser) == True:
@@ -782,6 +900,7 @@ label kosciol:
                     k "Spierdalaj"
                     hide cypher with discolve
                 $ postacie["Kalach"] += 1
+                $ czas -= 2
                 $ kalach_stan = 5
             
     jump rozstaje
@@ -792,7 +911,6 @@ label kibel:
         show grat at left
         "Ić stont"
         $ gun_stan += 1
-        $ kibel_stan += 1
         jump rozstaje
 
     elif akt == 1 and bigquest == 0:
@@ -968,8 +1086,55 @@ label dach:
                     jump rozstaje
 
             if cypher_stan == 1:
-                c "Myślę kurwa jeszcze"
+                c "To dobra mam pomysł, przelećmy się"
+                p "Kurwa cypher, popierdoliło Cie?"
+                p "Dlaczego ty taki rogaty jesteś?"
+                c "Źle mnie zrozumiałeś [player_name]"
+                c "Widzisz ten helikopter lecimy na zadanie"
+                p "Jakie zadanie?"
+                c "Bojowe"
+                c "Czeczeni się buntują i musimy ich zbombardować"
+                p "No dobra, to lecimy"
+                scene cypherkopter
+                "W czasie lotu Cypher spał jak zabity"
+                "Strasznie Cię korciło by tak został"
+                "Ale ostatecznie dolecieliście na miejsce"
+                "I to było 10 metrów od waszej bazy"
+                c "Ale się wyspałem"
+                p "Czemu my pół dnia lecieliśmy 10 metrów"
+                c "Droga w remoncie, trzeba było lecieć na około"
+                p "Pojebie mnie"
+                c "Najpierw bierz się za robotę"
+                p "Dobrze szefie"
+                c "I to mi się podoba"
+                p "Czemu Ci czeczeni wyglądają jak Gun i Łaskawca?"
+                c "Kamuflaż. Przestań myśleć i ciąg"
+                menu:
+                    "Ciągniesz za wajchę?"
+                    "Cypher kazał ja robię":
+                        "Zkronkowałeś wajchę i napalm spadł"
+                        $ postacie["Cypher"] += 2
+                        "Okazało się że to nie był kamuflaż"
+                        g "Ty debilu jebany"
+                        pl "ALE SIĘ PODJARAŁEM"
+                        $ postacie["Gun"] -= 1
+                        $ postacie["Laskawca"] -= 1
+                        c "HI HI HA HA"
+                        c "Zadanie wykonane, możemy wracać"
+                    
+                    "Nie zranię ziomków":
+                        p "Pierdol się Cypher, nie zrobię tego"
+                        c "Pizda jesteś nie wojownik"
+                        $ postacie["Cypher"] -= 2
+                        c "Dobra wracamy, nie ma z tobą zabawy"
+
+                "I kolejne pół dnia wracaliście"
+                $ czas = 0
+                $ cypher_stan = 2
                 jump rozstaje
+            
+            if cypher_stan = 2:
+                c "Muszę odpocząć, wróc później"
                 
     jump rozstaje            
 
@@ -1044,6 +1209,7 @@ label warsztat:
                         h "Łuk elektryczny i stopiony metal (jeziorko) ochraniane są przez gaz osłonowy przed oddziaływaniem atmosfery. Krzepnące jeziorko spawalnicze tworzy trwałe złącze."
                         h "I to chyba tyle"
                         h "Teraz ić se w chuj, muszę ochłonąć"
+                        $ czsa -= 1
                         jump rozstaje
 
                     "Nie widziałem żadnego Vigomatu":
@@ -1089,10 +1255,61 @@ label warsztat:
                 h "I słuszne"
                 h "Spawu, spawu, spawu"
                 $ hartmann_stan = 2
+                $ czas -= 1
                 jump rozstaje
 
             elif hartmann_stan == 2 and bigquest == 5:
-                h "Panie, to jest jeszcze w rozwoju"
+                h "Czemu ty mi znowu dupę zawracasz?"
+                p "Dostałem bojowe zadanie od Generała"
+                h "No i co? Chyba jesteś w stanie sam to zrobić."
+                p "Zadanie polega na zebraniu drużyny"
+                h "No i?"
+                p "Czy nie chcesz może dołączyć do mojego party?"
+                h "Na łep upadłeś"
+                p "AHA ):"
+                h "Wypłata jak wysoka?"
+                p "Nie wiem ):"
+                h "No to z czym do ludzi panie"
+                h "Jak mi powiesz ile zarobię to może się zastanowię"
+                h "Możesz też mi kupić nową spawarkę"
+                h "Wyjebane, muszę coś dostać"
+                menu:
+                    "Co robisz?"
+                    "(Kłamstwo) Żartowałem, dostaniemy 3k na głowę":
+                        h "No i to jest zysk"
+                        h "Wchodzę w to jak w albatrosa"
+                        p "No to witamy na pokładzie"
+                        $ helper2 = 1
+                        $ hartmann_stan = 5
+                        "Zadowolony z siebie wyszedłeś"
+                        jump rozstaje
+
+                    "Znajdę Ci tę spawarkę":
+                        h "Nie, Nie, Nie kochanieńki"
+                        h "Idziemy teraz na market i Ci powiem jaką chcę"
+                        scene nocny
+                        "Wędrowaliście sobie między kramami"
+                        h "O! Patrz ten model ale ma parametry"
+                        p "Wiesz że je chuja z tego rozumiem"
+                        h "Zdaje sobie z tego sprawę"
+                        p "Powiedz mi jaka cena"
+                        if edki > 499:
+                            h "Pięć stówek, uczciwie"
+                            p "Ała, mój portfel płacze"
+                            $ edki -= 500
+                        
+                        else:
+                            h "Promocja jest tylko [edki]!"
+                            p "Czyli dokładnie tyle ile mam w portfelu"
+                            $ edki = 0
+                        
+                        h "No, to ja jestem kontent."
+                        p "A ja jestem biedny"
+                        h "Ale masz kolejnego wojownika dzielnego"
+                        p "Przynajmniej tyle"
+                        $ hartmann_stan = 5
+                        $ czas -= 5
+                        jump rozstaje
     
     jump rozstaje
 
@@ -1246,6 +1463,7 @@ label klinika:
             p "Luzik arbuzik"
             scene black
             p "Dobra, jeden z głowy"
+            $ czas -= 5
             $ postacie ["Laskawca"] += 1
             $ laskawca_stan = 2
         
@@ -1262,9 +1480,9 @@ label jhinownia:
         jump rozstaje
         
     scene takiten
+    show jhin
     if akt == 1:
         if jhin_stan == 0:
-            show jhin
             j "Hejka naklejka jestem Jhin Taki-Ten"
             j "To nazwisko zawdzięczam swoim rodzicom"
             j "Czyli udało Ci się nakraść w gnieździe Vist"
@@ -1374,7 +1592,7 @@ label jhinownia:
 
             "Wychodzisz z pokoju"
 
-        if jhin_stan == 3:
+        if jhin_stan == 3 and bigquest == 5:
             "No jhin?"
 
     jump rozstaje
@@ -1510,6 +1728,8 @@ label bruhzylia:
 
             "Zostawiliście cywili na tymczasową (oby) głodówkę"
             $ krateus_stan = 3 
+            $ czas -= 4
+            $ postacie["Krateus"] += 1
             jump rozstaje
 
         elif krateus_stan == 3:
@@ -1527,7 +1747,7 @@ label sypialnia:
             $ dzien += 1
             $ czas = 20
             if HP < MaxHP:
-                if inventory.has_item(Flaszka) == True and MaxHP>HP+5:
+                if inventory.has_item(Flaszka) == True and MaxHP>HP+4:
                     p "Flaszka, moja żono"
                     $ inventory.remove_item(Flaszka)
                     $ HP += 5
@@ -1850,6 +2070,7 @@ label wojsko:
         gk "Dobra robota szczylu."
         gk "Udało Ci się zdobyć przyjaźń z innymi dzbanami"
         gk "Więc lecicie na super tajną misję"
+        jump tempend
 
     elif wojsko_stan > 0:
         "Opowiedziałeś Kenowi o swoim progresie"
@@ -1900,10 +2121,19 @@ label wojsko:
             $ cypher_stan = 6
 
         if krateus_stan == 5:
+            "Pochwaliłeś się przyjaźnią z Krateusem"
+            gk "Krateus też tam jest?"
+            gk "Powinien wykonywać zadanie bojowe"
+            gk "Oj, będę musiał z nim pogadać"
             $ wojsko_stan += 1
             $ krateus_stan = 6
 
         jump rozstaje
+
+label wojowezadanie:
+    scene black
+    "DUPA"
+    return
 
 label amongthev:
     stop music fadeout 1.0

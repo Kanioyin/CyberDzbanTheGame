@@ -20,7 +20,7 @@ screen inventory():
     vbox:
         pos 0.1, 0.25
         for item in inventory.items:
-            text "[item.name] - [item.desc] \n"
+            text "{size=30}[item.name] - [item.desc] \n{/size}"
 
     imagebutton auto "inventory_screen_return_%s":
         focus_mask True
