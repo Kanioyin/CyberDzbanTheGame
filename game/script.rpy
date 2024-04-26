@@ -70,6 +70,7 @@ init python:
 
 label checktime:
     if czas == 0:
+        p "Późno już, idę spać"
         $ dzien += 1
         jump sypialnia
 
@@ -1593,7 +1594,34 @@ label jhinownia:
             "Wychodzisz z pokoju"
 
         if jhin_stan == 3 and bigquest == 5:
-            "No jhin?"
+            j "Siemaneczko [player_name], co tam chcesz?"
+            p "Jest robora od Kennedyego"
+            j "O cholipka, pewnie coś niebezpiecznego"
+            p "Masz rację"
+            p "Musimy się zaprzyjaźnić"
+            j "I co w tym jest takiego niebezpiecznego?"
+            p 'To że muszę to zrobić z całym teamem'
+            j "W sensie że przyjaźń tak?"
+            p "No ta"
+            j "A, ok, no to ten, fren?"
+            p "Tak po prostu?"
+            j "A czego ja mogę więcej wymagać?"
+            p "No nie wiem, reszta ma doomstack bojowych zadań"
+            j "Rozmaiwałeś już ze mną przynajmniej dwa razy"
+            j "W tej bazie czasem szybko można znaleźć cumpla"
+            p "Pewnie zależy to od osoby"
+            j "No ta"
+            p "No to bywaj Jhin, ruszam siać przyjaźń z innymi"
+            $ jhin_stan = 4
+            jump rozstaje
+
+        if jhin_stan == 4:
+            j "Idź pogadaj z Kennedym"
+            jump rozstaje
+
+        if jhin_stan == 6:
+            j "To czekam na resztę i ruszamy"
+            jump rozstaje
 
     jump rozstaje
 
@@ -1733,7 +1761,94 @@ label bruhzylia:
             jump rozstaje
 
         elif krateus_stan == 3:
-            "Daj im głodować jeszcze trochę"
+            if dzien > 29:
+                kr "Dobra, chyba tyle czasu wystarczy"
+                p "No, trochę ich tam trzymaliśmy, myślisz że jeszcze żyją?"
+                kr "Jeśli silni zjedli słabych, to raczej tak"
+                kr "Jeśli mają moralność to będzie doomstack trupów"
+                p "No to lećmy sprawdzić"
+                scene fiszop
+                show krateus
+                kr "No to robimy opening"
+                if inventory.has_item("AR"):
+                    "Wyjąłeś AR dla bezpieczeństwa"
+                kr "Na trzy otwieram drzwi, gotowy?"
+                p "Tajest"
+                kr "Trzy"
+                "Kreteus szybkim ruchem otworzył drzwi"
+                "I w środku widzicie trzy osoby"
+                kr "FBI NC! Na ziemię skurwysyny"
+                "Trzy osoby rzuciły się na was z prowizoryczną bronią"
+                if inventory.has_item("AR"):
+                    "Szybką serią z AR ich zdjąłeś"
+                    $ postacie["Krateus"] += 1
+
+                elif inventory.has_item("Pistolet"):
+                    "Udało Ci się postrzelić jednego ale dostałeś z dzidy"
+                    call checkHP(9)
+
+                else:
+                    "Potężna gazrurka trafiła w twoją twarz"
+                    call checkHP(16)
+
+                "Widzisz jak Krateus zajmuje się resztą"
+                kr "Waleczne skurwiele"
+                kr "Kurwa szkoda, byliby dobrymi wojownikami"
+                kr "Chuj tam, za dwa dziki pewnie znajde nowych"
+                p "Co?"
+                kr "Co?"
+                p "Jakie dziki"
+                kr "Nie zadawaj głupich pytań, głośno myślałem"
+                p "To co teraz robimy?"
+                kr "Wracamy do domu i zacznę knuć znowu"
+                $ krateus_stan = 4
+                $ czas = 0
+                jump rozstaje
+
+            else:
+                kr "Daj im głodować jeszcze trochę"
+
+        elif krateus_stan == 4:
+            if laskawca_stan < 2:
+                kr "Pogadaj z Łaskawcą"
+                kr "Jak zrobisz co on chce to wróć"
+                jump rozstaje
+
+            else:
+                kr "No to dzień dobry"
+                show laskawca at left
+                pl "Siemaneczko"
+                p "Ale bojowa ekipa się zebrała"
+                kr "Plan mamy prosty, obecny tu Łaskawca robi Call of Bitches"
+                kr "Następnie usypia to co dopadnie, a my skalpujemy"
+                pl "Nom, plan w teorii prosty"
+                p "To zabieramy się za robotę?"
+                kr "Poczekaj chwilę"
+                "I pół dnia siedzieliście u krateusa"
+                kr "Teraz jest odpowiednia pora"
+                pl "Ruszam dzielnie"
+                "Kilka minut później"
+                $ helper = 10
+                if kalach_stan < 5:
+                    "Niczym nie zajęty kałach porwał kilka nowych zakonnic"
+                    $ helper -= 3
+
+                if gun_stan < 5:
+                    "Schizofremia jest zawsze kusząca dla altek"
+                    $ helper -= 1 
+
+                if jhin_stan < 4:
+                    "Urok Jhina odgonił jedną z babeczek"
+                    $ helper -= 2
+
+                if cypher_stan < 5:
+                    c "Hi Hi Ha Ha"
+                    "I na ten odgłos dwie samice uciekły"
+                    $ helper -= 2
+
+                if helper < 4:
+                    kr "Kurwa, te bestie odgoniły kobiety"
+
 
     jump rozstaje
 
@@ -1744,7 +1859,6 @@ label sypialnia:
     menu:
         "Jesteś w swoim pokoju, co chcesz zrobić?"
         "Idę spać":
-            $ dzien += 1
             $ czas = 20
             if HP < MaxHP:
                 if inventory.has_item(Flaszka) == True and MaxHP>HP+4:
@@ -2107,7 +2221,7 @@ label wojsko:
             $ wojsko_stan += 1
             $ hartmann_stan = 6
 
-        if jhin_stan == 5:
+        if jhin_stan == 4:
             "Pochwalileś się przyjaźnią z Jhinem"
             gk "Ten Taki idzie z Tobą?"
             gk "Szalone jak sam skurwysyn ale to jego decyzja"
