@@ -1,68 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While processing text tag {size = 10} in '{size = 10}Szczur - Grube bydle \n{/size}'.:
-  File "game/script.rpy", line 338, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 339, in script
-    menu:
-Exception: Unknown text tag 'size = 10'
+While running game code:
+  File "game/script.rpy", line 215, in script
+    if player_name == "Gun":
+SyntaxError: invalid syntax (game/script.rpy, line 272)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 338, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 339, in script
-    menu:
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 1618, in execute
-    choice = renpy.exports.menu(choices, self.set, args, kwargs, item_arguments)
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\exports.py", line 1109, in menu
-    rv = renpy.store.menu(new_items)
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\exports.py", line 1364, in display_menu
-    rv = renpy.ui.interact(mouse='menu', type=type, roll_forward=roll_forward)
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\core.py", line 2165, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\core.py", line 2818, in interact_core
-    self.draw_screen(root_widget, fullscreen_video, (not fullscreen_video) or video_frame_drawn)
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\core.py", line 1352, in draw_screen
-    surftree = renpy.display.render.render_screen(
-  File "render.pyx", line 486, in renpy.display.render.render_screen
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\layout.py", line 900, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\layout.py", line 900, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\layout.py", line 900, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\screen.py", line 754, in render
-    child = renpy.display.render.render(self.child, w, h, st, at)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\layout.py", line 900, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\layout.py", line 1121, in render
-    surf = render(d, width - x, rh, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\text\text.py", line 2276, in render
-    virtual_layout = Layout(self, width, height, renders, drawable_res=False, size_only=True)
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\text\text.py", line 640, in __init__
-    self.paragraphs = self.segment(text.tokens, style, renders, text)
-  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\text\text.py", line 1394, in segment
-    raise Exception("Unknown text tag %r" % text)
-Exception: Unknown text tag 'size = 10'
+  File "game/script.rpy", line 215, in script
+    if player_name == "Gun":
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2133, in execute
+    if renpy.python.py_eval(condition):
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1151, in py_eval
+    code = py_compile(code, 'eval')
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1088, in py_compile
+    raise e
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1034, in py_compile
+    raise orig_e
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1027, in py_compile
+    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, 1)
+SyntaxError: invalid syntax (game/script.rpy, line 272)
 
 Windows-10-10.0.19045 AMD64
-Ren'Py 8.2.1.24030407
-CyberDzban 0.0000000009
-Mon Apr 22 11:11:14 2024
+Ren'Py 8.1.3.23091805
+CyberDzban 0.000000001
+Tue Apr 23 12:57:46 2024

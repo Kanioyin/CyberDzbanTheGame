@@ -8,7 +8,6 @@ define p = Character(_("[player_name]"))
 define r = Character(_("Szczur"),color="#123456")
 define j = Character(_("Jhin"),color = "#444444")
 define v = Character(_("Vista"), color = "#213769")
-define kk = Character(_("Krateus"), color = "#ABCDEF")
 define t = Character(_("Toro"), color = "#6969EE")
 define gk = Character(_("Gen. Kennedy"), color = "#098703")
 define kr = Character(_("Krateus"), color = "#023a10")
@@ -270,7 +269,7 @@ label start:
         elif player_name == "Kennedy" or player_name == "Ken":
             gk "Szczylu, uspokuj się"
 
-        elif player_name == "Sex" or player_name = "sex":
+        elif player_name == "Sex" or player_name == "sex":
             "Kto jak kto ale ty raczej nie ruchasz"
 
         else:
@@ -303,7 +302,9 @@ label start:
     show cypher at left
 
     g "Spokojnie kasztanie"
+    show ciphate with dissolve
     "Gun katyńskim kopem wysłał Cyhpera na dach"
+    hide ciphate with dissolve
     c "DiamandHunde znowu błysnęło"
     play sound "CARTOON RICOCHET #2.mp3"
     hide cypher with fade
@@ -494,8 +495,10 @@ label kuchnia:
                         $ postacie["Gun"] -= 1
 
                     "Nie":
+                        show ciphate with dissolve
                         g "To dobrze"
                         $ postacie["Gun"] += 1
+                        hide ciphate with dissolve
 
                 g "To chyba tyle z pytań"
                 p "I co to kurwa niby znaczy?"
@@ -680,12 +683,15 @@ label kuchnia:
                     g "O wielu sprawach ken taki"
                     "Ale tym razem szybka podróż była bezpieczna"
                     scene tostblok
+                    show gun at left
+                    show jhin at right
                     g "Panowie, tu macie papiery, wchodzicie do środka i wyłudzacie hajs"
                     j "Gunie, to chyba nie jest legalne"
                     p "Kurwa, jesteśmy w Night City"
                     j "Co fakt, to fakt"
                     g "To do pracy rodacy"
                     scene klatka
+                    show jhin at right
                     j "Dziwna robota się trafiła"
                     p "Chłopie, ja to robę tylko dla main questa"
                     j "Czyli?"
@@ -923,7 +929,9 @@ label kibel:
                 menu:
                     "Mam jednego w kieszeni"
                     "Wracaj do rodziny słoneczko":
+                        show ciphate with dissolve
                         "Zostawiłeś szczura w kiblu"
+                        hide ciphate with dissolve
                         $ inventory.remove_item(Rat)
                         show grat at left
                         r "Dziękuje, dobry człowieku"
@@ -999,10 +1007,12 @@ label dach:
             jump rozstaje
 
         elif cypher_stan == 4:
+            show ciphate with dissolve
             c "No to masz przepierdolone"
             c "Młynarczyk! Bierz go!"
             play sound "Bestia.mp3" 
             "I coolawy mściciel postanowił pozbyć się szkodnika"
+            hide ciphate with dissolve
             "Git Gud"
             jump gameover
 
@@ -1114,7 +1124,9 @@ label dach:
                     "Ciągniesz za wajchę?"
                     "Cypher kazał ja robię":
                         "Zkronkowałeś wajchę i napalm spadł"
+                        show ciphate with dissolve
                         $ postacie["Cypher"] += 2
+                        hide ciphate with dissolve
                         "Okazało się że to nie był kamuflaż"
                         g "Ty debilu jebany"
                         pl "ALE SIĘ PODJARAŁEM"
@@ -1125,7 +1137,9 @@ label dach:
                     
                     "Nie zranię ziomków":
                         p "Pierdol się Cypher, nie zrobię tego"
+                        show ciphate with dissolve
                         c "Pizda jesteś nie wojownik"
+                        hide ciphate with dissolve
                         $ postacie["Cypher"] -= 2
                         c "Dobra wracamy, nie ma z tobą zabawy"
 
@@ -1286,7 +1300,9 @@ label warsztat:
                         jump rozstaje
 
                     "Znajdę Ci tę spawarkę":
+                        show ciphate with dissolve
                         h "Nie, Nie, Nie kochanieńki"
+                        hide ciphate with dissolve
                         h "Idziemy teraz na market i Ci powiem jaką chcę"
                         scene nocny
                         "Wędrowaliście sobie między kramami"
@@ -1393,7 +1409,9 @@ label klinika:
             pl "To daj mi cynk, wynagrodzę cię"
             menu:
                 "Mam nadzieję że w naturze ( ͡° ͜ʖ ͡°)":
+                    show ciphate with dissolve
                     pl "Kto wie kotku."
+                    hide ciphate with dissolve
                 
                 "Mam nadzieję że w edkach":
                     pl "Pitos się znajdos"
@@ -1401,6 +1419,7 @@ label klinika:
                 "Dla Ciebie, poszukam za friko":
                     pl "No to mam u Ciebie dług"
                     $ postacie["Laskawca"] += 2
+
             pl "No to czekam na info z niecierpliwością"
             $ laskawca_stan = 1
 
@@ -1441,7 +1460,9 @@ label klinika:
             pl "Szanowny panie, 5 koła za to"
             pl "Literalnie cie popierdoliło"
             p "No plus jeden, to pewnie nawet tetrisa nie uciągnie"
+            show ciphate with dissolve
             "Ale wasze gadanie nic nie dało"
+            hide ciphate with dissolve
             pl "Dobra, chuj z tym, wracamy do bazy"
             scene klinika
             show laskawca at right
@@ -1494,7 +1515,9 @@ label jhinownia:
             j "Czy może po śmierci dzielą się na pół?"
             menu:
                 "Zdecydowanie pączkowanie":
+                    show ciphate with dissolve
                     j "O cholipka, wiedziałem"
+                    hide ciphate with dissolve
                     $ postacie["Jhin"] += 1
                     j "To oznacza że trzeba zabić każdego piekarza w mieście"
                     j "Wyruszam natychmiast"
@@ -1745,7 +1768,9 @@ label bruhzylia:
                 kr "Koło chuja mi to lata, idziemy do domu"
 
             else:
+                show ciphate with dissolve
                 p "No nie mam nic przy sobie"
+                hide ciphate with dissolve
                 kr "No ja też"
                 p "To po 10"
                 kr "Co?"
@@ -1935,7 +1960,9 @@ label akt1:
     menu:
         "Piszę się?"
         "Kurwa no pewex":
+            show ciphate with dissolve
             $ postacie["Gun"] += 1
+            hide ciphate with dissolve
             g "To mi się podoba"
             $ wojownik = True
             jump akcja
@@ -2003,7 +2030,9 @@ label akcja:
             $ edki += 50
             call checkHP(5) from _call_checkHP_3
         "Czekam aż reszta nabije sobie fragi":
+            show ciphate with dissolve
             "Kitrałeś się do końca"
+            hide ciphate with dissolve
 
     show gun
     g "Dobra robota panowie"
