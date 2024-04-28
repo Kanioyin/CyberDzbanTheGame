@@ -668,6 +668,10 @@ label kuchnia:
                     "Wychodzisz z kuchni"
                     jump rozstaje
                 
+                elif jhin_stan < 3:
+                    g "Pogadaj z Jhinem, jak zrobisz z nim trochę roboty to zapraszam"
+                    jump rozstaje
+
                 else:
                     show jhin at left
                     g "Dzień dobry [player_name]"
@@ -726,57 +730,62 @@ label kuchnia:
                     $ czas = 0
                     jump rozstaje
 
-            if gun_stan == 4 and krateus_stan > 2:
-                g "No to lecimy, zadanie ostateczne"
-                show krateus at left
-                kr "Dokładnie kurwa"
-                kr "Pora rozpierdolić sebixów"
-                g "Ta, dokładnie. Kretynus znalazł bombę"
-                g "Ja ją podstawię i spierdalamy"
-                g "Twoim zadaniem będzie stanie na czatach"
-                p "Powinienem dać sobie radę"
-                g "No to w drogę"
-                scene idrive
-                kr "Powiedz Gun, kiedy nauczyłeś się prowadzić?"
-                g "Nigdy"
-                play sound "hit.mp3"
-                "I w tym momencie udeżyliście w lampę"
-                call checkHP(5) from _call_checkHP_12
-                kr "Ała"
-                g "A mówiłem, nie kraczemy jak prowadzę"
-                kr "Spoko, w Brazyli było gorzej"
-                p "A mnie siur boli"
-                g "Spokojnie, od bólu się powiększa"
-                kr "To dlatego walisz non stop ball breakerem?"
-                g "Pojebało cię?"
-                p "Panowie, co to tak pika?"
-                g "NA RATY CHRYSTUSA"
-                kr "Pierdolisz"
-                g "Bomba się uzbroiła"
-                "Otworzyliście bagaja i faktycznie bomba pika"
-                g "Wypierdol to z auta"
-                kr "Się robi"
-                play sound "THROWING.mp3"
-                "Krateus yeetnął bombę"
-                g "Będzie padać, nisko latają"
-                "Ładunek trafił do sklepu z narzędziami"
-                kr "To za brak promocji Kurwo"
-                "I pierdolło"
-                g "No to ponowie, chyba po robicie"
-                kr "Kurwa serio, ja chciałem bijatykę"
-                kr "No i ta bomba była na wynajem"
-                p "To ty miałeś to oddać"
-                kr "No, teraz będę miał problem"
-                g "Straszna chujnia, anyway"
-                g "Panowie wracamy, do Gunmobilu"
-                "I po niesamowicie sukcesywnym queście wróciliście do bazy"
-                g "To chyba tyle z syzyfowych prac"
-                g "Możemy się zając zadaniem Kennedyego"
-                p "Kurwa w końcu"
-                $ gun_stan = 5
-                "Zadowolony wyszedłeś"
-                $ czas = 0
-                jump rozstaje
+            if gun_stan == 4:
+                if krateus_stan < 3:
+                    g "Brazylijczyk coś od Ciebie chce, idź do niego"
+                    jump rozstaje
+
+                else:
+                    g "No to lecimy, zadanie ostateczne"
+                    show krateus at left
+                    kr "Dokładnie kurwa"
+                    kr "Pora rozpierdolić sebixów"
+                    g "Ta, dokładnie. Kretynus znalazł bombę"
+                    g "Ja ją podstawię i spierdalamy"
+                    g "Twoim zadaniem będzie stanie na czatach"
+                    p "Powinienem dać sobie radę"
+                    g "No to w drogę"
+                    scene idrive
+                    kr "Powiedz Gun, kiedy nauczyłeś się prowadzić?"
+                    g "Nigdy"
+                    play sound "hit.mp3"
+                    "I w tym momencie udeżyliście w lampę"
+                    call checkHP(5) from _call_checkHP_12
+                    kr "Ała"
+                    g "A mówiłem, nie kraczemy jak prowadzę"
+                    kr "Spoko, w Brazyli było gorzej"
+                    p "A mnie siur boli"
+                    g "Spokojnie, od bólu się powiększa"
+                    kr "To dlatego walisz non stop ball breakerem?"
+                    g "Pojebało cię?"
+                    p "Panowie, co to tak pika?"
+                    g "NA RATY CHRYSTUSA"
+                    kr "Pierdolisz"
+                    g "Bomba się uzbroiła"
+                    "Otworzyliście bagaja i faktycznie bomba pika"
+                    g "Wypierdol to z auta"
+                    kr "Się robi"
+                    play sound "THROWING.mp3"
+                    "Krateus yeetnął bombę"
+                    g "Będzie padać, nisko latają"
+                    "Ładunek trafił do sklepu z narzędziami"
+                    kr "To za brak promocji Kurwo"
+                    "I pierdolło"
+                    g "No to ponowie, chyba po robicie"
+                    kr "Kurwa serio, ja chciałem bijatykę"
+                    kr "No i ta bomba była na wynajem"
+                    p "To ty miałeś to oddać"
+                    kr "No, teraz będę miał problem"
+                    g "Straszna chujnia, anyway"
+                    g "Panowie wracamy, do Gunmobilu"
+                    "I po niesamowicie sukcesywnym queście wróciliście do bazy"
+                    g "To chyba tyle z syzyfowych prac"
+                    g "Możemy się zając zadaniem Kennedyego"
+                    p "Kurwa w końcu"
+                    $ gun_stan = 5
+                    "Zadowolony wyszedłeś"
+                    $ czas = 0
+                    jump rozstaje
 
     if inventory.has_item(Ser) == True:
         p "Mam coś dla Ciebie gun"
@@ -1111,6 +1120,7 @@ label dach:
                 "Strasznie Cię korciło by tak został"
                 "Ale ostatecznie dolecieliście na miejsce"
                 "I to było 10 metrów od waszej bazy"
+                show cypher
                 c "Ale się wyspałem"
                 p "Czemu my pół dnia lecieliśmy 10 metrów"
                 c "Droga w remoncie, trzeba było lecieć na około"
@@ -1149,7 +1159,7 @@ label dach:
                 jump rozstaje
             
             if cypher_stan == 2:
-                c "Muszę odpocząć, wróc później"
+                c "Muszę odpocząć, wróc później (Za jakiś update)"
                 
     jump rozstaje            
 
@@ -1305,6 +1315,7 @@ label warsztat:
                         hide ciphate with dissolve
                         h "Idziemy teraz na market i Ci powiem jaką chcę"
                         scene nocny
+                        show hartmann
                         "Wędrowaliście sobie między kramami"
                         h "O! Patrz ten model ale ma parametry"
                         p "Wiesz że je chuja z tego rozumiem"
@@ -1488,8 +1499,7 @@ label klinika:
             $ czas -= 5
             $ postacie ["Laskawca"] += 1
             $ laskawca_stan = 2
-        
-        jump rozstaje
+            jump rozstaje
 
     else:
         jump rozstaje
@@ -1708,11 +1718,13 @@ label bruhzylia:
                 p "Musimy zostać kumplami"
                 kr "No to będziemy musieli iść na polowanie"
                 p "No dobra, kiedy?"
-                kr "W następnym updacie pewnie"
+                kr "Jutro"
                 $ krateus_stan = 2
                 jump rozstaje
 
         elif krateus_stan == 2:
+            scene fiszop
+            show krateus
             "Wraz z Kreteusem wyruszyliście do miejskiej dźungli"
             kr "Nasze polowania zaczniemy od tamtego burdelu"
             p "A na co my będziemy w ogóle polować?"
@@ -1810,11 +1822,11 @@ label bruhzylia:
 
                 elif inventory.has_item("Pistolet"):
                     "Udało Ci się postrzelić jednego ale dostałeś z dzidy"
-                    call checkHP(9)
+                    call checkHP(9) from _call_checkHP_13
 
                 else:
                     "Potężna gazrurka trafiła w twoją twarz"
-                    call checkHP(16)
+                    call checkHP(16) from _call_checkHP_14
 
                 "Widzisz jak Krateus zajmuje się resztą"
                 kr "Waleczne skurwiele"
@@ -1873,6 +1885,38 @@ label bruhzylia:
 
                 if helper < 4:
                     kr "Kurwa, te bestie odgoniły kobiety"
+                    $ postacie["Krateus"] -= 2
+                    $ postacie["Laskawca"] -= 2
+                    $ krateus_stan = 5
+                    kr "Chuja dało radę zrobić"
+                    kr "Dawaj na Kennediego, może się odkujemy"
+                
+                else:
+                    kr "Dobra, trochę się ostało"
+                    p "I co z nimi teraz będzie?"
+                    kr "Mięso, włosy, organy itp."
+                    pl "Panowie zapraszam"
+                    scene klinika
+                    show laskawca at left
+                    show krateus at right
+                    p "I co, mam teraz kroić te baby"
+                    kr "Jakie kebaby"
+                    p "No te tu na stole"
+                    pl "No ta, masz kroić baby"
+                    $ czas = 0
+                    "Wieczorem"
+                    pl "Dawno tyle bab nie kroiłem"
+                    kr "Ale jaki pitos będzie potem"
+                    pl "A gdzie to niby opchniesz?"
+                    kr "Mam swoje źródła"
+                    kr "Spokojna twoja rozczochrana"
+                    p "To jesteś gotowy na zadanie Kenowe"
+                    kr "Kurwa brachu, pewex"
+                    kr "Daj tylko znać i się pojawię"
+                    $ krateus_stan = 5
+                    $ postacie["Krateus"] += 2
+                    $ postacie["Laskawca"] += 2
+                    jump rozstaje
 
 
     jump rozstaje
