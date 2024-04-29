@@ -67,7 +67,7 @@ screen znaj():
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.25
-        text "{color=000}Cypher: [postacie['Cypher']] \n Kałach: [postacie['Kalach']] \n Gun: [postacie['Gun']] \n Hartmann: [postacie['Hartmann']] \n Łaskawca: [postacie['Laskawca']]"
+        text "{color=000}Cypher: [postacie['Cypher']] \n Kałach: [postacie['Kalach']] \n Gun: [postacie['Gun']] \n Hartmann: [postacie['Hartmann']] \n Łaskawca: [postacie['Laskawca']] \n Krateus[postacie['Krateus']] \n Jhin[postacie['Jhin]]']]"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True

@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/customscreen.rpy", line 70: 'Cypher' is not a keyword argument or valid child of the text statement.
-    text "{color=000}Cypher: [postacie["Cypher"]] \n Kałach: [postacie["Kalach"]] \n Gun: [postacie["Gun"]] \n Hartmann: [postacie[Hartmann]] \n Łaskawca: [postacie[Laskawca]]"
-                                              ^
+File "game/script.rpy", line 2445: choice menuitem expects a non-empty block.
+    "Na głośno":
+                ^
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Mon Apr 29 10:16:40 2024
+Mon Apr 29 12:15:27 2024

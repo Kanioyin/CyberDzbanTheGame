@@ -11,6 +11,7 @@ define v = Character(_("Vista"), color = "#213769")
 define t = Character(_("Toro"), color = "#6969EE")
 define gk = Character(_("Gen. Kennedy"), color = "#098703")
 define kr = Character(_("Krateus"), color = "#023a10")
+define mg = Character(_("Wielki Dzik"), color = "#315112")
 
 init python:
     class Inventory():
@@ -272,6 +273,9 @@ label start:
         elif player_name == "Sex" or player_name == "sex":
             "Kto jak kto ale ty raczej nie ruchasz"
 
+        elif player_name == "Cycu":
+            "Co jest kurde, to cyber jest kurde"
+
         else:
             $ helper = 0
 
@@ -339,6 +343,8 @@ label gameover:
 
 label rozstaje:
     scene black
+    $ renpy.block_rollback()
+    $ config.rollback_enabled = True
     call checktime from _call_checktime
     menu:
         "Kaj leziesz?"
@@ -471,6 +477,7 @@ label kuchnia:
                 g "Daniel Krej z!"
                 g "No to zacznijmy rozmowę kwalifikacyjną"
                 g "Pytanie pierwsze"
+                $ config.rollback_enabled = False
                 menu:
                     "Jaki jest twój ulubiony kolor?"
                     "Zielony":
@@ -500,6 +507,8 @@ label kuchnia:
                         $ postacie["Gun"] += 1
                         hide ciphate with dissolve
 
+                $ renpy.block_rollback()
+                $ config.rollback_enabled = True
                 g "To chyba tyle z pytań"
                 p "I co to kurwa niby znaczy?"
                 g "Dowiesz się w swoim czasie"
@@ -878,6 +887,7 @@ label kosciol:
                         k "Dostaniesz błogosławienie i coś jeszcze"
                         k "Co konkretnie, to jeszcze nie wiem"
                         k "Ale na 69% coś będzie."
+                        $ config.rollback_enabled = False
                         menu:
                             k "To co, piszesz się?"
 
@@ -892,6 +902,8 @@ label kosciol:
                                 k "Ale pamiętaj, nigdy stopy."
                                 jump rozstaje
 
+                        $ renpy.block_rollback()
+                        $ config.rollback_enabled = True
                     $ kalach_stan = 2
                     jump rozstaje
 
@@ -1130,6 +1142,7 @@ label dach:
                 c "I to mi się podoba"
                 p "Czemu Ci czeczeni wyglądają jak Gun i Łaskawca?"
                 c "Kamuflaż. Przestań myśleć i ciąg"
+                $ config.rollback_enabled = False
                 menu:
                     "Ciągniesz za wajchę?"
                     "Cypher kazał ja robię":
@@ -1152,7 +1165,9 @@ label dach:
                         hide ciphate with dissolve
                         $ postacie["Cypher"] -= 2
                         c "Dobra wracamy, nie ma z tobą zabawy"
-
+                
+                $ renpy.block_rollback()
+                $ config.rollback_enabled = True
                 "I kolejne pół dnia wracaliście"
                 $ czas = 0
                 $ cypher_stan = 2
@@ -1172,6 +1187,7 @@ label dach:
                 p "Kogo?"
                 c "Ciebie"
                 c "Pytanie pierwsze"
+                $ config.rollback_enabled = False
                 menu:
                     c "Ile chlebów w życiu zjadłeś?"
                     "Kurwa, nie liczę tego":
@@ -1246,6 +1262,8 @@ label dach:
                         p "Klawo"
                         $ cypher_stan = 5
                         $ postacie["Cypher"] += 2
+                        $ renpy.block_rollback()
+                        $ config.rollback_enabled = True
                         jump rozstaje
 
 
@@ -1254,6 +1272,8 @@ label dach:
                         "I bez słowa zaczął uciekać"
                         $ postacie["Cypher"] -= 3
                         $ cypher_stan = 3
+                        $ renpy.block_rollback()
+                        $ config.rollback_enabled = True
                         jump rozstaje
 
             if cypher_stan == 3:
@@ -1395,6 +1415,7 @@ label warsztat:
                 h "Jak mi powiesz ile zarobię to może się zastanowię"
                 h "Możesz też mi kupić nową spawarkę"
                 h "Wyjebane, muszę coś dostać"
+                $ config.rollback_enabled = False
                 menu:
                     "Co robisz?"
                     "(Kłamstwo) Żartowałem, dostaniemy 3k na głowę":
@@ -1404,6 +1425,8 @@ label warsztat:
                         $ helper2 = 1
                         $ hartmann_stan = 5
                         "Zadowolony z siebie wyszedłeś"
+                        $ renpy.block_rollback()
+                        $ config.rollback_enabled = True
                         jump rozstaje
 
                     "Znajdę Ci tę spawarkę":
@@ -1434,6 +1457,8 @@ label warsztat:
                         p "Przynajmniej tyle"
                         $ hartmann_stan = 5
                         $ czas -= 5
+                        $ renpy.block_rollback()
+                        $ config.rollback_enabled = True
                         jump rozstaje
     
     jump rozstaje
@@ -1515,6 +1540,7 @@ label klinika:
             pl "I kurwa nawet nie pamiętam co się z nim stało"
             pl "Jakbyś znalazł jakiś fajny serwerek"
             pl "To daj mi cynk, wynagrodzę cię"
+            $ config.rollback_enabled = False
             menu:
                 "Mam nadzieję że w naturze ( ͡° ͜ʖ ͡°)":
                     show ciphate with dissolve
@@ -1528,6 +1554,8 @@ label klinika:
                     pl "No to mam u Ciebie dług"
                     $ postacie["Laskawca"] += 2
 
+            $ renpy.block_rollback()
+            $ config.rollback_enabled = True
             pl "No to czekam na info z niecierpliwością"
             $ laskawca_stan = 1
 
@@ -1620,6 +1648,7 @@ label jhinownia:
             j "Powiedz mi jak tam było?"
             j "Czy to prawda że Visty rozmnażają się przez pączkowanie?"
             j "Czy może po śmierci dzielą się na pół?"
+            $ config.rollback_enabled = False
             menu:
                 "Zdecydowanie pączkowanie":
                     show ciphate with dissolve
@@ -1665,6 +1694,7 @@ label jhinownia:
             j "Krejzi.braindance.cum"
             j "Niestety nie mam pozwolenia od rodziców"
             j "Więc nie mogłem sprawdzić"
+            $ config.rollback_enabled = False
             menu:
                 j "Może ty jesteś na tyle odważny żeby to zrobić?"
 
@@ -1767,6 +1797,7 @@ label bruhzylia:
             kr "No to zajebiście, formalności za nami"
             kr "Teraz tylko jedna drobnostka została"
             kr "Uściśnij mi dłoń"
+            $ config.rollback_enabled = False
             menu:
                 "No dobra":
                     "Widzisz że Krateus wyjął siekierę"
@@ -2098,6 +2129,7 @@ label akt1:
     g "Idziemy, strzelamy, spierdalamy"
     pl "Podoba mi się to"
     g "A ty [player_name]? Piszesz się?"
+    $ config.rollback_enabled = False
     menu:
         "Piszę się?"
         "Kurwa no pewex":
@@ -2138,6 +2170,7 @@ label akcja:
     hide laskawca with dissolve
     "Łaskawca zaczął eksterminację oponentów"
     hide gun
+    $ config.rollback_enabled = False
     menu:
         "A co ty robisz?"
         "Zaczynam strzelać":
@@ -2350,12 +2383,6 @@ label wojsko:
         p "No to wracam do bazy"
         jump rozstaje
 
-    elif wojsko_stan > 4: 
-        gk "Dobra robota szczylu."
-        gk "Udało Ci się zdobyć przyjaźń z innymi dzbanami"
-        gk "Więc lecicie na super tajną misję"
-        jump tempend
-
     elif wojsko_stan > 0:
         "Opowiedziałeś Kenowi o swoim progresie"
         if laskawca_stan == 2:
@@ -2412,11 +2439,69 @@ label wojsko:
             $ wojsko_stan += 1
             $ krateus_stan = 6
 
-        jump rozstaje
+    elif wojsko_stan > 4: 
+        gk "Dobra robota szczylu."
+        gk "Udało Ci się zdobyć przyjaźń z innymi dzbanami"
+        gk "Więc lecicie na super tajną misję"
+        jump wojowezadanie
 
 label wojowezadanie:
-    scene black
-    "DUPA"
+    scene wojsko
+    show genken at left
+    gk "Więc co macie do zrobienia"
+    gk "Siłą przyjaźni musicie wysadzić jedno z vniazd"
+    gk "Prowadzą tam badania nad ściśle tajnym projektem Vezuwiusz"
+    gk "Niech bóg was przyjmie"
+    $ helper == 100
+    $ config.rollback_enabled = False
+    if frakcja == 0:
+        scene vniazdo
+        "Poprowadziłeś punków prosto w vniazdo"
+        p "Panowie, Kennedy wybrał mnie jako szefa tej operacji, więc proszę słuchajcie się mnie"
+        "O dziwo nikt nie miał z tym problemu"
+        "Teraz jako szef, czeka Cię wyzwanie kierowania swoją ekipą"
+        "Wskaźnik zagrożenia jest na poziomie 100"
+        "Jeśli spadnie do 0 to osiągniesz giga sukces"
+        "Nie spodziewaj się tego wyniku"
+        "To jakie masz możliwości zależy od ludzi w ekipie"
+        "Wracając do wyroku śmierci"
+        "Macie kilka opcji na wykonanie tej roboty"
+        menu:
+            "Po Cichu":
+                "Brak w tobie cyberowego ducha walki"
+                p "Panowie, robimy to tak Cicho jak się tylko da"
+                p "I to będzie bardzo trudne"
+                p "Trzeba teraz dostać się do środka"
+                p "Co my mamy do wyboru"
+                menu:
+                    "Jak wchodzisz?"
+                    "Drzwi główne":
+                        "Dostaliście się do środka głównymi drzwiami"
+                        "Najgorsze możliew wejście"
+                        ""
+
+                    "Okno" if krateus_stan == 6:
+                        p "Krateus, wskakuj oknem i nam pomożesz"
+                        kr "Tajest kierowniku"
+                        $ helper -= 10
+
+                    "Wentylacja" if gun_stan == 6:
+                        p "Gun, możesz wentować?"
+                        g "Dlaczego ja?"
+                        p "W kombosach do KTG jesteś w spiskowcach"
+                        p "A to jednak jest trochę sus"
+                        g "To ma sers"
+                        $ helper -= 10
+
+            "Na głośno":
+                "AAA"
+
+    elif frakcja == 1:
+        "Sex"
+    elif frakcja == 3:
+        "Sraka"
+    elif frakcja == 4:
+        "Kakaraka"
     return
 
 label amongthev:
@@ -2459,6 +2544,7 @@ label amongthev:
     scene vland
     play music "dickdisco.mp3" volume 0.2
     show vista
+    $ config.rollback_enabled = Flase
     v "Vitam v vlubie"
     v "Jestem Viesiek"
     v "Będę twoim vrzewodnikiem"
@@ -2474,6 +2560,7 @@ label amongthev:
     hide vista
     jump vtimefri
 
+# VISTY
 # deklaracje co do V
 default vechnik_stage = 0
 default voktor_stage = 0
@@ -2522,7 +2609,7 @@ label vechnik_wst:
         v "Vtam, jestem vechnikiem."
         v "Vogę Ci zaoferować potężne vposażenie."
         v "Ale oczyViście, jeśli vasz odpowiednią ilość Vdolców."
-        $vechnik_stage = 1
+        $ vechnik_stage = 1
         menu:
             "Zdobądź potężne Vposażenie"
 
