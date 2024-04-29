@@ -1159,8 +1159,105 @@ label dach:
                 jump rozstaje
             
             if cypher_stan == 2:
-                c "Muszę odpocząć, wróc później (Za jakiś update)"
-                
+                c "Dobra, lecimy z kolejnym bojowym zadaniem"
+                c "W dzisiejszym odcinku wysokiego trybu"
+                c "Wyruszymy do sklepu po zakupy"
+                scene owocniak
+                show cypher
+                c "Ah, uwielbiam plastikowe truskawki"
+                play sound "EAT OR MUNCH.mp3"
+                c "Przepyszne"
+                c "Ale jesteśmy tu w innym celu niż zdrowe jedzenie"
+                c "Jesteśmy tu na przesłuchanie"
+                p "Kogo?"
+                c "Ciebie"
+                c "Pytanie pierwsze"
+                menu:
+                    c "Ile chlebów w życiu zjadłeś?"
+                    "Kurwa, nie liczę tego":
+                        c "I to był błąd"
+                        show krateus
+                        kr "To prawda, liczenie makro oddaje"
+                        kr "Wiesz że jeden bochenek ma 2001 kalorii"
+                        kr "363 węgli, 66 białka i 24 fatu"
+                        kr "Warto kontrolować te wartości"
+                        hide krateus
+                        c "No właśnie"
+                        $ postacie["Cypher"] -= 1
+
+                    "Biedny jestem, z trzy":
+                        c "Oj rozumiem twój ból"
+                        c "Jak byłem małym szczylem"
+                        c "To my na platformie jedliśmy plastik z solą"
+                        c "A na pierwszej wojnie korporacyjnej jedzono zieloną sałatę"
+                        p "A ona nie zawsze była zielona?"
+                        c "No od wojny jest"
+                        $ postacie["Cypher"] += 1
+
+                    "Nienawidzę chleba":
+                        c "W sensie że bochenków?"
+                        p "Kromek też"
+                        c "A, bo już myślałem te twardego nie lubisz"
+                        p "No też, kto kurwa lubi twardy chleb"
+                        c "Oj i teraz mnie wkurwiłeś"
+                        $ postacie["Cypher"] -= 1
+
+                c "Kwestię gastro mamy za sobą, teraz kolejne pytanie"
+                menu:
+                    c "Widziałeś gdzieś moje spodnie?"
+                    "Fredi ich pilnuje" if gun_stan > 2:
+                        c "Karamba, myślałem że zostały już uratowane"
+                        p "A ty nie masz innych spodni?"
+                        c "Mam ale w tamtych jest coś ważnego"
+                        p "OK"
+                        $ postacie["Cypher"] += 1
+
+                    "Na dupie je masz":
+                        c "Się kurwa dowcipniś znalazł"
+                        c "Jak taki jesteś śmieszny to co byś powiedział na granat w odbycie?"
+                        p ":czacha"
+                        c "HiHiHaHa"
+
+                    "Nie wiem Cypher":
+                        c "Same"
+
+                c "No i ostatnie pytanie"
+                menu:
+                    c "Ufasz mi?"
+                    "Tak":
+                        c "Więc udawaj że gadamy i idź za mną"
+                        p "Ok"
+                        "Spacerkiem szliście dalej, aż do ślepego zaułka"
+                        c "No, czego od nas chcecie"
+                        "Para zbirów wyłoniła się zza rogu"
+                        "Guten Morgen, Großer Manager"
+                        c "Guten Morgen"
+                        "Wir haben eine wichtige Frage an Sie"
+                        c "Komm schon"
+                        "Wir können Autogramme bekommen, wir sind große Fans"
+                        c "Natürlich"
+                        "Widzisz jak cypher podchodzi do tej pary i pisze im coś na kartkach"
+                        "Następnie parka odchodzi"
+                        p "Cypher, co to było?"
+                        c "Fałszywy alarm młody, wracamy do domu"
+                        p "Ile masz jeszcze dla mnie zadań?"
+                        c "Wiesz co? Jak mi ufasz, to ja zaufam tobie"
+                        c "Możesz mnie liczyć jako sojusznika"
+                        p "Klawo"
+                        $ cypher_stan = 5
+                        $ postacie["Cypher"] += 2
+                        jump rozstaje
+
+
+                    "Nie":
+                        c "To spierdalaj"
+                        "I bez słowa zaczął uciekać"
+                        $ postacie["Cypher"] -= 3
+                        $ cypher_stan = 3
+                        jump rozstaje
+
+            if cypher_stan == 3:
+                c "Spierdalaj"
     jump rozstaje            
 
 label warsztat:

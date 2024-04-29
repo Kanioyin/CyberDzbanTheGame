@@ -1,28 +1,87 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 215, in script
-    if player_name == "Gun":
-SyntaxError: invalid syntax (game/script.rpy, line 272)
+  File "game/script.rpy", line 342, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 2024, in script
+    p "Pusto tu"
+  File "game/customscreen.rpy", line 65, in execute
+    screen znaj():
+  File "game/customscreen.rpy", line 65, in execute
+    screen znaj():
+  File "game/customscreen.rpy", line 68, in execute
+    vbox:
+  File "game/customscreen.rpy", line 70, in execute
+    text "{color=000}Cypher: [postacie['Cypher']] \n Kałach: [postacie[Kalach]] \n Gun: [postacie[Gun]] \n Hartmann: [postacie[Hartmann]] \n Łaskawca: [postacie[Laskawca]]"
+NameError: Name 'Kalach' is not defined.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 215, in script
-    if player_name == "Gun":
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2133, in execute
-    if renpy.python.py_eval(condition):
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1151, in py_eval
-    code = py_compile(code, 'eval')
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1088, in py_compile
+  File "game/script.rpy", line 342, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 2024, in script
+    p "Pusto tu"
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 2557, in execute
+    Say.execute(self)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ast.py", line 615, in execute
+    renpy.exports.say(who, what, *args, **kwargs)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\exports.py", line 1493, in say
+    who(what, *args, **kwargs)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\character.py", line 1394, in __call__
+    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\character.py", line 1045, in do_display
+    display_say(who,
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\character.py", line 741, in display_say
+    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\core.py", line 2165, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\core.py", line 2687, in interact_core
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\displayable.py", line 431, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\displayable.py", line 431, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\displayable.py", line 431, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\screen.py", line 480, in visit_all
+    callback(self)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\core.py", line 2687, in <lambda>
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\screen.py", line 491, in per_interact
+    self.update()
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\display\screen.py", line 697, in update
+    self.screen.function(**self.scope)
+  File "game/customscreen.rpy", line 65, in execute
+    screen znaj():
+  File "game/customscreen.rpy", line 65, in execute
+    screen znaj():
+  File "game/customscreen.rpy", line 68, in execute
+    vbox:
+  File "game/customscreen.rpy", line 70, in execute
+    text "{color=000}Cypher: [postacie['Cypher']] \n Kałach: [postacie[Kalach]] \n Gun: [postacie[Gun]] \n Hartmann: [postacie[Hartmann]] \n Łaskawca: [postacie[Laskawca]]"
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\text\text.py", line 1738, in __init__
+    self.set_text(text, scope, substitute) # type: ignore
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\text\text.py", line 1868, in set_text
+    i, did_sub = renpy.substitutions.substitute(i, scope, substitute) # type: ignore
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\substitutions.py", line 368, in substitute
+    s = interpolate(s, kwargs) # type: ignore
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\substitutions.py", line 86, in interpolate
     raise e
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1034, in py_compile
-    raise orig_e
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1027, in py_compile
-    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, 1)
-SyntaxError: invalid syntax (game/script.rpy, line 272)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\substitutions.py", line 78, in interpolate
+    value = renpy.python.py_eval(code, {}, scope)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1209, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\python.py", line 1202, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "<none>", line 1, in <module>
+  File "C:\Users\Lenovo\Desktop\Renpy\renpy-8.1.3-sdk\renpy\substitutions.py", line 310, in __getitem__
+    raise NameError("Name '{}' is not defined.".format(key))
+NameError: Name 'Kalach' is not defined.
 
 Windows-10-10.0.19045 AMD64
-Ren'Py 8.1.3.23091805
-CyberDzban 0.000000001
-Tue Apr 23 12:57:46 2024
+Ren'Py 8.2.1.24030407
+CyberDzban 0.000000002
+Mon Apr 29 10:19:59 2024
