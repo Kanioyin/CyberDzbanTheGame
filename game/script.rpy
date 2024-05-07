@@ -11,7 +11,7 @@ define v = Character(_("Vista"), color = "#213769")
 define t = Character(_("Toro"), color = "#6969EE")
 define gk = Character(_("Gen. Kennedy"), color = "#098703")
 define kr = Character(_("Krateus"), color = "#023a10")
-define mg = Character(_("Wielki Dzik"), color = "#315112")
+define mg = Character(_("Wielki Dzik"), color = "#482809")
 
 init python:
     class Inventory():
@@ -2390,7 +2390,7 @@ label wojsko:
             gk "Czyli Łaskawca jest gotowy Ci pomóc"
             gk "Healer zawsze się przyda"
             $ wojsko_stan += 1
-            $ laskawca_stan = 3
+            $ laskawca_stan = 6
 
         if gun_stan == 5:
             "Pochwaliłeś się przyjaźnią z Gunem"
@@ -2464,6 +2464,7 @@ label wojowezadanie:
         "Jeśli spadnie do 0 to osiągniesz giga sukces"
         "Nie spodziewaj się tego wyniku"
         "To jakie masz możliwości zależy od ludzi w ekipie"
+        "I od tego jaki masz sprzęt"
         "Wracając do wyroku śmierci"
         "Macie kilka opcji na wykonanie tej roboty"
         menu:
@@ -2483,7 +2484,8 @@ label wojowezadanie:
                     "Okno" if krateus_stan == 6:
                         p "Krateus, wskakuj oknem i nam pomożesz"
                         kr "Tajest kierowniku"
-                        $ helper -= 10
+                        $ helper -= 15
+                        "A po nim wskoczyła cała reszta"
 
                     "Wentylacja" if gun_stan == 6:
                         p "Gun, możesz wentować?"
@@ -2491,18 +2493,207 @@ label wojowezadanie:
                         p "W kombosach do KTG jesteś w spiskowcach"
                         p "A to jednak jest trochę sus"
                         g "To ma sers"
-                        $ helper -= 10
+                        $ helper -= 25
+                        g "Kurwa, ciemno tu"
+                        g "O, jest chyab wyjście"
+                        "Gun skończył wentować"
+                        g "Przycisk z napisem tajne vejście"
+                        g "A se klikne"
+                        "I dzięki temu, reszta drużyny dostała się do środka"
+
+                if helper == 100:
+                    "Wchodząc mainem weszliście w vułapkę"
+                    call checkHP(10)
+                    "Dzbany trochę oberwały"
+                    if gun_stan == 6:
+                        g "Moja gorgonzola"
+                        $ gun_stan == 7
+
+                    elif kalach_stan == 6:
+                        k "Kurwa"
+                        $ kalach_stan = 7
+
+                    else:
+                        $ laskawca_stan = 7
+                        pl "Auć"
+
+                    "Ale ostatecznie doszliście do tajnego wejścia"
+
+                "Jesteście przy drzwiach 2"
+                "Zbliżając się, usłyszeliście vrażników"
+                v "Vrombał bym coś"
+                v "Vejm"
+                v "Vo voviesz na vot-voga?"
+                v "Vybornie"
+                p "Trzeba się ich pozbyć"
+                p "Tylko jak to zrobię?"
+                menu:
+                    "Atak frontalny":
+                        p "Za hordę"
+                        "AAAAAAAA"
+                        call chceckHP(5)
+                        "Dzielnie szturmowaliście parę Vist"
+                        "Niestety jeden z vist miał przy sobie terminal"
+                        $ edki = 0
+                        "I w taki sposób zabrał Ci wszystkie pieniądze"
+                        
+
+                    "Granat" if inventory.has_item("Granat"):
+                        $ inventory.remove_item("Granat")
+                        $ helper -= 15
+                        "Boom"
+                        v "Vo Volera!"
+                        p "HiHiHaHa"
+
+
+                    "Kałach, dywersja" if kalach_stan > 5:
+                        k "Hej seksiaki"
+                        v "O, siemka Kałach, co tam"
+                        k "A vista z hot-dogami przyjechał"
+                        v "VO VOLERA"
+                        v "VUSZAMY VIELNIE"
+                        "I dzielnie vybiegli"
+                        $ helper -= 25
+                        p "Dobra robota Kałach"
+                        k "Wiem"
+
+                "Przeszliście przez straż"
+                "Idziecie dalej przez gniazdo"
+                "Dzielnie dostrzegasz znak vaboratorium"
+                p "Chopaky, jesteśmy na miejscu"
+                p "Pora zrobić rozpierdol"
+                menu:
+                    "Jak spacyfikuję laba"
+                    "Atak frontalny":
+                        call chackHP(5)
+                        "Wbiegliście do środka atakując kadego Vistę w okolicy"
+
+                    "Pora na blackout" if jhin_stan > 5:
+                        p "Ten taki, odetnij im kable"
+                        j "Spoczko foczko"
+                        "Widzisz że Jhin wyjmuję katane"
+                        p "Nie tak deklu, prąd cię jebnie"
+                        j "Fakt"
+                        "Schował kanatę i wyjął broń z ręki"
+                        p "NIEEEEEE"
+                        "Jhin przeciął kable ostrzem z dłoni"
+                        "I tak jak przwidywałeś, jebnął go prąd"
+                        j "Oj karamba"
+                        p "Jhin, jesteś cały?"
+                        j "Powiedz mojej żonie, że jej nie mam"
+                        if inventory.has_item("THeal") == True:
+                            p "Spokojnie kentaki"
+                            "Dałeś Jhinowi Turbo uzdrawiacz"
+                            $ inventory.remove_item("THeal")
+                            $ postacie["Jhin"] += 3
+                            j "Dzięki stary"
+                        "Reszta dostała się do środka i po ciemku i cichu wybiła resztę"
+                        $ helper -= 15
+                    
+                    "Łaskawca, anestezja bojowa" if laskawca_stan > 5:
+                        pl "Się robi"
+                        "Łaskawca podszedł pod szyb i dał trochę gazu"
+                        v "Vopaki, vide vpać"
+                        v "Vamimir"
+                        pl "Słodkich snów chuje"
+                        p "Jeszcze cukrzycy dostaną"
+                        pl "Jakieś minusy?"
+                        $ helper -= 25
+
+                "Laboratoruim jest wasze"
+                "Badając dokumenty odkryłeś vistowy plan"
+                p "Oni są tak głupi że ja pierdolę"
+                p "Próbowali wrzucić Guna do wulkanu"
+                p "I tak chcieli przywołać boga gniewu"
+                p "No debile"
+                "Po przeszukiwaniu postanowiliście wysadzić laba"
+                "Szybki trick i cały lab się wyjebie za pięc minut"
+                p "Spierdalamy"
+                "Zaczęliście biec do wyjścia"
+                "Ale na waszej drodze stanął VPrime"
+                v "Vavava"
+                p "Spierdalaj"
+                v "NIE"
+                menu:
+                    "Ostatni przeciwnik"
+                    "Let mi solo him":
+                        v "Oh? You're approaching me? Instead of running away, you're coming right to me?"
+                        p "I can't beat the shit out of you without getting closer."
+                        v "Oh ho! Then come as close as you like."
+                        p "Ora"
+                        v "Too slow, too slow! The Vorld is the ultimate Stand."
+                        "ora ora ora ora vs vuda vuda vuda vuda"
+                        p "It's over VPrime. I have a high ground"
+                        v "Vurwa"
+                        p "GIŃ"
+                        play sound "hit.mp3"
+                        "Dostałeś srogi wpierdol ale pokonałeś wroga"
+                        call checkHP(20)
+                        v "To jeszcze nie jest koniec"
+                        p "Panowie wychodzimy"
+                        " I w taki sposób wyszliście z vazy"
+                        jump akt1pods
+                    
+                    "Pora na spawanie" if hartmann_stan > 5:
+                        p "Hartmann, bier migomat"
+                        h "PORA NA SPAWANIE WORA"
+                        v "Nieeeeeeeee"
+                        "Szybkim ruchem Hartmann zespawał Vprima"
+                        v "Moje kochones"
+                        p ":czacha"
+                        h ":czacha"
+                        p "Panowie wychodzimy"
+                        " I w taki sposób wyszliście z vazy"
+                        $ helper -= 15
+                        jump akt1pods
+
+                    "Góra, prawo, dół dół dół" if cypher_stan > 5:
+                        p "Cypher, pora na nalot"
+                        c "Cypher łan w drodze"
+                        v "Co kurwa?"
+                        v "Jak ty niby chcesz zrzucić bombę w budynku"
+                        v "Jakby, tu nie ma jak wlecieć"
+                        v "A jak upadnie na dach to chuja mi zrobić"
+                        v "Kurwa, przecież Cypher stoi obok"
+                        v "To nie ma prawa działać"
+                        c "To pa ten trick"
+                        "Cypher wziął potężnego bucha i nad v prime pojawiła się chmura"
+                        v "I to wszystko?"
+                        c "Hi Hi Ha Ha"
+                        "Z chmury wypadła mała bomba"
+                        v "Co do kurwy"
+                        "I ta bomba wybombowała vprima"
+                        p "Nie wierzę że to mówię ale dobra robota Cypher"
+                        c "DH poleca się"
+                        p "Panowie wychodzimy"
+                        " I w taki sposób wyszliście z vazy"
+                        $ helper -= 25
+                        jump akt1pods
+                        
 
             "Na głośno":
                 "AAA"
 
     elif frakcja == 1:
-        "Sex"
+        "Droga diamentowych psów jest jeszcze w rozwoju"
+        $ frakcja = 0
+        "Ustawiłem Ci bezfrakcyjnośc, przejdź sobie aktualny ending"
+        jump wojowezadanie
     elif frakcja == 3:
-        "Sraka"
+        "Droga vist jest jeszcze w rozwoju"
+        $ frakcja = 0
+        "Ustawiłem Ci bezfrakcyjnośc, przejdź sobie aktualny ending"
+        jump wojowezadanie
     elif frakcja == 4:
-        "Kakaraka"
+        "Droga Kałacha jest jeszcze w rozwoju"
+        $ frakcja = 0
+        "Ustawiłem Ci bezfrakcyjnośc, przejdź sobie aktualny ending"
+        jump wojowezadanie
     return
+
+label akt1pods:
+    scene black
+    jump tempend
 
 label amongthev:
     stop music fadeout 1.0
@@ -3136,12 +3327,12 @@ label amongthevpods:
 
 
 label tempend:
-    "Doszedłeś do końca tej historii"
-    "Na ten moment nie ma nic więcej do odkrycia"
-    "Możesz dumnie wypierdalać"
-    "Albo czekaj"
-    "Zrób ss następnego okienka i wyślij mi"
-    "Ogarnij choja i idź do woja"
-    "Dostaniesz kartę do KTG i 50 exp do cybera"
-    "A teraz czekaj na następny update i wypierdalaj"
+    mg "Doszedłeś do końca tej historii"
+    mg "Na ten moment nie ma nic więcej do odkrycia"
+    mg "Możesz dumnie wypierdalać"
+    mg "Albo czekaj"
+    mg "Zrób ss następnego okienka i wyślij mi"
+    mg "Fajny fakt: zobaczymy 2 akt"
+    mg "Dostaniesz kartę do KTG i 60 exp do cybera"
+    mg "A teraz czekaj na następny update i wypierdalaj"
     return
