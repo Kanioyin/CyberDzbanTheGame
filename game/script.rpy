@@ -527,6 +527,7 @@ label kuchnia:
                 "Gun zabrał cie co nowego miejsca"
                 "Zaskoczyło Cię to że pojechaliście tam autem"
                 scene idrive
+                play music "idrive.mp3" volume 0.2
                 p "JA PIERDOLĘ, KTO CI DAŁ PRAWO JAZDY?"
                 g "Paczka cheetosów serowych"
                 p "Mogłem się tego spodziewać"
@@ -690,11 +691,14 @@ label kuchnia:
                     p "Co kurwa?"
                     g "Zaraz zobaczysz"
                     scene idrive
+                    play music "idrive.mp3" volume 0.2
                     p "Nie rozjedź żadnej baby tym razem"
                     j "Jak to tym razem?"
                     j "Czy ja o czymś nie wiem?"
                     g "O wielu sprawach ken taki"
                     "Ale tym razem szybka podróż była bezpieczna"
+                    stop music
+                    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
                     scene tostblok
                     show gun at left
                     show jhin at right
@@ -725,6 +729,7 @@ label kuchnia:
                     g "No dobra"
                     "Przenieśliście nieprzytomnego Jhina do kara i ruszyliście do bazy"
                     scene idrive
+                    play music "idrive.mp3" volume 0.2
                     g "Co tam się w ogóle stało?"
                     p "Sebixy wyklęte"
                     g "O w mordę strzelił"
@@ -733,6 +738,8 @@ label kuchnia:
                     p "No to jest dobry plan ale gdzie dostanę bombę?"
                     g "Pozwól mi gotować"
                     "I w atmosferze skandalu wróciliście do bazy"
+                    stop music
+                    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
                     $ gun_stan = 4
                     $ postacie["Gun"] += 1
                     $ postacie["Jhin"] += 1
@@ -755,6 +762,7 @@ label kuchnia:
                     p "Powinienem dać sobie radę"
                     g "No to w drogę"
                     scene idrive
+                    play music "idrive.mp3" volume 0.2
                     kr "Powiedz Gun, kiedy nauczyłeś się prowadzić?"
                     g "Nigdy"
                     play sound "hit.mp3"
@@ -779,6 +787,7 @@ label kuchnia:
                     g "Będzie padać, nisko latają"
                     "Ładunek trafił do sklepu z narzędziami"
                     kr "To za brak promocji Kurwo"
+                    play sound "BOOM.mp3" volume 0.2
                     "I pierdolło"
                     g "No to ponowie, chyba po robicie"
                     kr "Kurwa serio, ja chciałem bijatykę"
@@ -794,6 +803,8 @@ label kuchnia:
                     $ gun_stan = 5
                     "Zadowolony wyszedłeś"
                     $ czas = 0
+                    stop music
+                    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
                     jump rozstaje
 
     if inventory.has_item(Ser) == True:
@@ -1191,7 +1202,9 @@ label dach:
                 menu:
                     c "Ile chlebów w życiu zjadłeś?"
                     "Kurwa, nie liczę tego":
+                        show ciphate with dissolve
                         c "I to był błąd"
+                        hide ciphate with dissolve
                         show krateus
                         kr "To prawda, liczenie makro oddaje"
                         kr "Wiesz że jeden bochenek ma 2001 kalorii"
@@ -1278,6 +1291,8 @@ label dach:
 
             if cypher_stan == 3:
                 c "Spierdalaj"
+                jump rozstaje 
+
     jump rozstaje            
 
 label warsztat:
@@ -1460,6 +1475,11 @@ label warsztat:
                         $ renpy.block_rollback()
                         $ config.rollback_enabled = True
                         jump rozstaje
+
+        else:
+            h "Nie mam Ci nic do powiedzenia"
+            jump rozstaje
+
     
     jump rozstaje
 
@@ -1752,6 +1772,7 @@ label jhinownia:
                             $ jhin_stan = 3
 
             "Wychodzisz z pokoju"
+            jump rozstaje
 
         if jhin_stan == 3 and bigquest == 5:
             j "Siemaneczko [player_name], co tam chcesz?"
@@ -1872,6 +1893,7 @@ label bruhzylia:
             "I widzicie jak ten debil jebany strzelił z bazooki"
             c "HI HI HA HA"
             hide cypher with disolve
+            play sound "BOOM.mp3"
             "Rakieta przeleciała obok ludzi i eksplodowała fajerwerkami"
             c "Hi....HI......HA......HA"
             kr "Uwielbiam tego człowieka"
@@ -2319,9 +2341,9 @@ label trader:
     p "Ile mam mamony? [edki] edków, mogło być mniej"
     menu:
         "Szopping tajm"
-        "Ale fajna Aerka" if edki >= 500:
+        "Ale fajna Aerka" if edki >= 600:
             $ inventory.add_item(AR)
-            $ edki -= 500
+            $ edki -= 600
 
         "Wytrych? " if edki >= 200:
             $ inventory.add_item(Wytrych)
@@ -2489,9 +2511,10 @@ label wojowezadanie:
                         $ helper -= 15
                         "A po nim wskoczyła cała reszta"
 
-                    "Drzwi dla personelu" if inventory.has_item("Wytrych"):
+                    "Drzwi dla personelu" if inventory.has_item(Wytrych) == True:
                         p "Na szczęście mam wytrych przy sobie"
                         p "Fiku foku picku loku"
+                        $ inventory.remove_item(Wytrych)
                         "Zręczne palce koniobijcy pomogły Ci otworzyć drzwi"
                         "Panowie, zapraszam"
                         $ helper -= 20
@@ -2510,6 +2533,7 @@ label wojowezadanie:
                         g "A se klikne"
                         "I dzięki temu, reszta drużyny dostała się do środka"
 
+                scene vard
                 "Jesteście przy drzwiach 2"
                 "Zbliżając się, usłyszeliście vrażników"
                 v "Vrombał bym coś"
@@ -2522,23 +2546,24 @@ label wojowezadanie:
                     "Atak frontalny":
                         p "Za hordę"
                         "AAAAAAAA"
-                        call chceckHP(10)
+                        call chceckHP(10) from _call_chceckHP
                         "Dzielnie szturmowaliście parę Vist"
                         "Niestety jeden z vist miał przy sobie terminal"
                         $ edki = 0
                         "I w taki sposób zabrał Ci wszystkie pieniądze"
                         
-                    "Chessy akcja" if inventory.has_item("Ser"):
+                    "Chessy akcja" if inventory.has_item(Ser) == True:
                         p "Żryjcie to kutafony"
-                        "Rzucieles serem w Visty"
+                        "Rzuciełeś serem w Visty"
+                        $ inventory.remove_item(Ser)
                         v "Ty viekki, akurat byłem głodny"
                         p "Luzik arbuzik, smacznego"
                         v "Dawaj Varek, idziemy na obiad"
                         play sound "EAT OR MUNCH.mp3"
                         $ helper -= 10
 
-                    "Granat" if inventory.has_item("Granat"):
-                        $ inventory.remove_item("Granat")
+                    "Granat" if inventory.has_item(Granat) == True:
+                        $ inventory.remove_item(Granat)
                         $ helper -= 15
                         "Poturlałeś granat w kierunku Vist"
                         v "Vo Volera!"
@@ -2560,6 +2585,7 @@ label wojowezadanie:
                         p "Dobra robota Kałach"
                         k "Wiem"
 
+                scene vezuwiusz
                 "Przeszliście przez straż"
                 "Idziecie dalej przez gniazdo"
                 "Dzielnie dostrzegasz znak vaboratorium"
@@ -2568,7 +2594,7 @@ label wojowezadanie:
                 menu:
                     "Jak spacyfikuję laba"
                     "Atak frontalny":
-                        call chackHP(5)
+                        call chackHP(5) from _call_chackHP
                         "Wbiegliście do środka atakując kadego Vistę w okolicy"
 
                     "Pora na blackout" if jhin_stan > 5:
@@ -2584,10 +2610,10 @@ label wojowezadanie:
                         j "Oj karamba"
                         p "Jhin, jesteś cały?"
                         j "Powiedz mojej żonie, że jej nie mam"
-                        if inventory.has_item("THeal") == True:
+                        if inventory.has_item(THeal) == True:
                             p "Spokojnie kentaki"
                             "Dałeś Jhinowi Turbo uzdrawiacz"
-                            $ inventory.remove_item("THeal")
+                            $ inventory.remove_item(THeal)
                             $ postacie["Jhin"] += 3
                             j "Dzięki stary"
                         "Reszta dostała się do środka i po ciemku i cichu wybiła resztę"
@@ -2623,9 +2649,13 @@ label wojowezadanie:
                 p "Spierdalamy"
                 "Zaczęliście biec do wyjścia"
                 "Ale na waszej drodze stanął VPrime"
+                scene vinalvoss
                 v "Vavava"
                 p "Spierdalaj"
                 v "NIE"
+                p "A powiesz o chuj wam chodzi z tymi klawnami?"
+                v "Taki vress vode"
+                p "Mogłem się domyslić"
                 menu:
                     "Ostatni przeciwnik"
                     "Let mi solo him":
@@ -2640,7 +2670,7 @@ label wojowezadanie:
                         p "GIŃ"
                         play sound "hit.mp3"
                         "Dostałeś srogi wpierdol ale pokonałeś wroga"
-                        call checkHP(20)
+                        call checkHP(20) from _call_checkHP_15
                         v "To jeszcze nie jest koniec"
                         p "Panowie wychodzimy"
                         " I w taki sposób wyszliście z vazy"
@@ -2684,10 +2714,20 @@ label wojowezadanie:
 
                     "Zielone światło" if gun_stan > 5:
                         scene idrive
-                        g ""
-                        
+                        play music "idrive.mp3" volume 0.2
+                        g "Ja jadę"
+                        v "Ale jak, ty nawet nie masz auta"
+                        g "Brum Brum"
+                        play sound "BOOM.mp3"
+                        "No i Vista zrobił boom"
+                        p "Jak ty to zrobiłeś"
+                        g "Kupiłem szczurom RC autko"
+                        g "I Hartmann podczepił minę p.piech"
+                        p "Sprytne"
+                        $ helper -= 20
+                        jump akt1pods
 
-            "Na głośno":
+            "Na głośno" if akt == 2:
                 p "Kurwa chłopaki, nie pierdolmy się w tańcu"
                 p "Zapierdalamy na nich"
                 "Dzielnei ruszacie szturmować vazę"
@@ -2752,7 +2792,7 @@ label amongthev:
             c "A 500 edków piechotą nie chodzi"
 
     scene vland
-    play music "dickdisco.mp3" volume 0.2
+    play music "dickdisco.mp3" volume 0.1
     show vista
     $ config.rollback_enabled = Flase
     v "Vitam v vlubie"
@@ -2861,6 +2901,7 @@ label vechnik_wst:
                     p "Pora vpierdalać"
                     $ vechnik_stage = 7
                     $ lilquest = 2
+                    play sound "BOOM.mp3"
                     "Vomba vybuchła"
                     "Siła eksplozji wystrzeliła cię aż pod warzywniak"
 
@@ -2943,6 +2984,7 @@ label voktor_wst:
                         $ inventory.remove_item(Vomba)
                         $ lilquest = 4
                         $ voktor_stage = 7
+                        play sound "BOOM.mp3"
                         p "Pora na eksplodatora"
                         p "Nigerundajo!"
 
@@ -2980,6 +3022,7 @@ label varchiwa:
             p "Ty kurwa, wysadzę to ich własną bronią"
             $ inventory.remove_item(Vomba)
             $ varchiva_stage = 1
+            play sound "BOOM.mp3"
             p "Ała kurwa, cóż za siła eksplozji."
             call checkHP(10) from _call_checkHP_5
             p "Get bombed, lmao"

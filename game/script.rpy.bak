@@ -11,6 +11,7 @@ define v = Character(_("Vista"), color = "#213769")
 define t = Character(_("Toro"), color = "#6969EE")
 define gk = Character(_("Gen. Kennedy"), color = "#098703")
 define kr = Character(_("Krateus"), color = "#023a10")
+define mg = Character(_("Wielki Dzik"), color = "#482809")
 
 init python:
     class Inventory():
@@ -272,6 +273,9 @@ label start:
         elif player_name == "Sex" or player_name == "sex":
             "Kto jak kto ale ty raczej nie ruchasz"
 
+        elif player_name == "Cycu":
+            "Co jest kurde, to cyber jest kurde"
+
         else:
             $ helper = 0
 
@@ -339,6 +343,8 @@ label gameover:
 
 label rozstaje:
     scene black
+    $ renpy.block_rollback()
+    $ config.rollback_enabled = True
     call checktime from _call_checktime
     menu:
         "Kaj leziesz?"
@@ -471,6 +477,7 @@ label kuchnia:
                 g "Daniel Krej z!"
                 g "No to zacznijmy rozmowę kwalifikacyjną"
                 g "Pytanie pierwsze"
+                $ config.rollback_enabled = False
                 menu:
                     "Jaki jest twój ulubiony kolor?"
                     "Zielony":
@@ -500,6 +507,8 @@ label kuchnia:
                         $ postacie["Gun"] += 1
                         hide ciphate with dissolve
 
+                $ renpy.block_rollback()
+                $ config.rollback_enabled = True
                 g "To chyba tyle z pytań"
                 p "I co to kurwa niby znaczy?"
                 g "Dowiesz się w swoim czasie"
@@ -518,6 +527,7 @@ label kuchnia:
                 "Gun zabrał cie co nowego miejsca"
                 "Zaskoczyło Cię to że pojechaliście tam autem"
                 scene idrive
+                play music "idrive.mp3" volume 0.2
                 p "JA PIERDOLĘ, KTO CI DAŁ PRAWO JAZDY?"
                 g "Paczka cheetosów serowych"
                 p "Mogłem się tego spodziewać"
@@ -681,11 +691,14 @@ label kuchnia:
                     p "Co kurwa?"
                     g "Zaraz zobaczysz"
                     scene idrive
+                    play music "idrive.mp3" volume 0.2
                     p "Nie rozjedź żadnej baby tym razem"
                     j "Jak to tym razem?"
                     j "Czy ja o czymś nie wiem?"
                     g "O wielu sprawach ken taki"
                     "Ale tym razem szybka podróż była bezpieczna"
+                    stop music
+                    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
                     scene tostblok
                     show gun at left
                     show jhin at right
@@ -716,6 +729,7 @@ label kuchnia:
                     g "No dobra"
                     "Przenieśliście nieprzytomnego Jhina do kara i ruszyliście do bazy"
                     scene idrive
+                    play music "idrive.mp3" volume 0.2
                     g "Co tam się w ogóle stało?"
                     p "Sebixy wyklęte"
                     g "O w mordę strzelił"
@@ -724,6 +738,8 @@ label kuchnia:
                     p "No to jest dobry plan ale gdzie dostanę bombę?"
                     g "Pozwól mi gotować"
                     "I w atmosferze skandalu wróciliście do bazy"
+                    stop music
+                    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
                     $ gun_stan = 4
                     $ postacie["Gun"] += 1
                     $ postacie["Jhin"] += 1
@@ -746,6 +762,7 @@ label kuchnia:
                     p "Powinienem dać sobie radę"
                     g "No to w drogę"
                     scene idrive
+                    play music "idrive.mp3" volume 0.2
                     kr "Powiedz Gun, kiedy nauczyłeś się prowadzić?"
                     g "Nigdy"
                     play sound "hit.mp3"
@@ -785,6 +802,8 @@ label kuchnia:
                     $ gun_stan = 5
                     "Zadowolony wyszedłeś"
                     $ czas = 0
+                    stop music
+                    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
                     jump rozstaje
 
     if inventory.has_item(Ser) == True:
@@ -878,6 +897,7 @@ label kosciol:
                         k "Dostaniesz błogosławienie i coś jeszcze"
                         k "Co konkretnie, to jeszcze nie wiem"
                         k "Ale na 69% coś będzie."
+                        $ config.rollback_enabled = False
                         menu:
                             k "To co, piszesz się?"
 
@@ -892,6 +912,8 @@ label kosciol:
                                 k "Ale pamiętaj, nigdy stopy."
                                 jump rozstaje
 
+                        $ renpy.block_rollback()
+                        $ config.rollback_enabled = True
                     $ kalach_stan = 2
                     jump rozstaje
 
@@ -1130,6 +1152,7 @@ label dach:
                 c "I to mi się podoba"
                 p "Czemu Ci czeczeni wyglądają jak Gun i Łaskawca?"
                 c "Kamuflaż. Przestań myśleć i ciąg"
+                $ config.rollback_enabled = False
                 menu:
                     "Ciągniesz za wajchę?"
                     "Cypher kazał ja robię":
@@ -1152,15 +1175,119 @@ label dach:
                         hide ciphate with dissolve
                         $ postacie["Cypher"] -= 2
                         c "Dobra wracamy, nie ma z tobą zabawy"
-
+                
+                $ renpy.block_rollback()
+                $ config.rollback_enabled = True
                 "I kolejne pół dnia wracaliście"
                 $ czas = 0
                 $ cypher_stan = 2
                 jump rozstaje
             
             if cypher_stan == 2:
-                c "Muszę odpocząć, wróc później (Za jakiś update)"
-                
+                c "Dobra, lecimy z kolejnym bojowym zadaniem"
+                c "W dzisiejszym odcinku wysokiego trybu"
+                c "Wyruszymy do sklepu po zakupy"
+                scene owocniak
+                show cypher
+                c "Ah, uwielbiam plastikowe truskawki"
+                play sound "EAT OR MUNCH.mp3"
+                c "Przepyszne"
+                c "Ale jesteśmy tu w innym celu niż zdrowe jedzenie"
+                c "Jesteśmy tu na przesłuchanie"
+                p "Kogo?"
+                c "Ciebie"
+                c "Pytanie pierwsze"
+                $ config.rollback_enabled = False
+                menu:
+                    c "Ile chlebów w życiu zjadłeś?"
+                    "Kurwa, nie liczę tego":
+                        c "I to był błąd"
+                        show krateus
+                        kr "To prawda, liczenie makro oddaje"
+                        kr "Wiesz że jeden bochenek ma 2001 kalorii"
+                        kr "363 węgli, 66 białka i 24 fatu"
+                        kr "Warto kontrolować te wartości"
+                        hide krateus
+                        c "No właśnie"
+                        $ postacie["Cypher"] -= 1
+
+                    "Biedny jestem, z trzy":
+                        c "Oj rozumiem twój ból"
+                        c "Jak byłem małym szczylem"
+                        c "To my na platformie jedliśmy plastik z solą"
+                        c "A na pierwszej wojnie korporacyjnej jedzono zieloną sałatę"
+                        p "A ona nie zawsze była zielona?"
+                        c "No od wojny jest"
+                        $ postacie["Cypher"] += 1
+
+                    "Nienawidzę chleba":
+                        c "W sensie że bochenków?"
+                        p "Kromek też"
+                        c "A, bo już myślałem te twardego nie lubisz"
+                        p "No też, kto kurwa lubi twardy chleb"
+                        c "Oj i teraz mnie wkurwiłeś"
+                        $ postacie["Cypher"] -= 1
+
+                c "Kwestię gastro mamy za sobą, teraz kolejne pytanie"
+                menu:
+                    c "Widziałeś gdzieś moje spodnie?"
+                    "Fredi ich pilnuje" if gun_stan > 2:
+                        c "Karamba, myślałem że zostały już uratowane"
+                        p "A ty nie masz innych spodni?"
+                        c "Mam ale w tamtych jest coś ważnego"
+                        p "OK"
+                        $ postacie["Cypher"] += 1
+
+                    "Na dupie je masz":
+                        c "Się kurwa dowcipniś znalazł"
+                        c "Jak taki jesteś śmieszny to co byś powiedział na granat w odbycie?"
+                        p ":czacha"
+                        c "HiHiHaHa"
+
+                    "Nie wiem Cypher":
+                        c "Same"
+
+                c "No i ostatnie pytanie"
+                menu:
+                    c "Ufasz mi?"
+                    "Tak":
+                        c "Więc udawaj że gadamy i idź za mną"
+                        p "Ok"
+                        "Spacerkiem szliście dalej, aż do ślepego zaułka"
+                        c "No, czego od nas chcecie"
+                        "Para zbirów wyłoniła się zza rogu"
+                        "Guten Morgen, Großer Manager"
+                        c "Guten Morgen"
+                        "Wir haben eine wichtige Frage an Sie"
+                        c "Komm schon"
+                        "Wir können Autogramme bekommen, wir sind große Fans"
+                        c "Natürlich"
+                        "Widzisz jak cypher podchodzi do tej pary i pisze im coś na kartkach"
+                        "Następnie parka odchodzi"
+                        p "Cypher, co to było?"
+                        c "Fałszywy alarm młody, wracamy do domu"
+                        p "Ile masz jeszcze dla mnie zadań?"
+                        c "Wiesz co? Jak mi ufasz, to ja zaufam tobie"
+                        c "Możesz mnie liczyć jako sojusznika"
+                        p "Klawo"
+                        $ cypher_stan = 5
+                        $ postacie["Cypher"] += 2
+                        $ renpy.block_rollback()
+                        $ config.rollback_enabled = True
+                        jump rozstaje
+
+
+                    "Nie":
+                        c "To spierdalaj"
+                        "I bez słowa zaczął uciekać"
+                        $ postacie["Cypher"] -= 3
+                        $ cypher_stan = 3
+                        $ renpy.block_rollback()
+                        $ config.rollback_enabled = True
+                        jump rozstaje
+
+            if cypher_stan == 3:
+                c "Spierdalaj"
     jump rozstaje            
 
 label warsztat:
@@ -1298,6 +1425,7 @@ label warsztat:
                 h "Jak mi powiesz ile zarobię to może się zastanowię"
                 h "Możesz też mi kupić nową spawarkę"
                 h "Wyjebane, muszę coś dostać"
+                $ config.rollback_enabled = False
                 menu:
                     "Co robisz?"
                     "(Kłamstwo) Żartowałem, dostaniemy 3k na głowę":
@@ -1307,6 +1435,8 @@ label warsztat:
                         $ helper2 = 1
                         $ hartmann_stan = 5
                         "Zadowolony z siebie wyszedłeś"
+                        $ renpy.block_rollback()
+                        $ config.rollback_enabled = True
                         jump rozstaje
 
                     "Znajdę Ci tę spawarkę":
@@ -1337,6 +1467,8 @@ label warsztat:
                         p "Przynajmniej tyle"
                         $ hartmann_stan = 5
                         $ czas -= 5
+                        $ renpy.block_rollback()
+                        $ config.rollback_enabled = True
                         jump rozstaje
     
     jump rozstaje
@@ -1418,6 +1550,7 @@ label klinika:
             pl "I kurwa nawet nie pamiętam co się z nim stało"
             pl "Jakbyś znalazł jakiś fajny serwerek"
             pl "To daj mi cynk, wynagrodzę cię"
+            $ config.rollback_enabled = False
             menu:
                 "Mam nadzieję że w naturze ( ͡° ͜ʖ ͡°)":
                     show ciphate with dissolve
@@ -1431,6 +1564,8 @@ label klinika:
                     pl "No to mam u Ciebie dług"
                     $ postacie["Laskawca"] += 2
 
+            $ renpy.block_rollback()
+            $ config.rollback_enabled = True
             pl "No to czekam na info z niecierpliwością"
             $ laskawca_stan = 1
 
@@ -1523,6 +1658,7 @@ label jhinownia:
             j "Powiedz mi jak tam było?"
             j "Czy to prawda że Visty rozmnażają się przez pączkowanie?"
             j "Czy może po śmierci dzielą się na pół?"
+            $ config.rollback_enabled = False
             menu:
                 "Zdecydowanie pączkowanie":
                     show ciphate with dissolve
@@ -1568,6 +1704,7 @@ label jhinownia:
             j "Krejzi.braindance.cum"
             j "Niestety nie mam pozwolenia od rodziców"
             j "Więc nie mogłem sprawdzić"
+            $ config.rollback_enabled = False
             menu:
                 j "Może ty jesteś na tyle odważny żeby to zrobić?"
 
@@ -1670,6 +1807,7 @@ label bruhzylia:
             kr "No to zajebiście, formalności za nami"
             kr "Teraz tylko jedna drobnostka została"
             kr "Uściśnij mi dłoń"
+            $ config.rollback_enabled = False
             menu:
                 "No dobra":
                     "Widzisz że Krateus wyjął siekierę"
@@ -1822,11 +1960,11 @@ label bruhzylia:
 
                 elif inventory.has_item("Pistolet"):
                     "Udało Ci się postrzelić jednego ale dostałeś z dzidy"
-                    call checkHP(9)
+                    call checkHP(9) from _call_checkHP_13
 
                 else:
                     "Potężna gazrurka trafiła w twoją twarz"
-                    call checkHP(16)
+                    call checkHP(16) from _call_checkHP_14
 
                 "Widzisz jak Krateus zajmuje się resztą"
                 kr "Waleczne skurwiele"
@@ -2001,6 +2139,7 @@ label akt1:
     g "Idziemy, strzelamy, spierdalamy"
     pl "Podoba mi się to"
     g "A ty [player_name]? Piszesz się?"
+    $ config.rollback_enabled = False
     menu:
         "Piszę się?"
         "Kurwa no pewex":
@@ -2041,6 +2180,7 @@ label akcja:
     hide laskawca with dissolve
     "Łaskawca zaczął eksterminację oponentów"
     hide gun
+    $ config.rollback_enabled = False
     menu:
         "A co ty robisz?"
         "Zaczynam strzelać":
@@ -2253,12 +2393,6 @@ label wojsko:
         p "No to wracam do bazy"
         jump rozstaje
 
-    elif wojsko_stan > 4: 
-        gk "Dobra robota szczylu."
-        gk "Udało Ci się zdobyć przyjaźń z innymi dzbanami"
-        gk "Więc lecicie na super tajną misję"
-        jump tempend
-
     elif wojsko_stan > 0:
         "Opowiedziałeś Kenowi o swoim progresie"
         if laskawca_stan == 2:
@@ -2266,7 +2400,7 @@ label wojsko:
             gk "Czyli Łaskawca jest gotowy Ci pomóc"
             gk "Healer zawsze się przyda"
             $ wojsko_stan += 1
-            $ laskawca_stan = 3
+            $ laskawca_stan = 6
 
         if gun_stan == 5:
             "Pochwaliłeś się przyjaźnią z Gunem"
@@ -2315,12 +2449,281 @@ label wojsko:
             $ wojsko_stan += 1
             $ krateus_stan = 6
 
-        jump rozstaje
+    elif wojsko_stan > 4: 
+        gk "Dobra robota szczylu."
+        gk "Udało Ci się zdobyć przyjaźń z innymi dzbanami"
+        gk "Więc lecicie na super tajną misję"
+        jump wojowezadanie
 
 label wojowezadanie:
-    scene black
-    "DUPA"
+    scene wojsko
+    show genken at left
+    gk "Więc co macie do zrobienia"
+    gk "Siłą przyjaźni musicie wysadzić jedno z vniazd"
+    gk "Prowadzą tam badania nad ściśle tajnym projektem Vezuwiusz"
+    gk "Niech bóg was przyjmie"
+    $ helper == 100
+    $ config.rollback_enabled = False
+    if frakcja == 0:
+        scene vniazdo
+        "Poprowadziłeś punków prosto w vniazdo"
+        p "Panowie, Kennedy wybrał mnie jako szefa tej operacji, więc proszę słuchajcie się mnie"
+        "O dziwo nikt nie miał z tym problemu"
+        "Teraz jako szef, czeka Cię wyzwanie kierowania swoją ekipą"
+        "Wskaźnik zagrożenia jest na poziomie 100"
+        "Jeśli spadnie do 0 to osiągniesz giga sukces"
+        "Nie spodziewaj się tego wyniku"
+        "To jakie masz możliwości zależy od ludzi w ekipie"
+        "I od tego jaki masz sprzęt"
+        "Wracając do wyroku śmierci"
+        "Macie kilka opcji na wykonanie tej roboty"
+        menu:
+            "Po Cichu":
+                "Brak w tobie cyberowego ducha walki"
+                p "Panowie, robimy to tak Cicho jak się tylko da"
+                p "I to będzie bardzo trudne"
+                p "Trzeba teraz dostać się do środka"
+                p "Co my mamy do wyboru"
+                menu:
+                    "Jak wchodzisz?"
+                    "Drzwi główne":
+                        "Dostaliście się do środka głównymi drzwiami"
+                        "Najgorsze możliew wejście"
+                        "Ale okazało się nie strzeżone"
+
+                    "Okno" if krateus_stan == 6:
+                        p "Krateus, wskakuj oknem i nam pomożesz"
+                        kr "Tajest kierowniku"
+                        kr "Chopaky, to jest schowek na miotły"
+                        kr "Wskakujcie, macie tu linę"
+                        $ helper -= 15
+                        "A po nim wskoczyła cała reszta"
+
+                    "Drzwi dla personelu" if inventory.has_item("Wytrych"):
+                        p "Na szczęście mam wytrych przy sobie"
+                        p "Fiku foku picku loku"
+                        "Zręczne palce koniobijcy pomogły Ci otworzyć drzwi"
+                        "Panowie, zapraszam"
+                        $ helper -= 20
+
+                    "Wentylacja" if gun_stan == 6:
+                        p "Gun, możesz wentować?"
+                        g "Dlaczego ja?"
+                        p "W kombosach do KTG jesteś w spiskowcach"
+                        p "A to jednak jest trochę sus"
+                        g "To ma sers"
+                        $ helper -= 25
+                        g "Kurwa, ciemno tu"
+                        g "O, jest chyba wyjście"
+                        "Gun skończył wentować"
+                        g "Przycisk z napisem tajne vejście"
+                        g "A se klikne"
+                        "I dzięki temu, reszta drużyny dostała się do środka"
+
+                "Jesteście przy drzwiach 2"
+                "Zbliżając się, usłyszeliście vrażników"
+                v "Vrombał bym coś"
+                v "Vejm"
+                v "Vo voviesz na vot-voga?"
+                v "Vybornie"
+                p "Trzeba się ich pozbyć"
+                p "Tylko jak to zrobię?"
+                menu:
+                    "Atak frontalny":
+                        p "Za hordę"
+                        "AAAAAAAA"
+                        call chceckHP(10)
+                        "Dzielnie szturmowaliście parę Vist"
+                        "Niestety jeden z vist miał przy sobie terminal"
+                        $ edki = 0
+                        "I w taki sposób zabrał Ci wszystkie pieniądze"
+                        
+                    "Chessy akcja" if inventory.has_item("Ser"):
+                        p "Żryjcie to kutafony"
+                        "Rzucieles serem w Visty"
+                        v "Ty viekki, akurat byłem głodny"
+                        p "Luzik arbuzik, smacznego"
+                        v "Dawaj Varek, idziemy na obiad"
+                        play sound "EAT OR MUNCH.mp3"
+                        $ helper -= 10
+
+                    "Granat" if inventory.has_item("Granat"):
+                        $ inventory.remove_item("Granat")
+                        $ helper -= 15
+                        "Poturlałeś granat w kierunku Vist"
+                        v "Vo Volera!"
+                        v "Darmowy granat"
+                        v "Jest mój"
+                        v "Nie jest mój"
+                        "Dzika bijatyka się zaczęła"
+                        "I wysty wybiły się ze sceny"
+
+
+                    "Kałach, dywersja" if kalach_stan > 5:
+                        k "Hej seksiaki"
+                        v "O, siemka Kałach, co tam"
+                        k "A vista z hot-dogami przyjechał"
+                        v "VO VOLERA"
+                        v "VUSZAMY VIELNIE"
+                        "I dzielnie vybiegli"
+                        $ helper -= 25
+                        p "Dobra robota Kałach"
+                        k "Wiem"
+
+                "Przeszliście przez straż"
+                "Idziecie dalej przez gniazdo"
+                "Dzielnie dostrzegasz znak vaboratorium"
+                p "Chopaky, jesteśmy na miejscu"
+                p "Pora zrobić rozpierdol"
+                menu:
+                    "Jak spacyfikuję laba"
+                    "Atak frontalny":
+                        call chackHP(5)
+                        "Wbiegliście do środka atakując kadego Vistę w okolicy"
+
+                    "Pora na blackout" if jhin_stan > 5:
+                        p "Ten taki, odetnij im kable"
+                        j "Spoczko foczko"
+                        "Widzisz że Jhin wyjmuję katane"
+                        p "Nie tak deklu, prąd cię jebnie"
+                        j "Fakt"
+                        "Schował kanatę i wyjął broń z ręki"
+                        p "NIEEEEEE"
+                        "Jhin przeciął kable ostrzem z dłoni"
+                        "I tak jak przwidywałeś, jebnął go prąd"
+                        j "Oj karamba"
+                        p "Jhin, jesteś cały?"
+                        j "Powiedz mojej żonie, że jej nie mam"
+                        if inventory.has_item("THeal") == True:
+                            p "Spokojnie kentaki"
+                            "Dałeś Jhinowi Turbo uzdrawiacz"
+                            $ inventory.remove_item("THeal")
+                            $ postacie["Jhin"] += 3
+                            j "Dzięki stary"
+                        "Reszta dostała się do środka i po ciemku i cichu wybiła resztę"
+                        $ helper -= 15
+
+                    "Brazylijska sztuka walki" if krateus_stan > 5:
+                        kr "Ni Chu Ja"
+                        kr "Hadong"
+                        kr "Bomm szakalaka"
+                        kr "Walę Vistę prosto w ptaka"
+                        "Brazylijska sztuka walki rozgromiła Visty"
+                        "Ale sam Krateus też trochę oberwał (głównie od siebie)"
+                        $ helper -= 10
+
+                    "Łaskawca, anestezja bojowa" if laskawca_stan > 5:
+                        pl "Się robi"
+                        "Łaskawca podszedł pod szyb i dał trochę gazu"
+                        v "Vopaki, vide vpać"
+                        v "Vamimir"
+                        pl "Słodkich snów chuje"
+                        p "Jeszcze cukrzycy dostaną"
+                        pl "Jakieś minusy?"
+                        $ helper -= 25
+
+                "Laboratoruim jest wasze"
+                "Badając dokumenty odkryłeś vistowy plan"
+                p "Oni są tak głupi że ja pierdolę"
+                p "Próbowali wrzucić Guna do wulkanu"
+                p "I tak chcieli przywołać boga gniewu"
+                p "No debile"
+                "Po przeszukiwaniu postanowiliście wysadzić laba"
+                "Szybki trick i cały lab się wyjebie za pięc minut"
+                p "Spierdalamy"
+                "Zaczęliście biec do wyjścia"
+                "Ale na waszej drodze stanął VPrime"
+                v "Vavava"
+                p "Spierdalaj"
+                v "NIE"
+                menu:
+                    "Ostatni przeciwnik"
+                    "Let mi solo him":
+                        v "Oh? You're approaching me? Instead of running away, you're coming right to me?"
+                        p "I can't beat the shit out of you without getting closer."
+                        v "Oh ho! Then come as close as you like."
+                        p "Ora"
+                        v "Too slow, too slow! The Vorld is the ultimate Stand."
+                        "ora ora ora ora vs vuda vuda vuda vuda"
+                        p "It's over VPrime. I have a high ground"
+                        v "Vurwa"
+                        p "GIŃ"
+                        play sound "hit.mp3"
+                        "Dostałeś srogi wpierdol ale pokonałeś wroga"
+                        call checkHP(20)
+                        v "To jeszcze nie jest koniec"
+                        p "Panowie wychodzimy"
+                        " I w taki sposób wyszliście z vazy"
+                        jump akt1pods
+                    
+                    "Pora na spawanie" if hartmann_stan > 5:
+                        p "Hartmann, bier migomat"
+                        h "PORA NA SPAWANIE WORA"
+                        v "Nieeeeeeeee"
+                        "Szybkim ruchem Hartmann zespawał Vprima"
+                        v "Moje kochones"
+                        p ":czacha"
+                        h ":czacha"
+                        p "Panowie wychodzimy"
+                        " I w taki sposób wyszliście z vazy"
+                        $ helper -= 15
+                        jump akt1pods
+
+                    "Góra, prawo, dół dół dół" if cypher_stan > 5:
+                        p "Cypher, pora na nalot"
+                        c "Cypher łan w drodze"
+                        v "Co kurwa?"
+                        v "Jak ty niby chcesz zrzucić bombę w budynku"
+                        v "Jakby, tu nie ma jak wlecieć"
+                        v "A jak upadnie na dach to chuja mi zrobić"
+                        v "Kurwa, przecież Cypher stoi obok"
+                        v "To nie ma prawa działać"
+                        c "To pa ten trick"
+                        "Cypher wziął potężnego bucha i nad v prime pojawiła się chmura"
+                        v "I to wszystko?"
+                        c "Hi Hi Ha Ha"
+                        "Z chmury wypadła mała bomba"
+                        v "Co do kurwy"
+                        "I ta bomba wybombowała vprima"
+                        p "Nie wierzę że to mówię ale dobra robota Cypher"
+                        c "DH poleca się"
+                        p "Panowie wychodzimy"
+                        " I w taki sposób wyszliście z vazy"
+                        $ helper -= 25
+                        jump akt1pods
+
+                    "Zielone światło" if gun_stan > 5:
+                        scene idrive
+                        play music "idrive.mp3" volume 0.2
+                        g ""
+                        
+
+            "Na głośno" if akt == 2:
+                p "Kurwa chłopaki, nie pierdolmy się w tańcu"
+                p "Zapierdalamy na nich"
+                "Dzielnei ruszacie szturmować vazę"
+                "Jak się teraz dostaniecie do środka?"
+
+    elif frakcja == 1:
+        "Droga diamentowych psów jest jeszcze w rozwoju"
+        $ frakcja = 0
+        "Ustawiłem Ci bezfrakcyjnośc, przejdź sobie aktualny ending"
+        jump wojowezadanie
+    elif frakcja == 3:
+        "Droga vist jest jeszcze w rozwoju"
+        $ frakcja = 0
+        "Ustawiłem Ci bezfrakcyjnośc, przejdź sobie aktualny ending"
+        jump wojowezadanie
+    elif frakcja == 4:
+        "Droga Kałacha jest jeszcze w rozwoju"
+        $ frakcja = 0
+        "Ustawiłem Ci bezfrakcyjnośc, przejdź sobie aktualny ending"
+        jump wojowezadanie
     return
+
+label akt1pods:
+    scene black
+    jump tempend
 
 label amongthev:
     stop music fadeout 1.0
@@ -2362,6 +2765,7 @@ label amongthev:
     scene vland
     play music "dickdisco.mp3" volume 0.2
     show vista
+    $ config.rollback_enabled = Flase
     v "Vitam v vlubie"
     v "Jestem Viesiek"
     v "Będę twoim vrzewodnikiem"
@@ -2377,6 +2781,7 @@ label amongthev:
     hide vista
     jump vtimefri
 
+# VISTY
 # deklaracje co do V
 default vechnik_stage = 0
 default voktor_stage = 0
@@ -2425,7 +2830,7 @@ label vechnik_wst:
         v "Vtam, jestem vechnikiem."
         v "Vogę Ci zaoferować potężne vposażenie."
         v "Ale oczyViście, jeśli vasz odpowiednią ilość Vdolców."
-        $vechnik_stage = 1
+        $ vechnik_stage = 1
         menu:
             "Zdobądź potężne Vposażenie"
 
@@ -2952,12 +3357,12 @@ label amongthevpods:
 
 
 label tempend:
-    "Doszedłeś do końca tej historii"
-    "Na ten moment nie ma nic więcej do odkrycia"
-    "Możesz dumnie wypierdalać"
-    "Albo czekaj"
-    "Zrób ss następnego okienka i wyślij mi"
-    "Ogarnij choja i idź do woja"
-    "Dostaniesz kartę do KTG i 50 exp do cybera"
-    "A teraz czekaj na następny update i wypierdalaj"
+    mg "Doszedłeś do końca tej historii"
+    mg "Na ten moment nie ma nic więcej do odkrycia"
+    mg "Możesz dumnie wypierdalać"
+    mg "Albo czekaj"
+    mg "Zrób ss następnego okienka i wyślij mi"
+    mg "Fajny fakt: zobaczymy 2 akt"
+    mg "Dostaniesz kartę do KTG i 60 exp do cybera"
+    mg "A teraz czekaj na następny update i wypierdalaj"
     return

@@ -1,52 +1,32 @@
-2024-05-08 13:38:51 UTC
+2024-05-08 19:46:43 UTC
 Windows-10-10.0.19045
 Ren'Py 8.2.1.24030407
 
-Early init took 1.05s
-Loading error handling took 0.57s
-Loading script took 5.40s
-Loading save slot metadata took 1.30s
+Early init took 0.09s
+Loading error handling took 0.15s
+Loading script took 2.20s
+Loading save slot metadata took 0.04s
 Loading persistent took 0.00s
- - Init at renpy/common/00updater.rpy:23 took 0.40865 s.
- - Init at game/gui.rpy:11 took 0.45063 s.
-Running init code took 1.52s
-Loading analysis data took 0.29s
-Analyze and compile ATL took 0.02s
-Reloading save slot metadata took 0.99s
-Index archives tookReloadinDump and make backups took 0.56s
+Running init code took 0.14s
+Loading analysis data took 0.00s
+Analyze and compile ATL took 0.01s
+Reloading save slot metadata took 0.03s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\kamil\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups took 0.06s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
-Initial gc took 0.31s
-DPI scale factor: 1.500000
+Initial gc took 0.05s
+DPI scale factor: 1.000000
 nvdrs: Loaded, about to disable thread optimizations.
-nvdrs: b"Couldn't load nvlib." (can be ignored)
-Creating interface object took 0.21s
+nvdrs: Disabled thread optimizations.
+Creating interface object took 0.29s
 Cleaning stores took 0.00s
-Init translation took 0.37s
-Build styles took 0.03s
-Load screen analysis took 0.03s
-Analyze screens took 0.15s
-Save screen analysis took 0.16s
-Prepare screens took 1.09s
-Save pyanalysis. took 0.00s
-Save bytecode. took 0.33s
-Running _start took 0.01s
-Interface start took 0.56s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1920, 1080)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'ATI Technologies Inc.'"
-Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
-Version: b'4.6.13559 Compatibility Profile Context 26.20.12036.1'
-Display Vendor: "b'ATI Technologies Inc.'"
-Renderer: b'AMD Radeon(TM) RX Vega 10 Graphics'
-Version: b'4.6.13559 Compatibility ProfiScreen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1737, 978) drawable=(1737, 978)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
-Maximum texture size: 4096x4096
-=(1737, 978)
-Maximum texture size: 4096x4096
+Init translation took 0.04s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.04s
+Save screen analysis took 0.02s
+Prepare screens took 0.15s
+Save pyanalysis. took 0.02s
+Save bytecode. took 0.03s
