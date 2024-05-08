@@ -2479,13 +2479,22 @@ label wojowezadanie:
                     "Drzwi główne":
                         "Dostaliście się do środka głównymi drzwiami"
                         "Najgorsze możliew wejście"
-                        ""
+                        "Ale okazało się nie strzeżone"
 
                     "Okno" if krateus_stan == 6:
                         p "Krateus, wskakuj oknem i nam pomożesz"
                         kr "Tajest kierowniku"
+                        kr "Chopaky, to jest schowek na miotły"
+                        kr "Wskakujcie, macie tu linę"
                         $ helper -= 15
                         "A po nim wskoczyła cała reszta"
+
+                    "Drzwi dla personelu" if inventory.has_item("Wytrych"):
+                        p "Na szczęście mam wytrych przy sobie"
+                        p "Fiku foku picku loku"
+                        "Zręczne palce koniobijcy pomogły Ci otworzyć drzwi"
+                        "Panowie, zapraszam"
+                        $ helper -= 20
 
                     "Wentylacja" if gun_stan == 6:
                         p "Gun, możesz wentować?"
@@ -2495,29 +2504,11 @@ label wojowezadanie:
                         g "To ma sers"
                         $ helper -= 25
                         g "Kurwa, ciemno tu"
-                        g "O, jest chyab wyjście"
+                        g "O, jest chyba wyjście"
                         "Gun skończył wentować"
                         g "Przycisk z napisem tajne vejście"
                         g "A se klikne"
                         "I dzięki temu, reszta drużyny dostała się do środka"
-
-                if helper == 100:
-                    "Wchodząc mainem weszliście w vułapkę"
-                    call checkHP(10)
-                    "Dzbany trochę oberwały"
-                    if gun_stan == 6:
-                        g "Moja gorgonzola"
-                        $ gun_stan == 7
-
-                    elif kalach_stan == 6:
-                        k "Kurwa"
-                        $ kalach_stan = 7
-
-                    else:
-                        $ laskawca_stan = 7
-                        pl "Auć"
-
-                    "Ale ostatecznie doszliście do tajnego wejścia"
 
                 "Jesteście przy drzwiach 2"
                 "Zbliżając się, usłyszeliście vrażników"
@@ -2531,19 +2522,31 @@ label wojowezadanie:
                     "Atak frontalny":
                         p "Za hordę"
                         "AAAAAAAA"
-                        call chceckHP(5)
+                        call chceckHP(10)
                         "Dzielnie szturmowaliście parę Vist"
                         "Niestety jeden z vist miał przy sobie terminal"
                         $ edki = 0
                         "I w taki sposób zabrał Ci wszystkie pieniądze"
                         
+                    "Chessy akcja" if inventory.has_item("Ser"):
+                        p "Żryjcie to kutafony"
+                        "Rzucieles serem w Visty"
+                        v "Ty viekki, akurat byłem głodny"
+                        p "Luzik arbuzik, smacznego"
+                        v "Dawaj Varek, idziemy na obiad"
+                        play sound "EAT OR MUNCH.mp3"
+                        $ helper -= 10
 
                     "Granat" if inventory.has_item("Granat"):
                         $ inventory.remove_item("Granat")
                         $ helper -= 15
-                        "Boom"
+                        "Poturlałeś granat w kierunku Vist"
                         v "Vo Volera!"
-                        p "HiHiHaHa"
+                        v "Darmowy granat"
+                        v "Jest mój"
+                        v "Nie jest mój"
+                        "Dzika bijatyka się zaczęła"
+                        "I wysty wybiły się ze sceny"
 
 
                     "Kałach, dywersja" if kalach_stan > 5:
@@ -2589,7 +2592,16 @@ label wojowezadanie:
                             j "Dzięki stary"
                         "Reszta dostała się do środka i po ciemku i cichu wybiła resztę"
                         $ helper -= 15
-                    
+
+                    "Brazylijska sztuka walki" if krateus_stan > 5:
+                        kr "Ni Chu Ja"
+                        kr "Hadong"
+                        kr "Bomm szakalaka"
+                        kr "Walę Vistę prosto w ptaka"
+                        "Brazylijska sztuka walki rozgromiła Visty"
+                        "Ale sam Krateus też trochę oberwał (głównie od siebie)"
+                        $ helper -= 10
+
                     "Łaskawca, anestezja bojowa" if laskawca_stan > 5:
                         pl "Się robi"
                         "Łaskawca podszedł pod szyb i dał trochę gazu"
@@ -2669,10 +2681,17 @@ label wojowezadanie:
                         " I w taki sposób wyszliście z vazy"
                         $ helper -= 25
                         jump akt1pods
+
+                    "Zielone światło" if gun_stan > 5:
+                        scene idrive
+                        g ""
                         
 
             "Na głośno":
-                "AAA"
+                p "Kurwa chłopaki, nie pierdolmy się w tańcu"
+                p "Zapierdalamy na nich"
+                "Dzielnei ruszacie szturmować vazę"
+                "Jak się teraz dostaniecie do środka?"
 
     elif frakcja == 1:
         "Droga diamentowych psów jest jeszcze w rozwoju"
