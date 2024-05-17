@@ -168,7 +168,6 @@ label start:
     default kibel_stan = 0
     default wojsko_stan = 0
 
-
     #deklaracja reszty
     default edki = 0
     default vdolce = 0
@@ -1727,13 +1726,9 @@ label jhinownia:
                     $ postacie["Jhin"] += 1
                     j "Jednak jesteś mądrzejszy od ośmioklasisty"
                     j "A to nie jest typowa sytuacja w tej bazie"
-<<<<<<< HEAD
                     j "To dobry znak, nie będzie jeszcze z Ciebie insygni"
                     $ stan["Jhin"] = 3
-=======
-                    j "To dobry znak, nie będzie jeszcze z Ciebie insygniów"
-                    $ jhin_stan = 3
->>>>>>> e7de26fd717c4e4aa989d542fd6ca653f8dcc3a4
+
                     j "Przyjdź później, będę miał kolejne pytania"
                 
                 "Sprawdzę":
@@ -2435,39 +2430,25 @@ label wojsko:
             $ wojsko_stan += 1
             $ stan["Gun"] = 6
 
-<<<<<<< HEAD
         if stan["Kalach"] == 5:
             "Pochwaliłeś się przyjaśnią z Kałachem"
-=======
-        if kalach_stan == 5:
-            "Pochwaliłeś się przyjaźnią z Kałachem"
->>>>>>> e7de26fd717c4e4aa989d542fd6ca653f8dcc3a4
+
             gk "Jeśli Kałach leci z tobą, musisz go pilnować"
             gk "Jeśli znajdę jakiegokolwiek dildosa na terenie akcji"
             gk "To Ciebie złapią konsekwencje"
             $ wojsko_stan += 1
             $ stan["Kalach"] = 6
 
-<<<<<<< HEAD
         if stan["Hartmann"] == 5:
             "Pochwalileś się przyjaźnią z Hatrmannem"
-=======
-        if hartmann_stan == 5:
-            "Pochwaliłeś się przyjaźnią z Hatrmannem"
->>>>>>> e7de26fd717c4e4aa989d542fd6ca653f8dcc3a4
             gk "Twardy zawodnik dołączył do Ciebie?"
             gk "Tylko musisz uważać, jak Gun dostanie auto w ręce"
             gk "Mogą być straty w cywilach"
             $ wojsko_stan += 1
             $ stan["Hartmann"] = 6
 
-<<<<<<< HEAD
         if stan["Jhin"] == 4:
             "Pochwalileś się przyjaźnią z Jhinem"
-=======
-        if jhin_stan == 4:
-            "Pochwaliłeś się przyjaźnią z Jhinem"
->>>>>>> e7de26fd717c4e4aa989d542fd6ca653f8dcc3a4
             gk "Ten Taki idzie z Tobą?"
             gk "Szalone jak sam skurwysyn ale to jego decyzja"
             $ wojsko_stan += 1
@@ -2529,12 +2510,7 @@ label wojowezadanie:
                         "Najgorsze możliwe wejście"
                         "Ale okazało się niestrzeżone"
 
-<<<<<<< HEAD
                     "Okno" if stan["Krateus"] > 5:
-=======
-                    "Okno" if krateus_stan == 6:
-                        show krateus
->>>>>>> e7de26fd717c4e4aa989d542fd6ca653f8dcc3a4
                         p "Krateus, wskakuj oknem i nam pomożesz"
                         kr "Tajest kierowniku"
                         kr "Chopaky, to jest schowek na miotły"
@@ -2608,12 +2584,7 @@ label wojowezadanie:
                         "I wysty wybiły się ze sceny"
 
 
-<<<<<<< HEAD
                     "Kałach, dywersja" if stan["Kalach"] > 5:
-=======
-                    "Kałach, dywersja" if kalach_stan > 5:
-                        show kalach
->>>>>>> e7de26fd717c4e4aa989d542fd6ca653f8dcc3a4
                         k "Hej seksiaki"
                         v "O, siemka Kałach, co tam"
                         k "A vista z hot-dogami przyjechał"
@@ -2661,12 +2632,8 @@ label wojowezadanie:
                         hide jhin
                         $ helper -= 15
 
-<<<<<<< HEAD
                     "Brazylijska sztuka walki" if stan["Krateus"] > 5:
-=======
-                    "Brazylijska sztuka walki" if krateus_stan > 5:
                         show krateus
->>>>>>> e7de26fd717c4e4aa989d542fd6ca653f8dcc3a4
                         kr "Ni Chu Ja"
                         kr "Hadong"
                         kr "Boom szakalaka"
@@ -2676,12 +2643,8 @@ label wojowezadanie:
                         hide krateus
                         $ helper -= 10
 
-<<<<<<< HEAD
                     "Łaskawca, anestezja bojowa" if stan["Laskawca"] > 5:
-=======
-                    "Łaskawca, anestezja bojowa" if laskawca_stan > 5:
                         show laskawca
->>>>>>> e7de26fd717c4e4aa989d542fd6ca653f8dcc3a4
                         pl "Się robi"
                         "Łaskawca podszedł pod szyb i dał trochę gazu"
                         v "Vopaki, vide vpać"
@@ -2745,12 +2708,8 @@ label wojowezadanie:
                         hide hartmann
                         jump akt1pods
 
-<<<<<<< HEAD
                     "Góra, prawo, dół dół dół" if stan["Cypher"] > 5:
-=======
-                    "Góra, prawo, dół dół dół" if cypher_stan > 5:
                         show cypher
->>>>>>> e7de26fd717c4e4aa989d542fd6ca653f8dcc3a4
                         p "Cypher, pora na nalot"
                         c "Cypher łan w drodze"
                         v "Co kurwa?"
@@ -2771,7 +2730,7 @@ label wojowezadanie:
                         p "Panowie wychodzimy"
                         " I w taki sposób wyszliście z vazy"
                         $ helper -= 25
-                       hide cypher
+                        hide cypher
                         jump akt1pods
 
                     "Zielone światło" if stan["Gun"] > 5:
@@ -2792,10 +2751,6 @@ label wojowezadanie:
             "Na głośno" if akt == 2:
                 p "Kurwa chłopaki, nie pierdolimy się w tańcu"
                 p "Zapierdalamy na nich"
-<<<<<<< HEAD
-                "Dzielnie ruszacie szturmować vazę"
-                "Jak się teraz dostaniecie do środka?"
-=======
                 "Dzielenie ruszacie szturmować vazę"
                 menu:
                     "Jak się teraz dostaniecie do środka?"
@@ -2842,7 +2797,6 @@ label wojowezadanie:
 
                     "Gun, miej fun" if gun_stan > 5:
                         g "Tajest"
->>>>>>> e7de26fd717c4e4aa989d542fd6ca653f8dcc3a4
 
     elif Frakcja == 1:
         "Droga diamentowych psów jest jeszcze w rozwoju"
