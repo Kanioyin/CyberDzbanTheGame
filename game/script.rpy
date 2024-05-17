@@ -144,6 +144,7 @@ label start:
     default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
     default cechy = {"INT":2, "REF":2, "ZW":2, "TECH":2, "CHAR":2, "SW":2, "SZ":2, "RUCH":2, "BC":2, "EMP":2}
     default skile = {"Atletyka": 0, "Pistole": 0, "Karabiny": 0}
+    default stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
     #deklaracja inventory
     default inventory = Inventory([],0)
 
@@ -164,15 +165,9 @@ label start:
     default THeal = InventoryItem("Turbouzdrawiacz","Turbo uzdrawia")
 
     #Stany postaci
-    default gun_stan = 0
-    default kalach_stan = 0
-    default laskawca_stan = 0
-    default hartmann_stan = 0
-    default jhin_stan = 0
-    default cypher_stan = 0
     default kibel_stan = 0
     default wojsko_stan = 0
-    default krateus_stan = 0
+
 
     #deklaracja reszty
     default edki = 0
@@ -275,6 +270,10 @@ label start:
 
         elif player_name == "Cycu":
             "Co jest kurde, to cyber jest kurde"
+
+        elif player_name == "XD2":
+            $ stan = {"Kalach":6, "Gun":6, "Cypher":6, "Laskawca":6, "Hartmann":6, "Jhin":6, "Visty":6, "Kennedy":6, "Krateus":6}
+            jump wojowezadanie
 
         else:
             $ helper = 0
@@ -384,7 +383,7 @@ label kuchnia:
     show gun
     if akt == 0:
         g "Szybko Ci poszło"
-        if gun_stan < 4:
+        if stan["Gun"] < 4:
             if inventory.has_item(Flaszka) == True:
                 g "To pomoże Ci z kałachem"
                 g "Daj mu tę flachę"
@@ -395,7 +394,7 @@ label kuchnia:
                 $ inventory.add_item(Flaszka)
                 g "Daj mu to, powinien Cię polubić"
                 jump rozstaje
-        elif gun_stan > 2:
+        elif stan["Gun"] > 2:
             g "Skończyłeś już pogaduszki?"
             menu:
                 "Skończyłem?"
@@ -461,7 +460,7 @@ label kuchnia:
                 jump rozstaje
 
         elif bigquest == 5:
-            if gun_stan == 0:
+            if stan["Gun"] == 0:
                 g "No to mów, co Ci ten Kennedy powiedział ciekawego"
                 p "Musimy zostać przyjaciółmi"
                 g "Ja pierdole"
@@ -469,10 +468,10 @@ label kuchnia:
                 p "Ja i inni"
                 g "Ser z serca. No to do robory żołnierzu"
                 g "Mocą przyjaźni zdobądź serca innych dzbanów"
-                $ gun_stan = 1
+                $ stan["Gun"] = 1
                 jump rozstaje 
 
-            elif gun_stan == 1:
+            elif stan["Gun"] == 1:
                 g "Czyli ze mną chcesz zacząć randkować?"
                 g "Daniel Krej z!"
                 g "No to zacznijmy rozmowę kwalifikacyjną"
@@ -512,11 +511,11 @@ label kuchnia:
                 g "To chyba tyle z pytań"
                 p "I co to kurwa niby znaczy?"
                 g "Dowiesz się w swoim czasie"
-                $ gun_stan = 2
+                $ stan["Gun"] = 2
                 $ czas -= 2
                 jump rozstaje
 
-            elif gun_stan == 2:
+            elif stan["Gun"] == 2:
                 g "No to witam ponownie, dziś zobaczysz Mączysława w akcji"
                 p "Kim jest kurwa Mączysław?"
                 g "To najlepszy telefon EUNE"
@@ -666,19 +665,19 @@ label kuchnia:
                 "I w rodzinnej atmoswerze wróciliście do domu"
                 $ postacie["Gun"] += 1
                 $ postacie["Kalach"] += 1
-                $ gun_stan = 3
+                $ stan["Gun"] = 3
                 $ czas = 0
                 jump rozstaje
             
-            if gun_stan == 3 and jhin_stan == 3:
-                if jhin_stan == 9:
+            if stan["Gun"] == 3 and stan["Jhin"] == 3:
+                if stan["Jhin"] == 9:
                     g "Chciałem pojechać z Jhinem na zadanie bojowe ale mu się zdechło"
                     g "Więc to mamy już z głowy"
-                    $ gun_stan = 4
+                    $ stan["Gun"] = 4
                     "Wychodzisz z kuchni"
                     jump rozstaje
                 
-                elif jhin_stan < 3:
+                elif stan["Jhin"] < 3:
                     g "Pogadaj z Jhinem, jak zrobisz z nim trochę roboty to zapraszam"
                     jump rozstaje
 
@@ -740,14 +739,14 @@ label kuchnia:
                     "I w atmosferze skandalu wróciliście do bazy"
                     stop music
                     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
-                    $ gun_stan = 4
+                    $ stan["Gun"] = 4
                     $ postacie["Gun"] += 1
                     $ postacie["Jhin"] += 1
                     $ czas = 0
                     jump rozstaje
 
-            if gun_stan == 4:
-                if krateus_stan < 3:
+            if stan["Gun"] == 4:
+                if stan["Krateus"] < 3:
                     g "Brazylijczyk coś od Ciebie chce, idź do niego"
                     jump rozstaje
 
@@ -800,7 +799,7 @@ label kuchnia:
                     g "To chyba tyle z syzyfowych prac"
                     g "Możemy się zając zadaniem Kennedyego"
                     p "Kurwa w końcu"
-                    $ gun_stan = 5
+                    $ stan["Gun"] = 5
                     "Zadowolony wyszedłeś"
                     $ czas = 0
                     stop music
@@ -828,13 +827,13 @@ label kosciol:
             k "Wezmę sobie"
             $ postacie["Kalach"] += 1
             $ inventory.remove_item(Flaszka)
-            $ gun_stan += 1
+            $ stan["Gun"] += 1
             jump rozstaje
 
         if postacie["Kalach"] == 0:
             k "Kim ty kurwa jesteś?"
             k "Wypierdalaj"
-            $ gun_stan += 1
+            $ stan["Gun"] += 1
             jump rozstaje
 
         else:
@@ -845,7 +844,7 @@ label kosciol:
     if akt == 1:
         if bigquest == 0:
             $ czas -= 1
-            if kalach_stan == 0:
+            if stan["Kalach"] == 0:
                 k "Jak tam poszło?"
                 k "Postrzelałeś?"
                 k "Poruchałeś?"
@@ -862,17 +861,17 @@ label kosciol:
                     k "Spierdalaj syfer"
                     $ postacie["Kalach"] -= 1
 
-                $ kalach_stan += 1
+                $ stan["Kalach"] += 1
                 k "Zdupcaj, wracam do picia"
                 jump rozstaje
 
-            if kalach_stan == 1:
+            if stan["Kalach"] == 1:
                 "Kałach alkoholizuje się, lepiej mu nie przeszkadzaj"
                 jump rozstaje
 
         elif bigquest > 2:
             $ czas -= 1
-            if kalach_stan == 0:
+            if stan["Kalach"] == 0:
                 k "Niech mnie uda i zimna wóda"
                 k "Wróciłeś żywy z siedliska Vist"
                 $ postacie["Kalach"] += 1
@@ -880,10 +879,10 @@ label kosciol:
                 play sound "THROWING.mp3"
                 $ inventory.add_item(Flaszka)
                 k "Zachowaj na specjalną okazję, albo chlej teraz"
-                $ kalach_stan += 1
+                $ stan["Kalach"] += 1
                 jump rozstaje
 
-            elif kalach_stan == 1:
+            elif stan["Kalach"] == 1:
                 if dzien < 10:
                     "Kościół jest zamknięty, wróć później"
                     jump rozstaje
@@ -916,10 +915,10 @@ label kosciol:
 
                         $ renpy.block_rollback()
                         $ config.rollback_enabled = True
-                    $ kalach_stan = 2
+                    $ stan["Kalach"] = 2
                     jump rozstaje
 
-            elif kalach_stan == 2 and bigquest == 5:
+            elif stan["Kalach"] == 2 and stan["Kalach"] == 5:
                 k "No witam witam"
                 k "Przyszedłeś po przebaczenie grzechów?"
                 p "Nie Kałachu, muszę zostać twoim przyjacielem"
@@ -941,7 +940,7 @@ label kosciol:
                     hide cypher with dissolve
                 $ postacie["Kalach"] += 1
                 $ czas -= 2
-                $ kalach_stan = 5
+                $ stan["Kalach"] = 5
             
     jump rozstaje
 
@@ -950,7 +949,7 @@ label kibel:
     if akt == 0:
         show grat at left
         "Ić stont"
-        $ gun_stan += 1
+        $ stan["Gun"] += 1
         jump rozstaje
 
     elif akt == 1 and bigquest == 0:
@@ -1002,7 +1001,7 @@ label dach:
     scene dach
     show cypher
     if akt == 0:
-        if cypher_stan == 0:
+        if stan["Cypher"] == 0:
             "Cypher skończył morbowanie"
             c "Chcesz zostać najemnikiem?"
             c "A może wolisz wynająć najemników?"
@@ -1013,33 +1012,33 @@ label dach:
             scene kuchnia
             show gun
             g "Lepiej nie zawieraj żadnych umów z Cypherem, to nigdy nie kończy się dobrze"
-            $ gun_stan += 1
-            $ cypher_stan += 1
+            $ stan["Gun"] += 1
+            $ stan["Cypher"] += 1
             jump rozstaje
 
-        elif cypher_stan == 1:
+        elif stan["Cypher"] == 1:
             "Widzisz że Cypher nad czymś pracuje"
             c "Nie przeszkadzaj mi, przygotowuję coś niesamowitego"
             c "Jeśli dołączysz do DH, to dostaniesz bojowe zadanie"
-            $ cypher_stan += 1
+            $ stan["Cypher"] += 1
             jump rozstaje
 
-        elif cypher_stan == 2:
+        elif stan["Cypher"] == 2:
             c "Czy ty chcesz usłyszeć każdy dialog z mną?"
             c "Czy może stwierdziłeś że chcesz truć mi dupę"
             c "Powiedz mi kasztanie, wierzysz w kobiety?"
             c "Zastanów się nad odpowiedzią"
-            $ cypher_stan += 1
+            $ stan["Cypher"] += 1
             jump rozstaje
 
-        elif cypher_stan == 3:
+        elif stan["Cypher"] == 3:
             c "No pierdolne Ci"
             c "Literelnie Ci pierdolnę"
             c "Jeszcze raz tu kurwa przyjdź a poszczuję Cię Młynarczykiem"
-            $ cypher_stan += 1
+            $ stan["Cypher"] += 1
             jump rozstaje
 
-        elif cypher_stan == 4:
+        elif stan["Cypher"] == 4:
             show ciphate with dissolve
             c "No to masz przepierdolone"
             c "Młynarczyk! Bierz go!"
@@ -1064,7 +1063,7 @@ label dach:
                 c "Witaj mój najodważniejszy wojowniku"
                 c "Nie mam teraz dla ciebie nowego zadania"
                 c "Ale nie martw się, DH jeszcze zabłyśnie"
-                $ cypher_stan = 1
+                $ stan["Cypher"] = 1
                 jump rozstaje
 
             elif Frakcja != 1:
@@ -1087,11 +1086,11 @@ label dach:
             c "A tak to Jhin prawie się zabił tnąc kable"
             c "Mówiłem mu, trakcja to śmierć. Tory! To jest przyszłość"
             c "To tyle z mojej audiencji teraz idź w chuj."
-            $ cypher_stan = 1
+            $ stan["Cypher"] = 1
             jump rozstaje
 
         if bigquest == 5:
-            if cypher_stan < 1:
+            if stan["Cypher"] < 1:
                 if Frakcja == 1:
                     p "Dzień dobry szefie"
                     c "Witaj mój ulubiony najemniku"
@@ -1107,7 +1106,7 @@ label dach:
                     c "Zawszę pomogę swoim pracownikom"
                     p "Holipka milutko"
                     c "RICHTIG"
-                    $ cypher_stan = 5
+                    $ stan["Cypher"] = 5
                     jump rozstaje
                 
                 else:
@@ -1126,10 +1125,10 @@ label dach:
                     c "Będą wymagały od Ciebie masy sprzętu"
                     c "I trochę umysłu"
                     c "Dobra, spierdalaj. Wyruszam myśleć"
-                    $ cypher_stan = 1
+                    $ stan["Cypher"] = 1
                     jump rozstaje
 
-            if cypher_stan == 1:
+            if stan["Cypher"] == 1:
                 c "To dobra mam pomysł, przelećmy się"
                 p "Kurwa cypher, popierdoliło Cie?"
                 p "Dlaczego ty taki rogaty jesteś?"
@@ -1182,10 +1181,10 @@ label dach:
                 $ config.rollback_enabled = True
                 "I kolejne pół dnia wracaliście"
                 $ czas = 0
-                $ cypher_stan = 2
+                $ stan["Cypher"] = 2
                 jump rozstaje
             
-            if cypher_stan == 2:
+            if stan["Cypher"] == 2:
                 c "Dobra, lecimy z kolejnym bojowym zadaniem"
                 c "W dzisiejszym odcinku wysokiego trybu"
                 c "Wyruszymy do sklepu po zakupy"
@@ -1235,7 +1234,7 @@ label dach:
                 c "Kwestię gastro mamy za sobą, teraz kolejne pytanie"
                 menu:
                     c "Widziałeś gdzieś moje spodnie?"
-                    "Fredi ich pilnuje" if gun_stan > 2:
+                    "Fredi ich pilnuje" if stan["Gun"] > 2:
                         c "Karamba, myślałem że zostały już uratowane"
                         p "A ty nie masz innych spodni?"
                         c "Mam ale w tamtych jest coś ważnego"
@@ -1274,7 +1273,7 @@ label dach:
                         c "Wiesz co? Jak mi ufasz, to ja zaufam tobie"
                         c "Możesz mnie liczyć jako sojusznika"
                         p "Klawo"
-                        $ cypher_stan = 5
+                        $ stan["Cypher"] = 5
                         $ postacie["Cypher"] += 2
                         $ renpy.block_rollback()
                         $ config.rollback_enabled = True
@@ -1285,12 +1284,12 @@ label dach:
                         c "To spierdalaj"
                         "I bez słowa zaczął uciekać"
                         $ postacie["Cypher"] -= 3
-                        $ cypher_stan = 3
+                        $ stan["Cypher"] = 3
                         $ renpy.block_rollback()
                         $ config.rollback_enabled = True
                         jump rozstaje
 
-            if cypher_stan == 3:
+            if stan["Cypher"] == 3:
                 c "Spierdalaj"
                 jump rozstaje 
 
@@ -1301,7 +1300,7 @@ label warsztat:
     show hartmann at right
     $ czas -= 1
     if akt == 0:
-        $ gun_stan += 1
+        $ stan["Gun"] += 1
         "Wchodząc do pokoju słyszysz agresywne napierdalanie młotkiem, a w tle leci niemiecki metal"
         h "Kim ty kurwa jesteś?"
         h "Dlaczego mi kurwa przeszkadzasz w robocie?"
@@ -1344,8 +1343,8 @@ label warsztat:
                     h "To idź do roboty lol"
                     
         if bigquest > 2:
-            if hartmann_stan == 0:
-                $ hartmann_stan = 1
+            if stan["Hartmann"] == 0:
+                $ stan["Hartmann"] = 1
                 h "Powiedz mi przetrwańcze"
                 h "Czy Visty mają migomat na stanie?"
                 h "Bo słyszałem że vigomat podobno spawa tylko gówno"
@@ -1382,7 +1381,7 @@ label warsztat:
                         h "WYRUSZAM BEZZWŁOCZNIE"
                         jump rozstaje
 
-            elif hartmann_stan == 1 and dzien > 14:
+            elif stan["Hartmann"] == 1 and dzien > 14:
                 h "Pyk Pyk, jako tako i do Cyphera"
                 p "Cześć Hartmann!"
                 h "O Gluten morgen [player_name]!"
@@ -1412,11 +1411,11 @@ label warsztat:
                 p "Tja, to ja spierdalam"
                 h "I słuszne"
                 h "Spawu, spawu, spawu"
-                $ hartmann_stan = 2
+                $ stan["Hartmann"] = 2
                 $ czas -= 1
                 jump rozstaje
 
-            elif hartmann_stan == 2 and bigquest == 5:
+            elif stan["Hartmann"] == 2 and bigquest == 5:
                 h "Czemu ty mi znowu dupę zawracasz?"
                 p "Dostałem bojowe zadanie od Generała"
                 h "No i co? Chyba jesteś w stanie sam to zrobić."
@@ -1439,7 +1438,7 @@ label warsztat:
                         h "Wchodzę w to jak w albatrosa"
                         p "No to witamy na pokładzie"
                         $ helper2 = 1
-                        $ hartmann_stan = 5
+                        $ stan["Hartmann"] = 5
                         "Zadowolony z siebie wyszedłeś"
                         $ renpy.block_rollback()
                         $ config.rollback_enabled = True
@@ -1471,7 +1470,7 @@ label warsztat:
                         p "A ja jestem biedny"
                         h "Ale masz kolejnego wojownika dzielnego"
                         p "Przynajmniej tyle"
-                        $ hartmann_stan = 5
+                        $ stan["Hartmann"] = 5
                         $ czas -= 5
                         $ renpy.block_rollback()
                         $ config.rollback_enabled = True
@@ -1488,7 +1487,7 @@ label klinika:
     scene klinika
     show laskawca at right
     if akt == 0:
-        $ gun_stan += 1
+        $ stan["Gun"] += 1
         pl "Siema, chcesz kokosa kurwa ten?"
         if inventory.has_item(Kokos) == True:
             pl "No wciągnij no"
@@ -1549,7 +1548,7 @@ label klinika:
                     pl "No to szkoda" 
 
     if akt == 1:
-        if laskawca_stan == 0:
+        if stan["Laskawca"] == 0:
             pl "No to opowiadaj, jak Ci życie mija"
             pl "Powiem Ci, u mnie jest dość ciężko. Szukam serwera dla baby"
             pl "Kiedyś w bazie mieliśmy cały czas jakiegoś netrunnera"
@@ -1578,10 +1577,10 @@ label klinika:
             $ renpy.block_rollback()
             $ config.rollback_enabled = True
             pl "No to czekam na info z niecierpliwością"
-            $ laskawca_stan = 1
+            $ stan["Laskawca"] = 1
             jump rozstaje
 
-        if laskawca_stan == 1 and bigquest == 5:
+        if stan["Laskawca"] == 1 and bigquest == 5:
             pl "Czekam dalej"
             p "To przestań czekać i ruszajmy na poszukiwania"
             pl "Karamba, jesteś dobrym mówcą"
@@ -1645,7 +1644,7 @@ label klinika:
             p "Dobra, jeden z głowy"
             $ czas -= 5
             $ postacie ["Laskawca"] += 1
-            $ laskawca_stan = 2
+            $ stan["Laskawca"] = 2
             jump rozstaje
 
         else:
@@ -1656,7 +1655,7 @@ label klinika:
 
 label jhinownia:
     $ czas -= 1
-    if jhin_stan == 9:
+    if stan["Jhin"] == 9:
         "Chłop nie żyje"
         "Spoczywaj w tym pokoju"
         jump rozstaje
@@ -1664,7 +1663,7 @@ label jhinownia:
     scene takiten
     show jhin
     if akt == 1:
-        if jhin_stan == 0:
+        if stan["Jhin"] == 0:
             j "Hejka naklejka jestem Jhin Taki-Ten"
             j "To nazwisko zawdzięczam swoim rodzicom"
             j "Czyli udało Ci się nakraść w gnieździe Vist"
@@ -1683,7 +1682,7 @@ label jhinownia:
                     j "To oznacza że trzeba zabić każdego piekarza w mieście"
                     j "Wyruszam natychmiast"
                     "I se poszedł"
-                    $ jhin_stan = 1
+                    $ stan["Jhin"] = 1
                     jump rozstaje
 
                 "Dzielą się na pół":
@@ -1694,7 +1693,7 @@ label jhinownia:
                     hide cypher with dissolve
                     j "On już tu jest, uceikam"
                     "I spierdolił"
-                    $ jhin_stan = 1
+                    $ stan["Jhin"] = 1
                     jump rozstaje
 
                 "Co ty pierdolisz Ken-Taki?":
@@ -1703,17 +1702,17 @@ label jhinownia:
                     j "I mam teraz rozdział o rozmnażaniu"
                     j "3.14rdol się chamie"
                     $ postacie["Jhin"] -= 1
-                    $ jhin_stan = 1
+                    $ stan["Jhin"] = 1
                     jump rozstaje
 
-        if jhin_stan == 1 and dzien < 10:
+        if stan["Jhin"] == 1 and dzien < 10:
             "Pokój jest pusty, Jhin gdzieś wybył"
             if dzien > 9:
-                $ jhin_stan = 2
+                $ stan["Jhin"] = 2
 
             jump rozstaje
 
-        if jhin_stan == 2:
+        if stan["Jhin"] == 2:
             j "No hejka, dokonałem badań do mnożenia Vist"
             j "Źródłem jest strona internetowa"
             j "Krejzi.braindance.cum"
@@ -1729,7 +1728,7 @@ label jhinownia:
                     j "Jednak jesteś mądrzejszy od ośmioklasisty"
                     j "A to nie jest typowa sytuacja w tej bazie"
                     j "To dobry znak, nie będzie jeszcze z Ciebie insygni"
-                    $ jhin_stan = 3
+                    $ stan["Jhin"] = 3
                     j "Przyjdź później, będę miał kolejne pytania"
                 
                 "Sprawdzę":
@@ -1741,7 +1740,7 @@ label jhinownia:
                     hide gun
                     j "Ano tak, skończysz marnie"
                     j "Weź się prześpij i przemyśl swoje zachowanie"
-                    $ jhin_stan = 3
+                    $ stan["Jhin"] = 3
 
                 "Ja już jestem jednym z nich" if Frakcja == 3:
                     j "Pierdolisz"
@@ -1756,7 +1755,7 @@ label jhinownia:
                             p "Ja pociągam za spust"
                             "Wystrzał z broni, sprzątnął tentakiego"
                             $ postacie["Jhin"] = -9999
-                            $ jhin_stan = 9
+                            $ stan["Jhin"] = 9
                             jump rozstaje
 
                         "Spokojnie, jestem dobrym Vistom":
@@ -1774,12 +1773,12 @@ label jhinownia:
                             p "Odwiedzę cię potem, bywaj Vhin"
                             j "Bywaj [player_name]!"
                             $ postacie["Jhin"] += 1
-                            $ jhin_stan = 3
+                            $ stan["Jhin"] = 3
 
             "Wychodzisz z pokoju"
             jump rozstaje
 
-        if jhin_stan == 3 and bigquest == 5:
+        if stan["Jhin"] == 3 and bigquest == 5:
             j "Siemaneczko [player_name], co tam chcesz?"
             p "Jest robora od Kennedyego"
             j "O cholipka, pewnie coś niebezpiecznego"
@@ -1798,14 +1797,14 @@ label jhinownia:
             p "Pewnie zależy to od osoby"
             j "No ta"
             p "No to bywaj Jhin, ruszam siać przyjaźń z innymi"
-            $ jhin_stan = 4
+            $ stan["Jhin"] = 4
             jump rozstaje
 
-        if jhin_stan == 4:
+        elif stan["Jhin"] == 4:
             j "Idź pogadaj z Kennedym"
             jump rozstaje
 
-        if jhin_stan == 6:
+        elif stan["Jhin"] == 6:
             j "To czekam na resztę i ruszamy"
             jump rozstaje
 
@@ -1816,7 +1815,7 @@ label bruhzylia:
     scene brazil
     show krateus at right
     if akt == 1:
-        if krateus_stan == 0:
+        if stan["Krateus"] == 0:
             kr "Czyli to ty jesteś nowy."
             kr "Witaj, jestem Krateus, a ty?"
             p "Jestem [player_name]."
@@ -1847,9 +1846,9 @@ label bruhzylia:
             "Nagle usłyszeliście krzyk dziecka"
             kr "Jebane mutanty"
             kr "Dobra, bywaj [player_name]. Idę polować"
-            $ krateus_stan = 1
+            $ stan["Krateus"] = 1
 
-        if krateus_stan == 1:
+        if stan["Krateus"] == 1:
             if dzien < 19:
                 "No chłop poluje"
                 "Daj mu trochę czasu"
@@ -1873,10 +1872,10 @@ label bruhzylia:
                 kr "No to będziemy musieli iść na polowanie"
                 p "No dobra, kiedy?"
                 kr "Jutro"
-                $ krateus_stan = 2
+                $ stan["Krateus"] = 2
                 jump rozstaje
 
-        elif krateus_stan == 2:
+        elif stan["Krateus"] == 2:
             scene fiszop
             show krateus
             "Wraz z Kreteusem wyruszyliście do miejskiej dźungli"
@@ -1947,12 +1946,12 @@ label bruhzylia:
                 "I zacząłeś uciekać w kierunku bazy"
 
             "Zostawiliście cywili na tymczasową (oby) głodówkę"
-            $ krateus_stan = 3 
+            $ stan["Krateus"] = 3 
             $ czas -= 4
             $ postacie["Krateus"] += 1
             jump rozstaje
 
-        elif krateus_stan == 3:
+        elif stan["Krateus"] == 3:
             if dzien > 29:
                 kr "Dobra, chyba tyle czasu wystarczy"
                 p "No, trochę ich tam trzymaliśmy, myślisz że jeszcze żyją?"
@@ -1993,15 +1992,15 @@ label bruhzylia:
                 kr "Nie zadawaj głupich pytań, głośno myślałem"
                 p "To co teraz robimy?"
                 kr "Wracamy do domu i zacznę knuć znowu"
-                $ krateus_stan = 4
+                $ stan["Krateus"] = 4
                 $ czas = 0
                 jump rozstaje
 
             else:
                 kr "Daj im głodować jeszcze trochę"
 
-        elif krateus_stan == 4:
-            if laskawca_stan < 2:
+        elif stan["Krateus"] == 4:
+            if stan["Laskawca"] < 2:
                 kr "Pogadaj z Łaskawcą"
                 kr "Jak zrobisz co on chce to wróć"
                 jump rozstaje
@@ -2021,19 +2020,19 @@ label bruhzylia:
                 pl "Ruszam dzielnie"
                 "Kilka minut później"
                 $ helper = 10
-                if kalach_stan < 5:
+                if stan["Kalach"] < 5:
                     "Niczym nie zajęty kałach porwał kilka nowych zakonnic"
                     $ helper -= 3
 
-                if gun_stan < 5:
+                if stan["Gun"] < 5:
                     "Schizofremia jest zawsze kusząca dla altek"
                     $ helper -= 1 
 
-                if jhin_stan < 4:
+                if stan[Jhin] < 4:
                     "Urok Jhina odgonił jedną z babeczek"
                     $ helper -= 2
 
-                if cypher_stan < 5:
+                if stan["Cypher"] < 5:
                     c "Hi Hi Ha Ha"
                     "I na ten odgłos dwie samice uciekły"
                     $ helper -= 2
@@ -2042,7 +2041,7 @@ label bruhzylia:
                     kr "Kurwa, te bestie odgoniły kobiety"
                     $ postacie["Krateus"] -= 2
                     $ postacie["Laskawca"] -= 2
-                    $ krateus_stan = 5
+                    $ stan["Krateus"] = 5
                     kr "Chuja dało radę zrobić"
                     kr "Dawaj na Kennediego, może się odkujemy"
                 
@@ -2068,7 +2067,7 @@ label bruhzylia:
                     p "To jesteś gotowy na zadanie Kenowe"
                     kr "Kurwa brachu, pewex"
                     kr "Daj tylko znać i się pojawię"
-                    $ krateus_stan = 5
+                    $ stan["Krateus"] = 5
                     $ postacie["Krateus"] += 2
                     $ postacie["Laskawca"] += 2
                     jump rozstaje
@@ -2123,12 +2122,7 @@ label sypialnia:
 label akt1:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
     scene akt1
-    $ cypher_stan = 0
-    $ gun_stan = 0
-    $ hartmann_stan = 0
-    $ kalach_stan = 0
-    $ jhin_stan = 0
-    $ laskawca_stan = 0
+    $ stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
     $ akt = 1
     $ wojownik = False
     "A więc zostałeś w tej bazie pełnej degeneratów"
@@ -2292,9 +2286,11 @@ label miasto:
             jump trader
 
         "Wojsko" if bigquest > 3:
+            $ czas -= 1
             jump wojsko
 
         "Dziupli Vist" if Frakcja == 3:
+            $ czas -= 1
             jump vniazdo
 
         "Nikąd, pospaceruje sobię" if czas > 0:
@@ -2417,14 +2413,14 @@ label wojsko:
 
     elif wojsko_stan > 0:
         "Opowiedziałeś Kenowi o swoim progresie"
-        if laskawca_stan == 2:
+        if stan["Laskawca"] == 2:
             "Pochwaliłeś się przyjaźnią z Łaskawcą"
             gk "Czyli Łaskawca jest gotowy Ci pomóc"
             gk "Healer zawsze się przyda"
             $ wojsko_stan += 1
-            $ laskawca_stan = 6
+            $ stan["Laskawca"] = 6
 
-        if gun_stan == 5:
+        if stan["Gun"] == 5:
             "Pochwaliłeś się przyjaźnią z Gunem"
             gk "Gun chce wykonać zadanie dla mnie"
             gk "Nie wiem czy to dobry znak"
@@ -2432,43 +2428,43 @@ label wojsko:
             gk "Na szczęście kapitan Sójeczka był w okolicy"
             gk "Tak im namieszał w papierach, że sami nam pojazd oddali"
             $ wojsko_stan += 1
-            $ gun_stan = 6
+            $ stan["Gun"] = 6
 
-        if kalach_stan == 5:
+        if stan["Kalach"] == 5:
             "Pochwaliłeś się przyjaśnią z Kałachem"
             gk "Jeśli Kałach leci z tobą, musisz go pilnować"
             gk "Jeśli znajdę jakiegokolwiek dildosa na terenie akcji"
             gk "To Ciebie złapią konsekwencje"
             $ wojsko_stan += 1
-            $ kalach_stan = 6
+            $ stan["Kalach"] = 6
 
-        if hartmann_stan == 5:
+        if stan["Hartmann"] == 5:
             "Pochwalileś się przyjaźnią z Hatrmannem"
             gk "Twardy zawodnik dołączył do Ciebie?"
             gk "Tylko musisz uważać, jak Gun dostanie auto w ręce"
             gk "Mogą być straty w cywilach"
             $ wojsko_stan += 1
-            $ hartmann_stan = 6
+            $ stan["Hartmann"] = 6
 
-        if jhin_stan == 4:
+        if stan["Jhin"] == 4:
             "Pochwalileś się przyjaźnią z Jhinem"
             gk "Ten Taki idzie z Tobą?"
             gk "Szalone jak sam skurwysyn ale to jego decyzja"
             $ wojsko_stan += 1
-            $ jhin_stan = 6
+            $ stan["Jhin"] = 6
 
-        if cypher_stan == 5:
+        if stan["Cypher"] == 5:
             "Dumnie ogłosiłeś dołączenie Cyphera"
             gk "Dlaczego?"
             $ wojsko_stan += 1
-            $ cypher_stan = 6
+            $ stan["Cypher"] = 6
 
-        if krateus_stan == 5:
+        if stan["Krateus"] == 5:
             "Pochwaliłeś się przyjaźnią z Krateusem"
             gk "Krateus też tam jest?"
             gk "Powinien wykonywać zadanie bojowe"
             gk "Oj, będę musiał z nim pogadać"
-            $ wojsko_stan += 1
+            $ stan["Krateus"] += 1
             $ krateus_stan = 6
 
     elif wojsko_stan > 4: 
@@ -2513,7 +2509,7 @@ label wojowezadanie:
                         "Najgorsze możliew wejście"
                         "Ale okazało się nie strzeżone"
 
-                    "Okno" if krateus_stan == 6:
+                    "Okno" if stan["Krateus"] > 5:
                         p "Krateus, wskakuj oknem i nam pomożesz"
                         kr "Tajest kierowniku"
                         kr "Chopaky, to jest schowek na miotły"
@@ -2529,7 +2525,7 @@ label wojowezadanie:
                         "Panowie, zapraszam"
                         $ helper -= 20
 
-                    "Wentylacja" if gun_stan == 6:
+                    "Wentylacja" if stan["Gun"] > 5:
                         p "Gun, możesz wentować?"
                         g "Dlaczego ja?"
                         p "W kombosach do KTG jesteś w spiskowcach"
@@ -2543,7 +2539,7 @@ label wojowezadanie:
                         g "A se klikne"
                         "I dzięki temu, reszta drużyny dostała się do środka"
 
-                scene vard
+                scene vards
                 "Jesteście przy drzwiach 2"
                 "Zbliżając się, usłyszeliście vrażników"
                 v "Vrombał bym coś"
@@ -2584,7 +2580,7 @@ label wojowezadanie:
                         "I wysty wybiły się ze sceny"
 
 
-                    "Kałach, dywersja" if kalach_stan > 5:
+                    "Kałach, dywersja" if stan["Kalach"] > 5:
                         k "Hej seksiaki"
                         v "O, siemka Kałach, co tam"
                         k "A vista z hot-dogami przyjechał"
@@ -2607,7 +2603,7 @@ label wojowezadanie:
                         call chackHP(5) from _call_chackHP
                         "Wbiegliście do środka atakując kadego Vistę w okolicy"
 
-                    "Pora na blackout" if jhin_stan > 5:
+                    "Pora na blackout" if stan["Jhin"] > 5:
                         p "Ten taki, odetnij im kable"
                         j "Spoczko foczko"
                         "Widzisz że Jhin wyjmuję katane"
@@ -2629,7 +2625,7 @@ label wojowezadanie:
                         "Reszta dostała się do środka i po ciemku i cichu wybiła resztę"
                         $ helper -= 15
 
-                    "Brazylijska sztuka walki" if krateus_stan > 5:
+                    "Brazylijska sztuka walki" if stan["Krateus"] > 5:
                         kr "Ni Chu Ja"
                         kr "Hadong"
                         kr "Bomm szakalaka"
@@ -2638,7 +2634,7 @@ label wojowezadanie:
                         "Ale sam Krateus też trochę oberwał (głównie od siebie)"
                         $ helper -= 10
 
-                    "Łaskawca, anestezja bojowa" if laskawca_stan > 5:
+                    "Łaskawca, anestezja bojowa" if stan["Laskawca"] > 5:
                         pl "Się robi"
                         "Łaskawca podszedł pod szyb i dał trochę gazu"
                         v "Vopaki, vide vpać"
@@ -2686,7 +2682,7 @@ label wojowezadanie:
                         " I w taki sposób wyszliście z vazy"
                         jump akt1pods
                     
-                    "Pora na spawanie" if hartmann_stan > 5:
+                    "Pora na spawanie" if stan["Hatrmann"] > 5:
                         p "Hartmann, bier migomat"
                         h "PORA NA SPAWANIE WORA"
                         v "Nieeeeeeeee"
@@ -2699,7 +2695,7 @@ label wojowezadanie:
                         $ helper -= 15
                         jump akt1pods
 
-                    "Góra, prawo, dół dół dół" if cypher_stan > 5:
+                    "Góra, prawo, dół dół dół" if stan["Cypher"] > 5:
                         p "Cypher, pora na nalot"
                         c "Cypher łan w drodze"
                         v "Co kurwa?"
@@ -2722,7 +2718,7 @@ label wojowezadanie:
                         $ helper -= 25
                         jump akt1pods
 
-                    "Zielone światło" if gun_stan > 5:
+                    "Zielone światło" if stan["Gun"] > 5:
                         scene idrive
                         play music "idrive.mp3" volume 0.2
                         g "Ja jadę"
@@ -2740,7 +2736,7 @@ label wojowezadanie:
             "Na głośno" if akt == 2:
                 p "Kurwa chłopaki, nie pierdolmy się w tańcu"
                 p "Zapierdalamy na nich"
-                "Dzielnei ruszacie szturmować vazę"
+                "Dzielnie ruszacie szturmować vazę"
                 "Jak się teraz dostaniecie do środka?"
 
     elif Frakcja == 1:
@@ -3316,12 +3312,7 @@ label vokum:
 
 label amongthevpods:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
-    $ gun_stan = 0
-    $ kalach_stan = 0
-    $ laskawca_stan = 0
-    $ hartmann_stan = 0
-    $ jhin_stan = 0
-    $ cypher_stan = 0
+    $ stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
     $ kibel_stan = 0
     $ bigquest = 3
 
