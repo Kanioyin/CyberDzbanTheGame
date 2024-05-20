@@ -2766,7 +2766,7 @@ label wojowezadanie:
                         p "Hasta la vista, vista"
                         "Dostaliście się do środka"
 
-                    "Kałach bazooka" if kalach_stan > 5:
+                    "Kałach bazooka" if stan["Kalach"] > 5:
                         k "Boom, boom, boom, boom"
                         k "Im going to Coom"
                         "I Kałach wystrzelił"
@@ -2782,7 +2782,7 @@ label wojowezadanie:
                         "Możecie teraz wejść"
                         $ helper -= 10
 
-                    "Krateus, Los polios hermanos" if krateus_stan > 5:
+                    "Krateus, Los polios hermanos" if stan["Krateus"] > 5:
                         kr "Los espanooles necesitan ayuda"
                         kr "Cavador, tienes que cavar"
                         kr "Artilero, nos estan cubriendo"
@@ -2793,10 +2793,28 @@ label wojowezadanie:
                         "I drzwi się otworzyły"
                         p "Jak ty to zrobiłeś?"
                         kr "Battle pass słonko"
-                        $ helper -= 30
+                        $ helper -= 25
 
-                    "Gun, miej fun" if gun_stan > 5:
+                    "Gun, miej fun" if stan["Gun"] > 5:
                         g "Tajest"
+                        g "Ale zaskoczę was wszystkich, tym razem nie prowadzę"
+                        p "Faktycznie plottwist"
+                        g "Spokojnie [player_name], mączysław prowadzi"
+                        p "Co kurwa?"
+                        r "Skłik Skłik"
+                        "Widzisz jak rozpędzony tir jedzie prosto w drzwi"
+                        g "Pamiętaj o hamulcach"
+                        r "Skłik?"
+                        g "NIEEEEE MĄCZYSŁAW!!!"
+                        "Tir jebnął"
+                        g "MÓJ AGENT"
+                        p "Nie martw się Gun, pewnie trafił do ratowego nieba"
+                        g "Gówno, on był diabłem wcielonym"
+                        r "Skłik Skłik!"
+                        g "O CHOLERA, ON ŻYJE"
+                        g "RATTER POTTER"
+                        "Ominąłeś chwilę czułości i poszedłeś dalej"
+                        $ helper -= 20 
 
     elif Frakcja == 1:
         "Droga diamentowych psów jest jeszcze w rozwoju"
