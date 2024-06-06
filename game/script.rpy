@@ -114,7 +114,7 @@ label checkHP(dmg):
     if armor < 0:
         $ armor = 0
         
-    if armor == 0 and inventory.has_item(MalyArmor):
+    if armor == 0 and inventory.has_item(MalyArmor) == True:
         $ inventory.remove_item(MalyArmor)
         p "Pancerz się cały rozsypał"
 
@@ -821,7 +821,7 @@ label kosciol:
     scene kosciul
     show kalach at right
     if akt == 0:
-        if inventory.has_item(Flaszka):
+        if inventory.has_item(Flaszka) == True:
             k "Wyczuwam flachę"
             k "Wezmę sobie"
             $ postacie["Kalach"] += 1
@@ -2481,6 +2481,9 @@ label wojowezadanie:
     gk "Siłą przyjaźni musicie wysadzić jedno z vniazd"
     gk "Prowadzą tam badania nad ściśle tajnym projektem Vezuwiusz"
     gk "Niech bóg was przyjmie"
+    if inventory.has_item(Pistolecik)== False:
+        gk "Masz przyda Ci się"
+        $ inventory.add_item(Pistolecik)
     $ helper == 100
     $ config.rollback_enabled = False
     if Frakcja == 0:
@@ -2748,7 +2751,7 @@ label wojowezadanie:
                         $ helper -= 20
                         jump akt1pods
 
-            "Na głośno" if akt == 2:
+            "Na głośno":
                 p "Kurwa chłopaki, nie pierdolimy się w tańcu"
                 p "Zapierdalamy na nich"
                 "Dzielenie ruszacie szturmować vazę"
@@ -2767,6 +2770,7 @@ label wojowezadanie:
                         "Dostaliście się do środka"
 
                     "Kałach bazooka" if stan["Kalach"] > 5:
+                        show kalach at left
                         k "Boom, boom, boom, boom"
                         k "Im going to Coom"
                         "I Kałach wystrzelił"
@@ -2783,6 +2787,7 @@ label wojowezadanie:
                         $ helper -= 10
 
                     "Krateus, Los polios hermanos" if stan["Krateus"] > 5:
+                        show krateus at left
                         kr "Los espanooles necesitan ayuda"
                         kr "Cavador, tienes que cavar"
                         kr "Artilero, nos estan cubriendo"
@@ -2796,6 +2801,7 @@ label wojowezadanie:
                         $ helper -= 25
 
                     "Gun, miej fun" if stan["Gun"] > 5:
+                        show gun at left
                         g "Tajest"
                         g "Ale zaskoczę was wszystkich, tym razem nie prowadzę"
                         p "Faktycznie plottwist"
@@ -2815,6 +2821,196 @@ label wojowezadanie:
                         g "RATTER POTTER"
                         "Ominąłeś chwilę czułości i poszedłeś dalej"
                         $ helper -= 20 
+
+                "Jesteście w środku"
+                "Biegnie na was z dziesięć rozsierdzonych vist"
+                menu:
+                    "Co teraz?"
+                    "Pif Paf słoneczko":
+                        "Rozpocząłęś strzelanie, a drużyna strzelała wraz z tobą."
+                        call chceckHP(15)
+                        "Troszeczkę oberwałeś ale udało Ci się zostać bogiem gniewu i wojny"
+                        "Możesz dzielnie iść dalej"
+                        "Ale nie możesz zapomnieć o lootowaniu"
+                        $ edki += 150
+                        "Trochę mamony się znalazło"
+                        $ inventory.add_item(AR)
+                        $ inventory.add_item(Vron)
+                        $ vdolce += 3
+                        "I trochę Vidolcy"
+
+                    "Pora Geentować if"  stan["Laskawca"] > 5:
+                        show laskawca at left
+                        pl "Się robi"
+                        "Łaskawca zaczął strzelać na oślep"
+                        "Trafił wszystkie 11 strzałów"
+                        "Spytasz się, jak 11 strzałów na 10 vist"
+                        "Odpowiedź jest bardzo prosta"
+                        "Jeśli kiedykolwiek będzie kombat w którym Gun nie dostanie rykoszetu"
+                        "To się chyba posram."
+                        g "Aua ):"
+                        $ hrlper -= 15
+
+                    "Hartmann! Spaw bojowy" if stan["Hartmann"] > 5:
+                        show hartmann at left
+                        h "No to spawamy"
+                        h "Ja nie wiem co to jest rzecz niemożliwa"
+                        h "Fach w ręku, tak bywa"
+                        h "Czasem beton, cementem się spawa"
+                        h "Czasem, Visty się doprawia"
+                        "Vięso Vist topiło się pod wpływem spawarki do ludzi"
+                        "Czujesz się strasznie,jesteś niczym więcje niżeli potworem"
+                        "Kreatura twojego rodzaju nie powinna mieć kontaktu z ludźmi"
+                        "Szczęśliwie to jest tylko gra i nie będziesz chciał powrarzać tego irl?"
+                        "Prawda"
+                        menu:
+                            "Prawda?"
+                            "Prawda":
+                                "To dobrze"
+                                "Wiedźmin 3: kamień z serca"
+                                $ helper -= 10
+                            
+                            "Fałsz":
+                                "Ty chory pojebie"
+                                return
+
+                    "Czy moc pay to play też na mnie działą?" if edki > 199:
+                        mg "TAK"
+                        p "O jasna dupa, to Wielki Dzik"
+                        mg "To prawda, jestem więc myślę"
+                        p "Czy możesz mi pomóc w walce z Vistami?"
+                        mg "Mogę zrobić wszystko ale ile jesteś gotowy za to zapłacić?"
+                        menu:
+                            "Ilę chcę dać?"
+                            "Masz tu 200 edków i spierdalaj":
+                                mg "Przyjmuję tę ofertę"
+                                p "Fr fr?"
+                                mg "Tak"
+                                mg "Vistus znikus"
+                                "I tyle było z Vist"
+                                p "Dziękuję wielki dziku"
+                                "Ale dzika już tu nie było"
+                                $ helper -= 25
+
+                            "Dusza Kałacha":
+                                mg "Ambitnie"
+                                mg "Przyjmuję tę ofertę"
+                                show kalach at right
+                                k "Co kurwa?"
+                                mg "bywaj Kałachu"
+                                k "KURWAAAAAAAAAAAAAAAAAAAAAAAA"
+                                hide kalach with dissolve
+                                $ stan["Kalach"] = -1
+                                $ postacie["Kalach"] = -1000
+                                mg "Paskudny w smaku"
+                                "Wielki dzik potężnym beknięciem wystrzelił Visty poza czwartą ścianę"
+                                p "Dziękuję wielki dziku"
+                                "Ale dzika już tu nie było"
+                                $ helper -= 15
+                            
+                            "Jednak nie, spierdalaj":
+                                mg "Teraz mnie wkurwiłeś"
+                                p "O nie, tylko nie to, JESTEŚ TYLKO WYTWOREM MOJEJ WYOBRAŹNI"
+                                mg "Kłamstwo"
+                                scene vibechec
+                                play sound "skokostrach.mp3"
+                                return
+
+                "Idąc dalej widzisz laboratorium"
+                "Visty planują zbudować wielki wulkan"
+                "Masz rację, pojebało ich"
+                "Ich głównymi składnikami są ocet i soda kuchenna"
+                "Oznacza to zagrożenie poziomu Demon"
+                "Całe NC może zostać zalane wulkanową wydzieliną"
+                p "Pora ich powstrzymać"
+                p "Hujsaria"
+                menu:
+                    "Wybierz styl dewastacji"
+                    "Bombka" if inventory.has_item(Granat):
+                        p "Przeciwpiechotny granat sromotny!"
+                        P "A teraz. SPIERDALAMY!"
+                        play sound "BOOM.mp3"
+                        "Granat wybuchając wymieszał składniki granatu"
+                        "Ta bojowa mieszanka zaczęła reagować"
+                        "Nie minęła chwila jak to gówno zaczęło wypełniać vazę"
+                        p "Szybciej panowie, szybciej!"
+                        "Resztkami sił udało wam się wybiec z placówki"
+                        $ helper -= 25
+                    
+                    "Ocet jest smaczny, wypiję":
+                        show ciphate with dissolve
+                        mg "Obrzydzasz mnie"
+                        hide ciphate with dissolve
+                        "Wypiłeś cały ocet jaki mięli"
+                        "Dzięki twojej brawurze visty poniosły straty finansowe"
+                        "Całe 4,50 w plecy"
+                        play sound "BURP.mp3"
+                        p "To chyba tyle"
+                        p "Misja wykonana"
+                        p "Możemy wychodzić"
+                        "I spokojnym krokiem wyszliście z pomiejszczenia"
+                        $ helper -= 10
+
+                    "Łaskaawca, obczaj ten proszek" if stan["Laskawca"] > 5:
+                        show laskawca at left
+                        pl "Wydaje mi się że to jest kreda"
+                        p "Jak kurwa kreda?"
+                        pl "No normalnie"
+                        p "A wulkan nie powinien działać z sodą?"
+                        pl "Powinien ale to jest Vista dynamicks"
+                        p "No dobra, punkt dla Ciebie"
+                        p "To wychodzi na to, że żadnego zagrożenia nie ma"
+                        p "Spermastycznie. Wychodzimy!"
+                        "I spokojnym krokiem wyszliście z pomiejszczenia"
+                        $ helper -= 15
+
+                    "Zrobię delikatny trolaż" if inventory.has_item(Kokos):
+                        p "Mam taki śmieszny pomysł"
+                        "Podszedłeś do stołu i zamieniłeś sodę na koks"
+                        p "Co prawda wychodzę przez to na minus"
+                        p "Ale będzie śmiesznie jak im to nie zadziała"
+                        "Po delikatnym sabotażu wyszliście z vazy"
+                        $ helper -= 20
+
+                p "Kurwa panowie, to było zajebiście łatwe"
+                v "Vie Vwal vnia vprzed vachodem vłońca"
+                p "Co kurwa"
+                scene vinalvoss
+                v "Vestem V-Max"
+                v "Vopowa vakość V"
+                p "Oj nie zesraj się"
+                v "Va vóźno"
+                "Widzisz jak V-Max się powiększa"
+                p "No tak, chuj mi w dupę"
+                v "Va Va Va"
+                v "Vykuj vię va vmierć"
+                p "No to pvp"
+                menu:
+                    "No to jak cię zabiję?"
+                    "Stary dobry pistolet" if inventory.has_item(Pistolecik):
+                        p "Giń Visto"
+                        "Wystrzeliłeś z pistoletu ale vista podszedł do Ciebie bliżej"
+                        v "V vasz"
+                        call checkHP(19)
+                        p "Kurwa bolało"
+                        v "V veraz vrugi vtak"
+                        p "Ej kurwa, to jest nie fair"
+                        p "Musisz poczekać na swoją turę"
+                        v "V viździe vo vam"
+                        call checkHP(2)
+                        "Potężny atak Visty tylko cię drasnął"
+                        p "Ja też"
+                        v "Vkurwysyn"
+                        p "Spoczywaj w koszu v"
+                        p "Misja ukończona"
+                        $ helper -= 25
+                        
+                    "Pora na kręcienie wora" if stan["Krateus"] > 5:
+                        show krateus
+                        kr "Chodź tu kurewko"
+                        v ""
+                        
+
 
     elif Frakcja == 1:
         "Droga diamentowych psów jest jeszcze w rozwoju"
