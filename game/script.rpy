@@ -2431,7 +2431,7 @@ label wojsko:
             $ stan["Gun"] = 6
 
         if stan["Kalach"] == 5:
-            "Pochwaliłeś się przyjaśnią z Kałachem"
+            "Pochwaliłeś się przyjaźnią z Kałachem"
 
             gk "Jeśli Kałach leci z tobą, musisz go pilnować"
             gk "Jeśli znajdę jakiegokolwiek dildosa na terenie akcji"
@@ -2519,7 +2519,7 @@ label wojowezadanie:
                         kr "Chopaky, to jest schowek na miotły"
                         kr "Wskakujcie, macie tu linę"
                         $ helper -= 15
-                        hide krteus
+                        hide krateus
                         "A po nim wskoczyła cała reszta"
 
                     "Drzwi dla personelu" if inventory.has_item(Wytrych) == True:
@@ -2685,7 +2685,7 @@ label wojowezadanie:
                         p "Ora"
                         v "Too slow, too slow! The Vorld is the ultimate Stand."
                         "ora ora ora ora vs vuda vuda vuda vuda"
-                        p "It's over VPrime. I have a high ground"
+                        p "It's over VMax. I have a high ground"
                         v "Vurwa"
                         p "GIŃ"
                         play sound "hit.mp3"
@@ -2694,6 +2694,7 @@ label wojowezadanie:
                         v "To jeszcze nie jest koniec"
                         p "Panowie wychodzimy"
                         " I w taki sposób wyszliście z vazy"
+                        $ helper -= 10
                         jump akt1pods
                     
                     "Pora na spawanie" if stan["Hatrmann"] > 5:
@@ -2772,7 +2773,7 @@ label wojowezadanie:
                     "Kałach bazooka" if stan["Kalach"] > 5:
                         show kalach at left
                         k "Boom, boom, boom, boom"
-                        k "Im going to Coom"
+                        k "I'm going to Coom"
                         "I Kałach wystrzelił"
                         "Ale rakieta wybuchła fajerwerkami"
                         k "Co jest kurwa"
@@ -2786,11 +2787,11 @@ label wojowezadanie:
                         "Możecie teraz wejść"
                         $ helper -= 10
 
-                    "Krateus, Los polios hermanos" if stan["Krateus"] > 5:
+                    "Krateus, Los pollos hermanos" if stan["Krateus"] > 5:
                         show krateus at left
-                        kr "Los espanooles necesitan ayuda"
+                        kr "Los españoles necesitan ayuda"
                         kr "Cavador, tienes que cavar"
-                        kr "Artilero, nos estan cubriendo"
+                        kr "Artillero, nos están cubriendo"
                         kr "I teraz atak ostateczny"
                         kr "Ekspansja domeny: KRATA DZIKA"
                         mg "Przyjmuję twoją ofertę"
@@ -2805,7 +2806,7 @@ label wojowezadanie:
                         g "Tajest"
                         g "Ale zaskoczę was wszystkich, tym razem nie prowadzę"
                         p "Faktycznie plottwist"
-                        g "Spokojnie [player_name], mączysław prowadzi"
+                        g "Spokojnie [player_name], Mączysław prowadzi"
                         p "Co kurwa?"
                         r "Skłik Skłik"
                         "Widzisz jak rozpędzony tir jedzie prosto w drzwi"
@@ -2859,9 +2860,9 @@ label wojowezadanie:
                         h "Czasem beton, cementem się spawa"
                         h "Czasem, Visty się doprawia"
                         "Vięso Vist topiło się pod wpływem spawarki do ludzi"
-                        "Czujesz się strasznie,jesteś niczym więcje niżeli potworem"
+                        "Czujesz się strasznie,jesteś niczym więcej niżeli potworem"
                         "Kreatura twojego rodzaju nie powinna mieć kontaktu z ludźmi"
-                        "Szczęśliwie to jest tylko gra i nie będziesz chciał powrarzać tego irl?"
+                        "Szczęśliwie to jest tylko gra i nie będziesz chciał powtarzać tego irl?"
                         "Prawda"
                         menu:
                             "Prawda?"
@@ -2874,7 +2875,7 @@ label wojowezadanie:
                                 "Ty chory pojebie"
                                 return
 
-                    "Czy moc pay to play też na mnie działą?" if edki > 199:
+                    "Czy moc pay to play też na mnie działa?" if edki > 199:
                         mg "TAK"
                         p "O jasna dupa, to Wielki Dzik"
                         mg "To prawda, jestem więc myślę"
@@ -2941,14 +2942,14 @@ label wojowezadanie:
                         show ciphate with dissolve
                         mg "Obrzydzasz mnie"
                         hide ciphate with dissolve
-                        "Wypiłeś cały ocet jaki mięli"
+                        "Wypiłeś cały ocet jaki mieli"
                         "Dzięki twojej brawurze visty poniosły straty finansowe"
                         "Całe 4,50 w plecy"
                         play sound "BURP.mp3"
                         p "To chyba tyle"
                         p "Misja wykonana"
                         p "Możemy wychodzić"
-                        "I spokojnym krokiem wyszliście z pomiejszczenia"
+                        "I spokojnym krokiem wyszliście z pomieszczenia"
                         $ helper -= 10
 
                     "Łaskaawca, obczaj ten proszek" if stan["Laskawca"] > 5:
@@ -2961,7 +2962,7 @@ label wojowezadanie:
                         p "No dobra, punkt dla Ciebie"
                         p "To wychodzi na to, że żadnego zagrożenia nie ma"
                         p "Spermastycznie. Wychodzimy!"
-                        "I spokojnym krokiem wyszliście z pomiejszczenia"
+                        "I spokojnym krokiem wyszliście z pomieszczenia"
                         $ helper -= 15
 
                     "Zrobię delikatny trolaż" if inventory.has_item(Kokos):
@@ -3004,11 +3005,67 @@ label wojowezadanie:
                         p "Spoczywaj w koszu v"
                         p "Misja ukończona"
                         $ helper -= 25
+                        jump akt1pods
                         
                     "Pora na kręcienie wora" if stan["Krateus"] > 5:
                         show krateus
                         kr "Chodź tu kurewko"
-                        v ""
+                        v "Vde"
+                        kr "Zostaniesz świadkiem brazylijskich eggzekucji"
+                        p "W sensie?"
+                        v "Vlus veden"
+                        kr "No bo chodzi o to, że w brazyli jest dużo eunuchów"
+                        kr "Bo tam terroryści strzelali w jaja"
+                        p "To dobrego cela mają"
+                        kr "Właśnie nie, oni celują w głowę"
+                        kr "Ale tam jest ciężka amunicja"
+                        p "Ale głupota"
+                        kr "No. Dlatego ja polegam na pięściach"
+                        v "Vo vo vo ven ved-valk?"
+                        kr "Dla jajec"
+                        v "V vensie"
+                        "Przez całą pogadankę Kreteus zbliżał się do V-Maxa"
+                        kr "Egg stiler"
+                        v "Vvaaaaaaaaaa"
+                        kr "Turbo kręcenie wora!"
+                        kr "I teraz finiszer, cios prosto w prostatę"
+                        play sound "Bonk.mp3"
+                        scene black
+                        "Ze względu na brutalną naturę tej sceny zastąpiłem ją opisem jajec"
+                        "Wielkie i czerwone jak pomidory"
+                        "Dziękuję za uwagę"
+                        show krateus
+                        kr "Kurwa, chyba przesadziłem"
+                        p "Chłopie, tortury Trewora były bardziej ludzkie"
+                        kr "Serio"
+                        p "No, chodźmy stąd, muszę chyba iść na terapię"
+                        kr "No sorson, ale jak to pisze jest miesiąc geja, przez to nie mam hamulców"
+                        $ helper -= 10
+                        jump akt1pods
+
+                    "Volololo" if stan["Kalach"] > 5:
+                        k "Niech będą pochwalone uda."
+                        k "I jak powiedział kiedyś prorok:"
+                        k "„Błogosławione uda, które nie postępują w radzie bezbożnych, ani nie stoją na drodze bonera,"
+                        k "ani nie siedzą na tronie simpów. Ale jego upodobanie jest w prawie THICC Ud!"
+                        v "Vo vy vierdolisz?"
+                        k "Twoją matkę"
+                        v "Vooooo"
+                        v "Vylko vie voją vamusie"
+                        v "Varża"
+                        k "Vistolo volololo"
+                        v "Vo vaj vad"
+                        "Takim dziwnym sposobem V-Max dołączył do drużyny"
+                        v "Vitam vanowie"
+                        v "Vychodzimy?"
+                        p "Wychodzimy"
+                        "Wychodzicie z vazy"
+                        v "Vo vo vak vikło?"
+                        p "VMax nieee"
+                        "I Vistę visadziło"
+                        "Vista opuszcza drużynę"
+                        $ helper -= 15
+                        jump akt1pods
                         
 
 
@@ -3345,7 +3402,7 @@ label varchiwa:
         "Zobaczyłeś że w rogu pomieszczenia stoi automat"
         "Gdy zbliżyłeś się do niego widzisz, że ma nawet nagrody"
         "Rozglądasz się dalej po pomieszczeniu"
-        "Na ścianie visi platat vupermena"
+        "Na ścianie visi plakat vupermena"
         "Na podłodze jest dyvan"
         "I jest nawet 1 (słownie jedno) pudełko"
         $ varchiva_stage = 3
@@ -3424,7 +3481,7 @@ label vending:
                 jump vending
 
             elif vagroda == 1 :
-                p "Cukierek, szkoda że wylizazny"
+                p "Cukierek, szkoda że wylizany"
                 jump vending 
 
             elif vagroda == 2 :
