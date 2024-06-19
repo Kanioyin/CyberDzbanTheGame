@@ -2824,12 +2824,13 @@ label wojowezadanie:
                         $ helper -= 20 
 
                 "Jesteście w środku"
+                scene vrogi
                 "Biegnie na was z dziesięć rozsierdzonych vist"
                 menu:
                     "Co teraz?"
                     "Pif Paf słoneczko":
                         "Rozpocząłęś strzelanie, a drużyna strzelała wraz z tobą."
-                        call chceckHP(15)
+                        call chceckHP(15) from _call_chceckHP_1
                         "Troszeczkę oberwałeś ale udało Ci się zostać bogiem gniewu i wojny"
                         "Możesz dzielnie iść dalej"
                         "Ale nie możesz zapomnieć o lootowaniu"
@@ -2840,7 +2841,7 @@ label wojowezadanie:
                         $ vdolce += 3
                         "I trochę Vidolcy"
 
-                    "Pora Geentować if"  stan["Laskawca"] > 5:
+                    "Pora Geentować" if stan["Laskawca"] > 5:
                         show laskawca at left
                         pl "Się robi"
                         "Łaskawca zaczął strzelać na oślep"
@@ -2918,6 +2919,7 @@ label wojowezadanie:
                                 return
 
                 "Idąc dalej widzisz laboratorium"
+                scene vab
                 "Visty planują zbudować wielki wulkan"
                 "Masz rację, pojebało ich"
                 "Ich głównymi składnikami są ocet i soda kuchenna"
@@ -2992,13 +2994,13 @@ label wojowezadanie:
                         p "Giń Visto"
                         "Wystrzeliłeś z pistoletu ale vista podszedł do Ciebie bliżej"
                         v "V vasz"
-                        call checkHP(19)
+                        call checkHP(19) from _call_checkHP_16
                         p "Kurwa bolało"
                         v "V veraz vrugi vtak"
                         p "Ej kurwa, to jest nie fair"
                         p "Musisz poczekać na swoją turę"
                         v "V viździe vo vam"
-                        call checkHP(2)
+                        call checkHP(2) from _call_checkHP_17
                         "Potężny atak Visty tylko cię drasnął"
                         p "Ja też"
                         v "Vkurwysyn"
