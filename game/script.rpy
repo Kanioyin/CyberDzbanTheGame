@@ -12,6 +12,7 @@ define t = Character(_("Toro"), color = "#6969EE")
 define gk = Character(_("Gen. Kennedy"), color = "#098703")
 define kr = Character(_("Krateus"), color = "#023a10")
 define mg = Character(_("Wielki Dzik"), color = "#482809")
+define fse = Character(_("Babka from żabka"), color = "#006600")
 
 init python:
     class Inventory():
@@ -2472,18 +2473,15 @@ label wojsko:
         gk "Dobra robota szczylu."
         gk "Udało Ci się zdobyć przyjaźń z innymi dzbanami"
         gk "Więc lecicie na super tajną misję"
+        gk "Siłą przyjaźni musicie wysadzić jedno z vniazd"
+        gk "Prowadzą tam badania nad ściśle tajnym projektem Vezuwiusz"
+        gk "Niech bóg was przyjmie"
+        if inventory.has_item(Pistolecik)== False:
+            gk "Masz przyda Ci się"
+            $ inventory.add_item(Pistolecik)
         jump wojowezadanie
 
 label wojowezadanie:
-    scene wojsko
-    show genken at left
-    gk "Więc co macie do zrobienia"
-    gk "Siłą przyjaźni musicie wysadzić jedno z vniazd"
-    gk "Prowadzą tam badania nad ściśle tajnym projektem Vezuwiusz"
-    gk "Niech bóg was przyjmie"
-    if inventory.has_item(Pistolecik)== False:
-        gk "Masz przyda Ci się"
-        $ inventory.add_item(Pistolecik)
     $ helper == 100
     $ config.rollback_enabled = False
     if Frakcja == 0:
@@ -3072,20 +3070,243 @@ label wojowezadanie:
 
 
     elif Frakcja == 1:
-        "Droga diamentowych psów jest jeszcze w rozwoju"
-        $ Frakcja = 0
-        "Ustawiłem Ci bezfrakcyjnośc, przejdź sobie aktualny ending"
-        jump wojowezadanie
+        show cypher
+        c "Hihi ha ha"
+        c "Pozwól młody że ja zajmę się dowoczeniem"
+        p "No spoko, szefie"
+        c "Szybko się uczysz, będą z Ciebie psy"
+        c "Diamentowe takie"
+        scene cypherkopter
+        "Pyr pyr pyr"
+        p "Gdzie my lecimy?"
+        c "To jest ważna misja"
+        c "Lecimy do żabki"
+        scene frogszop
+        show cypher at right
+        c "Dzień dobry szanowny pracowniku tego sklepi"
+        fse "Dzień dobry? Pomóc w czymś?"
+        c "Tak młody, potrzebuję knura, najlepiej z dwa"
+        fse "W sensie, że dzika, tego energetyka?"
+        c "Czytasz mi w myślach brachu"
+        fse "To są one w lodówce, tam"
+        c "Wielkie dzięki szanowny kawalerze"
+        hide cypher
+        p "Przepraszam za niego, Szef nie wierzy w kobiety"
+        fse "To i tak nie jest najdziwniejszy klient"
+        p "Bywali gorsi?"
+        fse "Bywali tacy co chcieli hot-doga dwie minuty przed zamknięciem"
+        fse "Są mochery płacące rachunki"
+        fse "Są żule i w ogóle"
+        fse "Dramat wielki"
+        p "Faktycznie brzmi strasznie"
+        fse "No. Cieszę się że mam tu ochronę"
+        fse "Jest dzielny Kacperek, siedzi tam z tyłu"
+        fse "Cały dzień obstawia mecze ale jak jest potrzeba to przychodzi"
+        c "Szajse ale tu jest duży wybór"
+        c "Ponętne towary, chciałbym nabyć je wszystkie" 
+        fse "Tylko proszę tam nic nie rozwalić!"
+        c "Spokojnie młody, jestem ostrożny"
+        p "Nie, on nie jest ostrożny"
+        fse "Właśnie widzę"
+        show cypher at right
+        c "Dobra, mam wszystko"
+        fse "No dobrze, to będzie razem 40 edków"
+        c "Karamba drogo"
+        "Cypher wyjął cygaro i je zapalił"
+        fse "Proszę pana, tu nie wolno palić"
+        c "To pa ten trick"
+        "Cypher wziął giga bucha i zadymił cały sklep"
+        hide cypher with dissolve
+        fse "OCHRONA"
+        p "Nie będzie potrzebna, ja zapłacę"
+        $ edki -= 40
+        fse "Macie kurwa szczęście, grubcio zaczął już wstawać"
+        p "Przepraszam za kłopot"
+        "Wróciłeś do DH koptera"
+        scene cypherkoper
+        p "Co to kurwa miało być"
+        c "Portfela zapomniałem ):"
+        p "Nie mogłeś powiedzieć?"
+        c "Honor mi zabrania"
+        p "Powiedz mi że masz to co chciałeś"
+        c "Nie"
+        p "TO CO TY KURWA KUPIŁEŚ?"
+        c "Panini"
+        play sound "EAT OR MUNCH.mp3"
+        c "Całkiem smaczne"
+        p "Popierdoli mnie"
+        c "Cichaj tam, najedzony punk to gotowy punk"
+        p "To mogłeś coś mi kupić"
+        c "Kupiłem ale zjadłem"
+        p "Niby kiedy?"
+        c "Jak rozmawiałeś z typem"
+        p "Szef roku kurwa jego mać"
+        c "A dziękuję"
+        "Resztę drogi lecieliście w ciszy"
+        c "To to jest ta cała vaza?"
+        p "Nie wiem, ty nastawiłeś nawigację"
+        c "No to mamy czeski remis"
+        c "Chuj, Młynarczyk! Pora na bombę!"
+        p "Na randomowy budynek chcesz zrzucić bombę?"
+        c "Jeszcze jak"
+        "Bomba spadła, niestety nie trafiła"
+        c "To mi się podoba, kolejny sukces"
+        p "Ale ty nie trafiłeś"
+        c "To był zrzut ostrzegawczy"
+        p "Masz więcej bomb?"
+        c "Nie"
+        p "To co teraz robimy?"
+        c "Wchodzimy"
+        p "W sensie?"
+        "Ciper kopter zaczął lecieć prosto w budynek"
+        play sound "BOOM.mp3"
+        scene black
+        c "Kolejne udane lądowanie (2 martwych, 14 rannych)"
+        scene vezuwiusz
+        show cypher
+        c "Proszę proszę, tożto laboratorium"
+        c "Sprawdźmy to"
+        p "Dobrze Cypher"
+        c "Kurwa, oczekiwałem jakiegoś entuzjazmu"
+        c "Dobra jebać. Dawaj do środka"
+        "Weszliście do środka"
+        c "CO TO KURWA JEST"
+        p "W sensie?"
+        c "CZY TY TEGO KURWA NIE WIDZISZ?"
+        c "TE SKURWYSYNY DOMALOWAŁY MI WĄSY"
+        p "Zabawne"
+        c "A CI PIERDOLNE"
+        c "TO JEST ATAK NA MÓJ WIZERUNEK"
+        c "PRZYSTOJNEGO PATRIOTY"
+        c "I WYCHODZI JAKIŚ CHUJ Z WĄSEM"
+        c "ABSOLUTNIE NIEWYBACZALNE"
+        p "Spokojnie"
+        c "JAK JA MAM BYĆ KURWA SPOKOJNY?"
+        p "O patrz"
+        "Podszedłeś do plakatu i oderwałeś wąs"
+        c "No dobra, uspokoiłem się"
+        p "Serio?"
+        c "NIE KURWA. JEDYNYM WEZUWIUSZEM TU JESTEM JA"
+        c "ROZPIERDOLĘ ICH"
+        "Rozsierdzony wyszedł z labu"
+        "I po chwili zawył alarm"
+        p "Pojebie mnie"
+        p "Ale dobra, jestem tu sam, muszę skończyć misję"
+        if inventory.has_item(Bomba):
+            p "Wysadzę to w pizdu"
+            "Bomb has been planted"
+            p "Pora wiać"
+
+        elif inventory.has_item(Vomba):
+            p "Ty kurwa, ja mam Vombe"
+            p "Rozpierdolę ich ich własną bronią"
+            "Bomb has been planted"
+            p "Pora wiać"
+
+        else:
+            p "Jasny chuj, nic nie mam"
+            p "Proces autodestrukcji, Visty muszą to mieć"
+            p "A ten wielki przycisk nie klikać chyba będzie od tego"
+            p "I tak nie mam innego wyjścia"
+            "Nacisnąłeś przycisk i zacząłeś uciekać"
+            "Niestety Visty zaczęły strzelać"
+            call checkHP(15)
+
+        p "Jasna dupa, zaraz tu umrę"
+        "Vistowa grupa bojowa jest tuż za tobą"
+        p "KURWA CYPHER"
+        c "Jestem"
+        p "Co!"
+        c "Pa na to"
+        "Cypher zaczął strzelać w kierunku Vist"
+        "Cały magazynek wystrzelił"
+        "Niestety miał tylko 4 pociski"
+        p "Serio kurwa?"
+        c "Sorka, kontrola rodzicielska od Ocelota"
+        c "Ale mam jeszcze granatnik"
+        "Z ręki Cyphera wysuwa się granatnik"
+        c "Ciekawe czy działa"
+        "Po strzale, z granatnika leci strumień ognia"
+        c "Ło kurwa"
+        p "Niezły ten granatnik"
+        c "Customowy"
+        "Okazało się, że Visty są słabe na ogień"
+        c "Przed Cypherem udeż czołem, Cypher górą, chociaż dołem"
+        p "A to co kurwa jest"
+        c "A se wymyśliłem, śmieszine brzmi"
+        p "Cypher, jesteśmy we wrogiej bazie"
+        c "No i?"
+        p "Możemy zaraz umrzeć"
+        c "Ja nie. Ja mam plot armor"
+        p "Aha 66"
+        c "Koniec smęcenia, wychodzimy"
+        p "I teraz nagle chcesz wychodzić?"
+        c "Nom, nowy helikopter jest"
+        p "Jak to? Przecież zawsze miałęś tylko jeden"
+        c "Magia dzika młody"
+        p "Nic już nie rozumiem"
+        c "Same"
+        "Skończyliście rozmawiać i wyszliście z laba"
+        "Ale na waszej drodze stanął V-Max"
+        scene vinalvoss
+        v "Vrrr"
+        c "Spierdalaj ziomo, śpieszy nam się"
+        v "Rozjebaliście mi bazę"
+        v "Zniszczyliście nasze badania"
+        v "Zrujnowaliście mój dom"
+        v "I zabiliście moich przyjaciół"
+        v "Dlaczego miałbym Cię nie zabić w tej chwili?"
+        c "Bo ja będę pierwszy"
+        c "Góra, prawo, dół, dół, dół"
+        v "Co?"
+        c "Półtonowa bomba Młynarczykowa"
+        "Precyzyjnie udeżyła w Vistę"
+        p "Kurwa Cypher, od kiedy masz takie skile?"
+        c "Od zawsze w sumie"
+        p "To czemu tego wcześniej nie wezwałeś?"
+        c "Nie byłoby takich emocji"
+        c "Mogliśmy sobie jak rodzinka postrzelać"
+        p "Ja prawie umarłem"
+        c "Ale nie umarłeś"
+        c "I to się liczy"
+        c "Zaczynam cię lubić [player_name]"
+        $ postacie[Cypher] += 3
+        p "Wracajmy już do domu"
+        show ciphate
+        c "Tak wcześnie?"
+        hide ciphate
+        p "No zrobiliśmy to co mieliśmy"
+        c "Nudziaż"
+        c "Jednak mi się nie podobasz"
+        c "Wracasz z buta"
+        c "Ja lecę do żabki"
+        c "Jak to mówimy w niemczech, Adios"
+        "I Cypher odleciał"
+        p "Adios jest po Hiszpańsku"
+        jump akt1pods
+
     elif Frakcja == 3:
-        "Droga vist jest jeszcze w rozwoju"
-        $ Frakcja = 0
-        "Ustawiłem Ci bezfrakcyjnośc, przejdź sobie aktualny ending"
-        jump wojowezadanie
+        p "Dobra kurwa, jestem Vista"
+        p "Nie mogę pozwolić aby nasze tajne projekty zostały zniszczone"
+        p "Ale z drugiej strony"
+        p "Nikt mi za obronę nie płaci"
+        p "Co powinienem zrobić?"
+        menu:
+            "Pozostań V":
+
+            "Wróć do normalności":
+                p "Koniec z Vistami"
+                p "SV-vists: off"
+                $ Frakcja = 0
+                jump wojowezadanie
+
+
     elif Frakcja == 4:
         "Droga Kałacha jest jeszcze w rozwoju"
         $ Frakcja = 0
         "Ustawiłem Ci bezfrakcyjnośc, przejdź sobie aktualny ending"
         jump wojowezadanie
+
     return
 
 label akt1pods:
@@ -3732,7 +3953,7 @@ label tempend:
     mg "Możesz dumnie wypierdalać"
     mg "Albo czekaj"
     mg "Zrób ss następnego okienka i wyślij mi"
-    mg "Fajny fakt: zobaczymy 2 akt"
-    mg "Dostaniesz kartę do KTG i 60 exp do cybera"
+    mg "To już koniec, tyle z tej gry, następny projekt zobaczymy."
+    mg "Dostaniesz kartę do KTG i 120 exp do cybera"
     mg "A teraz czekaj na następny update i wypierdalaj"
     return
