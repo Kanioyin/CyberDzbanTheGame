@@ -13,6 +13,7 @@ define gk = Character(_("Gen. Kennedy"), color = "#098703")
 define kr = Character(_("Krateus"), color = "#023a10")
 define mg = Character(_("Wielki Dzik"), color = "#482809")
 define fse = Character(_("Babka from żabka"), color = "#006600")
+define sb = Character(_("Ktoś"), color = "#000000")
 
 init python:
     class Inventory():
@@ -918,7 +919,7 @@ label kosciol:
                     $ stan["Kalach"] = 2
                     jump rozstaje
 
-            elif stan["Kalach"] == 2 and stan["Kalach"] == 5:
+            elif stan["Kalach"] == 2 and bigquest == 5:
                 k "No witam witam"
                 k "Przyszedłeś po przebaczenie grzechów?"
                 p "Nie Kałachu, muszę zostać twoim przyjacielem"
@@ -3072,7 +3073,7 @@ label wojowezadanie:
     elif Frakcja == 1:
         show cypher
         c "Hihi ha ha"
-        c "Pozwól młody że ja zajmę się dowoczeniem"
+        c "Pozwól młody że ja zajmę się dowodzeniem"
         p "No spoko, szefie"
         c "Szybko się uczysz, będą z Ciebie psy"
         c "Diamentowe takie"
@@ -3210,7 +3211,7 @@ label wojowezadanie:
             p "I tak nie mam innego wyjścia"
             "Nacisnąłeś przycisk i zacząłeś uciekać"
             "Niestety Visty zaczęły strzelać"
-            call checkHP(15)
+            call checkHP(15) from _call_checkHP_18
 
         p "Jasna dupa, zaraz tu umrę"
         "Vistowa grupa bojowa jest tuż za tobą"
@@ -3293,6 +3294,52 @@ label wojowezadanie:
         p "Co powinienem zrobić?"
         menu:
             "Pozostań V":
+                p "Dobra kurwa, co ja teraz zrobię"
+                p "Zawsze jest opcja kulki w łep"
+                p "Ale to zostawię sobię na potem"
+                p "Wiem kurwa!"
+                p "Zadzwonię do Vistów i powiem im żeby spierdalali"
+                p "Następnie ściągniemy tam VMaxów"
+                p "Jak oni tam wejdom to sie zestają"
+                p "Hihihaha"
+                "Dzwonisz do Vist"
+                v "Halo"
+                p "Za halo w morde walo"
+                v "Vrzepraszam"
+                p "Vo v vit"
+                "Opowiedziałeś V swój plan"
+                v "Vurwa vądry vesteś"
+                p "Viem"
+                v "Vykonajmy vo"
+                "I zaczęliście wykonywać swój genitalny plan"
+                scene vniazdo
+                show kalach at right
+                k "Kurwa, pusto tu"
+                show laskawca at left
+                pl "Kurde blaszka masz rację"
+                k "Ja zawsze mam rację"
+                pl "Dobra spokojnie, wchodzimy"
+                pl "Ciekawe czemu [player_name] nie jest z nami"
+                p "Oj zaraz się dowiesz"
+                scene vaxy
+                v "Viespovianka"
+                "Słyszałeś bardzo brutalne dźwięki walki"
+                p "Słodkich snów chuje"
+                scene black
+                "Chillowałeś sobie w spokoju, do pewnego momentu"
+                show kalach at right
+                show laskawca at left
+                pl "Pobudka słoneczko"
+                p "Vo vest vurwa"
+                k "Sprzedałeś nas kurwisynu"
+                p "Vo? Va vigdy!"
+                pl "Słyszymy jak mówisz, sorki stary"
+                p "Vie, vanowie, va vie vhciałem"
+                k "Koło chuja mi to lata"
+                k "Wypierdalasz na tamagoczi"
+                "Dostałeś taktycznym paralizatorem"
+                k "Idziemy do bazy, czeka Ciebie przesłuchanie"
+                jump akt1pods
 
             "Wróć do normalności":
                 p "Koniec z Vistami"
@@ -3302,15 +3349,90 @@ label wojowezadanie:
 
 
     elif Frakcja == 4:
-        "Droga Kałacha jest jeszcze w rozwoju"
-        $ Frakcja = 0
-        "Ustawiłem Ci bezfrakcyjnośc, przejdź sobie aktualny ending"
-        jump wojowezadanie
+        scene black
+        show kalach
+        k "Dobra, ja szefuje"
+        p "Dobrze Kałach"
+        k "Plan jest prostrzy niż budowa uda"
+        k "Robimy krucjatę"
+        p "Nic mi to nie mówi"
+        k "Bo w dupie byłeś i gówno widziałeś"
+        k "Krok 1: piszę posta o wojnie"
+        k "Krok 2: wyznawcy się pojawiają"
+        k "Krok 3: ???"
+        k "Krok 4: Profit"
+        p "Czemu nie znasz kroku trzeciego?"
+        k "Ja wtedy chleję"
+        p "I to jest cały twój plan, wezwać ludzi niehc to zrobią za Ciebie?"
+        k "Ta, to tylko Visty, nie chce mi się marnować ammo"
+        k "Plus, Vista jest śmieszny"
+        p "Jakim cudem ty jesteś jeszcze głową tego kościoła?"
+        k "Niebotyczna charyzma"
+        k "Inteligencja Ejnsztajna"
+        k "I wątroba z tytanu"
+        p "Tylko tyle wystarczy?"
+        k "Jakie kurwa tylko tyle? Chopie, to jest w chuj pracy"
+        k "Raz na dwa dni muszę wrzucać zdjęcie na stronę"
+        k "Skurwysyńsko męcząca praca"
+        p "Się znalazł influenser po chuju"
+        k "TO PATRZ I SIĘ KUWRA UCZ"
+        "Kałach sam poszedł prosto do gniazda"
+        p "Popierdoliło go"
+        p "Albo promile nie są już procentami"
+        "Słyszysz tonę strzałów z vniazda"
+        p "Zobaczę jak mu idzie, jeśli zdechł to free itemy"
+        scene vniazdo
+        p "Jasna dupa, jaka rzeź"
+        "A Kałach cały czas strzela"
+        p "Co on, w boga wojny się zmienił?"
+        k "A żebyś kurwa wiedział"
+        show kalach
+        k "Jak jestem wkurwiony"
+        k "To nie troluje i napierdalam"
+        p "No to dobrze Ci idzie"
+        k "Spokojnie, ja dopiero się rozkręcam"
+        scene vinalvoss
+        show kalach
+        k "Ło kurwa, VMax się pojawił"
+        v "Vrrrr"
+        k "[player_name] zajmiesz się nim?"
+        p "Popierdoliło Cię, jak ja mam chujowe staty"
+        k "No to patrz na to"
+        k "W imię ojca, i syna i uda wielkiego"
+        k "Niech wpierdol dosięgnie jego"
+        v "Vo Vhuj Vi vodzi?"
+        k "Specjalny atak Alfonsowy"
+        k "Pora na udowy atak krzyżowy"
+        v "Vo vie"
+        "I VMax dostał wpierdol"
+        p "Cholipka Kałach"
+        k "Widzisz? Tak się kończy jak mnie wkurwisz"
+        p "No dobra, przepraszam"
+        k "A spierdalaj"
+        p "Aha 66"
+        "I Kałach poszedł sobie w pizdu"
+        jump akt1pods
 
     return
 
 label akt1pods:
     scene black
+    mg "No to zobaczmy jak Ci poszło"
+    mg "Ło karamba, mogło być lepiej"
+    mg "Wracaliście z misji i usłyszeliście strzał ze snajperki"
+    mg "Jak mogłeś się spodziewać, to ty dostałeś"
+    mg "Drużyna zrobiła to czego też się spodziewałeś"
+    mg "Zostawili Cię"
+    mg "Powoli się wykrwawiałeś na pustyni"
+    p "Kurwa, chyba tu umrę"
+    p "Powiedz mojej żonie, że jej nie mam"
+    p "Karamba, całe życie przeleciało mi przed oczami"
+    p "Chyba za dużo grałem na kompie"
+    "Podszedł do Ciebie jakiś mężczyzna ubrany na czarno"
+    sb "A kogo my tu mamy"
+    sb "[player_name] jak na talerzu"
+    sb "To nie jest pora jeszcze umierać"
+    sb "Mam co do Ciebie plany"
     jump tempend
 
 label amongthev:
@@ -3948,12 +4070,17 @@ label amongthevpods:
 
 
 label tempend:
-    mg "Doszedłeś do końca tej historii"
-    mg "Na ten moment nie ma nic więcej do odkrycia"
-    mg "Możesz dumnie wypierdalać"
-    mg "Albo czekaj"
-    mg "Zrób ss następnego okienka i wyślij mi"
-    mg "To już koniec, tyle z tej gry, następny projekt zobaczymy."
-    mg "Dostaniesz kartę do KTG i 120 exp do cybera"
-    mg "A teraz czekaj na następny update i wypierdalaj"
+    mg "Gratulacje, skończyłeś akt 1 cptg"
+    mg "Wygląda na to, że więcej na ten moment nic nie będzie"
+    mg "Tymczasowo zawieszam rozwijanie tej gierki"
+    mg "Ale spokojnie, następna jest już w produkcji"
+    mg "Teraz pora na Zew w RPG makerze"
+    mg "Jeśli udało Ci się skończyć ten moment historii, wyślij mi screena następnej wiadomości"
+    mg "Historia wzruszająca, moją dupę ssąca"
+    mg "Obfita nagroda Cię czeka"
+    mg "Btw. wielkie dzięki dla Mandauskyego, Araba i Żyda za ich wielką pomoc w testach"
+    mg "No i widzimy się ponownie w kolejnych gierkach"
+    mg "I pewnie w przyszłym roku jak będę kontynuował rozwój CPTG"
+    mg "Wielkie dzięki za granie"
+    mg "Papatki"
     return
