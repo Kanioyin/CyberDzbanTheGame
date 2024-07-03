@@ -1218,7 +1218,7 @@ label dach:
                         show ciphate with dissolve
                         c "I to był błąd"
                         hide ciphate with dissolve
-                        show krateus
+                        show krateus at right
                         kr "To prawda, liczenie makro oddaje"
                         kr "Wiesz, że jeden bochenek ma 2001 kalorii"
                         kr "363 węgli, 66 białka i 24 fatu"
@@ -2385,8 +2385,8 @@ label trader:
 
 
 label wojsko:
+    scene wojsko
     if wojsko_stan == 0:
-        scene wojsko
         show genken at left
         gk "Witamy w armii młody"
         gk "Jestem Generał Kennedy, przywódca tego pierdolnika"
@@ -2575,7 +2575,7 @@ label wojowezadanie:
                     "Atak frontalny":
                         p "Za hordę"
                         "AAAAAAAA"
-                        call chceckHP(10) from _call_chceckHP
+                        call checkHP(10)
                         "Dzielnie szturmowaliście parę Vist"
                         "Niestety jeden z vist miał przy sobie terminal"
                         $ edki = 0
@@ -2624,7 +2624,7 @@ label wojowezadanie:
                 menu:
                     "Jak spacyfikuję laba"
                     "Atak frontalny":
-                        call checkHP(5)
+                        call checkHP(5) from _call_checkHP_19
                         "Wbiegliście do środka atakując każdego Vistę w okolicy"
 
                     "Pora na blackout" if stan["Jhin"] > 5:
@@ -2972,7 +2972,7 @@ label wojowezadanie:
                         "I spokojnym krokiem wyszliście z pomieszczenia"
                         $ helper -= 10
 
-                    "Łaskaawca, obczaj ten proszek" if stan["Laskawca"] > 5:
+                    "Łaskawca, obczaj ten proszek" if stan["Laskawca"] > 5:
                         show laskawca at left
                         pl "Wydaje mi się że to jest kreda"
                         p "Jak kurwa kreda?"
@@ -3368,7 +3368,7 @@ label wojowezadanie:
 
 
     elif Frakcja == 4:
-        scene black
+        scene vniazdo
         show kalach
         k "Dobra, ja szefuje"
         p "Dobrze Kałach"
@@ -3611,10 +3611,10 @@ label vechnik_wst:
                 "A powiem vechnikowi":
                     p "Te panie vechnik, mam dla ciebie rozrywkę"
                     v "O vuj Ci chodzi?"
-                    p "Bo voktor kazał mi cię vsadzić"
+                    p "Bo voktor kazał mi cię vysadzić"
                     v "Voo ma ga, ale z niego vjut"
                     v "Ale kalmuj koka i wysadź tego fjuta"
-                    v "Vostiesz gifta"
+                    v "Vostaniesz vifta"
                     $ lilquest = 3
 
         if lilquest == 4:
@@ -3680,7 +3680,7 @@ label voktor_wst:
                 p "Mogę teraz vsadzić voktora"
                 menu:
                     "Vpierdolić go v vovietrze?"
-                    "Vpierdalam":
+                    "Vypierdalam":
                         $ inventory.remove_item(Vomba)
                         $ lilquest = 4
                         $ voktor_stage = 7
@@ -3751,7 +3751,7 @@ label varchiwa:
             "Pa te trick" if inventory.has_item(AR) == True:
                 "Wyciągasz AR"
                 v "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-                "vochroniaż opuszcza scenę, vgrałeś valkę"
+                "vochroniaż opuszcza scenę, vygrałeś valkę"
                 $ varchiva_stage = 2
                 jump varchiwa
 
@@ -4005,7 +4005,7 @@ label vokum:
 
 label amongthevpods:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
-    $ stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
+    $ stan = {"Kalach":0, "Gun":0, "Cypher":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
     $ kibel_stan = 0
     $ bigquest = 3
 
