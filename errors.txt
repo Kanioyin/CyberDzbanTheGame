@@ -2,9 +2,11 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 2125: expected statement.
-    stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
-         ^
+The label _call_checkHP is defined twice, at File "game/script.rpy", line 2218:
+            call checkHP(7) from _call_checkHP
+and File "game/script.rpy", line 2627:
+                        call checkHP(5) from _call_checkHP
+
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Fri May 17 10:54:12 2024
+Mon Jul  1 19:04:37 2024
