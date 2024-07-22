@@ -66,7 +66,7 @@ screen znaj():
     modal True
     add "cyberfon_clear.png"
     vbox:
-        pos 0.4, 0.25
+        pos 0.4, 0.1
         text "{color=000}Cypher: [postacie['Cypher']] \n Kałach: [postacie['Kalach']] \n Gun: [postacie['Gun']] \n Hartmann: [postacie['Hartmann']] \n Łaskawca: [postacie['Laskawca']] \n Krateus: [postacie['Krateus']] \n Jhin: [postacie['Jhin']]"
 
     imagebutton auto "cyberfon_won_%s":
@@ -79,12 +79,63 @@ screen day():
     modal True
     add "cyberfon_clear.png"
     vbox:
-        pos 0.4, 0.25
+        pos 0.4, 0.1
         text "{color=000} Dzień: [dzien] \n"
         if czas > 0:
             text "{color=000} Zostało mi jeszcze [czas] \n jednostek czasu"
         elif czas < 1:
             text "{color=000} Mama każe iść spać"
+
+        text "{color=000}\n Aktualne zadanie"
+        if bigquest == 0:
+            if dzien == 3:
+                text "{color=000} Przyjdź do Guna jutro"
+
+            elif dzien < 3:
+                text "{color=000} Przyjdź do Guna za [4-dzien] dni"        
+
+            elif dzien > 3:
+                text "{color=000} Idź do Guna"
+
+        elif bigquest == 1:
+            text "{color=000}Ukradnij intel z archiv"
+
+        elif bigquest == 2:
+            text "{color=000}Uciekaj z tego pozbawionego boga miejsca"
+
+        elif bigquest == 3:
+            text "{color=000}Zanieś intel Gunowi"
+
+        elif bigquest == 4:
+            if dzien == 9:
+                text "{color=000}Wróć do Guna jutro"
+
+            elif dzien < 10:
+                text "{color=000}Wróć do guna za [10-dzien] dni"
+
+            elif dzien > 9:
+                text "{color=000} Idź do Guna"
+
+        elif bigquest == 5:
+            text "{color=000} Zaprzyjażnij się z dzbanami, zostali Ci jeszcze:"
+            if stan["Gun"] < 5:
+                text "{color=000} Gun"
+            
+            if stan["Kalach"] < 5:
+                text "{color=000} Kałach"
+
+            if stan["Hartmann"] < 5:
+                text "{color=000} Hartmann"
+
+            if stan["Jhin"] < 4:
+                text "{color=000} Jhin"
+
+            if stan["Cypher"] < 5:
+                text "{color=000} Cypher"
+
+            if stan["Krateus"] < 5:
+                text "{color=000}Krateus"
+
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True

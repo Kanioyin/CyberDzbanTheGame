@@ -508,6 +508,37 @@ label kuchnia:
                         $ postacie["Gun"] += 1
                         hide ciphate with dissolve
 
+                g "Pytanie trzecie"
+                menu:
+                    "Jaka jest stolica Asyrii?"
+                    "Ashur, Calah, Sharrukin, Niniwa":
+                        g "Masz rację"
+                        $ postacie["Gun"] += 1
+
+                    "Bezbekistan środkowy":
+                        g "Ty chyba na cymbał upadłeś"
+                        $ postacie["Gun"] -= 1
+
+                    "Ischtar, Salam, Spartan":
+                        g "Nie ale byłeś blisko"
+
+                    "Nie wiem":
+                        g "Przynajmniej jesteś szczery"
+                        $ postacie["Gun"] += 1
+
+                g "Kolejne pytanie"
+                menu:
+                    "Jak rozpoznać czy ktoś jest wiedźmą?"
+                    "Test Yolka":
+                        g "Nie znam twoich hebrajskich metod, więc odpada"
+
+                    "Kacza waga":
+                        g "Dobrze"
+                        $ postacie["Gun"] += 1
+
+                    "Metoda Kramara":
+                        g "Spierdalaj z tym chujem"
+
                 $ renpy.block_rollback()
                 $ config.rollback_enabled = True
                 g "To chyba tyle z pytań"
@@ -2203,7 +2234,9 @@ label akt1:
                     jump podsumowanie1
 
 label akcja:
+    stop music
     scene combat1
+    play music "klepa.ogg" volume 0.2
     show gun at left
     g "Plan jest prosty, strzelamy, lootujemy"
     show laskawca at right
@@ -2257,8 +2290,10 @@ label akcja:
     jump podsumowanie1
 
 label podsumowanie1:
+    stop music
     scene kuchnia
     show gun
+    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
     if wojownik == True:
         g "Nie poszło najgorzej, masz zasłużyłeś"
         $ edki += 200
@@ -2357,6 +2392,8 @@ label miasto:
     jump rozstaje
 
 label trader:
+    stop music
+    play music "szop.mp3" volume 0.2
     scene szop
     p "A se coś kupię"
     if edki < 1:
@@ -2379,9 +2416,8 @@ label trader:
                 $ edki -= 50
 
             "Na nic więcej mnie nie stać":
-                p "Get zakuped"
-                
-        jump miasto
+                p "Get zakuped"  
+                jump miasto
 
 
 label wojsko:
@@ -3435,7 +3471,9 @@ label wojowezadanie:
     return
 
 label akt1pods:
+    stop music
     scene black
+    play music "final.ogg" volume 0.2
     mg "No to zobaczmy jak Ci poszło"
     mg "Ło karamba, mogło być lepiej"
     mg "Wracaliście z misji i usłyszeliście strzał ze snajperki"
@@ -4013,6 +4051,7 @@ label amongthevpods:
         scene kuchnia
         "Wróciłeś do bazy po analizie Vist"
         if Frakcja == 3:
+            $ bigquest == 4
             "A nawet dołączyłeś do nich"
             "Teraz, jako Vista, czy na pewno chcesz dawać wasze dokumenty?"
             menu: 
@@ -4087,6 +4126,13 @@ label amongthevpods:
         c "Masz mnie za żyda, proszę Cię, ja nie Gajda"
         c "Doceniam swoich oddanych pracowników"
         c "Zmykaj do siebie, należy Ci się odpoczynek"
+        "Zacząłeś iść do siebie"
+        c "Jednak czekaj"
+        c "Mam już kopie, zanieś je Gunowi"
+        p "A nie możesz ty ich odnieść?"
+        show cypher at left
+        c "Pojebało się"
+        hide cypher with dissolve
         jump rozstaje
 
 
