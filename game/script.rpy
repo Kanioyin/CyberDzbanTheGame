@@ -78,6 +78,8 @@ label checktime:
     else:
         return
 
+
+
 # input call testCech("Cecha", PT), nie fogoruj ""
 label testCech(cecha, PT):
     $ testPass = 0
@@ -225,6 +227,9 @@ label start:
 
         elif player_name == "Jhin":
             j "Obawiam się, że to imię jest już zajęte."
+            j "Ale możesz zostać Jhin2"
+            $ player_name = "Jhin2"
+            $ helper = 0
 
         elif player_name == "Hartmann":
             h "A Ci migomatem pierdolne"
@@ -343,7 +348,7 @@ label intro:
 label gameover:
     achieve GitGud
     "Przegrałeś lol"
-    return
+    $ MainMenu(confirm=False)()
 
 label rozstaje:
     scene rozstaje
@@ -910,7 +915,7 @@ label kosciol:
                     k "Spierdalaj syfer"
                     $ postacie["Kalach"] -= 1
 
-                $ stan["Kalach"] += 1
+                $ stan["Kalach"] = 2
                 k "Zdupcaj, wracam do picia"
                 jump rozstaje
 
@@ -918,7 +923,7 @@ label kosciol:
                 "Kałach alkoholizuje się, lepiej mu nie przeszkadzaj"
                 jump rozstaje
 
-        elif bigquest > 2:
+        elif bigquest = 2:
             $ czas -= 1
             if stan["Kalach"] == 0:
                 k "Niech mnie uda i zimna wóda"
@@ -937,6 +942,7 @@ label kosciol:
                     jump rozstaje
 
                 elif dzien > 9:
+                    $ stan["Kalach"] = 2
                     k "Wróciłem z krucjaty."
                     k "I niech mnie dunder świśnie, tak mnie w krzyżu napierdala."
                     k "Jeśli kiedykolwiek dołączysz do fanów stópek."
@@ -965,7 +971,6 @@ label kosciol:
 
                         $ renpy.block_rollback()
                         $ config.rollback_enabled = True
-                    $ stan["Kalach"] = 2
                     jump rozstaje
 
             elif stan["Kalach"] == 2 and bigquest == 5:
@@ -1337,6 +1342,7 @@ label dach:
                         c "Wiesz co? Jak mi ufasz, to ja zaufam tobie"
                         c "Możesz mnie liczyć jako sojusznika"
                         p "Klawo"
+                        achieve Cippp
                         $ stan["Cypher"] = 5
                         $ postacie["Cypher"] += 2
                         $ renpy.block_rollback()
@@ -1506,6 +1512,7 @@ label warsztat:
                         $ helper2 = 1
                         $ stan["Hartmann"] = 5
                         "Zadowolony z siebie wyszedłeś"
+                        achieve Harpp
                         $ renpy.block_rollback()
                         $ config.rollback_enabled = True
                         jump rozstaje
@@ -1777,7 +1784,7 @@ label jhinownia:
                     $ stan["Jhin"] = 1
                     jump rozstaje
 
-        if stan["Jhin"] == 1 and dzien < 10:
+        if stan["Jhin"] == 1 and dzien > 4:
             "Pokój jest pusty, Jhin gdzieś wybył"
             if dzien > 9:
                 $ stan["Jhin"] = 2
@@ -1928,11 +1935,11 @@ label bruhzylia:
             $ stan["Krateus"] = 1
 
         if stan["Krateus"] == 1:
-            if dzien < 19:
+            if dzien < 14:
                 "No chłop poluje"
                 "Daj mu trochę czasu"
 
-            elif dzien > 20:
+            elif dzien > 14:
                 kr "Kałabanga"
                 kr "Wróciłem z polowania"
                 p "Ta, to zajebiście"
@@ -1971,7 +1978,7 @@ label bruhzylia:
             kr "Sklej, cele idą"
             "Zatkaliście obaj mordy i przygotowaliście broń"
             p "Kto strzela pierwszy"
-            show cypher
+            show cypher at left
             c "Ja, hihi haha"
             "I widzicie jak ten debil jebany strzelił z bazooki"
             c "HI HI HA HA"
@@ -1999,7 +2006,7 @@ label bruhzylia:
             p "To jak tam się dostaniemy?"
             if inventory.has_item(Wytrych) == True:
                 p "Może tam się włamię wytrychem?"
-                $ postacie["Kreteus"] += 1
+                $ postacie["Krateus"] += 1
                 kr "Dobry pomysł ale nie teraz"
                 p "Czemu niby?"
                 kr "Niech trochę głodują to będą bardziej skłonni do słuchania"
@@ -2031,7 +2038,7 @@ label bruhzylia:
             jump rozstaje
 
         elif stan["Krateus"] == 3:
-            if dzien > 29:
+            if dzien > 19:
                 kr "Dobra, chyba tyle czasu wystarczy"
                 p "No, trochę ich tam trzymaliśmy, myślisz że jeszcze żyją?"
                 kr "Jeśli silni zjedli słabych, to raczej tak"
@@ -2107,7 +2114,7 @@ label bruhzylia:
                     "Schizofremia jest zawsze kusząca dla altek"
                     $ helper -= 1 
 
-                if stan[Jhin] < 4:
+                if stan["Jhin"] < 4:
                     "Urok Jhina odgonił jedną z babeczek"
                     $ helper -= 2
 
@@ -2434,23 +2441,27 @@ label trader:
         jump rozstaje
     else:
         p "Ile mam mamony? [edki] edków, mogło być mniej"
-        menu:
-            "Szopping tajm"
-            "Ale fajna Aerka" if edki >= 600:
-                $ inventory.add_item(AR)
-                $ edki -= 600
+        $ helper = 1
+        while helper == 1:
+            menu:
+                "Szopping tajm"
+                "Ale fajna Aerka" if edki >= 600:
+                    $ inventory.add_item(AR)
+                    $ edki -= 600
 
-            "Wytrych? " if edki >= 200:
-                $ inventory.add_item(Wytrych)
-                $ edki -= 200
+                "Wytrych? " if edki >= 200:
+                    $ inventory.add_item(Wytrych)
+                    $ edki -= 200
 
-            "Kurwa ser?" if edki >= 50:
-                $ inventory.add_item(Ser)
-                $ edki -= 50
+                "Kurwa ser?" if edki >= 50:
+                    $ inventory.add_item(Ser)
+                    $ edki -= 50
 
-            "Na nic więcej mnie nie stać":
-                p "Get zakuped"  
-                jump miasto
+                "Na nic więcej mnie nie stać":
+                    p "Get zakuped"  
+                    $ helper = 0
+
+        jump miasto
 
 
 label wojsko:
@@ -3464,7 +3475,7 @@ label wojowezadanie:
         k "Raz na dwa dni muszę wrzucać zdjęcie na stronę"
         k "Skurwysyńsko męcząca praca"
         p "Się znalazł influenser po chuju"
-        k "TO PATRZ I SIĘ KUWRA UCZ"
+        k "TO PATRZ I SIĘ KURWA UCZ"
         "Kałach sam poszedł prosto do gniazda"
         p "Popierdoliło go"
         p "Albo promile nie są już procentami"
@@ -3679,6 +3690,7 @@ label vechnik_wst:
                     play sound "BOOM.mp3"
                     "Vomba vybuchła"
                     "Siła eksplozji wystrzeliła cię aż pod warzywniak"
+                    jump vtimefri
 
                 "Ja się trochę cykam, potem zdecyduję":
                     pass
@@ -3691,12 +3703,19 @@ label vechnik_wst:
                     v "Ale kalmuj koka i wysadź tego fjuta"
                     v "Vostaniesz vifta"
                     $ lilquest = 3
+                    jump vtimefri
 
         if lilquest == 4:
             v "Vobra robota"
             v "Masz tu dwa vidolce"
             $ vdolce += 2
             v "Tylko nie przepierdol na głupoty"
+            $ lilquest = 5
+            jump vtimefri
+
+        if lilquest == 5:
+            v "Co ty jeszcze chcesz?"
+            jump vtimefri
 
     jump vtimefri
 
@@ -3953,37 +3972,35 @@ label vending:
 
 label vrade:
     scene vshop
-    $ helper = 1
-    while helper == 1:
-        menu:
-            v "Co chciałbyś zakupić?"
-            "Ale fajna Aerka" if vdolce >= 5 :
-                $ inventory.add_item(AR)
-                $ vdolce -= 5
-                $ veq += 1
-                "Wydałeś 5 vdolcy na AR-kę"
+    menu:
+        v "Co chciałbyś zakupić?"
+        "Ale fajna Aerka" if vdolce >= 5 :
+            $ inventory.add_item(AR)
+            $ vdolce -= 5
+            $ veq += 1
+            "Wydałeś 5 vdolcy na AR-kę"
 
-            "Wytrych? " if vdolce >= 2:
-                $ inventory.add_item(Wytrych)
-                $ vdolce -= 2
-                $ veq += 1
-                "Wydałeś 2 vdolce na Wytrych"
+        "Wytrych? " if vdolce >= 2:
+            $ inventory.add_item(Wytrych)
+            $ vdolce -= 2
+            $ veq += 1
+            "Wydałeś 2 vdolce na Wytrych"
 
-            "Flaszka?" if vdolce >= 1:
-                $ inventory.add_item(Flaszka)
-                $ vdolce -= 1
-                $ veq += 1
-                "Wydałeś 1 vdolca na Flaszkę"
+        "Flaszka?" if vdolce >= 1:
+            $ inventory.add_item(Flaszka)
+            $ vdolce -= 1
+            $ veq += 1
+            "Wydałeś 1 vdolca na Flaszkę"
 
-            "Varmor" if vdolce >= 3:
-                $ inventory.add_item(MalyArmor)
-                $ armor = 11
-                $ vdolce -= 3
-                $ veq += 1
-                "Wydałeś 3 vdolce na lil varmor"
+        "Varmor" if vdolce >= 3:
+            $ inventory.add_item(MalyArmor)
+            $ armor = 11
+            $ vdolce -= 3
+            $ veq += 1
+            "Wydałeś 3 vdolce na lil varmor"
 
-            "Nie potrzebuję twoich towarów":
-                $ helper = 0
+        "Nie potrzebuję twoich towarów":
+            jump vtimefri
 
     jump vtimefri
 
@@ -4081,7 +4098,7 @@ label vokum:
 
 label amongthevpods:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
-    $ stan = {"Gun":0, "Cypher":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
+    $ stan = {"Laskawca":0,"Kalach":0,"Gun":0, "Cypher":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
     $ kibel_stan = 0
     $ bigquest = 3
     achieve Iabk
@@ -4177,16 +4194,10 @@ label amongthevpods:
 
 label tempend:
     mg "Gratulacje, skończyłeś akt 1 cptg"
-    mg "Wygląda na to, że więcej na ten moment nic nie będzie"
-    mg "Tymczasowo zawieszam rozwijanie tej gierki"
-    mg "Ale spokojnie, następna jest już w produkcji"
-    mg "Teraz pora na Zew w RPG makerze"
     mg "Jeśli udało Ci się skończyć ten moment historii, wyślij mi screena następnej wiadomości"
     mg "Historia wzruszająca, moją dupę ssąca"
     mg "Obfita nagroda Cię czeka"
-    mg "Btw. wielkie dzięki dla Mandauskyego, Araba i Żyda za ich wielką pomoc w testach"
-    mg "No i widzimy się ponownie w kolejnych gierkach"
-    mg "I pewnie w przyszłym roku jak będę kontynuował rozwój CPTG"
+    mg "Btw. wielkie dzięki dla Mandauskyego, Araba, Czajniga i Żyda za ich wielką pomoc w testach"
     mg "Wielkie dzięki za granie"
     mg "Papatki"
-    return
+    $ MainMenu(confirm=False)()

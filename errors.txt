@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/0bobcachievements.rpy", line 27: invalid syntax
-        ("Gunpp" _("Gun++"), _("Gun dołączył do ataku."))\
-                  ^
+File "game/script.rpy", line 3973: Line is indented, but the preceding scene statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
+    menu:
+    ^
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Wed Jul 31 11:21:14 2024
+Wed Jul 31 22:06:18 2024

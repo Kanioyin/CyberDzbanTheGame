@@ -30,7 +30,7 @@ define BOBCACHIEVEMENT_LIST = (
     ("Harpp", _("Hartmann++"), _("Hartmann dołączył do ataku.")),
     ("Laspp", _("Łaskawca++"), _("Łaskawca dołączył do ataku.")),
     ("Jhipp", _("Jhin++"), _("Jhin dołączył do ataku.")),
-    ("Krapp", _("Jhin++"), _("Jhin dołączył do ataku.")),
+    ("Krapp", _("Krateus++"), _("Krateus dołączył do ataku.")),
     ("GG1", _("Fin"), _("...ale chuja dostałeś,")),
 
     ("Ttsd", _("TO TAK SIĘ DA?"), _("Umarłeś przy tworzeniu postaci."), True),

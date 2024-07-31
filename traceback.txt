@@ -1,28 +1,42 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/0bobcachievements.rpy", line 22, in script
-    define BOBCACHIEVEMENT_LIST = (
-  File "game/0bobcachievements.rpy", line 36, in <module>
-    ("Ttsd", _("TO TAK SIĘ DA?"), _("Umarłeś przy tworzeniu postaci."), True)
-TypeError: 'tuple' object is not callable
+  File "game/script.rpy", line 354, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 354, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 354, in script call
+    call checktime from _call_checktime
+  [Previous line repeated 1 more time]
+  File "game/script.rpy", line 923, in script
+    if stan["Kalach"] == 0:
+  File "game/script.rpy", line 923, in <module>
+    if stan["Kalach"] == 0:
+KeyError: 'Kalach'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/0bobcachievements.rpy", line 22, in script
-    define BOBCACHIEVEMENT_LIST = (
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2219, in execute
-    self.set()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2233, in set
-    value = renpy.python.py_eval_bytecode(self.code.bytecode)
+  File "game/script.rpy", line 354, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 354, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 354, in script call
+    call checktime from _call_checktime
+  [Previous line repeated 1 more time]
+  File "game/script.rpy", line 923, in script
+    if stan["Kalach"] == 0:
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1842, in execute
+    if renpy.python.py_eval(condition):
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1209, in py_eval
+    return py_eval_bytecode(code, globals, locals)
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1202, in py_eval_bytecode
     return eval(bytecode, globals, locals)
-  File "game/0bobcachievements.rpy", line 36, in <module>
-    ("Ttsd", _("TO TAK SIĘ DA?"), _("Umarłeś przy tworzeniu postaci."), True)
-TypeError: 'tuple' object is not callable
+  File "game/script.rpy", line 923, in <module>
+    if stan["Kalach"] == 0:
+KeyError: 'Kalach'
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.2.1.24030407
-CyberDzban 0.000000005
-Wed Jul 31 11:59:03 2024
+CyberDzban 0.000000006
+Wed Jul 31 12:52:40 2024

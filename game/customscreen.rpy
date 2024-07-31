@@ -117,7 +117,7 @@ screen day():
                 text "{color=000} Idź do Guna"
 
         elif bigquest == 5:
-            text "{color=000} Zaprzyjażnij się z dzbanami, zostali Ci jeszcze:"
+            text "{color=000} Zaprzyjażnij się z dzbanami, \n zostali Ci jeszcze:"
             if stan["Gun"] < 5:
                 text "{color=000} Gun"
             
@@ -134,7 +134,7 @@ screen day():
                 text "{color=000} Cypher"
 
             if stan["Krateus"] < 5:
-                text "{color=000}Krateus"
+                text "{color=000} Krateus"
 
 
     imagebutton auto "cyberfon_won_%s":
