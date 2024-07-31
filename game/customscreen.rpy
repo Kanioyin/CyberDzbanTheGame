@@ -5,7 +5,7 @@ screen hud():
         focus_mask True
         hovered SetVariable("screen_tooltip", "Inventory")
         unhovered SetVariable("screen_tooltip", "")
-        action Show("inventory") , Hide("hud")
+        action Play("sound", "opi.wav"), Show("inventory") , Hide("hud")
 
     imagebutton auto "phone_%s":
         focus_mask True
@@ -26,7 +26,7 @@ screen inventory():
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
-        action Hide("inventory"), Show("hud")
+        action Hide("inventory"), Show("hud"), Play("sound", "opi.wav")
 
 screen phone():
     add "cyberfon_clear.png"
@@ -86,7 +86,7 @@ screen day():
         elif czas < 1:
             text "{color=000} Mama każe iść spać"
 
-        text "{color=000}\n Aktualne zadanie"
+        text "{color=000}\n Aktualne zadanie:"
         if bigquest == 0:
             if dzien == 3:
                 text "{color=000} Przyjdź do Guna jutro"
@@ -147,7 +147,7 @@ screen bank():
     modal True
     add "cyberfon_clear.png"
     vbox:
-        pos 0.4, 0.25
+        pos 0.4, 0.1
         text "{color=000} Masz na koncie [edki] edków"
 
     imagebutton auto "cyberfon_won_%s":
@@ -160,7 +160,7 @@ screen frak():
     modal True
     add "cyberfon_clear.png"
     vbox:
-        pos 0.4, 0.25
+        pos 0.4, 0.1
         text "{color=000} Należysz do:"
         if Frakcja == 0:
             text "{color=000} Nikogo"

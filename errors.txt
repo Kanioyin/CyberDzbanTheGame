@@ -2,11 +2,9 @@
 errors listed below, and try again.
 
 
-The label _call_checkHP is defined twice, at File "game/script.rpy", line 2218:
-            call checkHP(7) from _call_checkHP
-and File "game/script.rpy", line 2627:
-                        call checkHP(5) from _call_checkHP
-
+File "game/0bobcachievements.rpy", line 27: invalid syntax
+        ("Gunpp" _("Gun++"), _("Gun dołączył do ataku."))\
+                  ^
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Mon Jul  1 19:04:37 2024
+Wed Jul 31 11:21:14 2024

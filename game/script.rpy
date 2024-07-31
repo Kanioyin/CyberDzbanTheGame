@@ -217,6 +217,7 @@ label start:
         elif player_name == "Cypher":
             c "Cypher może być tylko jeden"
             c "GIŃ"
+            achieve Ttsd
             jump gameover
 
         elif player_name == "Łaskawca":
@@ -241,6 +242,7 @@ label start:
 
         elif player_name == "Bezi":
             p "Nie żyję lmao"
+            achieve Ttsd
             jump gameover
 
         elif player_name == "Krateus":
@@ -278,6 +280,7 @@ label start:
         else:
             $ helper = 0
 
+    
     "Nie miałeś edków"
     "Sensu życia"
     "Ani nawet broni"
@@ -290,7 +293,7 @@ label start:
             scene baza
 
         "Spierdalać.":
-
+            achieve Msnc
             "Good ending, lol"
             return
 
@@ -326,6 +329,7 @@ label start:
 # intro
 
 label intro:
+    achieve Poczatek
     scene kuchnia
     show gun at right
     g "Więc nowy, witamy w bazie"
@@ -337,11 +341,14 @@ label intro:
     jump rozstaje
 
 label gameover:
+    achieve GitGud
     "Przegrałeś lol"
     return
 
 label rozstaje:
     scene rozstaje
+    stop music
+    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
     $ renpy.block_rollback()
     $ config.rollback_enabled = True
     call checktime from _call_checktime
@@ -420,6 +427,7 @@ label kuchnia:
                 p "Mam przesyłkę od Cyphera"
                 g "Co on znowu chce?"
                 p "Mam dla Ciebie... klapka?"
+                achieve Fedex
                 $ inventory.remove_item(Klapek)
                 $ postacie["Gun"] -= 2
                 $ postacie["Cypher"] += 1
@@ -552,7 +560,7 @@ label kuchnia:
                 g "No to witam ponownie, dziś zobaczysz Mączysława w akcji"
                 p "Kim jest kurwa Mączysław?"
                 g "To najlepszy telefon EUNE"
-                g "Polecany przez instytut matki z dzieckiem"
+                g "Polecany przez instytut RATki z dzieckiem"
                 p "No dobra ale co to za tricki?"
                 g "Zaraz zobaczysz młody, ruszamy dzielnie"
                 scene black
@@ -601,6 +609,8 @@ label kuchnia:
                 g "Tak"
                 p "Dobra, chuj, miejmy to za sobą"
                 scene black
+                stop music
+                play music "spook.oog"
                 "Weszliście do środka"
                 p "Kurwa jak tu ciemno"
                 g "A to była jego matka"
@@ -636,6 +646,7 @@ label kuchnia:
                 p "Kurwa jackpot"
                 p "Zdecydowanie zbyt prosto to idzie"
                 "I nagle coś cię ugryzło"
+                achieve Aboes
                 play sound "EAT OR MUNCH.mp3"
                 call checkHP(15) from _call_checkHP_10
                 p "AŁA KURWA"
@@ -655,6 +666,7 @@ label kuchnia:
                 "Walczyłeś dzielnie ale Fryderyk był zbyt silny"
                 "Nagle, jak Filip z konopi wyskoczył goblin z pościeli"
                 "Usłyszałeś głośne GOBELIN BLAST"
+                play sound "blast.wav"
                 "I straciłeś przytomność"
                 scene badblok
                 show gun at left
@@ -773,8 +785,6 @@ label kuchnia:
                     p "No to jest dobry plan ale gdzie dostanę bombę?"
                     g "Pozwól mi gotować"
                     "I w atmosferze skandalu wróciliście do bazy"
-                    stop music
-                    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
                     $ stan["Gun"] = 4
                     $ postacie["Gun"] += 1
                     $ postacie["Jhin"] += 1
@@ -837,16 +847,16 @@ label kuchnia:
                     g "To chyba tyle z syzyfowych prac"
                     g "Możemy się zając zadaniem Kennedy'ego"
                     p "Kurwa w końcu"
+                    achieve Gunpp
                     $ stan["Gun"] = 5
                     "Zadowolony wyszedłeś"
                     $ czas = 0
-                    stop music
-                    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
                     jump rozstaje
 
     if inventory.has_item(Ser) == True:
         p "Mam coś dla Ciebie gun"
         $ inventory.remove_item(Ser)
+        achieve Smrut
         g "Hmmm, tajemniczy mysi sprzęt."
         g "To mi się przyda."
         g "Dzięki"
@@ -888,6 +898,7 @@ label kosciol:
                 k "Poruchałeś?"
                 k "Może coś popiłeś?"
                 if wojownik == True:
+                    p "Było Pif Paf robione"
                     k "Czyli coś postrzelałeś, milutko"
                     $ postacie["Kalach"] += 1
 
@@ -943,6 +954,7 @@ label kosciol:
                             "Proste że tak, Umen":
                                 $ Frakcja = 4
                                 $ postacie["Kalach"] += 4
+                                achieve Holy
                                 k "Niech wszystko Ci się teraz UDA!"
                                 jump rozstaje
 
@@ -971,6 +983,7 @@ label kosciol:
                 k "Ale no dobra, nie chce mi się z tobą gadać"
                 k "Powiedzmy, że jak będziemy musieli się napierdalać"
                 k "To masz mój karabin"
+                achieve Kalpp
                 if Frakcja == 1:
                     show cypher at right
                     c "Ale on już ma twój sprzęt"
@@ -1006,6 +1019,7 @@ label kibel:
                         show grat at left
                         r "Dziękuje, dobry człowieku"
                         $ postacie["Gun"] += 1
+                        $ kibel_stan = 1
                         jump rozstaje
 
                     "Kontynuuj sranie w kieszeni":
@@ -1019,6 +1033,7 @@ label kibel:
             r "Pozwól mi egzystować w tym niebezpiecznym środowisku samotnie"
             g "Kurwa, gadasz ze szczurami"
             g "Będą z Ciebie ludzie"
+            achieve Shizo
             $ postacie["Gun"] += 1
             $ kibel_stan += 1
             jump rozstaje
@@ -1083,6 +1098,7 @@ label dach:
             play sound "Bestia.mp3" 
             "I coolawy mściciel postanowił pozbyć się szkodnika"
             hide ciphate with dissolve
+            achieve Mill
             "Git Gud"
             jump gameover
 
@@ -1150,6 +1166,7 @@ label dach:
                     c "Zawszę pomogę swoim pracownikom"
                     p "Cholibka milutko"
                     c "RICHTIG"
+                    achieve Cippp
                     $ stan["Cypher"] = 5
                     jump rozstaje
                 
@@ -1183,6 +1200,7 @@ label dach:
                 c "Czeczeni się buntują i musimy ich zbombardować"
                 p "No dobra, to lecimy"
                 scene cypherkopter
+                play sound "heli.mp3"
                 "W czasie lotu Cypher spał jak zabity"
                 "Strasznie Cię korciło by tak został"
                 "Ale ostatecznie dolecieliście na miejsce"
@@ -1205,7 +1223,9 @@ label dach:
                         show ciphate with dissolve
                         $ postacie["Cypher"] += 2
                         hide ciphate with dissolve
+                        achieve Pyro
                         "Okazało się, że to nie był kamuflaż"
+                        play sound "3yell1.wav"
                         g "Ty debilu jebany"
                         pl "ALE SIĘ PODJARAŁEM"
                         $ postacie["Gun"] -= 1
@@ -1326,8 +1346,9 @@ label dach:
 
                     "Nie":
                         c "To spierdalaj"
+                        achieve Foch
                         "I bez słowa zaczął uciekać"
-                        $ postacie["Cypher"] -= 3
+                        $ postacie["Cypher"] -= 9999
                         $ stan["Cypher"] = 3
                         $ renpy.block_rollback()
                         $ config.rollback_enabled = True
@@ -1344,6 +1365,7 @@ label warsztat:
     show hartmann at right
     $ czas -= 1
     if akt == 0:
+        play sound ["Budowa.wav","Pila.wav"]
         $ stan["Gun"] += 1
         "Wchodząc do pokoju słyszysz agresywne napierdalanie młotkiem, a w tle leci niemiecki metal"
         h "Kim ty kurwa jesteś?"
@@ -1514,6 +1536,7 @@ label warsztat:
                         p "A ja jestem biedny"
                         h "Ale masz kolejnego wojownika dzielnego"
                         p "Przynajmniej tyle"
+                        achieve Harpp
                         $ stan["Hartmann"] = 5
                         $ czas -= 5
                         $ renpy.block_rollback()
@@ -1523,6 +1546,9 @@ label warsztat:
             else:
                 h "Nie mam Ci nic do powiedzenia"
                 jump rozstaje
+        else:
+            h "Nie mam Ci nic do powiedzenia"
+            jump rozstaje
 
     
     jump rozstaje
@@ -1686,6 +1712,7 @@ label klinika:
             p "Luzik arbuzik"
             scene black
             p "Dobra, jeden z głowy"
+            achieve Laspp
             $ czas -= 5
             $ postacie ["Laskawca"] += 1
             $ stan["Laskawca"] = 2
@@ -1801,6 +1828,7 @@ label jhinownia:
                             p "Za późno Jhin, Vózg rozkazuje"
                             p "Ja pociągam za spust"
                             "Wystrzał z broni, sprzątnął tentakiego"
+                            achieve Impostor
                             $ postacie["Jhin"] = -9999
                             $ stan["Jhin"] = 9
                             jump rozstaje
@@ -1845,6 +1873,7 @@ label jhinownia:
             p "Pewnie zależy to od osoby"
             j "No ta"
             p "No to bywaj Jhin, ruszam siać przyjaźń z innymi"
+            achieve Jhipp
             $ stan["Jhin"] = 4
             jump rozstaje
 
@@ -2070,11 +2099,11 @@ label bruhzylia:
                 pl "Ruszam dzielnie"
                 "Kilka minut później"
                 $ helper = 10
-                if stan["Kalach"] < 5:
+                if stan["Kalach"] < 4:
                     "Niczym nie zajęty kałach porwał kilka nowych zakonnic"
                     $ helper -= 3
 
-                if stan["Gun"] < 5:
+                if stan["Gun"] < 4:
                     "Schizofremia jest zawsze kusząca dla altek"
                     $ helper -= 1 
 
@@ -2082,10 +2111,13 @@ label bruhzylia:
                     "Urok Jhina odgonił jedną z babeczek"
                     $ helper -= 2
 
-                if stan["Cypher"] < 5:
+                if stan["Cypher"] < 4:
                     c "Hi Hi Ha Ha"
                     "I na ten odgłos dwie samice uciekły"
                     $ helper -= 2
+
+                if helper == 10:
+                    achieve Alesex
 
                 if helper < 4:
                     kr "Kurwa, te bestie odgoniły kobiety"
@@ -2117,6 +2149,7 @@ label bruhzylia:
                     p "To jesteś gotowy na zadanie Kenowe"
                     kr "Kurwa brachu, pewex"
                     kr "Daj tylko znać i się pojawię"
+                    achieve Krapp
                     $ stan["Krateus"] = 5
                     $ postacie["Krateus"] += 2
                     $ postacie["Laskawca"] += 2
@@ -2182,18 +2215,13 @@ label akt1:
     scene kuchnia
     show gun
     g "Panowie, robota jest"
-    hide gun
-    show cypher
+    show cypher at left
     c "Płacą dobrze?"
-    hide cypher
-    show gun
     g "Nie wiem jeszcze"
-    hide gun
-    show cypher with dissolve
     c "To nie zawracaj mi dupy"
     hide cypher with dissolve
     "Cypher opuszcza scenę"
-    show gun at left
+    show gun at left with move
     show hartmann at right
     show laskawca
     g "Skoro problem wyszedł, to możemy zacząć rozmowy"
@@ -2224,6 +2252,7 @@ label akt1:
             menu:
                 "Czy chcesz dołączyć do DH?"
                 "W sumie czemu nie" if Frakcja == 0:
+                    achieve Damm
                     $ Frakcja = 1
                     $ czlonekFrakcji = True
                     $ postacie["Cypher"] += 3
@@ -2248,6 +2277,7 @@ label akcja:
     menu:
         "A co ty robisz?"
         "Zaczynam strzelać":
+            play sound ["Pif.wav","Pif.wav","Pif.wav","hit1.mp3"]
             call checkHP(7) from _call_checkHP
             "Udało Ci się zdjąć jednego ale sam też oberwałeś"
             $ Fragi += 1
@@ -2269,8 +2299,10 @@ label akcja:
     menu:
         "Masz kolejną szansę się wykazać, co robisz?"
         "ZOSTAJĘ PIERDOLONYM BOGIEM WOJNY":
+            play sound ["Pif.wav","Pif.wav","Pif.wav","Pif.wav","Pif.wav","Pif.wav","Pif.wav"]
             $ Fragi += 3
             call checkHP(10) from _call_checkHP_2
+            "I trzech Vistów zostało zdjętych"
             $ postacie["Laskawca"] += 2
         "Zbieram jeszcze więcej":
             $ inventory.add_item(Pistolecik)
@@ -2382,6 +2414,7 @@ label miasto:
                 "Wszedłeś do bloku furrasów"
                 if dzien % 3 == 0:
                     "Futrzana domina Cię dopadła"
+                    achieve Futa
                     $ HP = 1
                     $ czas = 0
                 else:
@@ -3246,6 +3279,7 @@ label wojowezadanie:
         c "ROZPIERDOLĘ ICH"
         "Rozsierdzony wyszedł z labu"
         "I po chwili zawył alarm"
+        play sound "alarm.ogg"
         p "Pojebie mnie"
         p "Ale dobra, jestem tu sam, muszę skończyć misję"
         if inventory.has_item(Granat):
@@ -3471,6 +3505,8 @@ label wojowezadanie:
     return
 
 label akt1pods:
+    if helper == 0:
+        achieve Musk
     stop music
     scene black
     play music "final.ogg" volume 0.2
@@ -3490,6 +3526,7 @@ label akt1pods:
     sb "[player_name] jak na talerzu"
     sb "To nie jest pora jeszcze umierać"
     sb "Mam co do Ciebie plany"
+    achieve GG1
     jump tempend
 
 label amongthev:
@@ -3758,6 +3795,7 @@ label varchiwa:
 
         elif inventory.has_item(Vomba) == True:
             p "Ty kurwa, wysadzę to ich własną bronią"
+            achieve Bomb
             $ inventory.remove_item(Vomba)
             $ varchiva_stage = 1
             play sound "BOOM.mp3"
@@ -4043,9 +4081,10 @@ label vokum:
 
 label amongthevpods:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
-    $ stan = {"Kalach":0, "Gun":0, "Cypher":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
+    $ stan = {"Gun":0, "Cypher":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
     $ kibel_stan = 0
     $ bigquest = 3
+    achieve Iabk
 
     if Frakcja != 1:
         scene kuchnia

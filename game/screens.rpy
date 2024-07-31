@@ -309,6 +309,8 @@ screen navigation():
 
         textbutton _("Preferences") action ShowMenu("preferences")
 
+        textbutton _("Wyczyny") action ShowMenu("bobcachievements")
+
         if _in_replay:
 
             textbutton _("End Replay") action EndReplay(confirm=True)
@@ -559,6 +561,9 @@ screen about():
             if gui.about:
                 text "[gui.about!t]\n"
 
+            text _("To jest gra opowiadająca o Bizzarnych przygodach Cyberdzbanów.")
+            text _("Dodatkowe itemy, których nie chciało mi się robić:")
+            text _("Osiągnięcia: {a=https://bobcgames.com} Szpej od Bob'a {/a}")            
             text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
 
 
