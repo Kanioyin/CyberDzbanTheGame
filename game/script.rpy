@@ -70,6 +70,13 @@ init python:
             pass
 
 
+label updict(Who,dict):
+        python:
+            for key in dict.keys():
+                if key != Who:
+                    dict[key] = 0
+                
+
 label checktime:
     if czas < 1:
         p "Późno już, idę spać"
@@ -77,7 +84,6 @@ label checktime:
 
     else:
         return
-
 
 
 # input call testCech("Cecha", PT), nie fogoruj ""
@@ -142,6 +148,21 @@ label checkHP(dmg):
         return
 
     return
+
+
+label klontwakalacha:
+    k "Wyczuwam flaszki, pora się napić"
+    python:
+        while inventory.has_item(Flaszka) == True:
+            inventory.remove_item(Flaszka)
+    return
+
+
+transform bounce:
+    linear 3.0 xalign 1.0
+    linear 3.0 xalign 0.0
+    repeat
+
 
 label start:
     default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
@@ -1036,6 +1057,7 @@ label kibel:
             show grat
             r "Witaj dobry człowieku"
             r "Pozwól mi egzystować w tym niebezpiecznym środowisku samotnie"
+            show gun at right
             g "Kurwa, gadasz ze szczurami"
             g "Będą z Ciebie ludzie"
             achieve Shizo
@@ -2445,7 +2467,7 @@ label trader:
         while helper == 1:
             menu:
                 "Szopping tajm"
-                "Ale fajna Aerka" if edki >= 600:
+                "Ale fajna Aerka" if edki >= 600 and inventory.has_item(AR) == False:
                     $ inventory.add_item(AR)
                     $ edki -= 600
 
@@ -2461,6 +2483,7 @@ label trader:
                     p "Get zakuped"  
                     $ helper = 0
 
+        stop music
         jump miasto
 
 
@@ -2580,6 +2603,8 @@ label wojsko:
         jump wojowezadanie
 
 label wojowezadanie:
+    stop music
+    play music "CMS.mp3"
     $ helper == 100
     $ config.rollback_enabled = False
     if Frakcja == 0:
@@ -2846,7 +2871,7 @@ label wojowezadanie:
                         g "I Hartmann podczepił minę p.piech"
                         p "Sprytne"
                         stop music
-                        play music "Monkeys Spinning Monkeys.mp3" volume 0.2
+                        play music "CMS.mp3" volume 0.2
                         $ helper -= 20
                         jump akt1pods
 
@@ -3974,7 +3999,7 @@ label vrade:
     scene vshop
     menu:
         v "Co chciałbyś zakupić?"
-        "Ale fajna Aerka" if vdolce >= 5 :
+        "Ale fajna Aerka" if vdolce >= 5  and inventory.has_item(AR) == False:
             $ inventory.add_item(AR)
             $ vdolce -= 5
             $ veq += 1
@@ -4098,7 +4123,7 @@ label vokum:
 
 label amongthevpods:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
-    $ stan = {"Laskawca":0,"Kalach":0,"Gun":0, "Cypher":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
+    call updict("Laskawca",stan)
     $ kibel_stan = 0
     $ bigquest = 3
     achieve Iabk
