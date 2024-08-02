@@ -104,9 +104,6 @@ screen day():
             text "{color=000}Uciekaj z tego pozbawionego boga miejsca"
 
         elif bigquest == 3:
-            text "{color=000}Zanieś intel Gunowi"
-
-        elif bigquest == 4:
             if dzien == 9:
                 text "{color=000}Wróć do Guna jutro"
 
@@ -115,6 +112,9 @@ screen day():
 
             elif dzien > 9:
                 text "{color=000} Idź do Guna"
+
+        elif bigquest == 4:
+            text "{color=000} Idź do wojska"
 
         elif bigquest == 5:
             text "{color=000} Zaprzyjażnij się z dzbanami, \n zostali Ci jeszcze:"
@@ -149,6 +149,7 @@ screen bank():
     vbox:
         pos 0.4, 0.1
         text "{color=000} Masz na koncie [edki] edków"
+        text "{color=000} Masz na koncie [vdolce] Vdolców"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True

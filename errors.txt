@@ -2,7 +2,17 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 157: 'return' outside function
+The label _call_checkHP is defined twice, at File "game/script.rpy", line 800:
+                    call checkHP(10) from _call_checkHP
+and File "game/script.rpy", line 848:
+                    call checkHP(5) from _call_checkHP
+
+
+The label _call_checkHP is defined twice, at File "game/script.rpy", line 848:
+                    call checkHP(5) from _call_checkHP
+and File "game/script.rpy", line 2411:
+            call checkHP(7) from _call_checkHP
+
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Thu Aug  1 07:59:00 2024
+Thu Aug  1 22:21:17 2024

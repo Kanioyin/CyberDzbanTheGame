@@ -1,32 +1,40 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 2001, in script
-    show cypher at top_left
-  File "game/script.rpy", line 2001, in <module>
-    show cypher at top_left
-NameError: name 'top_left' is not defined
+  File "game/script.rpy", line 399, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 399, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 2561, in script
+    achieve FutaF
+  File "game/0bobcachievements.rpy", line 99, in bobcachievement_grant
+    renpy.error("Achievement '" + achiname + "' was not registered. Please modify BOBCACHIEVEMENT_LIST in 0bobcachievements.rpy to add it.")
+Exception: Achievement 'FutaF' was not registered. Please modify BOBCACHIEVEMENT_LIST in 0bobcachievements.rpy to add it.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 2001, in script
-    show cypher at top_left
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1113, in execute
-    show_imspec(self.imspec, atl=getattr(self, "atl", None))
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1072, in show_imspec
-    at_list = [ renpy.python.py_eval(i) for i in at_list ]
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1072, in <listcomp>
-    at_list = [ renpy.python.py_eval(i) for i in at_list ]
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1209, in py_eval
-    return py_eval_bytecode(code, globals, locals)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1202, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/script.rpy", line 2001, in <module>
-    show cypher at top_left
-NameError: name 'top_left' is not defined
+  File "game/script.rpy", line 399, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 399, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 2561, in script
+    achieve FutaF
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1968, in execute
+    self.call("execute")
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1950, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\statements.py", line 349, in call
+    return method(parsed, *args, **kwargs)
+  File "game/0bobcachievements.rpy", line 99, in bobcachievement_grant
+    renpy.error("Achievement '" + achiname + "' was not registered. Please modify BOBCACHIEVEMENT_LIST in 0bobcachievements.rpy to add it.")
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports.py", line 2822, in error
+    _error_handlers[-1](msg)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports.py", line 2799, in _error
+    raise Exception(msg)
+Exception: Achievement 'FutaF' was not registered. Please modify BOBCACHIEVEMENT_LIST in 0bobcachievements.rpy to add it.
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.2.1.24030407
-CyberDzban 0.000000006
-Thu Aug  1 08:22:23 2024
+CyberDzban 0.000000007
+Thu Aug  1 23:48:11 2024
