@@ -78,7 +78,7 @@ label updict(Who,dict):
                 
 
 label checktime:
-    call klontwakalacha
+    call klontwakalacha from _call_klontwakalacha
     if czas < 1:
         p "Późno już, idę spać"
         jump sypialnia
@@ -109,9 +109,11 @@ label testCech(cecha, PT):
 
 label checkHP(dmg):
     if inventory.has_item(Kokos):
+        $ inventory.remove_item(Kokos)
         p "Pa ten unik szmato, Koks+L+Ratio"
         if renpy.random.randint(0,1) == 0:
             p "Essa, uniknięte"
+            achieve Frik
             return
         else:
             pass
@@ -205,6 +207,7 @@ label start:
     default Vranat = InventoryItem("Vranat","Wabajack tego uniwersum")
     default Ser = InventoryItem("Ser","Strasznie cheesy, Gun musi go lubić")
     default THeal = InventoryItem("Turbouzdrawiacz","Turbo uzdrawia")
+    default NRG = InventoryItem("Energol","Waluta permium")
 
     #Stany postaci
     default kibel_stan = 0
@@ -515,6 +518,79 @@ label kuchnia:
                 jump rozstaje
 
         elif bigquest == 5:
+            if stan["Cypher"] == 3:
+                show cypher at left with moveinleft
+                c "Dzień dobry [player_name]!"
+                p "Co ty tu kurwa robisz? Guna ja tu szukam."
+                c "Przykra sprawa ale mnie to nie obchodzi"
+                c "Trzeba przeprowadzić Anschluss tej kuchni"
+                p "Co to kurwa znaczy?"
+                c "No patrz. Tu się zrobi dziurę"
+                c "Tam się pierdolnie bunkier i okopy"
+                c "Nad wejściem działka, może nawet z ammunicją"
+                p "I co? Mam Ci pomóc to przynieść?"
+                c "Nie rozpędzaj się kasztanie"
+                c "Musiałem z kimś pogadać, wiesz, oczyszczenie umysłu itp"
+                p "Fantastycznie, mogę już iść?"
+                show gun at right with moveinright
+                g "A co wy tu kurwa robicie?"
+                c "O karamba, on wrócił!"
+                menu:
+                    c "[player_name]! Co robimy?"
+                    "Spierdalamy":
+                        "Z Cypherem wybiegliście z kuchni"
+                        scene rozstaje
+                        "Biegniecie przez bazę"
+                        g "Skurwysyny"
+                        show laskawca at right with moveinright
+                        pl "A co tu się dzieje?"
+                        p "O fak"
+                        P "Szybki dodge"
+                        "Ale ten dodge zabrał Ci cenne sekundy"
+                        g "Jestem bliżej"
+                        "Wbiegacie na dach"
+                        scene dach
+                        show gun at left
+                        show cypher at right
+                        g "No dobra gagatki, co macie na swoją obronę?"
+                        if inventory.has_item(Ser) == True:
+                            p "Ser"
+                            g "Akceptuję"
+                            $ inventory.remove_item(Ser)
+                            hide gun with moveoutleft
+                            c "Łał, to było szybkie"
+                            p "Aż za szybkie"
+                            "Gun to zje"
+                            $ stan["Cypher"] = 4
+                            jump rozstaje
+                        
+                        p "No my tylko chcieliśmy zobaczyć co jest w lodówce"
+                        g "I co znaleźliście?"
+                        p "Szczury"
+                        g "Dokładnie"
+                        g "Jeśli jeszcze raz zobaczę że myszkujecie mi w kuchni"
+                        g "Urwę jaja z kutasami"
+                        hide gun with moveoutleft
+                        $ postacie["Gun"] -= 2
+                        p "Chyba się zdenerwował"
+                        c "Chuj z nim"
+                        $ stan["Cypher"] = 4
+                        jump rozstaje
+
+                    "Przyjmuję konsekwencje":
+                        p "Przyszliśmy pooglądać kuchnie"
+                        g "Po chuj"
+                        c "A bo ja chcę zrobić mały Re."
+                        g "NIE MÓW TEGO SŁOWA"
+                        c "A, faktycznie"
+                        g "A teraz wypierdalać mi stąd"
+                        g "Zamierzam gorgonzolić Mączysława"
+                        c "Fuj"
+                        c "[player_name], wychodzimy"
+                        "I wyszliście"
+                        $ stan["Cypher"] = 4
+                        jump rozstaje
+
             if stan["Gun"] == 0:
                 g "No to mów, co Ci ten Kennedy powiedział ciekawego"
                 p "Musimy zostać przyjaciółmi"
@@ -770,7 +846,7 @@ label kuchnia:
                     "Wychodzisz z kuchni"
                     jump rozstaje
                 
-                elif stan["Jhin"] < 3:
+                elif stan["Jhin"] == 3:
                     g "Pogadaj z Jhinem, jak zrobisz z nim trochę roboty to zapraszam"
                     jump rozstaje
 
@@ -809,7 +885,7 @@ label kuchnia:
                     "Okazało się że na pierwszym piętrze mieszkają sebixy"
                     "W taki sposób rozpoczął się kombat"
                     play sound "hit.mp3"
-                    call checkHP(10)
+                    call checkHP(10) from _call_checkHP_11
                     "Dostałeś potężnego luja ale oddałeś pięknym za nadobne"
                     "Odwróciłeś się aby sprawdzić co z Jhinem"
                     "A Jhin leży na ziemi nieprzytomny"
@@ -851,13 +927,13 @@ label kuchnia:
                     g "Twoim zadaniem będzie stanie na czatach"
                     p "Powinienem dać sobie radę"
                     g "No to w drogę"
-                    scene idrive
+                    scene idrivewk
                     play music "idrive.mp3" volume 0.2
                     kr "Powiedz Gun, kiedy nauczyłeś się prowadzić?"
                     g "Nigdy"
                     play sound "hit.mp3"
                     "I w tym momencie uderzyliście w lampę"
-                    call checkHP(5)
+                    call checkHP(5) from _call_checkHP_12
                     stop music
                     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
                     kr "Ała"
@@ -1013,7 +1089,7 @@ label kosciol:
                         $ config.rollback_enabled = True
                     jump rozstaje
 
-            elif stan["Kalach"] == 2 and bigquest == 5:
+            elif bigquest == 5:
                 k "No witam witam"
                 k "Przyszedłeś po przebaczenie grzechów?"
                 p "Nie Kałachu, muszę zostać twoim przyjacielem"
@@ -1374,8 +1450,12 @@ label dach:
                 "I z Cypherem wróciliście do bazy"
                 $ stan["Cypher"] = 3
                 jump rozstaje
-            
+
             if stan["Cypher"] == 3:
+                "Cyphera tu nie ma, powinien być gdzieś w bazie"
+                jump rozstaje
+            
+            if stan["Cypher"] == 4:
                 c "Dobra, lecimy z kolejnym bojowym zadaniem"
                 c "W dzisiejszym odcinku wysokiego trybu"
                 c "Wyruszymy do sklepu po zakupy"
@@ -2332,7 +2412,7 @@ label sypialnia:
             jump rozstaje
 
         "Czy ja przypadkiem nie dostałem?":
-            if HP != MaxHP:
+            if HP < MaxHP:
                 p "Faktycznie mam tylko [HP] na [MaxHP]."
                 p "Pancerz ma [armor] punktów"
                 jump sypialnia
@@ -2522,6 +2602,10 @@ label miasto:
             $ czas -= 1
             jump vniazdo
 
+        "Żabencja" if znajOkol > 1 and czas > 2:
+            $ czas -= 1
+            jump frogszop
+
         "Nikąd, pospaceruje sobie" if czas > 0:
             $ czas -= 5
             $ cel = renpy.random.randint(1, 7)
@@ -2543,6 +2627,10 @@ label miasto:
                 if znajOkol == 0:
                     "Udało Ci się odkryć fajny osiedlowy sklepik"
                     $ znajOkol = 1
+
+                elif znajOkol == 1:
+                    p "Ty kurwa, żabka jest obok, zapamiętam to sobie"
+                    $ znajOkol = 2
 
                 else:
                     p "Jaki fajny plasterek"
@@ -2569,7 +2657,7 @@ label miasto:
                     "Co robisz?"
                     "Napadańsko":
                         "Atakujesz kasztana"
-                        call checkHP(renpy.random.randint(8, 18))
+                        call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
                         $ edki += renpy.random.randint(50, 200)
 
                     "Lepiej nie":
@@ -2579,13 +2667,13 @@ label miasto:
                 if inventory.has_item(Kokos) == True:
                     "Znalazły Cię ćpuny"
                     "Niestety mięli przewagę liczebną (było ich 3)"
-                    $ inventory.remove.item(Kokos)
+                    $ inventory.remove_item(Kokos)
 
                 elif inventory.has_item(AR) == True:
                     "Chodząc po ulicy czujesz, że jest Ci jakoś lekko"
                     "Obracasz się za siebię i widzisz że czegoś brakuje"
                     p "Kurwa"
-                    $ inventory.remove.item(AR)
+                    $ inventory.remove_item(AR)
                 
                 else:
                     p "Dziwne, nic się nie stało"
@@ -2627,6 +2715,55 @@ label trader:
 
         stop music
         jump miasto
+
+
+label frogszop:
+    scene frogszop
+    fse "Dzień dobry"
+    $ helper = 1
+    while helper == 1:
+        menu:
+            "Co chciałby pan kupić?"
+            "Dej mnie hot doga" if edki > 9 and HP < MaxHP:
+                $ edki -= 10
+                fse "To będzie 10 edków"
+                p "Proszę"
+                "Chwilę poczekałeś i jadło otrzymałeś"
+                fse "Smacznego"
+                play sound "EAT OR MUNCH.mp3"
+                $ HP += 5
+                if HP > MaxHP:
+                    $ HP = MaxHP
+
+            "Dupnę sobie monsterka" if edki > 24 and czas < 30:
+                $ edki -= 25
+                fse "To będzie 25 edków"
+                p "Proszę"
+                "Wypiłeś potwora"
+                p "Czuję, że mogę dziś zrobić więcej"
+                $ czas += 10
+
+
+            "Zdrapeczka" if edki > 24:
+                $ edki -= 25
+                fse "25 edków"
+                p "Proszę"
+                p "Dobra, zobaczymy czy wygrałem"
+                if renpy.random.randint(0, 100) == 0:
+                    p "O CHUJ WYGRAŁEM"
+                    $ edki += 1000
+                    p "Prosze pani, chciałbym tę zdrapkę wymienić"
+                    fse "Gratulacje"
+                    fse "Proszę pańskie 1000 edków"
+
+                else:
+                    p "Kurwa, nie siadło"
+
+            "To tyle, dziękuję, dowidzenia":
+                fse "Dowidzenia, zapraszam ponownie"
+                $ helper = 0
+
+    jump miasto
 
 
 label wojsko:
@@ -3098,7 +3235,7 @@ label wojowezadanie:
                     "Co teraz?"
                     "Pif Paf słoneczko":
                         "Rozpocząłęś strzelanie, a drużyna strzelała wraz z tobą."
-                        call chceckHP(15) from _call_chceckHP
+                        call checkHP(15)
                         "Troszeczkę oberwałeś ale udało Ci się zostać bogiem gniewu i wojny"
                         "Możesz dzielnie iść dalej"
                         "Ale nie możesz zapomnieć o lootowaniu"
@@ -3619,7 +3756,11 @@ label wojowezadanie:
                 k "Wypierdalasz na tamagoczi"
                 "Dostałeś taktycznym paralizatorem"
                 k "Idziemy do bazy, czeka Ciebie przesłuchanie"
-                jump akt1pods
+                scene bev
+                achieve Tam
+                "GG byczku"
+                $ MainMenu(confirm=False)()
+
 
             "Wróć do normalności":
                 p "Koniec z Vistami"
@@ -3809,6 +3950,8 @@ menu:
             $ HP += 2
             p "Kilka ran mi się zasklepiło"
             $ umieram = 0
+            if HP > MaxHP:
+                $ HP = MaxHP
         if vrrr < 4:
             $ valki = 5
 
@@ -4280,7 +4423,7 @@ label vokum:
 
 label amongthevpods:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
-    call updict("Laskawca",stan)
+    call updict("Laskawca",stan) from _call_updict
     $ kibel_stan = 0
     $ bigquest = 3
     achieve Iabk

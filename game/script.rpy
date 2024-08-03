@@ -545,7 +545,7 @@ label kuchnia:
                         show laskawca at right with moveinright
                         pl "A co tu się dzieje?"
                         p "O fak"
-                        P "Szybki dodge"
+                        p "Szybki dodge"
                         "Ale ten dodge zabrał Ci cenne sekundy"
                         g "Jestem bliżej"
                         "Wbiegacie na dach"
@@ -846,7 +846,7 @@ label kuchnia:
                     "Wychodzisz z kuchni"
                     jump rozstaje
                 
-                elif stan["Jhin"] < 3:
+                elif stan["Jhin"] == 3:
                     g "Pogadaj z Jhinem, jak zrobisz z nim trochę roboty to zapraszam"
                     jump rozstaje
 
@@ -1089,30 +1089,30 @@ label kosciol:
                         $ config.rollback_enabled = True
                     jump rozstaje
 
-            elif stan["Kalach"] == 2 and bigquest == 5:
-                k "No witam witam"
-                k "Przyszedłeś po przebaczenie grzechów?"
-                p "Nie Kałachu, muszę zostać twoim przyjacielem"
-                k "Co kurwa?"
-                p "Kennedy szuka ludzi na misję"
-                p "A ja muszę się z wami zakumplować"
-                k "Łe dobra, nie strasz mnie kurwa"
-                k "Już myślałem że Hubert gra"
-                k "A wiesz, on jest fanem Yaoj"
-                k "A to nie jest dating sim"
-                k "Tylko CPTG"
-                k "Ale no dobra, nie chce mi się z tobą gadać"
-                k "Powiedzmy, że jak będziemy musieli się napierdalać"
-                k "To masz mój karabin"
-                achieve Kalpp
-                if Frakcja == 1:
-                    show cypher with moveinright
-                    c "Ale on już ma twój sprzęt"
-                    k "Spierdalaj"
-                    hide cypher with moveoutright
-                $ postacie["Kalach"] += 1
-                $ czas -= 2
-                $ stan["Kalach"] = 5
+        elif bigquest == 5:
+            k "No witam witam"
+            k "Przyszedłeś po przebaczenie grzechów?"
+            p "Nie Kałachu, muszę zostać twoim przyjacielem"
+            k "Co kurwa?"
+            p "Kennedy szuka ludzi na misję"
+            p "A ja muszę się z wami zakumplować"
+            k "Łe dobra, nie strasz mnie kurwa"
+            k "Już myślałem że Hubert gra"
+            k "A wiesz, on jest fanem Yaoj"
+            k "A to nie jest dating sim"
+            k "Tylko CPTG"
+            k "Ale no dobra, nie chce mi się z tobą gadać"
+            k "Powiedzmy, że jak będziemy musieli się napierdalać"
+            k "To masz mój karabin"
+            achieve Kalpp
+            if Frakcja == 1:
+                show cypher with moveinright
+                c "Ale on już ma twój sprzęt"
+                k "Spierdalaj"
+                hide cypher with moveoutright
+            $ postacie["Kalach"] += 1
+            $ czas -= 2
+            $ stan["Kalach"] = 5
 
         else:
             k "Czego ty kurwa chcesz?"
@@ -3235,7 +3235,7 @@ label wojowezadanie:
                     "Co teraz?"
                     "Pif Paf słoneczko":
                         "Rozpocząłęś strzelanie, a drużyna strzelała wraz z tobą."
-                        call chceckHP(15) from _call_chceckHP
+                        call checkHP(15) from _call_checkHP_22
                         "Troszeczkę oberwałeś ale udało Ci się zostać bogiem gniewu i wojny"
                         "Możesz dzielnie iść dalej"
                         "Ale nie możesz zapomnieć o lootowaniu"
@@ -3313,6 +3313,7 @@ label wojowezadanie:
                                 "Wielki dzik potężnym beknięciem wystrzelił Visty poza czwartą ścianę"
                                 p "Dziękuję wielki dziku"
                                 "Ale dzika już tu nie było"
+                                achieve Ocult
                                 $ helper -= 15
                             
                             "Jednak nie, spierdalaj":
