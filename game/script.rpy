@@ -470,6 +470,7 @@ label kuchnia:
             g "Ser dobry, [player_name]"
             if dzien < 3:
                 g "Daj mi trochę czasu roboty szukam"
+
             if inventory.has_item(Klapek) == True:
                 p "Mam przesyłkę od Cyphera"
                 g "Co on znowu chce?"
@@ -484,6 +485,7 @@ label kuchnia:
                 g "Tak czy siak, nic dobrego to nie oznacza"
                 g "Zdupcaj, muszę pomyśleć"
                 jump rozstaje
+
             else:
                 pass
 
@@ -731,7 +733,7 @@ label kuchnia:
                 p "Dobra, chuj, miejmy to za sobą"
                 scene black
                 stop music
-                play music "spook.oog"
+                play music "spook.ogg"
                 "Weszliście do środka"
                 p "Kurwa jak tu ciemno"
                 g "A to była jego matka"
@@ -838,7 +840,7 @@ label kuchnia:
                 $ czas = 0
                 jump rozstaje
             
-            if stan["Gun"] == 3 and stan["Jhin"] < 2:
+            if stan["Gun"] == 3:
                 if stan["Jhin"] == 9:
                     g "Chciałem pojechać z Jhinem na zadanie bojowe ale mu się zdechło"
                     g "Więc to mamy już z głowy"
@@ -846,7 +848,7 @@ label kuchnia:
                     "Wychodzisz z kuchni"
                     jump rozstaje
                 
-                elif stan["Jhin"] == 3:
+                elif stan["Jhin"] < 4:
                     g "Pogadaj z Jhinem, jak zrobisz z nim trochę roboty to zapraszam"
                     jump rozstaje
 
@@ -974,6 +976,14 @@ label kuchnia:
                     $ czas = 0
                     jump rozstaje
 
+            if stan["Gun"] == 5:
+                g "Idź do tego Kena"
+                jump rozstaje
+
+            if stan["Gun"] == 6:
+                g "To czekam aż dasz znać i idziemy na kłest"
+                jump rozstaje            
+
     if inventory.has_item(Ser) == True:
         p "Mam coś dla Ciebie gun"
         $ inventory.remove_item(Ser)
@@ -1052,7 +1062,12 @@ label kosciol:
                 $ stan["Kalach"] += 1
                 jump rozstaje
 
-            elif stan["Kalach"] == 1:
+            else:
+                "Kałach alkoholizuje się, lepiej mu nie przeszkadzaj"
+                jump rozstaje
+
+        elif bigquest == 3 or bigquest == 4:
+            if stan["Kalach"] != 2:
                 if dzien < 10:
                     "Kościół jest zamknięty, wróć później"
                     jump rozstaje
@@ -1579,6 +1594,7 @@ label warsztat:
         h "Kim ty kurwa jesteś?"
         h "Dlaczego mi kurwa przeszkadzasz w robocie?"
         h "Spierdalaj, albo Ci migomatem przypierdolę"
+        stop sound
         jump rozstaje
 
     elif akt == 1:
@@ -2769,7 +2785,7 @@ label frogszop:
 label wojsko:
     scene wojsko
     if wojsko_stan == 0:
-        show genken at left
+        show genken at right
         gk "Witamy w armii młody"
         gk "Jestem Generał Kennedy, przywódca tego pierdolnika"
         if Frakcja == 0 or Frakcja == 3:
@@ -2868,6 +2884,8 @@ label wojsko:
             gk "Oj, będę musiał z nim pogadać"
             $ stan["Krateus"] += 1
             $ krateus_stan = 6
+
+        jump rozstaje
 
     elif wojsko_stan > 4: 
         gk "Dobra robota szczylu."
@@ -4419,8 +4437,7 @@ label vokum:
 
         "Nigdy nie zostanę V":
             jump vtimefri
-
-    
+ 
 
 label amongthevpods:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
