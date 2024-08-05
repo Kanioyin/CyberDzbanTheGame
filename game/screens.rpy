@@ -311,6 +311,9 @@ screen navigation():
 
         textbutton _("Wyczyny") action ShowMenu("bobcachievements")
 
+        if main_menu:
+            textbutton _("Album") action ShowMenu("bobcgallery")
+
         if _in_replay:
 
             textbutton _("End Replay") action EndReplay(confirm=True)

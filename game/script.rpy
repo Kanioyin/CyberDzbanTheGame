@@ -377,6 +377,7 @@ label start:
 
 label intro:
     achieve Poczatek
+    galleryunlock cg0
     scene kuchnia
     show gun at right
     g "Więc nowy, witamy w bazie"

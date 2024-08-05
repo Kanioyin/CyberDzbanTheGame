@@ -1,61 +1,52 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 401, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 401, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 401, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 738, in script
-    p "Kurwa jak tu ciemno"
-OSError: Couldn't find file 'spook.oog'.
+  File "renpy/common/00action_menu.rpy", line 117, in __call__
+    raise Exception("%r is not a screen or a label." % orig_screen)
+Exception: 'gallery_a' is not a screen or a label.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 401, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 401, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 401, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 738, in script
-    p "Kurwa jak tu ciemno"
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2557, in execute
-    Say.execute(self)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 615, in execute
-    renpy.exports.say(who, what, *args, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports.py", line 1493, in say
-    who(what, *args, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1394, in __call__
-    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1045, in do_display
-    display_say(who,
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 741, in display_say
-    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
+  File "renpy/common/_layout/screen_main_menu.rpym", line 28, in script
+    python hide:
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 823, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1178, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "renpy/common/_layout/screen_main_menu.rpym", line 28, in <module>
+    python hide:
+  File "renpy/common/_layout/screen_main_menu.rpym", line 35, in _execute_python_hide
+    ui.interact()
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 301, in interact
     rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2165, in interact
     repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 3022, in interact_core
-    renpy.audio.audio.periodic()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\audio\audio.py", line 1205, in periodic
-    raise_(exc[0], exc[1], exc[2])
-  File "lib/python3.9/future/utils/__init__.py", line 444, in raise_
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\audio\audio.py", line 1183, in periodic_thread_main
-    periodic_pass()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\audio\audio.py", line 1125, in periodic_pass
-    c.periodic()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\audio\audio.py", line 534, in periodic
-    topf = load(filename)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\audio\audio.py", line 72, in load
-    rv = renpy.loader.load(fn, directory="audio")
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\loader.py", line 672, in load
-    raise IOError("Couldn't find file '%s'." % name)
-OSError: Couldn't find file 'spook.oog'.
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 3201, in interact_core
+    rv = root_widget.event(ev, x, y, 0)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1202, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1202, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1202, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 793, in event
+    rv = self.child.event(ev, x, y, st)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1202, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1202, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 1174, in event
+    return handle_click(self.clicked)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 1095, in handle_click
+    rv = run(action)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 395, in run
+    return action(*args, **kwargs)
+  File "renpy/common/00action_menu.rpy", line 117, in __call__
+    raise Exception("%r is not a screen or a label." % orig_screen)
+Exception: 'gallery_a' is not a screen or a label.
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.2.1.24030407
 CyberDzban 0.000000007
-Sun Aug  4 10:07:21 2024
+Mon Aug  5 21:55:25 2024
