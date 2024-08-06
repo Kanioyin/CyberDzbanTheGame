@@ -16,6 +16,7 @@ define fse = Character(_("Babka from żabka"), color = "#006600")
 define sb = Character(_("Ktoś"), color = "#000000")
 
 init python:
+    import os 
     class Inventory():
         def __init__(self, items, quantity):
             self.items = items
@@ -177,7 +178,6 @@ label klontwakalacha:
         return
 
 
-
 transform bounce:
     linear 3.0 xalign 1.0
     linear 3.0 xalign 0.0
@@ -329,6 +329,7 @@ label start:
 
     
     "Nie miałeś edków"
+    call bigunl
     "Sensu życia"
     "Ani nawet broni"
 
@@ -376,8 +377,8 @@ label start:
 # intro
 
 label intro:
+    $ helper = 1
     achieve Poczatek
-    galleryunlock cg0
     scene kuchnia
     show gun at right
     g "Więc nowy, witamy w bazie"

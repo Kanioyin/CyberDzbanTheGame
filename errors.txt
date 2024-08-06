@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1058: expected statement.
-    elif stan["Kalach"] == 1:
-             ^
+File "game/bigunl.rpy", line 7: reached end of line when expecting ':'.
+    if nua == cnt
+                 ^
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Sat Aug  3 19:57:55 2024
+Mon Aug  5 23:43:25 2024
