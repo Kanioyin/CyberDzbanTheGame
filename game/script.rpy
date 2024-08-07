@@ -238,7 +238,7 @@ label start:
     default veq = 0
     default psycha = 0
     $ psycha = cechy["EMP"] * 10
-    default znajOkol = 0
+    default znajOkol = 2
     default lilquest = 0
     default vrrr = 0
     default bigquest = 0
@@ -432,7 +432,15 @@ label rozstaje:
             jump sypialnia
 
         "Wychodzę stąd" if akt > 0:
-            jump miasto
+            show screen map_screen
+            window hide
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            jump rozstaje
 
 label kuchnia:
     scene kuchnia
@@ -2584,122 +2592,85 @@ label podsumowanie1:
     $ czas = 0
     jump rozstaje
 
-label vniazdo:
-    scene vland
-    "Jesteś u Vist"
-    menu:
-        "Co chcesz zrobić?"
-        "Wymiana edków na vdolce" if edki > 99:
-            $ vdolce += 1
-            $ edki -= 100
 
-        "Wymiana vdolców na edki" if vdolce > 0:
-            $ vdolce -= 1
-            $ edki += 100
+label spacerek:
+    scene black
+    $ czas -= 5
+    $ cel = renpy.random.randint(1, 7)
+    if cel == 1:
+        "Znalazłeś jakieś drobniaki"
+        $ zysk = renpy.random.randint(1, 50)
+        $ edki += zysk
+        p "Znalazłem [zysk] edków"
 
-        "Vracam":
-            jump miasto
+    elif cel == 2:
+        "Ni chuja, same nudy"
 
-label miasto:
-    scene miasto
-    call checktime from _call_checktime_1
-    menu:
-        "Wyruszyłem do:"
-        "Bazy":
-            jump rozstaje
+    elif cel == 3:
+        "Przez przypadek wszedłeś do Bloku Władcy Demonów"
+        $ wpierdol = renpy.random.randint(4, 18)
+        call checkHP(wpierdol) from _call_checkHP_4
 
-        "Sklepiku" if znajOkol > 0 and czas > 2:
-            $ czas -= 2
-            jump trader
+    elif cel == 4:
+        if znajOkol == 0:
+            "Udało Ci się odkryć fajny osiedlowy sklepik"
+            $ znajOkol = 1
 
-        "Wojsko" if bigquest > 3:
-            $ czas -= 1
-            jump wojsko
+        elif znajOkol == 1:
+            p "Ty kurwa, żabka jest obok, zapamiętam to sobie"
+            $ znajOkol = 2
 
-        "Dziupli Vist" if Frakcja == 3:
-            $ czas -= 1
-            jump vniazdo
-
-        "Żabencja" if znajOkol > 1 and czas > 2:
-            $ czas -= 1
-            jump frogszop
-
-        "Nikąd, pospaceruje sobie" if czas > 0:
-            $ czas -= 5
-            $ cel = renpy.random.randint(1, 7)
-            if cel == 1:
-                "Znalazłeś jakieś drobniaki"
-                $ zysk = renpy.random.randint(1, 50)
-                $ edki += zysk
-                p "Znalazłem [zysk] edków"
-
-            elif cel == 2:
-                "Ni chuja, same nudy"
-
-            elif cel == 3:
-                "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-                $ wpierdol = renpy.random.randint(4, 18)
-                call checkHP(wpierdol) from _call_checkHP_4
-
-            elif cel == 4:
-                if znajOkol == 0:
-                    "Udało Ci się odkryć fajny osiedlowy sklepik"
-                    $ znajOkol = 1
-
-                elif znajOkol == 1:
-                    p "Ty kurwa, żabka jest obok, zapamiętam to sobie"
-                    $ znajOkol = 2
-
-                else:
-                    p "Jaki fajny plasterek"
-                    if HP < MaxHP:
-                        p "A se przykleję"
-                        $ HP += 1
-                    else:
-                        p "Ta? To zajebiście."
-                        "Plasterek trafił do kosza."
-
-            elif cel == 5:
-                "Wszedłeś do bloku furrasów"
-                if dzien % 3 == 0:
-                    "Futrzana domina Cię dopadła"
-                    achieve Futa
-                    $ HP = 1
-                    $ czas = 0
-                else:
-                    "Masz farta, był zamknięty"
-
-            elif cel == 6:
-                "Chodząc widzisz fagasa którego możesz obrabować"
-                menu:
-                    "Co robisz?"
-                    "Napadańsko":
-                        "Atakujesz kasztana"
-                        call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
-                        $ edki += renpy.random.randint(50, 200)
-
-                    "Lepiej nie":
-                        pass
-
-            elif cel == 7:
-                if inventory.has_item(Kokos) == True:
-                    "Znalazły Cię ćpuny"
-                    "Niestety mięli przewagę liczebną (było ich 3)"
-                    $ inventory.remove_item(Kokos)
-
-                elif inventory.has_item(AR) == True:
-                    "Chodząc po ulicy czujesz, że jest Ci jakoś lekko"
-                    "Obracasz się za siebię i widzisz że czegoś brakuje"
-                    p "Kurwa"
-                    $ inventory.remove_item(AR)
-                
-                else:
-                    p "Dziwne, nic się nie stało"
-                    
+        else:
+            p "Jaki fajny plasterek"
+            if HP < MaxHP:
+                p "A se przykleję"
+                $ HP += 1
             else:
-                "Print dupa, nie powinno Cię tu być."
+                p "Ta? To zajebiście."
+                "Plasterek trafił do kosza."
+
+    elif cel == 5:
+        "Wszedłeś do bloku furrasów"
+        if dzien % 3 == 0:
+            "Futrzana domina Cię dopadła"
+            achieve Futa
+            $ HP = 1
+            $ czas = 0
+        else:
+            "Masz farta, był zamknięty"
+
+    elif cel == 6:
+        "Chodząc widzisz fagasa którego możesz obrabować"
+        menu:
+            "Co robisz?"
+            "Napadańsko":
+                "Atakujesz kasztana"
+                call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
+                $ edki += renpy.random.randint(50, 200)
+
+            "Lepiej nie":
+                pass
+
+    elif cel == 7:
+        if inventory.has_item(Kokos) == True:
+            "Znalazły Cię ćpuny"
+            "Niestety mięli przewagę liczebną (było ich 3)"
+            $ inventory.remove_item(Kokos)
+
+        elif inventory.has_item(AR) == True:
+            "Chodząc po ulicy czujesz, że jest Ci jakoś lekko"
+            "Obracasz się za siebię i widzisz że czegoś brakuje"
+            p "Kurwa"
+            $ inventory.remove_item(AR)
+        
+        else:
+            p "Dziwne, nic się nie stało"
+            
+    else:
+        "Print dupa, nie powinno Cię tu być."
 
     jump rozstaje
+
 
 label trader:
     stop music
@@ -2732,7 +2703,7 @@ label trader:
                     $ helper = 0
 
         stop music
-        jump miasto
+        jump rozstaje
 
 
 label frogszop:
@@ -2781,7 +2752,59 @@ label frogszop:
                 fse "Dowidzenia, zapraszam ponownie"
                 $ helper = 0
 
-    jump miasto
+        show screen map_screen
+        window hide
+        pause 1
+        pause 1
+        pause 1
+        pause 1
+        pause 1
+        pause 1
+        jump frogszop
+
+
+label vradeZewn:
+    scene vshop
+    menu:
+        v "Co chciałbyś zakupić?"
+
+        "Wymiana edków na vdolce" if edki > 99:
+            $ vdolce += 1
+            $ edki -= 100
+
+        "Wymiana vdolców na edki" if vdolce > 0:
+            $ vdolce -= 1
+            $ edki += 100
+
+        "Ale fajna Aerka" if vdolce >= 5 and inventory.has_item(AR) == False:
+            $ inventory.add_item(AR)
+            $ vdolce -= 5
+            $ veq += 1
+            "Wydałeś 5 vdolcy na AR-kę"
+
+        "Wytrych? " if vdolce >= 2 and inventory.has_item(Wytrych) == False:
+            $ inventory.add_item(Wytrych)
+            $ vdolce -= 2
+            $ veq += 1
+            "Wydałeś 2 vdolce na Wytrych"
+
+        "Flaszka?" if vdolce >= 1:
+            $ inventory.add_item(Flaszka)
+            $ vdolce -= 1
+            $ veq += 1
+            "Wydałeś 1 vdolca na Flaszkę"
+
+        "Varmor" if vdolce >= 3 and inventory.has_item(MalyArmor) == False:
+            $ inventory.add_item(MalyArmor)
+            $ armor = 11
+            $ vdolce -= 3
+            $ veq += 1
+            "Wydałeś 3 vdolce na lil varmor"
+
+        "Nie potrzebuję twoich towarów":
+            jump rozstaje
+
+    jump rozstaje
 
 
 label wojsko:
@@ -3430,6 +3453,7 @@ label wojowezadanie:
                         call checkHP(2) from _call_checkHP_17
                         "Potężny atak Visty tylko cię drasnął"
                         p "Ja też"
+                        play sound "Paf.mp3"
                         v "Vkurwysyn"
                         p "Spoczywaj w koszu v"
                         p "Misja ukończona"
@@ -4150,6 +4174,12 @@ label varchiwa:
     scene drzv
     if varchiva_stage == 0:
         "Trafiając do varchiw stają Ci na drodze drzwi"
+        if Frakcja == 3:
+            p "Jestem pewnien, że nikt tego nie zamykał"
+            "I faktycznie miałeś racje"
+            $ varchiva_stage = 1
+            jump varchiwa
+
         if inventory.has_item(Wytrych) == True:
             p "Essa mam wytrycha"
             $ inventory.remove_item(Wytrych)
@@ -4195,6 +4225,16 @@ label varchiwa:
                 $ varchiva_stage = 2
                 jump varchiwa
 
+            "Variusz, nie poznajesz mnie?" if Frakcja == 3:
+                v "Vo va vag, Vista"
+                p "Vo va"
+                v "Vo vy vu vobisz?"
+                p "Vusze vać vokumenty vo varchiv"
+                v "Vo va vens, vapraszam"
+                p "Vięki"
+                $ varchiwa_stago = 2
+                jump varchiwa
+                
             "Vpierdalam":
                 jump vtimefri
 

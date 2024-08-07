@@ -180,3 +180,46 @@ screen frak():
         unhovered SetVariable("screen_tooltip","")
         action Hide("frak"), Show("phone")
 
+screen map_screen():
+    add "mapa.png"
+    modal True
+
+    imagebutton auto "city_dom_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("map_screen"), Jump("rozstaje")
+
+    imagebutton auto "city_tup_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("map_screen"), Jump("spacerek")
+
+    if znajOkol > 0:
+        imagebutton auto "city_sklep_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("trader")
+
+    if znajOkol > 1:
+        imagebutton auto "city_zab_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("frogszop")
+
+    if Frakcja == 3:
+        imagebutton auto "city_vlok_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Call("vradeZewn")
+
+    if bigquest > 3:
+        imagebutton auto "city_army_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("wojsko")

@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/bigunl.rpy", line 7: reached end of line when expecting ':'.
-    if nua == cnt
-                 ^
+File "game/script.rpy", line 436: expected statement.
+    window Hide
+          ^
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Mon Aug  5 23:43:25 2024
+Wed Aug  7 11:34:36 2024

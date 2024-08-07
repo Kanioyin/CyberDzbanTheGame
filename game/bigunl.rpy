@@ -4,8 +4,6 @@ default cnt = 1
 
 label bigunl:
     while cnt < foty + 1:
-        "[nua]"
-        "[cnt]"
         if nua > 0 and cnt == 1:
             galleryunlock cg0
 
