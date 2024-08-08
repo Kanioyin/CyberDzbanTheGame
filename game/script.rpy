@@ -166,14 +166,18 @@ label checkHP(dmg):
 
 label klontwakalacha:
     if postacie["Kalach"] < 0:
-        k "Wyczuwam flaszki, pora się napić"
-        achieve Curs
-        python:
-            postacie["Kalach"] = 0
-            while inventory.has_item(Flaszka) == True:
-                inventory.remove_item(Flaszka)
-        return
-    
+        if inventory.has_item(Flaszka) == True:
+            k "Wyczuwam flaszki, pora się napić"
+            achieve Curs
+            python:
+                postacie["Kalach"] = 0
+                while inventory.has_item(Flaszka) == True:
+                    inventory.remove_item(Flaszka)
+            return
+
+        else:
+            return
+
     else:
         return
 
@@ -181,7 +185,7 @@ label klontwakalacha:
 transform bounce:
     linear 3.0 xalign 1.0
     linear 3.0 xalign 0.0
-    repeat
+    repeat 2
 
 
 label start:
@@ -238,7 +242,7 @@ label start:
     default veq = 0
     default psycha = 0
     $ psycha = cechy["EMP"] * 10
-    default znajOkol = 2
+    default znajOkol = 0
     default lilquest = 0
     default vrrr = 0
     default bigquest = 0
@@ -309,6 +313,11 @@ label start:
         elif player_name == "Joon Goo":
             g "Jak ja Cię kurwa nienawidzę"
             $ postacie["Gun"] = -99
+            $ helper = 0
+
+        elif player_name == "Hubert":
+            k "Spierdalaj"
+            $ postacie["Kalach"] = -5
             $ helper = 0
 
         elif player_name == "Kennedy" or player_name == "Ken":
@@ -452,12 +461,14 @@ label kuchnia:
                 g "To pomoże Ci z kałachem"
                 g "Daj mu tę flachę"
                 jump rozstaje
+
             elif postacie["Kalach"] == 0:
                 g "Masz, to Ci pomoże zdobyć zaufanie księdza"
                 play sound "THROWING.mp3"
                 $ inventory.add_item(Flaszka)
                 g "Daj mu to, powinien Cię polubić"
                 jump rozstaje
+
         elif stan["Gun"] > 2:
             g "Skończyłeś już pogaduszki?"
             menu:
@@ -709,7 +720,7 @@ label kuchnia:
                 g "Zapomłem"
                 show laskawca
                 pl "Jeden token mniej (4)"
-                hide laskawca
+                hide laskawca with dissolve
                 g "Popierdoli mnie z tym pedantem, każdego trolla mi liczy"
                 p "O chuj chodzi w tej waszej relacji"
                 g "Nie mam zielonego pojęcia"
@@ -724,13 +735,13 @@ label kuchnia:
                 g "Nie. Dlatego że jesteśmy na miejscu"
                 stop music
                 play music "Monkeys Spinning Monkeys.mp3" volume 0.2
+                scene badblok
                 p "O cholera"
                 g "Dokładnie, Fredi Fazber"
                 p "Co?"
                 g "Zobaczysz w środku"
                 g "Ale najpierw. Raty aktywacja!"
                 "Gun wyjął worek z plecaka i wypuścił 83 szczury."
-                scene badblok
                 show gun at left
                 g "W tym miejscu mieszkał jeden z większych zbrodniarzy"
                 p "Hitler?"
@@ -1115,12 +1126,21 @@ label kosciol:
                     jump rozstaje
 
         elif bigquest == 5:
+            if stan["Kalach"] == 3:
+                k "Hubert spierdalaj"
+                jump rozstaje
+
             k "No witam witam"
             k "Przyszedłeś po przebaczenie grzechów?"
             p "Nie Kałachu, muszę zostać twoim przyjacielem"
             k "Co kurwa?"
             p "Kennedy szuka ludzi na misję"
             p "A ja muszę się z wami zakumplować"
+            if [player_name] == "Hubert":
+                k "Kurwa Hubert, spierdalaj"
+                $ stan["Kalach"] = 3
+                jump rozstaje
+
             k "Łe dobra, nie strasz mnie kurwa"
             k "Już myślałem że Hubert gra"
             k "A wiesz, on jest fanem Yaoj"
@@ -1135,6 +1155,7 @@ label kosciol:
                 c "Ale on już ma twój sprzęt"
                 k "Spierdalaj"
                 hide cypher with moveoutright
+
             $ postacie["Kalach"] += 1
             $ czas -= 2
             $ stan["Kalach"] = 5
@@ -2363,7 +2384,7 @@ label bruhzylia:
                 if stan["Cypher"] < 4:
                     c "Hi Hi Ha Ha"
                     "I na ten odgłos dwie samice uciekły"
-                    $ helper -= 2
+                    $ helper -= 4
 
                 if helper == 10:
                     achieve Alesex
@@ -2410,6 +2431,7 @@ label bruhzylia:
 label sypialnia:
     scene pokoj
     show screen hud
+    call bigunl
     p "Pusto tu"
     menu:
         "Jesteś w swoim pokoju, co chcesz zrobić?"
@@ -2596,7 +2618,7 @@ label podsumowanie1:
 label spacerek:
     scene black
     $ czas -= 5
-    $ cel = renpy.random.randint(1, 7)
+    $ cel = renpy.random.randint(1, 8)
     if cel == 1:
         "Znalazłeś jakieś drobniaki"
         $ zysk = renpy.random.randint(1, 50)
@@ -2666,6 +2688,27 @@ label spacerek:
         else:
             p "Dziwne, nic się nie stało"
             
+    elif cel == 8:
+        p "Na chuja mego wuja, ktoś tu zostawił skrzynkę!"
+        p "Ciekawe czy mam jak ją otworzyć?"
+        if inventory.has_item(Wytrych) == True:
+            p "Jest i wytryszek, pogczamp"
+            p "Opening time!"
+            $ helper = renpy.random.randint(1, 3)
+            if helper == 1:
+                p "O proszę! Hajsiwo"
+                $ edki += renpy.random.randint(50, 300)
+
+            elif helper == 2:
+                p "Ktoś tu kurwa wsadził szczura!"
+                $ inventory.add_item(Rat)
+                p "Może mi się do czegoś przyda"
+
+            elif helper == 3:
+                p "Kurwa! TU JEST BOMBA!"
+                call checkHP(10)
+                p "Jebać trapy"
+                
     else:
         "Print dupa, nie powinno Cię tu być."
 
@@ -2686,6 +2729,10 @@ label trader:
         while helper == 1:
             menu:
                 "Szopping tajm"
+                "Tajemniczy energol?" if edki > 999 and inventory.has_item(NRG) == False:
+                    $ inventory.add_item(NRG)
+                    $ edki -= 1000
+
                 "Ale fajna Aerka" if edki >= 600 and inventory.has_item(AR) == False:
                     $ inventory.add_item(AR)
                     $ edki -= 600
@@ -2712,7 +2759,7 @@ label frogszop:
     $ helper = 1
     while helper == 1:
         menu:
-            "Co chciałby pan kupić?"
+            fse "Co chciałby pan kupić?"
             "Dej mnie hot doga" if edki > 9 and HP < MaxHP:
                 $ edki -= 10
                 fse "To będzie 10 edków"
@@ -2788,7 +2835,7 @@ label vradeZewn:
             $ veq += 1
             "Wydałeś 2 vdolce na Wytrych"
 
-        "Flaszka?" if vdolce >= 1:
+        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False:
             $ inventory.add_item(Flaszka)
             $ vdolce -= 1
             $ veq += 1
@@ -2913,8 +2960,20 @@ label wojsko:
         jump rozstaje
 
     elif wojsko_stan > 4: 
+        if wojsko_stan == 8:
+            achieve Full
+
         gk "Dobra robota szczylu."
         gk "Udało Ci się zdobyć przyjaźń z innymi dzbanami"
+        menu:
+            gk "Jesteście gotowi na tajną misję?"
+            "Kurwa no pewex":
+                gk "Git"
+            
+            "Daj mi jeszcze trochę czasu":
+                gk "Spoczko"
+                jump rozstaje
+
         gk "Więc lecicie na super tajną misję"
         gk "Siłą przyjaźni musicie wysadzić jedno z vniazd"
         gk "Prowadzą tam badania nad ściśle tajnym projektem Vezuwiusz"
@@ -2922,6 +2981,7 @@ label wojsko:
         if inventory.has_item(Pistolecik)== False:
             gk "Masz przyda Ci się"
             $ inventory.add_item(Pistolecik)
+            
         jump wojowezadanie
 
 label wojowezadanie:
@@ -3530,10 +3590,12 @@ label wojowezadanie:
         c "Szybko się uczysz, będą z Ciebie psy"
         c "Diamentowe takie"
         scene cypherkopter
+        play sound "heli.mp3"
         "Pyr pyr pyr"
         p "Gdzie my lecimy?"
         c "To jest ważna misja"
         c "Lecimy do żabki"
+        stop sound
         scene frogszop
         stop music
         play music "chill.mp3"
@@ -3617,6 +3679,7 @@ label wojowezadanie:
         play music "CMS.mp3"
         p "W sensie?"
         "Ciper kopter zaczął lecieć prosto w budynek"
+        stop sound
         play sound "BOOM.mp3"
         scene black
         c "Kolejne udane lądowanie (2 martwych, 14 rannych)"
@@ -3646,6 +3709,7 @@ label wojowezadanie:
         p "Serio?"
         c "NIE KURWA. JEDYNYM WEZUWIUSZEM TU JESTEM JA"
         c "ROZPIERDOLĘ ICH"
+        hide cypher
         "Rozsierdzony wyszedł z labu"
         "I po chwili zawył alarm"
         play sound "alarm.ogg"
@@ -3674,6 +3738,7 @@ label wojowezadanie:
         p "Jasna dupa, zaraz tu umrę"
         "Vistowa grupa bojowa jest tuż za tobą"
         p "KURWA CYPHER"
+        show cypher at bounce
         c "Jestem"
         p "Co!"
         c "Pa na to"
@@ -3864,6 +3929,7 @@ label wojowezadanie:
         k "[player_name] zajmiesz się nim?"
         p "Popierdoliło Cię, jak ja mam chujowe staty"
         k "No to patrz na to"
+        scene stand
         k "W imię ojca, i syna i uda wielkiego"
         k "Niech wpierdol dosięgnie jego"
         v "Vo Vhuj Vi vodzi?"
@@ -3948,12 +4014,12 @@ label amongthev:
     show vista
     $ config.rollback_enabled = False
     v "Vitam v vlubie"
-    v "Jestem Viesiek"
-    v "Będę twoim vrzewodnikiem"
-    v "Oprowadzę Cię po vokolicy"
+    v "Vestem Viesiek"
+    v "Vędę vwoim vrzewodnikiem"
+    v "Vprowadzę Vię vo vokolicy"
     show vechnik
-    v "Tutaj mamy vechnika"
-    v "Nie przeszkadzaj mu lepiej"
+    v "Vutaj vamy vechnika"
+    v "Vie vrzeszkadzaj vu vepiej"
     v "Jak go wkurwisz, to Ci jeszcze Vpierdoli"
     hide vechnik
     v "Vobra, przejdź się po okolicy, poszukaj dla siebie roboty"
@@ -4372,7 +4438,7 @@ label vrade:
             $ veq += 1
             "Wydałeś 2 vdolce na Wytrych"
 
-        "Flaszka?" if vdolce >= 1:
+        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False:
             $ inventory.add_item(Flaszka)
             $ vdolce -= 1
             $ veq += 1
@@ -4574,6 +4640,14 @@ label amongthevpods:
         c "Pojebało się"
         hide cypher with dissolve
         jump kuchnia
+
+
+label gatekeeper:
+    return
+
+
+label podpowiedz:
+    return
 
 
 label tempend:

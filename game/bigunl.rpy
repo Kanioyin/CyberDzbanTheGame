@@ -100,6 +100,18 @@ label bigunl:
         elif nua > 31 and cnt == 32:
             galleryunlock cg31
 
+        elif nua > 32 and cnt == 33:
+            galleryunlock cg32
+
+        elif nua > 33 and cnt == 34:
+            galleryunlock cg33
+
+        elif nua > 34 and cnt == 35:
+            galleryunlock cg34
+
+        elif nua > 35 and cnt == 36:
+            galleryunlock cg35
+
         else:
             return
 

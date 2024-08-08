@@ -2,9 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 436: expected statement.
-    window Hide
-          ^
+File "game/script.rpy", line 169: reached end of line when expecting ':'.
+    if inventory.has_item(Flaszka) == True
+                                          ^
+
+File "game/script.rpy", line 178: expected statement.
+    else:
+        ^
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Wed Aug  7 11:34:36 2024
+Thu Aug  8 21:02:26 2024
