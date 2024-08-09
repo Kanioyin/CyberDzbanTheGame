@@ -1,64 +1,41 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 403, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 442, in script
-    pause 1
-  File "renpy/common/000statements.rpy", line 460, in execute_pause
-    renpy.pause(delay)
-  File "game/minimapa.rpy", line 27, in execute
-  File "game/minimapa.rpy", line 27, in execute
-  File "game/minimapa.rpy", line 31, in execute
-Exception: Imagebutton does not have a idle image. (auto='dom_%s').
+  File "game/script.rpy", line 342, in script
+    "[Inventory.self.quantity]"
+AttributeError: type object 'Inventory' has no attribute 'self'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 403, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 442, in script
-    pause 1
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1968, in execute
-    self.call("execute")
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1950, in call
-    return renpy.statements.call(method, parsed, *args, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\statements.py", line 349, in call
-    return method(parsed, *args, **kwargs)
-  File "renpy/common/000statements.rpy", line 460, in execute_pause
-    renpy.pause(delay)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports.py", line 1661, in pause
-    rv = renpy.ui.interact(mouse='pause', type='pause', roll_forward=roll_forward, pause=delay, pause_modal=modal)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2165, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2687, in interact_core
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\displayable.py", line 431, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\displayable.py", line 431, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\displayable.py", line 431, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 480, in visit_all
-    callback(self)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2687, in <lambda>
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 491, in per_interact
-    self.update()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 697, in update
-    self.screen.function(**self.scope)
-  File "game/minimapa.rpy", line 27, in execute
-  File "game/minimapa.rpy", line 27, in execute
-  File "game/minimapa.rpy", line 31, in execute
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 950, in _imagebutton
-    idle = choice(idle, idle_image, "idle", required=True)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 944, in choice
-    raise Exception("Imagebutton does not have a %s image. (auto=%r)." % (name, auto))
-Exception: Imagebutton does not have a idle image. (auto='dom_%s').
+  File "game/script.rpy", line 342, in script
+    "[Inventory.self.quantity]"
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2557, in execute
+    Say.execute(self)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 615, in execute
+    renpy.exports.say(who, what, *args, **kwargs)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports.py", line 1493, in say
+    who(what, *args, **kwargs)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1379, in __call__
+    what = self.prefix_suffix("what", self.what_prefix, what, self.what_suffix)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1293, in prefix_suffix
+    return (sub(prefix) + sub(body) + sub(suffix))
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1273, in sub
+    return renpy.substitutions.substitute(s, scope=scope, force=force, translate=translate)[0]
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\substitutions.py", line 368, in substitute
+    s = interpolate(s, kwargs) # type: ignore
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\substitutions.py", line 86, in interpolate
+    raise e
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\substitutions.py", line 78, in interpolate
+    value = renpy.python.py_eval(code, {}, scope)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1209, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1202, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "<none>", line 1, in <module>
+AttributeError: type object 'Inventory' has no attribute 'self'
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.2.1.24030407
 CyberDzban 0.000000008
-Wed Aug  7 13:59:07 2024
+Fri Aug  9 20:39:23 2024

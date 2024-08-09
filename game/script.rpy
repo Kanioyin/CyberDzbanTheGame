@@ -14,6 +14,7 @@ define kr = Character(_("Krateus"), color = "#023a10")
 define mg = Character(_("Wielki Dzik"), color = "#482809")
 define fse = Character(_("Babka from żabka"), color = "#006600")
 define sb = Character(_("Ktoś"), color = "#000000")
+define gr = Character(_("Grupa"), color = "#324511")
 
 init python:
     import os 
@@ -21,6 +22,13 @@ init python:
         def __init__(self, items, quantity):
             self.items = items
             self.quantity = quantity
+
+        def has_space(self, max):
+            if self.quantity <= max:
+                return True
+            
+            else:
+                return False
 
         def add_item(self,item):
             self.items.append(item)
@@ -52,23 +60,6 @@ init python:
         def __init__(self, name, desc):
             self.name = name
             self.desc = desc
-
-
-    class quest():
-        def __init__(self,name,giver,reward,req):
-            self.name = name
-            self.giver = giver
-            self.reward = reward
-            self.req = req
-
-        def add_quest(self,giver,reward,req):
-            self.name = name
-            self.giver = giver
-            self.reward = reward
-            self.req = req
-
-        def finish_quest(self,giver,reward,req):
-            pass
 
 
 label updict(Who,dict):
@@ -139,7 +130,7 @@ label checkHP(dmg):
         
     if armor == 0 and inventory.has_item(MalyArmor) == True:
         $ inventory.remove_item(MalyArmor)
-        p "Pancerz się cały rozsypał"
+        p "Pancerz się rozsypał"
 
     if HP < 0:
         $ HP = 0
@@ -226,7 +217,7 @@ label start:
     default HP = 0
     $ HP = MaxHP
     default Frakcja = 0
-    default BagLV = 1
+    default Cap = 4
     # 0 = Niezrzeszony
     # 1 = DH
     # 2 = DN
@@ -1874,118 +1865,120 @@ label klinika:
                     pl "No to szkoda" 
 
     if akt == 1:
-        if stan["Laskawca"] == 0:
-            pl "No to opowiadaj, jak Ci życie mija"
-            pl "Powiem Ci, u mnie jest dość ciężko. Szukam serwera dla baby"
-            pl "Kiedyś w bazie mieliśmy cały czas jakiegoś netrunnera"
-            pl "Ale przez cały ten konflikt z Vistami"
-            pl "To mało kto chce się pojawić"
-            pl "Raz mieliśmy taki zajebisty serwer"
-            pl "To się okazało że pali ludzi, jak się do niego wpięli"
-            pl "Przez trzy tygodnie się kłócili co z nim zrobić"
-            pl "I kurwa nawet nie pamiętam co się z nim stało"
-            pl "Jakbyś znalazł jakiś fajny serwerek"
-            pl "To daj mi cynk, wynagrodzę cię"
-            $ config.rollback_enabled = False
-            menu:
-                "Mam nadzieję, że w naturze ( ͡° ͜ʖ ͡°)":
-                    show ciphate with dissolve
-                    pl "Kto wie kotku."
-                    hide ciphate with dissolve
-                
-                "Mam nadzieję, że w edkach":
-                    pl "Pitos się znajdos"
+        if bigquest < 5:
+            if stan["Laskawca"] == 0:
+                pl "No to opowiadaj, jak Ci życie mija"
+                pl "Powiem Ci, u mnie jest dość ciężko. Szukam serwera dla baby"
+                pl "Kiedyś w bazie mieliśmy cały czas jakiegoś netrunnera"
+                pl "Ale przez cały ten konflikt z Vistami"
+                pl "To mało kto chce się pojawić"
+                pl "Raz mieliśmy taki zajebisty serwer"
+                pl "To się okazało że pali ludzi, jak się do niego wpięli"
+                pl "Przez trzy tygodnie się kłócili co z nim zrobić"
+                pl "I kurwa nawet nie pamiętam co się z nim stało"
+                pl "Jakbyś znalazł jakiś fajny serwerek"
+                pl "To daj mi cynk, wynagrodzę cię"
+                $ config.rollback_enabled = False
+                menu:
+                    "Mam nadzieję, że w naturze ( ͡° ͜ʖ ͡°)":
+                        show ciphate with dissolve
+                        pl "Kto wie kotku."
+                        hide ciphate with dissolve
+                    
+                    "Mam nadzieję, że w edkach":
+                        pl "Pitos się znajdos"
 
-                "Dla Ciebie, poszukam za friko":
-                    pl "No to mam u Ciebie dług"
-                    $ postacie["Laskawca"] += 2
+                    "Dla Ciebie, poszukam za friko":
+                        pl "No to mam u Ciebie dług"
+                        $ postacie["Laskawca"] += 2
 
-            $ renpy.block_rollback()
-            $ config.rollback_enabled = True
-            pl "No to czekam na info z niecierpliwością"
-            $ stan["Laskawca"] = 1
-            jump rozstaje
-
-        elif stan["Laskawca"] == 1 and bigquest == 5:
-            pl "Czekam dalej"
-            p "To przestań czekać i ruszamy na poszukiwania"
-            pl "Karamba, jesteś dobrym mówcą"
-            scene szop
-            show laskawca at right
-            "Wyruszyliście do lokalnego sklepiku"
-            "I poznaliście miejsce następnego nocnego"
-            pl "Nocny market w Night City"
-            p "No, delikatny cringe"
-            pl "Ale chuj, potrzebuję kobiety"
-            p "Co?"
-            pl "Dowiesz się w swoim czasie, pierdol się"
-            p "Skąd ta agresja?"
-            pl "Sorki, poniosło mnie"
-            "I wyruszyliście na nocny"
-            scene nocny
-            show gun at left
-            show laskawca at right
-            pl "O! Witaj Gunie"
-            g "Ser dobry panowie"
-            pl "Czego tu szukasz"
-            g "Dobry towar gorgonzola"
-            pl "Jakieś gówno pewnie, nie słyszałem o tym"
-            g "Chuja się znasz skośnooki"
-            hide gun
-            p "Wy zawsze się tak gryziecie?"
-            pl "Co jak co ale Gunowi nie ufam"
-            p "Dlaczego?"
-            pl "Nie wiem w sumie, tak dla jajec"
-            pl "Bardzo chętnie bym go zabił"
-            p "Ok, zostawmy ten temat"
-            "Sprawdziliście kilka straganów"
-            "I pojawił się sprzedawca sieciowy"
-            pl "Szanowny panie, 5 koła za to!?"
-            pl "Literalnie cie popierdoliło"
-            if edki > 4999:
-                p "Spokojnie Łaskawca, mnie na to stać"
-                $ edki -= 5000
-                pl "Jesteś pojebany"
-                pl "Gigantyczne czołgi człowieku"
-                pl "Masz mój miecz, pistolet i co tylko zapragniesz"
-                achieve Laspp
-                achieve Bogol
-                $ czas -= 5
-                $ postacie ["Laskawca"] += 20
-                $ stan["Laskawca"] = 2
+                $ renpy.block_rollback()
+                $ config.rollback_enabled = True
+                pl "No to czekam na info z niecierpliwością"
+                $ stan["Laskawca"] = 1
                 jump rozstaje
 
-            p "No plus jeden, to pewnie nawet tetrisa nie uciągnie"
-            show ciphate with dissolve
-            "Ale wasze gadanie nic nie dało"
-            hide ciphate with dissolve
-            pl "Dobra, chuj z tym, wracamy do bazy"
-            scene klinika
-            show laskawca at right
-            pl "5000 edków, to jest mała fortuna"
-            "Nie, nie chodzi mu o piwo"
-            pl "Musielibyśmy napaść na bank"
-            p "Kennedy ma robotę dla nas"
-            pl "Ile płaci?"
-            p "Dobre pytanie"
-            pl "Popierdoli mnie"
-            pl "Jakieś wymagania ma do roboty?"
-            p "Musimy zostać przyjaciółmi"
-            pl "Ja pierdolę"
-            pl "Dobra, możemy być?"
-            pl "To musimy iść na jakąś randkę?"
-            p "Pomińmy to, powiedzmy, że my ziomki"
-            pl "No i dobra, fren"
-            p "Fren"
-            pl "To daj mi znać jak będzie akcja"
-            p "Luzik arbuzik"
-            scene black
-            p "Dobra, jeden z głowy"
-            achieve Laspp
-            $ czas -= 5
-            $ postacie ["Laskawca"] += 1
-            $ stan["Laskawca"] = 2
-            jump rozstaje
+        elif bigquest == 5:
+            if stan["Laskawca"] == 1:
+                pl "Czekam dalej"
+                p "To przestań czekać i ruszamy na poszukiwania"
+                pl "Karamba, jesteś dobrym mówcą"
+                scene szop
+                show laskawca at right
+                "Wyruszyliście do lokalnego sklepiku"
+                "I poznaliście miejsce następnego nocnego"
+                pl "Nocny market w Night City"
+                p "No, delikatny cringe"
+                pl "Ale chuj, potrzebuję kobiety"
+                p "Co?"
+                pl "Dowiesz się w swoim czasie, pierdol się"
+                p "Skąd ta agresja?"
+                pl "Sorki, poniosło mnie"
+                "I wyruszyliście na nocny"
+                scene nocny
+                show gun at left
+                show laskawca at right
+                pl "O! Witaj Gunie"
+                g "Ser dobry panowie"
+                pl "Czego tu szukasz"
+                g "Dobry towar gorgonzola"
+                pl "Jakieś gówno pewnie, nie słyszałem o tym"
+                g "Chuja się znasz skośnooki"
+                hide gun
+                p "Wy zawsze się tak gryziecie?"
+                pl "Co jak co ale Gunowi nie ufam"
+                p "Dlaczego?"
+                pl "Nie wiem w sumie, tak dla jajec"
+                pl "Bardzo chętnie bym go zabił"
+                p "Ok, zostawmy ten temat"
+                "Sprawdziliście kilka straganów"
+                "I pojawił się sprzedawca sieciowy"
+                pl "Szanowny panie, 5 koła za to!?"
+                pl "Literalnie cie popierdoliło"
+                if edki > 4999:
+                    p "Spokojnie Łaskawca, mnie na to stać"
+                    $ edki -= 5000
+                    pl "Jesteś pojebany"
+                    pl "Gigantyczne czołgi człowieku"
+                    pl "Masz mój miecz, pistolet i co tylko zapragniesz"
+                    achieve Laspp
+                    achieve Bogol
+                    $ czas -= 5
+                    $ postacie ["Laskawca"] += 20
+                    $ stan["Laskawca"] = 2
+                    jump rozstaje
+
+                p "No plus jeden, to pewnie nawet tetrisa nie uciągnie"
+                show ciphate with dissolve
+                "Ale wasze gadanie nic nie dało"
+                hide ciphate with dissolve
+                pl "Dobra, chuj z tym, wracamy do bazy"
+                scene klinika
+                show laskawca at right
+                pl "5000 edków, to jest mała fortuna"
+                "Nie, nie chodzi mu o piwo"
+                pl "Musielibyśmy napaść na bank"
+                p "Kennedy ma robotę dla nas"
+                pl "Ile płaci?"
+                p "Dobre pytanie"
+                pl "Popierdoli mnie"
+                pl "Jakieś wymagania ma do roboty?"
+                p "Musimy zostać przyjaciółmi"
+                pl "Ja pierdolę"
+                pl "Dobra, możemy być?"
+                pl "To musimy iść na jakąś randkę?"
+                p "Pomińmy to, powiedzmy, że my ziomki"
+                pl "No i dobra, fren"
+                p "Fren"
+                pl "To daj mi znać jak będzie akcja"
+                p "Luzik arbuzik"
+                scene black
+                p "Dobra, jeden z głowy"
+                achieve Laspp
+                $ czas -= 5
+                $ postacie ["Laskawca"] += 1
+                $ stan["Laskawca"] = 2
+                jump rozstaje
 
         else:
             pl "U mnie po staremu, wracaj do siebie"
@@ -2444,9 +2437,9 @@ label sypialnia:
                     $ inventory.remove_item(Flaszka)
                     $ HP += 5
 
-                if edki > 10:
+                if edki > 19:
                     "Przed snem zjadłeś jeszcze coś z automatu"
-                    $ edki -= 10
+                    $ edki -= 20
                     $ HP += cechy["BC"]
                     if HP > MaxHP:
                         $ HP = MaxHP
@@ -2642,6 +2635,10 @@ label spacerek:
             p "Ty kurwa, żabka jest obok, zapamiętam to sobie"
             $ znajOkol = 2
 
+        elif znajOkol == 3:
+            p "Ten ziomek przypadkiem nie powiększa wora?"
+            p "Muszę to sprawdzić"
+
         else:
             p "Jaki fajny plasterek"
             if HP < MaxHP:
@@ -2716,6 +2713,7 @@ label spacerek:
 
 
 label trader:
+    $ czas -= 2
     stop music
     play music "szop.mp3" volume 0.2
     scene szop
@@ -2754,6 +2752,7 @@ label trader:
 
 
 label frogszop:
+    $ czas -= 1
     scene frogszop
     fse "Dzień dobry"
     $ helper = 1
@@ -2811,6 +2810,7 @@ label frogszop:
 
 
 label vradeZewn:
+    $ czas -= 3
     scene vshop
     menu:
         v "Co chciałbyś zakupić?"
@@ -2853,8 +2853,19 @@ label vradeZewn:
 
     jump rozstaje
 
+label workowiec:
+    $ czas -= 2
+    menu:
+        p "Czy chcę powiększyć wora?"
+        "Pewex" if edki > (Cap*2)*100:
+            p "Zwiększaj"
+            $ Cap += 1
+
+        "Lepiej nie":
+            jump rozstaje 
 
 label wojsko:
+    $ czas -= 5
     scene wojsko
     if wojsko_stan == 0:
         show genken at right
@@ -2921,7 +2932,6 @@ label wojsko:
 
         if stan["Kalach"] == 5:
             "Pochwaliłeś się przyjaźnią z Kałachem"
-
             gk "Jeśli Kałach leci z tobą, musisz go pilnować"
             gk "Jeśli znajdę jakiegokolwiek dildosa na terenie akcji"
             gk "To Ciebie złapią konsekwencje"
@@ -2960,8 +2970,10 @@ label wojsko:
         jump rozstaje
 
     elif wojsko_stan > 4: 
-        if wojsko_stan == 8:
+        if wojsko_stan > 7:
             achieve Full
+            mg "Gratulacje, zebrałeś całą drużynę"
+            mg "Wasze szanse na przetrwanie są zwiększone"
 
         gk "Dobra robota szczylu."
         gk "Udało Ci się zdobyć przyjaźń z innymi dzbanami"
@@ -3683,7 +3695,7 @@ label wojowezadanie:
         play sound "BOOM.mp3"
         scene black
         c "Kolejne udane lądowanie (2 martwych, 14 rannych)"
-        scene vezuwiusz
+        scene wonsuwiusz
         show cypher
         c "Proszę proszę, tożto laboratorium"
         c "Sprawdźmy to"
@@ -3705,6 +3717,8 @@ label wojowezadanie:
         c "JAK JA MAM BYĆ KURWA SPOKOJNY?"
         p "O patrz"
         "Podszedłeś do plakatu i oderwałeś wąs"
+        scene vezuwiusz
+        show cypher
         c "No dobra, uspokoiłem się"
         p "Serio?"
         c "NIE KURWA. JEDYNYM WEZUWIUSZEM TU JESTEM JA"
