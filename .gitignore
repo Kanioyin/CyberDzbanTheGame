@@ -1,2 +1,4 @@
 
 *.keystore
+/game/saves
+*.save

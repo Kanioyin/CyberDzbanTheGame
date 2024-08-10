@@ -210,12 +210,12 @@ screen map_screen():
             unhovered SetVariable("screen_tooltip","")
             action Hide("map_screen"), Jump("frogszop")
 
-    if znajOkol > 3:
+    if znajOkol > 2:
         imagebutton auto "city_wor_%s":
             focus_mask True
             hovered SetVariable("screen_tooltip", "Return")
             unhovered SetVariable("screen_tooltip","")
-            action Hide("map_screen"), Jump("frogszop")
+            action Hide("map_screen"), Jump("workowiec")
 
     if Frakcja == 3:
         imagebutton auto "city_vlok_%s":

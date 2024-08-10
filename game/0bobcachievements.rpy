@@ -55,6 +55,7 @@ define BOBCACHIEVEMENT_LIST = (
     ("Frik", _("Pierwsza działka"), _("Ten koks to faktycznie fajna sprawa.")),
     ("Tam", _("Jeść, pić, spać"), _("Srać mi też się chce.")),
     ("Full", _("Drużyna pierdzenia"), _("Jak ty chyba masz max charyzmy.")),
+    ("Clos", _("Było blisko"), _("Faktycznie warto było go mieć.")),
     )
     
 # 3) In your game script, when you want to grant an achievement, type "achieve <reference_id>" without the
@@ -71,7 +72,7 @@ define BOBCACHIEVEMENT_LIST = (
 #    want to display them using a custom screen instead, override the screen variable with a string of
 #    the name of the screen you want to use. Or just change the prefix text to whatever you desire.
 define BOBCACHIEVEMENT_SCREEN_NAME = None
-define BOBCACHIEVEMENT_NOTIFY_PREFIX = _("Co Ci się udało zdobyć:")
+define BOBCACHIEVEMENT_NOTIFY_PREFIX = _("Osiągnąłeś:")
 define BOBCACHIEVEMENT_SCREEN_TRANSITION = Dissolve(0.5)
 
 # 5) If you use a screen instead, it must take two string params of achievement title and description.

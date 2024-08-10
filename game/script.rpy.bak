@@ -14,12 +14,21 @@ define kr = Character(_("Krateus"), color = "#023a10")
 define mg = Character(_("Wielki Dzik"), color = "#482809")
 define fse = Character(_("Babka from żabka"), color = "#006600")
 define sb = Character(_("Ktoś"), color = "#000000")
+define gr = Character(_("Grupa"), color = "#324511")
 
 init python:
+    import os 
     class Inventory():
         def __init__(self, items, quantity):
             self.items = items
             self.quantity = quantity
+
+        def has_space(self, max):
+            if self.quantity <= max:
+                return True
+            
+            else:
+                return False
 
         def add_item(self,item):
             self.items.append(item)
@@ -51,23 +60,6 @@ init python:
         def __init__(self, name, desc):
             self.name = name
             self.desc = desc
-
-
-    class quest():
-        def __init__(self,name,giver,reward,req):
-            self.name = name
-            self.giver = giver
-            self.reward = reward
-            self.req = req
-
-        def add_quest(self,giver,reward,req):
-            self.name = name
-            self.giver = giver
-            self.reward = reward
-            self.req = req
-
-        def finish_quest(self,giver,reward,req):
-            pass
 
 
 label updict(Who,dict):
@@ -138,7 +130,7 @@ label checkHP(dmg):
         
     if armor == 0 and inventory.has_item(MalyArmor) == True:
         $ inventory.remove_item(MalyArmor)
-        p "Pancerz się cały rozsypał"
+        p "Pancerz się rozsypał"
 
     if HP < 0:
         $ HP = 0
@@ -165,23 +157,26 @@ label checkHP(dmg):
 
 label klontwakalacha:
     if postacie["Kalach"] < 0:
-        k "Wyczuwam flaszki, pora się napić"
-        achieve Curs
-        python:
-            postacie["Kalach"] = 0
-            while inventory.has_item(Flaszka) == True:
-                inventory.remove_item(Flaszka)
-        return
-    
+        if inventory.has_item(Flaszka) == True:
+            k "Wyczuwam flaszki, pora się napić"
+            achieve Curs
+            python:
+                postacie["Kalach"] = 0
+                while inventory.has_item(Flaszka) == True:
+                    inventory.remove_item(Flaszka)
+            return
+
+        else:
+            return
+
     else:
         return
-
 
 
 transform bounce:
     linear 3.0 xalign 1.0
     linear 3.0 xalign 0.0
-    repeat
+    repeat 2
 
 
 label start:
@@ -222,7 +217,7 @@ label start:
     default HP = 0
     $ HP = MaxHP
     default Frakcja = 0
-    default BagLV = 1
+    default Cap = 4
     # 0 = Niezrzeszony
     # 1 = DH
     # 2 = DN
@@ -311,6 +306,11 @@ label start:
             $ postacie["Gun"] = -99
             $ helper = 0
 
+        elif player_name == "Hubert":
+            k "Spierdalaj"
+            $ postacie["Kalach"] = -5
+            $ helper = 0
+
         elif player_name == "Kennedy" or player_name == "Ken":
             gk "Szczylu, uspokuj się"
 
@@ -329,6 +329,7 @@ label start:
 
     
     "Nie miałeś edków"
+    call bigunl
     "Sensu życia"
     "Ani nawet broni"
 
@@ -376,6 +377,7 @@ label start:
 # intro
 
 label intro:
+    $ helper = 1
     achieve Poczatek
     scene kuchnia
     show gun at right
@@ -430,7 +432,15 @@ label rozstaje:
             jump sypialnia
 
         "Wychodzę stąd" if akt > 0:
-            jump miasto
+            show screen map_screen
+            window hide
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            jump rozstaje
 
 label kuchnia:
     scene kuchnia
@@ -442,12 +452,14 @@ label kuchnia:
                 g "To pomoże Ci z kałachem"
                 g "Daj mu tę flachę"
                 jump rozstaje
+
             elif postacie["Kalach"] == 0:
                 g "Masz, to Ci pomoże zdobyć zaufanie księdza"
                 play sound "THROWING.mp3"
                 $ inventory.add_item(Flaszka)
                 g "Daj mu to, powinien Cię polubić"
                 jump rozstaje
+
         elif stan["Gun"] > 2:
             g "Skończyłeś już pogaduszki?"
             menu:
@@ -470,6 +482,7 @@ label kuchnia:
             g "Ser dobry, [player_name]"
             if dzien < 3:
                 g "Daj mi trochę czasu roboty szukam"
+
             if inventory.has_item(Klapek) == True:
                 p "Mam przesyłkę od Cyphera"
                 g "Co on znowu chce?"
@@ -484,6 +497,7 @@ label kuchnia:
                 g "Tak czy siak, nic dobrego to nie oznacza"
                 g "Zdupcaj, muszę pomyśleć"
                 jump rozstaje
+
             else:
                 pass
 
@@ -545,7 +559,7 @@ label kuchnia:
                         show laskawca at right with moveinright
                         pl "A co tu się dzieje?"
                         p "O fak"
-                        P "Szybki dodge"
+                        p "Szybki dodge"
                         "Ale ten dodge zabrał Ci cenne sekundy"
                         g "Jestem bliżej"
                         "Wbiegacie na dach"
@@ -697,7 +711,7 @@ label kuchnia:
                 g "Zapomłem"
                 show laskawca
                 pl "Jeden token mniej (4)"
-                hide laskawca
+                hide laskawca with dissolve
                 g "Popierdoli mnie z tym pedantem, każdego trolla mi liczy"
                 p "O chuj chodzi w tej waszej relacji"
                 g "Nie mam zielonego pojęcia"
@@ -712,13 +726,13 @@ label kuchnia:
                 g "Nie. Dlatego że jesteśmy na miejscu"
                 stop music
                 play music "Monkeys Spinning Monkeys.mp3" volume 0.2
+                scene badblok
                 p "O cholera"
                 g "Dokładnie, Fredi Fazber"
                 p "Co?"
                 g "Zobaczysz w środku"
                 g "Ale najpierw. Raty aktywacja!"
                 "Gun wyjął worek z plecaka i wypuścił 83 szczury."
-                scene badblok
                 show gun at left
                 g "W tym miejscu mieszkał jeden z większych zbrodniarzy"
                 p "Hitler?"
@@ -731,7 +745,7 @@ label kuchnia:
                 p "Dobra, chuj, miejmy to za sobą"
                 scene black
                 stop music
-                play music "spook.oog"
+                play music "spook.ogg"
                 "Weszliście do środka"
                 p "Kurwa jak tu ciemno"
                 g "A to była jego matka"
@@ -838,7 +852,7 @@ label kuchnia:
                 $ czas = 0
                 jump rozstaje
             
-            if stan["Gun"] == 3 and stan["Jhin"] < 2:
+            if stan["Gun"] == 3:
                 if stan["Jhin"] == 9:
                     g "Chciałem pojechać z Jhinem na zadanie bojowe ale mu się zdechło"
                     g "Więc to mamy już z głowy"
@@ -846,7 +860,7 @@ label kuchnia:
                     "Wychodzisz z kuchni"
                     jump rozstaje
                 
-                elif stan["Jhin"] == 3:
+                elif stan["Jhin"] < 4:
                     g "Pogadaj z Jhinem, jak zrobisz z nim trochę roboty to zapraszam"
                     jump rozstaje
 
@@ -974,6 +988,14 @@ label kuchnia:
                     $ czas = 0
                     jump rozstaje
 
+            if stan["Gun"] == 5:
+                g "Idź do tego Kena"
+                jump rozstaje
+
+            if stan["Gun"] == 6:
+                g "To czekam aż dasz znać i idziemy na kłest"
+                jump rozstaje            
+
     if inventory.has_item(Ser) == True:
         p "Mam coś dla Ciebie gun"
         $ inventory.remove_item(Ser)
@@ -1052,7 +1074,12 @@ label kosciol:
                 $ stan["Kalach"] += 1
                 jump rozstaje
 
-            elif stan["Kalach"] == 1:
+            else:
+                "Kałach alkoholizuje się, lepiej mu nie przeszkadzaj"
+                jump rozstaje
+
+        elif bigquest == 3 or bigquest == 4:
+            if stan["Kalach"] != 2:
                 if dzien < 10:
                     "Kościół jest zamknięty, wróć później"
                     jump rozstaje
@@ -1089,30 +1116,40 @@ label kosciol:
                         $ config.rollback_enabled = True
                     jump rozstaje
 
-            elif bigquest == 5:
-                k "No witam witam"
-                k "Przyszedłeś po przebaczenie grzechów?"
-                p "Nie Kałachu, muszę zostać twoim przyjacielem"
-                k "Co kurwa?"
-                p "Kennedy szuka ludzi na misję"
-                p "A ja muszę się z wami zakumplować"
-                k "Łe dobra, nie strasz mnie kurwa"
-                k "Już myślałem że Hubert gra"
-                k "A wiesz, on jest fanem Yaoj"
-                k "A to nie jest dating sim"
-                k "Tylko CPTG"
-                k "Ale no dobra, nie chce mi się z tobą gadać"
-                k "Powiedzmy, że jak będziemy musieli się napierdalać"
-                k "To masz mój karabin"
-                achieve Kalpp
-                if Frakcja == 1:
-                    show cypher with moveinright
-                    c "Ale on już ma twój sprzęt"
-                    k "Spierdalaj"
-                    hide cypher with moveoutright
-                $ postacie["Kalach"] += 1
-                $ czas -= 2
-                $ stan["Kalach"] = 5
+        elif bigquest == 5:
+            if stan["Kalach"] == 3:
+                k "Hubert spierdalaj"
+                jump rozstaje
+
+            k "No witam witam"
+            k "Przyszedłeś po przebaczenie grzechów?"
+            p "Nie Kałachu, muszę zostać twoim przyjacielem"
+            k "Co kurwa?"
+            p "Kennedy szuka ludzi na misję"
+            p "A ja muszę się z wami zakumplować"
+            if [player_name] == "Hubert":
+                k "Kurwa Hubert, spierdalaj"
+                $ stan["Kalach"] = 3
+                jump rozstaje
+
+            k "Łe dobra, nie strasz mnie kurwa"
+            k "Już myślałem że Hubert gra"
+            k "A wiesz, on jest fanem Yaoj"
+            k "A to nie jest dating sim"
+            k "Tylko CPTG"
+            k "Ale no dobra, nie chce mi się z tobą gadać"
+            k "Powiedzmy, że jak będziemy musieli się napierdalać"
+            k "To masz mój karabin"
+            achieve Kalpp
+            if Frakcja == 1:
+                show cypher with moveinright
+                c "Ale on już ma twój sprzęt"
+                k "Spierdalaj"
+                hide cypher with moveoutright
+
+            $ postacie["Kalach"] += 1
+            $ czas -= 2
+            $ stan["Kalach"] = 5
 
         else:
             k "Czego ty kurwa chcesz?"
@@ -1579,6 +1616,7 @@ label warsztat:
         h "Kim ty kurwa jesteś?"
         h "Dlaczego mi kurwa przeszkadzasz w robocie?"
         h "Spierdalaj, albo Ci migomatem przypierdolę"
+        stop sound
         jump rozstaje
 
     elif akt == 1:
@@ -1827,118 +1865,120 @@ label klinika:
                     pl "No to szkoda" 
 
     if akt == 1:
-        if stan["Laskawca"] == 0:
-            pl "No to opowiadaj, jak Ci życie mija"
-            pl "Powiem Ci, u mnie jest dość ciężko. Szukam serwera dla baby"
-            pl "Kiedyś w bazie mieliśmy cały czas jakiegoś netrunnera"
-            pl "Ale przez cały ten konflikt z Vistami"
-            pl "To mało kto chce się pojawić"
-            pl "Raz mieliśmy taki zajebisty serwer"
-            pl "To się okazało że pali ludzi, jak się do niego wpięli"
-            pl "Przez trzy tygodnie się kłócili co z nim zrobić"
-            pl "I kurwa nawet nie pamiętam co się z nim stało"
-            pl "Jakbyś znalazł jakiś fajny serwerek"
-            pl "To daj mi cynk, wynagrodzę cię"
-            $ config.rollback_enabled = False
-            menu:
-                "Mam nadzieję, że w naturze ( ͡° ͜ʖ ͡°)":
-                    show ciphate with dissolve
-                    pl "Kto wie kotku."
-                    hide ciphate with dissolve
-                
-                "Mam nadzieję, że w edkach":
-                    pl "Pitos się znajdos"
+        if bigquest < 5:
+            if stan["Laskawca"] == 0:
+                pl "No to opowiadaj, jak Ci życie mija"
+                pl "Powiem Ci, u mnie jest dość ciężko. Szukam serwera dla baby"
+                pl "Kiedyś w bazie mieliśmy cały czas jakiegoś netrunnera"
+                pl "Ale przez cały ten konflikt z Vistami"
+                pl "To mało kto chce się pojawić"
+                pl "Raz mieliśmy taki zajebisty serwer"
+                pl "To się okazało że pali ludzi, jak się do niego wpięli"
+                pl "Przez trzy tygodnie się kłócili co z nim zrobić"
+                pl "I kurwa nawet nie pamiętam co się z nim stało"
+                pl "Jakbyś znalazł jakiś fajny serwerek"
+                pl "To daj mi cynk, wynagrodzę cię"
+                $ config.rollback_enabled = False
+                menu:
+                    "Mam nadzieję, że w naturze ( ͡° ͜ʖ ͡°)":
+                        show ciphate with dissolve
+                        pl "Kto wie kotku."
+                        hide ciphate with dissolve
+                    
+                    "Mam nadzieję, że w edkach":
+                        pl "Pitos się znajdos"
 
-                "Dla Ciebie, poszukam za friko":
-                    pl "No to mam u Ciebie dług"
-                    $ postacie["Laskawca"] += 2
+                    "Dla Ciebie, poszukam za friko":
+                        pl "No to mam u Ciebie dług"
+                        $ postacie["Laskawca"] += 2
 
-            $ renpy.block_rollback()
-            $ config.rollback_enabled = True
-            pl "No to czekam na info z niecierpliwością"
-            $ stan["Laskawca"] = 1
-            jump rozstaje
-
-        elif stan["Laskawca"] == 1 and bigquest == 5:
-            pl "Czekam dalej"
-            p "To przestań czekać i ruszamy na poszukiwania"
-            pl "Karamba, jesteś dobrym mówcą"
-            scene szop
-            show laskawca at right
-            "Wyruszyliście do lokalnego sklepiku"
-            "I poznaliście miejsce następnego nocnego"
-            pl "Nocny market w Night City"
-            p "No, delikatny cringe"
-            pl "Ale chuj, potrzebuję kobiety"
-            p "Co?"
-            pl "Dowiesz się w swoim czasie, pierdol się"
-            p "Skąd ta agresja?"
-            pl "Sorki, poniosło mnie"
-            "I wyruszyliście na nocny"
-            scene nocny
-            show gun at left
-            show laskawca at right
-            pl "O! Witaj Gunie"
-            g "Ser dobry panowie"
-            pl "Czego tu szukasz"
-            g "Dobry towar gorgonzola"
-            pl "Jakieś gówno pewnie, nie słyszałem o tym"
-            g "Chuja się znasz skośnooki"
-            hide gun
-            p "Wy zawsze się tak gryziecie?"
-            pl "Co jak co ale Gunowi nie ufam"
-            p "Dlaczego?"
-            pl "Nie wiem w sumie, tak dla jajec"
-            pl "Bardzo chętnie bym go zabił"
-            p "Ok, zostawmy ten temat"
-            "Sprawdziliście kilka straganów"
-            "I pojawił się sprzedawca sieciowy"
-            pl "Szanowny panie, 5 koła za to!?"
-            pl "Literalnie cie popierdoliło"
-            if edki > 4999:
-                p "Spokojnie Łaskawca, mnie na to stać"
-                $ edki -= 5000
-                pl "Jesteś pojebany"
-                pl "Gigantyczne czołgi człowieku"
-                pl "Masz mój miecz, pistolet i co tylko zapragniesz"
-                achieve Laspp
-                achieve Bogol
-                $ czas -= 5
-                $ postacie ["Laskawca"] += 20
-                $ stan["Laskawca"] = 2
+                $ renpy.block_rollback()
+                $ config.rollback_enabled = True
+                pl "No to czekam na info z niecierpliwością"
+                $ stan["Laskawca"] = 1
                 jump rozstaje
 
-            p "No plus jeden, to pewnie nawet tetrisa nie uciągnie"
-            show ciphate with dissolve
-            "Ale wasze gadanie nic nie dało"
-            hide ciphate with dissolve
-            pl "Dobra, chuj z tym, wracamy do bazy"
-            scene klinika
-            show laskawca at right
-            pl "5000 edków, to jest mała fortuna"
-            "Nie, nie chodzi mu o piwo"
-            pl "Musielibyśmy napaść na bank"
-            p "Kennedy ma robotę dla nas"
-            pl "Ile płaci?"
-            p "Dobre pytanie"
-            pl "Popierdoli mnie"
-            pl "Jakieś wymagania ma do roboty?"
-            p "Musimy zostać przyjaciółmi"
-            pl "Ja pierdolę"
-            pl "Dobra, możemy być?"
-            pl "To musimy iść na jakąś randkę?"
-            p "Pomińmy to, powiedzmy, że my ziomki"
-            pl "No i dobra, fren"
-            p "Fren"
-            pl "To daj mi znać jak będzie akcja"
-            p "Luzik arbuzik"
-            scene black
-            p "Dobra, jeden z głowy"
-            achieve Laspp
-            $ czas -= 5
-            $ postacie ["Laskawca"] += 1
-            $ stan["Laskawca"] = 2
-            jump rozstaje
+        elif bigquest == 5:
+            if stan["Laskawca"] == 1:
+                pl "Czekam dalej"
+                p "To przestań czekać i ruszamy na poszukiwania"
+                pl "Karamba, jesteś dobrym mówcą"
+                scene szop
+                show laskawca at right
+                "Wyruszyliście do lokalnego sklepiku"
+                "I poznaliście miejsce następnego nocnego"
+                pl "Nocny market w Night City"
+                p "No, delikatny cringe"
+                pl "Ale chuj, potrzebuję kobiety"
+                p "Co?"
+                pl "Dowiesz się w swoim czasie, pierdol się"
+                p "Skąd ta agresja?"
+                pl "Sorki, poniosło mnie"
+                "I wyruszyliście na nocny"
+                scene nocny
+                show gun at left
+                show laskawca at right
+                pl "O! Witaj Gunie"
+                g "Ser dobry panowie"
+                pl "Czego tu szukasz"
+                g "Dobry towar gorgonzola"
+                pl "Jakieś gówno pewnie, nie słyszałem o tym"
+                g "Chuja się znasz skośnooki"
+                hide gun
+                p "Wy zawsze się tak gryziecie?"
+                pl "Co jak co ale Gunowi nie ufam"
+                p "Dlaczego?"
+                pl "Nie wiem w sumie, tak dla jajec"
+                pl "Bardzo chętnie bym go zabił"
+                p "Ok, zostawmy ten temat"
+                "Sprawdziliście kilka straganów"
+                "I pojawił się sprzedawca sieciowy"
+                pl "Szanowny panie, 5 koła za to!?"
+                pl "Literalnie cie popierdoliło"
+                if edki > 4999:
+                    p "Spokojnie Łaskawca, mnie na to stać"
+                    $ edki -= 5000
+                    pl "Jesteś pojebany"
+                    pl "Gigantyczne czołgi człowieku"
+                    pl "Masz mój miecz, pistolet i co tylko zapragniesz"
+                    achieve Laspp
+                    achieve Bogol
+                    $ czas -= 5
+                    $ postacie ["Laskawca"] += 20
+                    $ stan["Laskawca"] = 2
+                    jump rozstaje
+
+                p "No plus jeden, to pewnie nawet tetrisa nie uciągnie"
+                show ciphate with dissolve
+                "Ale wasze gadanie nic nie dało"
+                hide ciphate with dissolve
+                pl "Dobra, chuj z tym, wracamy do bazy"
+                scene klinika
+                show laskawca at right
+                pl "5000 edków, to jest mała fortuna"
+                "Nie, nie chodzi mu o piwo"
+                pl "Musielibyśmy napaść na bank"
+                p "Kennedy ma robotę dla nas"
+                pl "Ile płaci?"
+                p "Dobre pytanie"
+                pl "Popierdoli mnie"
+                pl "Jakieś wymagania ma do roboty?"
+                p "Musimy zostać przyjaciółmi"
+                pl "Ja pierdolę"
+                pl "Dobra, możemy być?"
+                pl "To musimy iść na jakąś randkę?"
+                p "Pomińmy to, powiedzmy, że my ziomki"
+                pl "No i dobra, fren"
+                p "Fren"
+                pl "To daj mi znać jak będzie akcja"
+                p "Luzik arbuzik"
+                scene black
+                p "Dobra, jeden z głowy"
+                achieve Laspp
+                $ czas -= 5
+                $ postacie ["Laskawca"] += 1
+                $ stan["Laskawca"] = 2
+                jump rozstaje
 
         else:
             pl "U mnie po staremu, wracaj do siebie"
@@ -2337,7 +2377,7 @@ label bruhzylia:
                 if stan["Cypher"] < 4:
                     c "Hi Hi Ha Ha"
                     "I na ten odgłos dwie samice uciekły"
-                    $ helper -= 2
+                    $ helper -= 4
 
                 if helper == 10:
                     achieve Alesex
@@ -2384,6 +2424,7 @@ label bruhzylia:
 label sypialnia:
     scene pokoj
     show screen hud
+    call bigunl
     p "Pusto tu"
     menu:
         "Jesteś w swoim pokoju, co chcesz zrobić?"
@@ -2396,9 +2437,9 @@ label sypialnia:
                     $ inventory.remove_item(Flaszka)
                     $ HP += 5
 
-                if edki > 10:
+                if edki > 19:
                     "Przed snem zjadłeś jeszcze coś z automatu"
-                    $ edki -= 10
+                    $ edki -= 20
                     $ HP += cechy["BC"]
                     if HP > MaxHP:
                         $ HP = MaxHP
@@ -2566,124 +2607,113 @@ label podsumowanie1:
     $ czas = 0
     jump rozstaje
 
-label vniazdo:
-    scene vland
-    "Jesteś u Vist"
-    menu:
-        "Co chcesz zrobić?"
-        "Wymiana edków na vdolce" if edki > 99:
-            $ vdolce += 1
-            $ edki -= 100
 
-        "Wymiana vdolców na edki" if vdolce > 0:
-            $ vdolce -= 1
-            $ edki += 100
+label spacerek:
+    scene black
+    $ czas -= 5
+    $ cel = renpy.random.randint(1, 8)
+    if cel == 1:
+        "Znalazłeś jakieś drobniaki"
+        $ zysk = renpy.random.randint(1, 50)
+        $ edki += zysk
+        p "Znalazłem [zysk] edków"
 
-        "Vracam":
-            jump miasto
+    elif cel == 2:
+        "Ni chuja, same nudy"
 
-label miasto:
-    scene miasto
-    call checktime from _call_checktime_1
-    menu:
-        "Wyruszyłem do:"
-        "Bazy":
-            jump rozstaje
+    elif cel == 3:
+        "Przez przypadek wszedłeś do Bloku Władcy Demonów"
+        $ wpierdol = renpy.random.randint(4, 18)
+        call checkHP(wpierdol) from _call_checkHP_4
 
-        "Sklepiku" if znajOkol > 0 and czas > 2:
-            $ czas -= 2
-            jump trader
+    elif cel == 4:
+        if znajOkol == 0:
+            "Udało Ci się odkryć fajny osiedlowy sklepik"
+            $ znajOkol = 1
 
-        "Wojsko" if bigquest > 3:
-            $ czas -= 1
-            jump wojsko
+        elif znajOkol == 1:
+            p "Ty kurwa, żabka jest obok, zapamiętam to sobie"
+            $ znajOkol = 2
 
-        "Dziupli Vist" if Frakcja == 3:
-            $ czas -= 1
-            jump vniazdo
+        elif znajOkol == 3:
+            p "Ten ziomek przypadkiem nie powiększa wora?"
+            p "Muszę to sprawdzić"
 
-        "Żabencja" if znajOkol > 1 and czas > 2:
-            $ czas -= 1
-            jump frogszop
-
-        "Nikąd, pospaceruje sobie" if czas > 0:
-            $ czas -= 5
-            $ cel = renpy.random.randint(1, 7)
-            if cel == 1:
-                "Znalazłeś jakieś drobniaki"
-                $ zysk = renpy.random.randint(1, 50)
-                $ edki += zysk
-                p "Znalazłem [zysk] edków"
-
-            elif cel == 2:
-                "Ni chuja, same nudy"
-
-            elif cel == 3:
-                "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-                $ wpierdol = renpy.random.randint(4, 18)
-                call checkHP(wpierdol) from _call_checkHP_4
-
-            elif cel == 4:
-                if znajOkol == 0:
-                    "Udało Ci się odkryć fajny osiedlowy sklepik"
-                    $ znajOkol = 1
-
-                elif znajOkol == 1:
-                    p "Ty kurwa, żabka jest obok, zapamiętam to sobie"
-                    $ znajOkol = 2
-
-                else:
-                    p "Jaki fajny plasterek"
-                    if HP < MaxHP:
-                        p "A se przykleję"
-                        $ HP += 1
-                    else:
-                        p "Ta? To zajebiście."
-                        "Plasterek trafił do kosza."
-
-            elif cel == 5:
-                "Wszedłeś do bloku furrasów"
-                if dzien % 3 == 0:
-                    "Futrzana domina Cię dopadła"
-                    achieve Futa
-                    $ HP = 1
-                    $ czas = 0
-                else:
-                    "Masz farta, był zamknięty"
-
-            elif cel == 6:
-                "Chodząc widzisz fagasa którego możesz obrabować"
-                menu:
-                    "Co robisz?"
-                    "Napadańsko":
-                        "Atakujesz kasztana"
-                        call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
-                        $ edki += renpy.random.randint(50, 200)
-
-                    "Lepiej nie":
-                        pass
-
-            elif cel == 7:
-                if inventory.has_item(Kokos) == True:
-                    "Znalazły Cię ćpuny"
-                    "Niestety mięli przewagę liczebną (było ich 3)"
-                    $ inventory.remove_item(Kokos)
-
-                elif inventory.has_item(AR) == True:
-                    "Chodząc po ulicy czujesz, że jest Ci jakoś lekko"
-                    "Obracasz się za siebię i widzisz że czegoś brakuje"
-                    p "Kurwa"
-                    $ inventory.remove_item(AR)
-                
-                else:
-                    p "Dziwne, nic się nie stało"
-                    
+        else:
+            p "Jaki fajny plasterek"
+            if HP < MaxHP:
+                p "A se przykleję"
+                $ HP += 1
             else:
-                "Print dupa, nie powinno Cię tu być."
+                p "Ta? To zajebiście."
+                "Plasterek trafił do kosza."
+
+    elif cel == 5:
+        "Wszedłeś do bloku furrasów"
+        if dzien % 3 == 0:
+            "Futrzana domina Cię dopadła"
+            achieve Futa
+            $ HP = 1
+            $ czas = 0
+        else:
+            "Masz farta, był zamknięty"
+
+    elif cel == 6:
+        "Chodząc widzisz fagasa którego możesz obrabować"
+        menu:
+            "Co robisz?"
+            "Napadańsko":
+                "Atakujesz kasztana"
+                call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
+                $ edki += renpy.random.randint(50, 200)
+
+            "Lepiej nie":
+                pass
+
+    elif cel == 7:
+        if inventory.has_item(Kokos) == True:
+            "Znalazły Cię ćpuny"
+            "Niestety mięli przewagę liczebną (było ich 3)"
+            $ inventory.remove_item(Kokos)
+
+        elif inventory.has_item(AR) == True:
+            "Chodząc po ulicy czujesz, że jest Ci jakoś lekko"
+            "Obracasz się za siebię i widzisz że czegoś brakuje"
+            p "Kurwa"
+            $ inventory.remove_item(AR)
+        
+        else:
+            p "Dziwne, nic się nie stało"
+            
+    elif cel == 8:
+        p "Na chuja mego wuja, ktoś tu zostawił skrzynkę!"
+        p "Ciekawe czy mam jak ją otworzyć?"
+        if inventory.has_item(Wytrych) == True:
+            p "Jest i wytryszek, pogczamp"
+            p "Opening time!"
+            $ helper = renpy.random.randint(1, 3)
+            if helper == 1:
+                p "O proszę! Hajsiwo"
+                $ edki += renpy.random.randint(50, 300)
+
+            elif helper == 2:
+                p "Ktoś tu kurwa wsadził szczura!"
+                $ inventory.add_item(Rat)
+                p "Może mi się do czegoś przyda"
+
+            elif helper == 3:
+                p "Kurwa! TU JEST BOMBA!"
+                call checkHP(10)
+                p "Jebać trapy"
+                
+    else:
+        "Print dupa, nie powinno Cię tu być."
 
     jump rozstaje
 
+
 label trader:
+    $ czas -= 2
     stop music
     play music "szop.mp3" volume 0.2
     scene szop
@@ -2697,6 +2727,10 @@ label trader:
         while helper == 1:
             menu:
                 "Szopping tajm"
+                "Tajemniczy energol?" if edki > 999 and inventory.has_item(NRG) == False:
+                    $ inventory.add_item(NRG)
+                    $ edki -= 1000
+
                 "Ale fajna Aerka" if edki >= 600 and inventory.has_item(AR) == False:
                     $ inventory.add_item(AR)
                     $ edki -= 600
@@ -2714,16 +2748,17 @@ label trader:
                     $ helper = 0
 
         stop music
-        jump miasto
+        jump rozstaje
 
 
 label frogszop:
+    $ czas -= 1
     scene frogszop
     fse "Dzień dobry"
     $ helper = 1
     while helper == 1:
         menu:
-            "Co chciałby pan kupić?"
+            fse "Co chciałby pan kupić?"
             "Dej mnie hot doga" if edki > 9 and HP < MaxHP:
                 $ edki -= 10
                 fse "To będzie 10 edków"
@@ -2763,13 +2798,77 @@ label frogszop:
                 fse "Dowidzenia, zapraszam ponownie"
                 $ helper = 0
 
-    jump miasto
+        show screen map_screen
+        window hide
+        pause 1
+        pause 1
+        pause 1
+        pause 1
+        pause 1
+        pause 1
+        jump frogszop
 
+
+label vradeZewn:
+    $ czas -= 3
+    scene vshop
+    menu:
+        v "Co chciałbyś zakupić?"
+
+        "Wymiana edków na vdolce" if edki > 99:
+            $ vdolce += 1
+            $ edki -= 100
+
+        "Wymiana vdolców na edki" if vdolce > 0:
+            $ vdolce -= 1
+            $ edki += 100
+
+        "Ale fajna Aerka" if vdolce >= 5 and inventory.has_item(AR) == False:
+            $ inventory.add_item(AR)
+            $ vdolce -= 5
+            $ veq += 1
+            "Wydałeś 5 vdolcy na AR-kę"
+
+        "Wytrych? " if vdolce >= 2 and inventory.has_item(Wytrych) == False:
+            $ inventory.add_item(Wytrych)
+            $ vdolce -= 2
+            $ veq += 1
+            "Wydałeś 2 vdolce na Wytrych"
+
+        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False:
+            $ inventory.add_item(Flaszka)
+            $ vdolce -= 1
+            $ veq += 1
+            "Wydałeś 1 vdolca na Flaszkę"
+
+        "Varmor" if vdolce >= 3 and inventory.has_item(MalyArmor) == False:
+            $ inventory.add_item(MalyArmor)
+            $ armor = 11
+            $ vdolce -= 3
+            $ veq += 1
+            "Wydałeś 3 vdolce na lil varmor"
+
+        "Nie potrzebuję twoich towarów":
+            jump rozstaje
+
+    jump rozstaje
+
+label workowiec:
+    $ czas -= 2
+    menu:
+        p "Czy chcę powiększyć wora?"
+        "Pewex" if edki > (Cap*2)*100:
+            p "Zwiększaj"
+            $ Cap += 1
+
+        "Lepiej nie":
+            jump rozstaje 
 
 label wojsko:
+    $ czas -= 5
     scene wojsko
     if wojsko_stan == 0:
-        show genken at left
+        show genken at right
         gk "Witamy w armii młody"
         gk "Jestem Generał Kennedy, przywódca tego pierdolnika"
         if Frakcja == 0 or Frakcja == 3:
@@ -2833,7 +2932,6 @@ label wojsko:
 
         if stan["Kalach"] == 5:
             "Pochwaliłeś się przyjaźnią z Kałachem"
-
             gk "Jeśli Kałach leci z tobą, musisz go pilnować"
             gk "Jeśli znajdę jakiegokolwiek dildosa na terenie akcji"
             gk "To Ciebie złapią konsekwencje"
@@ -2869,9 +2967,25 @@ label wojsko:
             $ stan["Krateus"] += 1
             $ krateus_stan = 6
 
+        jump rozstaje
+
     elif wojsko_stan > 4: 
+        if wojsko_stan > 7:
+            achieve Full
+            mg "Gratulacje, zebrałeś całą drużynę"
+            mg "Wasze szanse na przetrwanie są zwiększone"
+
         gk "Dobra robota szczylu."
         gk "Udało Ci się zdobyć przyjaźń z innymi dzbanami"
+        menu:
+            gk "Jesteście gotowi na tajną misję?"
+            "Kurwa no pewex":
+                gk "Git"
+            
+            "Daj mi jeszcze trochę czasu":
+                gk "Spoczko"
+                jump rozstaje
+
         gk "Więc lecicie na super tajną misję"
         gk "Siłą przyjaźni musicie wysadzić jedno z vniazd"
         gk "Prowadzą tam badania nad ściśle tajnym projektem Vezuwiusz"
@@ -2879,6 +2993,7 @@ label wojsko:
         if inventory.has_item(Pistolecik)== False:
             gk "Masz przyda Ci się"
             $ inventory.add_item(Pistolecik)
+            
         jump wojowezadanie
 
 label wojowezadanie:
@@ -3235,7 +3350,7 @@ label wojowezadanie:
                     "Co teraz?"
                     "Pif Paf słoneczko":
                         "Rozpocząłęś strzelanie, a drużyna strzelała wraz z tobą."
-                        call checkHP(15)
+                        call checkHP(15) from _call_checkHP_22
                         "Troszeczkę oberwałeś ale udało Ci się zostać bogiem gniewu i wojny"
                         "Możesz dzielnie iść dalej"
                         "Ale nie możesz zapomnieć o lootowaniu"
@@ -3313,6 +3428,7 @@ label wojowezadanie:
                                 "Wielki dzik potężnym beknięciem wystrzelił Visty poza czwartą ścianę"
                                 p "Dziękuję wielki dziku"
                                 "Ale dzika już tu nie było"
+                                achieve Ocult
                                 $ helper -= 15
                             
                             "Jednak nie, spierdalaj":
@@ -3409,6 +3525,7 @@ label wojowezadanie:
                         call checkHP(2) from _call_checkHP_17
                         "Potężny atak Visty tylko cię drasnął"
                         p "Ja też"
+                        play sound "Paf.mp3"
                         v "Vkurwysyn"
                         p "Spoczywaj w koszu v"
                         p "Misja ukończona"
@@ -3485,10 +3602,12 @@ label wojowezadanie:
         c "Szybko się uczysz, będą z Ciebie psy"
         c "Diamentowe takie"
         scene cypherkopter
+        play sound "heli.mp3"
         "Pyr pyr pyr"
         p "Gdzie my lecimy?"
         c "To jest ważna misja"
         c "Lecimy do żabki"
+        stop sound
         scene frogszop
         stop music
         play music "chill.mp3"
@@ -3572,10 +3691,11 @@ label wojowezadanie:
         play music "CMS.mp3"
         p "W sensie?"
         "Ciper kopter zaczął lecieć prosto w budynek"
+        stop sound
         play sound "BOOM.mp3"
         scene black
         c "Kolejne udane lądowanie (2 martwych, 14 rannych)"
-        scene vezuwiusz
+        scene wonsuwiusz
         show cypher
         c "Proszę proszę, tożto laboratorium"
         c "Sprawdźmy to"
@@ -3597,10 +3717,13 @@ label wojowezadanie:
         c "JAK JA MAM BYĆ KURWA SPOKOJNY?"
         p "O patrz"
         "Podszedłeś do plakatu i oderwałeś wąs"
+        scene vezuwiusz
+        show cypher
         c "No dobra, uspokoiłem się"
         p "Serio?"
         c "NIE KURWA. JEDYNYM WEZUWIUSZEM TU JESTEM JA"
         c "ROZPIERDOLĘ ICH"
+        hide cypher
         "Rozsierdzony wyszedł z labu"
         "I po chwili zawył alarm"
         play sound "alarm.ogg"
@@ -3629,6 +3752,7 @@ label wojowezadanie:
         p "Jasna dupa, zaraz tu umrę"
         "Vistowa grupa bojowa jest tuż za tobą"
         p "KURWA CYPHER"
+        show cypher at bounce
         c "Jestem"
         p "Co!"
         c "Pa na to"
@@ -3819,6 +3943,7 @@ label wojowezadanie:
         k "[player_name] zajmiesz się nim?"
         p "Popierdoliło Cię, jak ja mam chujowe staty"
         k "No to patrz na to"
+        scene stand
         k "W imię ojca, i syna i uda wielkiego"
         k "Niech wpierdol dosięgnie jego"
         v "Vo Vhuj Vi vodzi?"
@@ -3903,12 +4028,12 @@ label amongthev:
     show vista
     $ config.rollback_enabled = False
     v "Vitam v vlubie"
-    v "Jestem Viesiek"
-    v "Będę twoim vrzewodnikiem"
-    v "Oprowadzę Cię po vokolicy"
+    v "Vestem Viesiek"
+    v "Vędę vwoim vrzewodnikiem"
+    v "Vprowadzę Vię vo vokolicy"
     show vechnik
-    v "Tutaj mamy vechnika"
-    v "Nie przeszkadzaj mu lepiej"
+    v "Vutaj vamy vechnika"
+    v "Vie vrzeszkadzaj vu vepiej"
     v "Jak go wkurwisz, to Ci jeszcze Vpierdoli"
     hide vechnik
     v "Vobra, przejdź się po okolicy, poszukaj dla siebie roboty"
@@ -4129,6 +4254,12 @@ label varchiwa:
     scene drzv
     if varchiva_stage == 0:
         "Trafiając do varchiw stają Ci na drodze drzwi"
+        if Frakcja == 3:
+            p "Jestem pewnien, że nikt tego nie zamykał"
+            "I faktycznie miałeś racje"
+            $ varchiva_stage = 1
+            jump varchiwa
+
         if inventory.has_item(Wytrych) == True:
             p "Essa mam wytrycha"
             $ inventory.remove_item(Wytrych)
@@ -4174,6 +4305,16 @@ label varchiwa:
                 $ varchiva_stage = 2
                 jump varchiwa
 
+            "Variusz, nie poznajesz mnie?" if Frakcja == 3:
+                v "Vo va vag, Vista"
+                p "Vo va"
+                v "Vo vy vu vobisz?"
+                p "Vusze vać vokumenty vo varchiv"
+                v "Vo va vens, vapraszam"
+                p "Vięki"
+                $ varchiwa_stago = 2
+                jump varchiwa
+                
             "Vpierdalam":
                 jump vtimefri
 
@@ -4311,7 +4452,7 @@ label vrade:
             $ veq += 1
             "Wydałeś 2 vdolce na Wytrych"
 
-        "Flaszka?" if vdolce >= 1:
+        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False:
             $ inventory.add_item(Flaszka)
             $ vdolce -= 1
             $ veq += 1
@@ -4418,8 +4559,7 @@ label vokum:
 
         "Nigdy nie zostanę V":
             jump vtimefri
-
-    
+ 
 
 label amongthevpods:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
@@ -4514,6 +4654,14 @@ label amongthevpods:
         c "Pojebało się"
         hide cypher with dissolve
         jump kuchnia
+
+
+label gatekeeper:
+    return
+
+
+label podpowiedz:
+    return
 
 
 label tempend:

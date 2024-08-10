@@ -24,7 +24,7 @@ init python:
             self.quantity = quantity
 
         def has_space(self, max):
-            if self.quantity <= max:
+            if self.quantity < max:
                 return True
             
             else:
@@ -140,7 +140,9 @@ label checkHP(dmg):
 
     if umieram == 1:
         if inventory.has_item(THeal) == True:
-            $ HP =  BC * 2
+            achieve Clos
+            $ inventory.remove_item(THeal)
+            $ HP =  [BC] * 2
             $ umieram = 0
             p "Dobrze że miałem Turbo Uzrawiacz"
         else:
@@ -329,7 +331,7 @@ label start:
 
     
     "Nie miałeś edków"
-    call bigunl
+    call bigunl from _call_bigunl
     "Sensu życia"
     "Ani nawet broni"
 
@@ -1053,7 +1055,7 @@ label kosciol:
                     k "Spierdalaj syfer"
                     $ postacie["Kalach"] -= 1
 
-                $ stan["Kalach"] = 2
+                $ stan["Kalach"] = 1
                 k "Zdupcaj, wracam do picia"
                 jump rozstaje
 
@@ -1061,31 +1063,33 @@ label kosciol:
                 "Kałach alkoholizuje się, lepiej mu nie przeszkadzaj"
                 jump rozstaje
 
-        elif bigquest == 2:
-            $ czas -= 1
-            if stan["Kalach"] == 0:
+        elif bigquest == 3:
+            if stan["Kalach"] = 1:
                 k "Niech mnie uda i zimna wóda"
                 k "Wróciłeś żywy z siedliska Vist"
                 $ postacie["Kalach"] += 1
                 k "Masz nagrodę"
-                play sound "THROWING.mp3"
-                $ inventory.add_item(Flaszka)
-                k "Zachowaj na specjalną okazję, albo chlej teraz"
-                $ stan["Kalach"] += 1
+                if inventory.has_space(Cap) == True:
+                    play sound "THROWING.mp3"
+                    $ inventory.add_item(Flaszka)
+                    k "Zachowaj na specjalną okazję, albo chlej teraz"
+                
+                else:
+                    k "Albo jednak nie"
+                $ stan["Kalach"] = 2
                 jump rozstaje
 
             else:
                 "Kałach alkoholizuje się, lepiej mu nie przeszkadzaj"
-                jump rozstaje
 
-        elif bigquest == 3 or bigquest == 4:
-            if stan["Kalach"] != 2:
+        elif bigquest == 4:
+            if stan["Kalach"] != 3:
                 if dzien < 10:
                     "Kościół jest zamknięty, wróć później"
                     jump rozstaje
 
                 elif dzien > 9:
-                    $ stan["Kalach"] = 2
+                    $ stan["Kalach"] = 3
                     k "Wróciłem z krucjaty."
                     k "I niech mnie dunder świśnie, tak mnie w krzyżu napierdala."
                     k "Jeśli kiedykolwiek dołączysz do fanów stópek."
@@ -1627,7 +1631,7 @@ label warsztat:
             menu:
                 "Czy potrzebny mi jest pancerz?"
 
-                "Kurwa biorę" if edki > 99:
+                "Kurwa biorę" if edki > 99 and inventory.has_space(Cap) == True:
                     if edki > 100:
                         $ inventory.add_item(MalyArmor)
                         $ edki -= 100
@@ -1840,7 +1844,7 @@ label klinika:
             pl "Chcesz kupić kokosa kurwa ten?"
             menu:
                 "Dawaj tego kokosa":
-                    if edki > 20:
+                    if edki > 20 and inventory.has_space(Cap) == True:
                         $ postacie["Laskawca"] += 1
                         play sound "THROWING.mp3"
                         $ inventory.add_item(Kokos)
@@ -1856,7 +1860,7 @@ label klinika:
             pl "Może chcesz zakupić turbouzdrawiacz?"
             pl "Uratuje cię przed dedem"
             menu:
-                "Bardzo chętnie" if edki > 199:
+                "Bardzo chętnie" if edki > 199 and inventory.has_space(Cap) == True:
                     play sound "THROWING.mp3"
                     $ inventory.add_item(THeal)
                     $ edki -= 200
@@ -1896,6 +1900,9 @@ label klinika:
                 $ config.rollback_enabled = True
                 pl "No to czekam na info z niecierpliwością"
                 $ stan["Laskawca"] = 1
+                jump rozstaje
+
+            else:
                 jump rozstaje
 
         elif bigquest == 5:
@@ -1980,12 +1987,14 @@ label klinika:
                 $ stan["Laskawca"] = 2
                 jump rozstaje
 
+            else:
+                jump rozstaje
+
         else:
             pl "U mnie po staremu, wracaj do siebie"
             jump rozstaje
 
-    else:
-        jump rozstaje
+    jump rozstaje
 
 label jhinownia:
     $ czas -= 1
@@ -2424,7 +2433,7 @@ label bruhzylia:
 label sypialnia:
     scene pokoj
     show screen hud
-    call bigunl
+    call bigunl from _call_bigunl_1
     p "Pusto tu"
     menu:
         "Jesteś w swoim pokoju, co chcesz zrobić?"
@@ -2437,18 +2446,18 @@ label sypialnia:
                     $ inventory.remove_item(Flaszka)
                     $ HP += 5
 
-                if edki > 19:
+                elif edki > 19:
                     "Przed snem zjadłeś jeszcze coś z automatu"
                     $ edki -= 20
                     $ HP += cechy["BC"]
                     if HP > MaxHP:
                         $ HP = MaxHP
 
+                else:
+                    "Zasnąłeś z pustym brzuchem"
+
             elif HP == MaxHP:
                 "Śpisz słodko, jak aniołek"
-
-            else:
-                "Zasnąłeś z pustym brzuchem"
 
             jump rozstaje
 
@@ -2635,9 +2644,10 @@ label spacerek:
             p "Ty kurwa, żabka jest obok, zapamiętam to sobie"
             $ znajOkol = 2
 
-        elif znajOkol == 3:
+        elif znajOkol == 2:
             p "Ten ziomek przypadkiem nie powiększa wora?"
             p "Muszę to sprawdzić"
+            $ znajOkol = 3
 
         else:
             p "Jaki fajny plasterek"
@@ -2696,15 +2706,18 @@ label spacerek:
                 p "O proszę! Hajsiwo"
                 $ edki += renpy.random.randint(50, 300)
 
-            elif helper == 2:
+            elif helper == 2 and inventory.has_space(Cap) == True:
                 p "Ktoś tu kurwa wsadził szczura!"
                 $ inventory.add_item(Rat)
                 p "Może mi się do czegoś przyda"
 
             elif helper == 3:
                 p "Kurwa! TU JEST BOMBA!"
-                call checkHP(10)
+                call checkHP(10) from _call_checkHP_23
                 p "Jebać trapy"
+
+        else:
+            p "Kurwa nie"
                 
     else:
         "Print dupa, nie powinno Cię tu być."
@@ -2727,19 +2740,19 @@ label trader:
         while helper == 1:
             menu:
                 "Szopping tajm"
-                "Tajemniczy energol?" if edki > 999 and inventory.has_item(NRG) == False:
+                "Tajemniczy energol?" if edki > 999 and inventory.has_item(NRG) == False and inventory.has_space(Cap) == True:
                     $ inventory.add_item(NRG)
                     $ edki -= 1000
 
-                "Ale fajna Aerka" if edki >= 600 and inventory.has_item(AR) == False:
+                "Ale fajna Aerka" if edki >= 600 and inventory.has_item(AR) == False and inventory.has_space(Cap) == True:
                     $ inventory.add_item(AR)
                     $ edki -= 600
 
-                "Wytrych? " if edki >= 200:
+                "Wytrych? " if edki >= 200 and inventory.has_space(Cap) == True:
                     $ inventory.add_item(Wytrych)
                     $ edki -= 200
 
-                "Kurwa ser?" if edki >= 50:
+                "Kurwa ser?" if edki >= 50 and inventory.has_space(Cap) == True:
                     $ inventory.add_item(Ser)
                     $ edki -= 50
 
@@ -2798,15 +2811,15 @@ label frogszop:
                 fse "Dowidzenia, zapraszam ponownie"
                 $ helper = 0
 
-        show screen map_screen
-        window hide
-        pause 1
-        pause 1
-        pause 1
-        pause 1
-        pause 1
-        pause 1
-        jump frogszop
+    show screen map_screen
+    window hide
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    jump frogszop
 
 
 label vradeZewn:
@@ -2823,25 +2836,25 @@ label vradeZewn:
             $ vdolce -= 1
             $ edki += 100
 
-        "Ale fajna Aerka" if vdolce >= 5 and inventory.has_item(AR) == False:
+        "Ale fajna Aerka" if vdolce >= 5 and inventory.has_item(AR) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(AR)
             $ vdolce -= 5
             $ veq += 1
             "Wydałeś 5 vdolcy na AR-kę"
 
-        "Wytrych? " if vdolce >= 2 and inventory.has_item(Wytrych) == False:
+        "Wytrych? " if vdolce >= 2 and inventory.has_item(Wytrych) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(Wytrych)
             $ vdolce -= 2
             $ veq += 1
             "Wydałeś 2 vdolce na Wytrych"
 
-        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False:
+        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(Flaszka)
             $ vdolce -= 1
             $ veq += 1
             "Wydałeś 1 vdolca na Flaszkę"
 
-        "Varmor" if vdolce >= 3 and inventory.has_item(MalyArmor) == False:
+        "Varmor" if vdolce >= 3 and inventory.has_item(MalyArmor) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(MalyArmor)
             $ armor = 11
             $ vdolce -= 3
@@ -2854,6 +2867,7 @@ label vradeZewn:
     jump rozstaje
 
 label workowiec:
+    scene bager
     $ czas -= 2
     menu:
         p "Czy chcę powiększyć wora?"
@@ -2964,12 +2978,11 @@ label wojsko:
             gk "Krateus też tam jest?"
             gk "Powinien wykonywać zadanie bojowe"
             gk "Oj, będę musiał z nim pogadać"
+            $ wojsko_stan += 1
             $ stan["Krateus"] += 1
-            $ krateus_stan = 6
 
-        jump rozstaje
 
-    elif wojsko_stan > 4: 
+    if wojsko_stan > 4: 
         if wojsko_stan > 7:
             achieve Full
             mg "Gratulacje, zebrałeś całą drużynę"
@@ -2990,11 +3003,13 @@ label wojsko:
         gk "Siłą przyjaźni musicie wysadzić jedno z vniazd"
         gk "Prowadzą tam badania nad ściśle tajnym projektem Vezuwiusz"
         gk "Niech bóg was przyjmie"
-        if inventory.has_item(Pistolecik)== False:
+        if inventory.has_item(Pistolecik) == False and  inventory.has_space(Cap) == True:
             gk "Masz przyda Ci się"
             $ inventory.add_item(Pistolecik)
             
         jump wojowezadanie
+
+    jump rozstaje
 
 label wojowezadanie:
     stop music
@@ -4006,7 +4021,7 @@ label amongthev:
         c "Cienkie pizdeczki"
         c "Musisz zabrać im dokumenty z archiw"
         c "Dasz sobie radę ale dla pewności"
-        if inventory.has_item(AR) == True:
+        if inventory.has_item(AR) == True and inventory.has_space(Cap) == True:
             c "Widzę że jakąś broń już masz"
             c "To masz ode mnie inny gadżet"
             play sound "THROWING.mp3"
@@ -4399,7 +4414,7 @@ label vending:
         "Kurwa no pewex" if vdolce > 0 :
             $ vdolce -= 1
             $ vagroda = renpy.random.randint(0,4)
-            if vagroda == 0:
+            if vagroda == 0 and inventory.has_space(Cap) == True:
                 p "Dostałem vranat"
                 $ inventory.add_item(Vranat)
                 jump vending
@@ -4440,25 +4455,25 @@ label vrade:
     scene vshop
     menu:
         v "Co chciałbyś zakupić?"
-        "Ale fajna Aerka" if vdolce >= 5 and inventory.has_item(AR) == False:
+        "Ale fajna Aerka" if vdolce >= 5 and inventory.has_item(AR) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(AR)
             $ vdolce -= 5
             $ veq += 1
             "Wydałeś 5 vdolcy na AR-kę"
 
-        "Wytrych? " if vdolce >= 2 and inventory.has_item(Wytrych) == False:
+        "Wytrych? " if vdolce >= 2 and inventory.has_item(Wytrych) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(Wytrych)
             $ vdolce -= 2
             $ veq += 1
             "Wydałeś 2 vdolce na Wytrych"
 
-        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False:
+        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(Flaszka)
             $ vdolce -= 1
             $ veq += 1
             "Wydałeś 1 vdolca na Flaszkę"
 
-        "Varmor" if vdolce >= 3 and inventory.has_item(MalyArmor) == False:
+        "Varmor" if vdolce >= 3 and inventory.has_item(MalyArmor) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(MalyArmor)
             $ armor = 11
             $ vdolce -= 3
