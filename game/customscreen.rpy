@@ -56,6 +56,18 @@ screen phone():
         unhovered SetVariable("screen_tooltip","")
         action Hide("phone"), Show("day")
 
+    imagebutton auto "cyberfon_cechy_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("phone"), Show("day")
+
+    imagebutton auto "cyberfon_skil_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("phone"), Show("day")
+
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
@@ -101,7 +113,7 @@ screen day():
             text "{color=000}Ukradnij intel z archiv"
 
         elif bigquest == 2:
-            text "{color=000}Uciekaj z tego pozbawionego boga miejsca"
+            text "{color=000}Uciekaj z tego \n pozbawionego boga miejsca"
 
         elif bigquest == 3:
             if dzien == 9:

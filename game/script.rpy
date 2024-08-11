@@ -15,6 +15,9 @@ define mg = Character(_("Wielki Dzik"), color = "#482809")
 define fse = Character(_("Babka from żabka"), color = "#006600")
 define sb = Character(_("Ktoś"), color = "#000000")
 define gr = Character(_("Grupa"), color = "#324511")
+define cr = Character(_("Czerwone Pole"), color = "#EE0000")
+define ja = Character(_("Jax"), color = "#324511")
+define vi = Character(_("VIO"), color = "#324511")
 
 init python:
     import os 
@@ -183,8 +186,8 @@ transform bounce:
 
 label start:
     default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
-    default cechy = {"INT":2, "REF":2, "ZW":2, "TECH":2, "CHAR":2, "SW":2, "SZ":2, "RUCH":2, "BC":2, "EMP":2}
-    default skile = {"Atletyka": 0, "Pistole": 0, "Karabiny": 0}
+    default cechy = {"INT":2, "ZW":2, "CHAR":2,"BC":2}
+    default skile = {"Atletyka": 2, "Bron": 2, "Gadanie": 2, "Myslenie": 2}
     default stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
     #deklaracja inventory
     default inventory = Inventory([],0)
@@ -213,7 +216,7 @@ label start:
     #deklaracja reszty
     default edki = 0
     default vdolce = 0
-    default MaxHP = 10 + (5*((cechy["BC"]+cechy["SW"])/2))
+    default MaxHP = 10 + (5*((cechy["BC"])))
     default Fragi = 0
     default akt = 0
     default HP = 0
@@ -233,8 +236,6 @@ label start:
     default maxarmor = 0
     default czas = 20
     default veq = 0
-    default psycha = 0
-    $ psycha = cechy["EMP"] * 10
     default znajOkol = 0
     default lilquest = 0
     default vrrr = 0

@@ -1,32 +1,26 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 405, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 1038, in script
-    if bigquest == 0:
-SyntaxError: unexpected EOF while parsing (game/script.rpy, line 1066)
+  File "game/script.rpy", line 240, in script
+    $ psycha = cechy["EMP"] * 10
+  File "game/script.rpy", line 240, in <module>
+    $ psycha = cechy["EMP"] * 10
+KeyError: 'EMP'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 405, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 1038, in script
-    if bigquest == 0:
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1842, in execute
-    if renpy.python.py_eval(condition):
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1207, in py_eval
-    code = py_compile(code, 'eval')
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1144, in py_compile
-    raise e
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1081, in py_compile
-    raise orig_e
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1073, in py_compile
-    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, 1)
-SyntaxError: unexpected EOF while parsing (game/script.rpy, line 1066)
+  File "game/script.rpy", line 240, in script
+    $ psycha = cechy["EMP"] * 10
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 823, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1178, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 240, in <module>
+    $ psycha = cechy["EMP"] * 10
+KeyError: 'EMP'
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.2.1.24030407
 CyberDzban 0.000000008
-Sat Aug 10 16:55:35 2024
+Sun Aug 11 10:22:57 2024
