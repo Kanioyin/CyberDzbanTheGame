@@ -57,3 +57,21 @@ label a2intro:
             $ cechy["Gadanie"] = 4
 
     sb "No dobra, pora otworzyć oczy"
+    scene opor
+    show kris
+    sb "Dzień dobry [player_name]"
+    p "Kim ty kurwa jesteś?"
+    sb "Faktycznie, wypada się przedstawić"
+    sb "Krzysztof czerownopole"
+    cr "Do usług"
+    p "Dobra kurwa ale skąd ty wiesz jak ja się nazywam?"
+    cr "Mam swoje źródła"
+    show jax at left
+    show vio at right
+    cr "Oto przed tobą: Jax"
+    ja "Witam"
+    cr "I VIO"
+    vi "Vitam"
+    p "On nie jest kurwa Vistą?"
+    vi "Jestem, takim udomowionym"
+    p "Ok, zrozumiałe"

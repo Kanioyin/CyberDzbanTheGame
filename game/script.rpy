@@ -15,7 +15,7 @@ define mg = Character(_("Wielki Dzik"), color = "#482809")
 define fse = Character(_("Babka from żabka"), color = "#006600")
 define sb = Character(_("Ktoś"), color = "#000000")
 define gr = Character(_("Grupa"), color = "#324511")
-define cr = Character(_("Czerwone Pole"), color = "#EE0000")
+define cr = Character(_("Kris"), color = "#EE0000")
 define ja = Character(_("Jax"), color = "#324511")
 define vi = Character(_("VIO"), color = "#324511")
 
