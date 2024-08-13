@@ -99,54 +99,55 @@ screen day():
             text "{color=000} Mama każe iść spać"
 
         text "{color=000}\n Aktualne zadanie:"
-        if bigquest == 0:
-            if dzien == 3:
-                text "{color=000} Przyjdź do Guna jutro"
+        if akt == 1:
+            if bigquest == 0:
+                if dzien == 3:
+                    text "{color=000} Przyjdź do Guna jutro"
 
-            elif dzien < 3:
-                text "{color=000} Przyjdź do Guna za [4-dzien] dni"        
+                elif dzien < 3:
+                    text "{color=000} Przyjdź do Guna za [4-dzien] dni"        
 
-            elif dzien > 3:
-                text "{color=000} Idź do Guna"
+                elif dzien > 3:
+                    text "{color=000} Idź do Guna"
 
-        elif bigquest == 1:
-            text "{color=000}Ukradnij intel z archiv"
+            elif bigquest == 1:
+                text "{color=000}Ukradnij intel z archiv"
 
-        elif bigquest == 2:
-            text "{color=000}Uciekaj z tego \n pozbawionego boga miejsca"
+            elif bigquest == 2:
+                text "{color=000}Uciekaj z tego \n pozbawionego boga miejsca"
 
-        elif bigquest == 3:
-            if dzien == 9:
-                text "{color=000}Wróć do Guna jutro"
+            elif bigquest == 3:
+                if dzien == 9:
+                    text "{color=000}Wróć do Guna jutro"
 
-            elif dzien < 10:
-                text "{color=000}Wróć do guna za [10-dzien] dni"
+                elif dzien < 10:
+                    text "{color=000}Wróć do guna za [10-dzien] dni"
 
-            elif dzien > 9:
-                text "{color=000} Idź do Guna"
+                elif dzien > 9:
+                    text "{color=000} Idź do Guna"
 
-        elif bigquest == 4:
-            text "{color=000} Idź do wojska"
+            elif bigquest == 4:
+                text "{color=000} Idź do wojska"
 
-        elif bigquest == 5:
-            text "{color=000} Zaprzyjażnij się z dzbanami, \n zostali Ci jeszcze:"
-            if stan["Gun"] < 5:
-                text "{color=000} Gun"
-            
-            if stan["Kalach"] < 5:
-                text "{color=000} Kałach"
+            elif bigquest == 5:
+                text "{color=000} Zaprzyjażnij się z dzbanami, \n zostali Ci jeszcze:"
+                if stan["Gun"] < 5:
+                    text "{color=000} Gun"
+                
+                if stan["Kalach"] < 5:
+                    text "{color=000} Kałach"
 
-            if stan["Hartmann"] < 5:
-                text "{color=000} Hartmann"
+                if stan["Hartmann"] < 5:
+                    text "{color=000} Hartmann"
 
-            if stan["Jhin"] < 4:
-                text "{color=000} Jhin"
+                if stan["Jhin"] < 4:
+                    text "{color=000} Jhin"
 
-            if stan["Cypher"] < 5:
-                text "{color=000} Cypher"
+                if stan["Cypher"] < 5:
+                    text "{color=000} Cypher"
 
-            if stan["Krateus"] < 5:
-                text "{color=000} Krateus"
+                if stan["Krateus"] < 5:
+                    text "{color=000} Krateus"
 
 
     imagebutton auto "cyberfon_won_%s":
@@ -196,11 +197,12 @@ screen map_screen():
     add "mapa.png"
     modal True
 
-    imagebutton auto "city_dom_%s":
-        focus_mask True
-        hovered SetVariable("screen_tooltip", "Return")
-        unhovered SetVariable("screen_tooltip","")
-        action Hide("map_screen"), Jump("rozstaje")
+    if akt == 1:
+        imagebutton auto "city_dom_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("rozstaje")
 
     imagebutton auto "city_tup_%s":
         focus_mask True

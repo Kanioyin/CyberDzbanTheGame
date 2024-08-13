@@ -13,11 +13,11 @@ define gk = Character(_("Gen. Kennedy"), color = "#098703")
 define kr = Character(_("Krateus"), color = "#023a10")
 define mg = Character(_("Wielki Dzik"), color = "#482809")
 define fse = Character(_("Babka from żabka"), color = "#006600")
-define sb = Character(_("Ktoś"), color = "#000000")
+define sb = Character(_("Ktoś"), color = "#77036d")
 define gr = Character(_("Grupa"), color = "#324511")
 define cr = Character(_("Kris"), color = "#EE0000")
-define ja = Character(_("Jax"), color = "#324511")
-define vi = Character(_("VIO"), color = "#324511")
+define ja = Character(_("Jax"), color = "#e4adf1")
+define vi = Character(_("VIO"), color = "#ffbcbc")
 
 init python:
     import os 
@@ -326,6 +326,9 @@ label start:
         elif player_name == "XD2":
             $ stan = {"Kalach":6, "Gun":6, "Cypher":6, "Laskawca":6, "Hartmann":6, "Jhin":6, "Visty":6, "Kennedy":6, "Krateus":6}
             jump wojowezadanie
+
+        elif player_name == "Zium":
+            jump a2intro
 
         else:
             $ helper = 0
@@ -2702,7 +2705,7 @@ label spacerek:
         if inventory.has_item(Wytrych) == True:
             p "Jest i wytryszek, pogczamp"
             p "Opening time!"
-            $ helper = renpy.random.randint(1, 3)
+            $ helper = renpy.random.randint(1, 4)
             if helper == 1:
                 p "O proszę! Hajsiwo"
                 $ edki += renpy.random.randint(50, 300)
@@ -2716,6 +2719,12 @@ label spacerek:
                 p "Kurwa! TU JEST BOMBA!"
                 call checkHP(10) from _call_checkHP_23
                 p "Jebać trapy"
+
+            
+            elif helper == 4:
+                p "O proszę, powiększenie ekwipunku"
+                $ Cap += 1
+                p "Zawsze jeden przedmio więcej"
 
         else:
             p "Kurwa nie"
