@@ -448,6 +448,7 @@ label rozstaje:
             pause 1
             jump rozstaje
 
+
 label kuchnia:
     scene kuchnia
     show gun
@@ -480,7 +481,7 @@ label kuchnia:
 
                 "Po gadaniu z takimi deklami, jednak spierdalam":
                     "Good Ending"
-                    return
+                    $ MainMenu(confirm=False)()
 
     elif akt == 1:
         if bigquest == 0:
@@ -775,6 +776,7 @@ label kuchnia:
                 p "No dobra, to nie było trudne"
                 "Drzwi nie były nawet zakluczone"
                 p "Zbyt łatwo"
+                play sound "Dzwi.wav"
                 "Wszedłeś do środka"
                 p "Chuja widzę"
                 p "Gdzie Cypher schowałby spodnie"
@@ -1602,12 +1604,39 @@ label dach:
                         achieve Foch
                         "I bez słowa zaczął uciekać"
                         $ postacie["Cypher"] -= 9999
-                        $ stan["Cypher"] = 3
+                        $ stan["Cypher"] = 9
                         $ renpy.block_rollback()
                         $ config.rollback_enabled = True
                         jump rozstaje
 
-            if stan["Cypher"] == 3:
+            if stan["Cypher"] == 5 or stan["Cypher"] == 6:
+                scene disko
+                show cypher at left
+                stop music
+                play music "inba.oog"
+                p "Co tu się kurwa dzieje?"
+                c "Witam na imperzie"
+                p "Ale czemu? Zrobiłem z tobą kłesty!"
+                c "To jest bonus!"
+                c "Całkiem za friko!"
+                p "Serio?!"
+                c "No ta, nie wiem po chuj tu wchodziłeś"
+                p "Gra mi pozwoliła"
+                c "Tu powinni być tylko ludzie z DH"
+                c "Ale chuj, niech zyskam"
+                p "To co, będzie jeszcze jakiś bonus?"
+                c "A spierdalaj, tańcz kurwa"
+                "I zacząłeś tańczyć z Cypherem"
+                $ stan["Cypher"] = 7
+                achieve Fri
+                jump rozstaje
+
+            if stan["Cypher"] == 7:
+                c "Ja tu czekam na zadanie"
+                c "Przybędę jak zawołasz na nie"
+                jump rozstaje
+
+            if stan["Cypher"] == 9:
                 c "Spierdalaj"
                 jump rozstaje 
 
@@ -2727,7 +2756,7 @@ label spacerek:
                 p "Zawsze jeden przedmio więcej"
 
         else:
-            p "Kurwa nie"
+            p "Kurwa nie, przydał by się wytrych"
                 
     else:
         "Print dupa, nie powinno Cię tu być."
@@ -2882,6 +2911,7 @@ label workowiec:
     menu:
         p "Czy chcę powiększyć wora?"
         "Pewex" if edki > (Cap*2)*100:
+            achieve Mocz
             p "Zwiększaj"
             $ Cap += 1
 
@@ -2897,8 +2927,10 @@ label wojsko:
         gk "Jestem Generał Kennedy, przywódca tego pierdolnika"
         if Frakcja == 0 or Frakcja == 3:
             gk "I jesteś tu z woli Guna"
+
         elif Frakcja == 1:
             gk "Jasna cholera, jesteś od Cyphera"
+
         gk "To co masz ogarnąć to destrukcja Vist"
         gk "Jakaś kurwa z Arasaki chce przejąć nad nimi kontrolę"
         p "Ależ to skurwysyn musi być"
@@ -2925,7 +2957,7 @@ label wojsko:
         hide cypher with moveoutright
         gk "To jest coraz mocniejsze"
         gk "Znikam"
-        hide genken
+        hide genken with dissolve
         p "No i zniknął"
         p "Jak zwykle kurwa"
         p "I wyjdzie, że dostanę 7,50 edka"
@@ -3213,6 +3245,8 @@ label wojowezadanie:
                 "Zaczęliście biec do wyjścia"
                 "Ale na waszej drodze stanął VPrime"
                 scene vinalvoss
+                stop music
+                play music "bossa.mp3"
                 v "Vavava"
                 p "Spierdalaj"
                 v "NIE"
@@ -3526,6 +3560,8 @@ label wojowezadanie:
                 v "Vie Vwal vnia vprzed vachodem vłońca"
                 p "Co kurwa"
                 scene vinalvoss
+                stop music
+                play music "bossa.mp3"
                 v "Vestem V-Max"
                 v "Vopowa vakość V"
                 p "Oj nie zesraj się"
@@ -3812,6 +3848,8 @@ label wojowezadanie:
         "Skończyliście rozmawiać i wyszliście z laba"
         "Ale na waszej drodze stanął V-Max"
         scene vinalvoss
+        stop music
+        play music "bossa.mp3"
         v "Vrrr"
         c "Spierdalaj ziomo, śpieszy nam się"
         v "Vozjebaliście vi vazę"
@@ -3962,6 +4000,8 @@ label wojowezadanie:
         p "No to dobrze Ci idzie"
         k "Spokojnie, ja dopiero się rozkręcam"
         scene vinalvoss
+        stop music
+        play music "bossa.mp3"
         show kalach at left
         k "Ło kurwa, VMax się pojawił"
         v "Vrrrr"
