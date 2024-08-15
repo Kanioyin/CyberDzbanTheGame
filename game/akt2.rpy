@@ -7,12 +7,15 @@ label a2intro:
         "Siła":
             if helper == 0:
                 $ cechy["BC"] = 6
+                $ MaxHP = 10 + (5*((cechy["BC"])))
 
             elif helper > 50:
                 $ cechy["BC"] = 4
+                $ MaxHP = 10 + (5*((cechy["BC"])))
 
             elif helper > 0:
                 $ cechy["BC"] = 5
+                $ MaxHP = 10 + (5*((cechy["BC"])))
 
         "Zwinność":
             if helper == 0:

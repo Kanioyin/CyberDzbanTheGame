@@ -323,6 +323,10 @@ label start:
         elif player_name == "Cycu":
             "Co jest kurde, to cyber jest kurde"
 
+        elif player_name == "Czajnik":
+            "A ty nie widziałeś już wszystkiego?"
+            $ helper = 0
+
         elif player_name == "XD2":
             $ stan = {"Kalach":6, "Gun":6, "Cypher":6, "Laskawca":6, "Hartmann":6, "Jhin":6, "Visty":6, "Kennedy":6, "Krateus":6}
             jump wojowezadanie
@@ -1625,6 +1629,10 @@ label dach:
                 c "Tu powinni być tylko ludzie z DH"
                 c "Ale chuj, niech zyskam"
                 p "To co, będzie jeszcze jakiś bonus?"
+                c "Będzie tylko dla posiadaczy Cibuch Premium Premium"
+                p "Co to znaczy?"
+                c "Nie mogę Ci powiedzieć, to załamie kontinuum czasoprzestrzenne, a to będę mógł robić dopiero w następnym arku"
+                p "To może dasz mi jakieś zadanie specjalne?"
                 c "A spierdalaj, tańcz kurwa"
                 "I zacząłeś tańczyć z Cypherem"
                 $ stan["Cypher"] = 7
@@ -3456,6 +3464,7 @@ label wojowezadanie:
                                 $ renpy.quit()
 
                     "Czy moc pay to play też na mnie działa?" if edki > 199:
+                        achieve Bug
                         mg "TAK"
                         p "O jasna dupa, to Wielki Dzik"
                         mg "To prawda, jestem więc myślę"
@@ -3463,6 +3472,12 @@ label wojowezadanie:
                         mg "Mogę zrobić wszystko ale ile jesteś gotowy za to zapłacić?"
                         menu:
                             "Ilę chcę dać?"
+                            "Może dziczeg?" if inventory.has_item(NRG) == True:
+                                mg "Oj kolego, kupiłeś mnie tym jak paczkę żelków"
+                                mg "Oto moje błogosławieństwo"
+                                p "Dziękuję wielki dziku"
+                                $ helper -= 25
+
                             "Masz tu 200 edków i spierdalaj":
                                 mg "Przyjmuję tę ofertę"
                                 p "Fr fr?"
