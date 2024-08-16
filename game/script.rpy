@@ -405,6 +405,7 @@ label gameover:
     $ MainMenu(confirm=False)()
 
 label rozstaje:
+    play sound "scen.mp3"
     scene rozstaje
     stop music
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
@@ -415,30 +416,39 @@ label rozstaje:
         "Kaj leziesz?"
 
         "Kierunek kuchnia":
+            play sound "scen.mp3"
             jump kuchnia
 
         "Może się pomodlę?":
+            play sound "scen.mp3"
             jump kosciol
 
         "Przycisnęło mnie" if bigquest < 5:
+            play sound "scen.mp3"
             jump kibel
 
         "Nie boję się śmierci":
+            play sound "scen.mp3"
             jump dach
 
         "Co tam tak napierdala?":
+            play sound "scen.mp3"
             jump warsztat
 
         "Ten czerwony krzyż wygląda obiecująco":
+            play sound "scen.mp3"
             jump klinika
 
         "Dziupla Jhina" if bigquest > 2:
+            play sound "scen.mp3"
             jump jhinownia
 
         "Lil Brazil" if bigquest > 4:
+            play sound "scen.mp3"
             jump bruhzylia
 
         "Idę do siebie" if akt > 0:
+            play sound "scen.mp3"
             jump sypialnia
 
         "Wychodzę stąd" if akt > 0:
