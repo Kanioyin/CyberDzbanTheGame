@@ -55,18 +55,25 @@ screen phone():
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("phone"), Show("day")
+    
+    if akt > 1:
+        imagebutton auto "cyberfon_cechy_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("phone"), Show("day")
 
-    imagebutton auto "cyberfon_cechy_%s":
-        focus_mask True
-        hovered SetVariable("screen_tooltip", "Return")
-        unhovered SetVariable("screen_tooltip","")
-        action Hide("phone"), Show("day")
-
-    imagebutton auto "cyberfon_skil_%s":
-        focus_mask True
-        hovered SetVariable("screen_tooltip", "Return")
-        unhovered SetVariable("screen_tooltip","")
-        action Hide("phone"), Show("day")
+        imagebutton auto "cyberfon_skil_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("phone"), Show("day")
+    if kody < 6:
+        imagebutton auto "cyberfon_kody_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("phone"), Show("kody")
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -186,6 +193,20 @@ screen frak():
             text "{color=000} Vist"
         elif Frakcja == 4:
             text "{color=000} Kościołu Ud"
+
+    imagebutton auto "cyberfon_won_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("frak"), Show("phone")
+
+screen kody():
+    modal True
+    add "cyberfon_clear.png"
+    vbox:
+        pos 0.4, 0.1
+        $ kod = renpy.input("Podaj kod")
+
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True

@@ -145,7 +145,7 @@ label checkHP(dmg):
         if inventory.has_item(THeal) == True:
             achieve Clos
             $ inventory.remove_item(THeal)
-            $ HP =  [BC] * 2
+            $ HP =  ["BC"] * 2
             $ umieram = 0
             p "Dobrze że miałem Turbo Uzrawiacz"
         else:
@@ -245,11 +245,12 @@ label start:
     default helper2 = 0
     default part = 0
     default testPass = 0
+    default kody = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
 
     while helper == 1:
-        $ player_name = renpy.input("Nazywasz się")
+        $ player_name = renpy.input("Nazywasz się:")
         if player_name == "Gun":
             g "Prawa autorskie kurwa"
 
@@ -553,6 +554,18 @@ label kuchnia:
                 jump rozstaje
 
         elif bigquest == 5:
+            if inventory.has_item(Rat) == True:
+                menu:
+                    "Mam w eq szczura, dać go Gunowi?"
+                    "Ta":
+                        p "Te Gun, chcesz może szczura?"
+                        g "Pewnie"
+                        $ inventory.remove_item(Rat)
+                        g "Dzięki"
+
+                    "Nah":
+                        "Niech posra jeszcze w kieszeni"
+                        
             if stan["Cypher"] == 3:
                 show cypher at left with moveinleft
                 c "Dzień dobry [player_name]!"
@@ -1084,7 +1097,7 @@ label kosciol:
                 jump rozstaje
 
         elif bigquest == 3:
-            if stan["Kalach"] = 1:
+            if stan["Kalach"] == 1:
                 k "Niech mnie uda i zimna wóda"
                 k "Wróciłeś żywy z siedliska Vist"
                 $ postacie["Kalach"] += 1
@@ -2932,6 +2945,7 @@ label workowiec:
             achieve Mocz
             p "Zwiększaj"
             $ Cap += 1
+            jump rozstaje
 
         "Lepiej nie":
             jump rozstaje 
@@ -4536,7 +4550,7 @@ label vrade:
             $ veq += 1
             "Wydałeś 5 vdolcy na AR-kę"
 
-        "Wytrych? " if vdolce >= 2 and inventory.has_item(Wytrych) == False and inventory.has_space(Cap) == True:
+        "Wytrych? " if vdolce >= 2 and inventory.has_item(Wytrych) == False:
             $ inventory.add_item(Wytrych)
             $ vdolce -= 2
             $ veq += 1
