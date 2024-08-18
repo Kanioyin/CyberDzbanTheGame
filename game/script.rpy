@@ -1640,7 +1640,7 @@ label dach:
                 scene disko
                 show cypher at left
                 stop music
-                play music "inba.oog"
+                play music "inba.mp3"
                 p "Co tu się kurwa dzieje?"
                 c "Witam na imperzie"
                 p "Ale czemu? Zrobiłem z tobą kłesty!"
@@ -2766,6 +2766,9 @@ label spacerek:
             p "Jest i wytryszek, pogczamp"
             p "Opening time!"
             $ helper = renpy.random.randint(1, 4)
+            if renpy.random.randint(1, 5) == 5:
+                $ inventory.remove_item(Wytrych)
+
             if helper == 1:
                 p "O proszę! Hajsiwo"
                 $ edki += renpy.random.randint(50, 300)
@@ -2877,6 +2880,12 @@ label frogszop:
                 else:
                     p "Kurwa, nie siadło"
 
+            "Przewalutowanie" if vdolce > 0:
+                fse "Już, oto normalne edki"
+                $ edki += (vdolce*50)
+                $ vdolce = 0
+                p "Dziękuję"
+                
             "To tyle, dziękuję, dowidzenia":
                 fse "Dowidzenia, zapraszam ponownie"
                 $ helper = 0
@@ -2941,7 +2950,7 @@ label workowiec:
     $ czas -= 2
     menu:
         p "Czy chcę powiększyć wora?"
-        "Pewex" if edki > (Cap*2)*100:
+        "Pewex" if edki > (Cap+1)*100:
             achieve Mocz
             p "Zwiększaj"
             $ Cap += 1
@@ -3041,11 +3050,11 @@ label wojsko:
             $ wojsko_stan += 1
             $ stan["Jhin"] = 6
 
-        if stan["Cypher"] == 5:
+        if stan["Cypher"] == 5 or stan["Cypher"] == 6:
             "Dumnie ogłosiłeś dołączenie Cyphera"
             gk "Dlaczego?"
             $ wojsko_stan += 1
-            $ stan["Cypher"] = 6
+            $ stan["Cypher"] = 9
 
         if stan["Krateus"] == 5:
             "Pochwaliłeś się przyjaźnią z Krateusem"
