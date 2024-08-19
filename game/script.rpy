@@ -246,6 +246,10 @@ label start:
     default part = 0
     default testPass = 0
     default kody = 0
+    default kompan = 0
+    # 0 = Nikt
+    # 1 = VIO
+    # 2 = JAX
 
     play music "Bongo_Madness.mp3" volume 0.2
 

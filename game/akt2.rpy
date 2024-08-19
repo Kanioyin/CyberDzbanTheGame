@@ -1,4 +1,7 @@
 label a2intro:
+    $ akt = 2
+    $ bigquest = 0
+    default stan = {"Vio":0, "Jax":0, "Kris":0}
     sb "Aj karamba, bolało"
     sb "Mam nadzeję, że jesteś cały"
     sb "Zobaczmy z czego jesteś zbudowany"
@@ -116,3 +119,37 @@ label a2intro:
     ja "Spokojnie, jeszcze kilka lat i się przyzwyczaisz"
     cr "No to co, zaczynamy pierdolnik?"
     p "Chyba nie mam innego wyjścia"
+    jump opor
+
+label opor:
+    # i tu będą buttony do ziomów i dworu
+
+label jaxowo:
+    if bigquest == 0:
+
+    elif bigquest == 1:
+
+    elif bigquest == 2:
+
+    elif bigquest == 3:
+    jump opor
+
+label viocha:
+    if bigquest == 0:
+
+    elif bigquest == 1:
+
+    elif bigquest == 2:
+
+    elif bigquest == 3:
+    jump opor
+
+label krzis:
+    if bigquest == 0:
+
+    elif bigquest == 1:
+
+    elif bigquest == 2:
+
+    elif bigquest == 3:
+    jump opor
