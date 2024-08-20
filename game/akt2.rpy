@@ -125,23 +125,43 @@ label opor:
     # i tu będą buttony do ziomów i dworu
 
 label jaxowo:
-    if bigquest == 0:
+    $ talkloop = 0
+    while talkloop == 0:
+        menu:
+            ja "Co tam chcesz [player_name]?"
+            "Potrzebuję Cię w moim składzie!" if kompan == 0:
+                ja "Spoczko foczko"
+                $ kompan = 2
+                "JAX dołącza jako kompan"
 
-    elif bigquest == 1:
-
-    elif bigquest == 2:
-
-    elif bigquest == 3:
+            "Idę questować solo" if kompan == 2:
+                ja "Żaden prblem mordeczko"
+                $ kompan = 0
+                "JAX wraca do swoich zajęć"
+            
+            "To chyba na tyle":
+                ja "Luz"
+                $ talkloop = 1
     jump opor
 
 label viocha:
-    if bigquest == 0:
+    $ talkloop = 0
+    while talkloop == 0:
+        menu:
+            vi "Vitam [player_name]"
+            "Potrzebuję Cię w moim składzie!" if kompan == 0:
+                vi "Vaden vroblem"
+                $ kompan = 1
+                "VIO dołącza jako kompan"
 
-    elif bigquest == 1:
-
-    elif bigquest == 2:
-
-    elif bigquest == 3:
+            "Idę questować solo" if kompan == 1:
+                vi "Vozumiem"
+                $ kompan = 0
+                "VIO vraca do swoich zajęć"
+            
+            "To chyba na tyle":
+                vi "Vuz"
+                $ talkloop = 1
     jump opor
 
 label krzis:
@@ -153,3 +173,5 @@ label krzis:
 
     elif bigquest == 3:
     jump opor
+
+label anomalia:

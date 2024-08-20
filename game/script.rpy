@@ -250,6 +250,7 @@ label start:
     # 0 = Nikt
     # 1 = VIO
     # 2 = JAX
+    default talkloop = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
 
@@ -3155,12 +3156,13 @@ label wojowezadanie:
                         p "A to jednak jest trochę sus"
                         g "To ma sers"
                         $ helper -= 25
+                        hide gun
+                        scene agunus
                         g "Kurwa, ciemno tu"
                         g "O, jest chyba wyjście"
                         "Gun skończył wentować"
                         g "Przycisk z napisem tajne vejście"
                         g "A se kliknę"
-                        hide gun
                         "I dzięki temu, reszta drużyny dostała się do środka"
 
                 scene vards
