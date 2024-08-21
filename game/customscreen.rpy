@@ -61,13 +61,13 @@ screen phone():
             focus_mask True
             hovered SetVariable("screen_tooltip", "Return")
             unhovered SetVariable("screen_tooltip","")
-            action Hide("phone"), Show("day")
+            action Hide("phone"), Show("cechy")
 
         imagebutton auto "cyberfon_skil_%s":
             focus_mask True
             hovered SetVariable("screen_tooltip", "Return")
             unhovered SetVariable("screen_tooltip","")
-            action Hide("phone"), Show("day")
+            action Hide("phone"), Show("skile")
     if kody < 6:
         imagebutton auto "cyberfon_kody_%s":
             focus_mask True
@@ -200,6 +200,41 @@ screen frak():
         unhovered SetVariable("screen_tooltip","")
         action Hide("frak"), Show("phone")
 
+screen cechy():
+    modal False
+    add "cyberfon_clear"
+    vbox:
+        pos 0.4, 0.1
+        text "{color=000} Twoje cechy"
+        text "{color=000} Budowa ciała: [BC]"
+        text "{color=000} Zwinność: [ZW]"
+        text "{color=000} Charakter [CHAR]"
+        text "{color=000} Umysł [INT]"
+
+    imagebutton auto "cyberfon_won_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("frak"), Show("phone")
+
+screen skile():
+    modal False
+    add "cyberfon_clear"
+    vbox:
+        pos 0.4, 0.1
+        text "{color=000} Twoje umiejętności"
+        text "{color=000} Strzelanie: [Bron]"
+        text "{color=000} Gadanie: [Gadanie]"
+        text "{color=000} Spierdalanie: [Atletyka]"
+        text "{color=000} Myślenie: [Myslenie]"
+
+    imagebutton auto "cyberfon_won_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("frak"), Show("phone")
+
+
 screen kody():
     modal True
     add "cyberfon_clear.png"
@@ -229,28 +264,28 @@ screen map_screen():
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
-        action Hide("map_screen"), Jump("spacerek")
+        action Hide("map_screen"), Call("spacerek")
 
     if znajOkol > 0:
         imagebutton auto "city_sklep_%s":
             focus_mask True
             hovered SetVariable("screen_tooltip", "Return")
             unhovered SetVariable("screen_tooltip","")
-            action Hide("map_screen"), Jump("trader")
+            action Hide("map_screen"), Call("trader")
 
     if znajOkol > 1:
         imagebutton auto "city_zab_%s":
             focus_mask True
             hovered SetVariable("screen_tooltip", "Return")
             unhovered SetVariable("screen_tooltip","")
-            action Hide("map_screen"), Jump("frogszop")
+            action Hide("map_screen"), Call("frogszop")
 
     if znajOkol > 2:
         imagebutton auto "city_wor_%s":
             focus_mask True
             hovered SetVariable("screen_tooltip", "Return")
             unhovered SetVariable("screen_tooltip","")
-            action Hide("map_screen"), Jump("workowiec")
+            action Hide("map_screen"), Call("workowiec")
 
     if Frakcja == 3:
         imagebutton auto "city_vlok_%s":
@@ -259,9 +294,51 @@ screen map_screen():
             unhovered SetVariable("screen_tooltip","")
             action Hide("map_screen"), Call("vradeZewn")
 
-    if bigquest > 3:
+    if bigquest > 3 and akt == 1:
         imagebutton auto "city_army_%s":
             focus_mask True
             hovered SetVariable("screen_tooltip", "Return")
             unhovered SetVariable("screen_tooltip","")
             action Hide("map_screen"), Jump("wojsko")
+
+    if akt == 2:
+        imagebutton auto "city_hid_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("opor")
+
+    if chipy == 0 and chiplok == 1 or chipy == 1 and chiplok == 2 or chipy == 2 and chiplok == 3 or chipy == 3 and chiplok == 4 or chipy == 4 and chiplok == 5:
+        imagebutton auto "city_hid_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("chipnik")
+
+screen oportalk():
+    add "opor"
+    modal True
+
+    imagebutton auto "opor_kris_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("oportalk"), Call("krzis")
+
+    imagebutton auto "opor_jax_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("oportalk"), Call("jaxowo")
+
+    imagebutton auto "opor_vio_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("oportalk"), Call("viocha")
+
+    imagebutton auto "opor_wlas_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("oportalk"), Show("map_screen")

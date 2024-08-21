@@ -82,9 +82,10 @@ label checktime:
         return
 
 
-# input call testCech("Cecha", PT), nie fogoruj ""
-label testCech(cecha, PT):
-    $ testPass = 0
+# input call testSkili("Cecha", PT), nie fogoruj ""
+label testSkili(skil, PT):
+    $ exp += 1
+    $ wynik = 0
     $ d10 = renpy.random.randint(1,10)
     if d10 == 1:
         $ d10 -= renpy.random.randint(1,10)
@@ -92,12 +93,14 @@ label testCech(cecha, PT):
     if d10 == 10:
         $ d10 += renpy.random.randint(1,10)
 
-    if cechy[cecha]+d10 > PT-1:
-        $ testPass = 1
+    if skile[skil]+d10 > PT-1:
+        "Sukces"
+        $ wynik = 1
         return
 
     else:
-        $ testPass = 0
+        "Porażka"
+        $ wynik = 0
         return
 
 
@@ -216,7 +219,7 @@ label start:
     #deklaracja reszty
     default edki = 0
     default vdolce = 0
-    default MaxHP = 10 + (5*((cechy["BC"])))
+    default MaxHP = 20
     default Fragi = 0
     default akt = 0
     default HP = 0
@@ -251,6 +254,10 @@ label start:
     # 1 = VIO
     # 2 = JAX
     default talkloop = 0
+    default chipy = 0
+    default chiplok = 0
+    default exp = 0
+    default wynik = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
 
@@ -2689,7 +2696,7 @@ label podsumowanie1:
 label spacerek:
     scene black
     $ czas -= 5
-    $ cel = renpy.random.randint(1, 8)
+    $ cel = renpy.random.randint(1, 9)
     if cel == 1:
         "Znalazłeś jakieś drobniaki"
         $ zysk = renpy.random.randint(1, 50)
@@ -2700,9 +2707,55 @@ label spacerek:
         "Ni chuja, same nudy"
 
     elif cel == 3:
-        "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-        $ wpierdol = renpy.random.randint(4, 18)
-        call checkHP(wpierdol) from _call_checkHP_4
+        if akt == 1:
+            "Przez przypadek wszedłeś do Bloku Władcy Demonów"
+            $ wpierdol = renpy.random.randint(4, 18)
+            call checkHP(wpierdol) from _call_checkHP_4
+
+        elif akt == 2:
+            "Przez przypadek wszedłeś do Bloku Władcy Demonów"
+            "Ale teraz nadszedł czas działać"
+            menu:
+                "Co robisz?"
+                "Atak na suki":
+                    call testSkili("Bron",7)
+                    if wynik == 1:
+                        "Demony zostały pokonane, natenczas"
+                        p "Szach mat frajery"
+                        $ edki += 250
+                        p "Wszystkie wasze portfele są teraz moje"
+                    
+                    else:
+                        p "Ło nie, są silniejsi"
+                        call checkHP(renpy.random.randint(4, 18))
+
+                "Ted Talk":
+                    call testSkili("Gadanie",7)
+                    "Powiedziałeś demonom żeby spierdalali"
+                    if wynik == 1:
+                        "I nawet Ci się udało"
+                        p "Krowy doić! He he"
+                        "Kolejny sukces Night Citiowskich punków"
+
+                    else:
+                        "Niestety, nikt Cie nie zrozumiał"
+                        call checkHP(renpy.random.randint(4, 18))
+
+                "Ucieczka":
+                    call testSkili("Atletyka",7)
+                    "Gdy tylko ich zobaczyłeś zacząłeś uciekać"
+                    "Te pojeby otworzyły ogień"
+                    if wynik == 1:
+                        "Uniknąłeś części pocisków"
+                        call checkHP(renpy.random.randint(1, 10))
+
+                    else:
+                        "Skurwysyny chyba mają snipera"
+                        call checkHP(renpy.random.randint(4, 18))
+
+
+        else:
+            "Coś się zjebało"
 
     elif cel == 4:
         if znajOkol == 0:
@@ -2796,11 +2849,30 @@ label spacerek:
 
         else:
             p "Kurwa nie, przydał by się wytrych"
-                
+
+    elif cel == 9:
+        if chipy == 0:
+            $ chiplok = 1
+
+        elif chipy == 1:
+            $ chiplok = 2
+
+        elif chipy == 2:
+            $ chiplok = 3
+
+        elif chipy == 3:
+            $ chiplok = 4
+
+        elif chipy == 4:
+            $ chiplok = 5   
+
+        else:
+            p "Znalazłem chyba wszystko" 
+
     else:
         "Print dupa, nie powinno Cię tu być."
 
-    jump rozstaje
+    return
 
 
 label trader:
@@ -2839,7 +2911,15 @@ label trader:
                     $ helper = 0
 
         stop music
-        jump rozstaje
+    show screen map_screen
+    window hide
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    jump trader
 
 
 label frogszop:
@@ -2948,7 +3028,15 @@ label vradeZewn:
         "Nie potrzebuję twoich towarów":
             jump rozstaje
 
-    jump rozstaje
+    show screen map_screen
+    window hide
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    jump vradeZewn
 
 label workowiec:
     scene bager
@@ -2962,7 +3050,15 @@ label workowiec:
             jump rozstaje
 
         "Lepiej nie":
-            jump rozstaje 
+            show screen map_screen
+            window hide
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            jump workowiec
 
 label wojsko:
     $ czas -= 5
@@ -4103,7 +4199,7 @@ label akt1pods:
     sb "To nie jest pora jeszcze umierać"
     sb "Mam co do Ciebie plany"
     achieve GG1
-    jump tempend
+    jump a2intro
 
 label amongthev:
     stop music fadeout 1.0

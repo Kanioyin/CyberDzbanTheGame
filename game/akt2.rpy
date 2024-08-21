@@ -1,7 +1,7 @@
 label a2intro:
     $ akt = 2
     $ bigquest = 0
-    default stan = {"Vio":0, "Jax":0, "Kris":0}
+    default stan2 = {"Vio":0, "Jax":0, "Kris":0}
     sb "Aj karamba, bolało"
     sb "Mam nadzeję, że jesteś cały"
     sb "Zobaczmy z czego jesteś zbudowany"
@@ -10,15 +10,15 @@ label a2intro:
         "Siła":
             if helper == 0:
                 $ cechy["BC"] = 6
-                $ MaxHP = 10 + (5*((cechy["BC"])))
+                $ MaxHP = 40
 
             elif helper > 50:
                 $ cechy["BC"] = 4
-                $ MaxHP = 10 + (5*((cechy["BC"])))
+                $ MaxHP = 30
 
             elif helper > 0:
                 $ cechy["BC"] = 5
-                $ MaxHP = 10 + (5*((cechy["BC"])))
+                $ MaxHP = 35
 
         "Zwinność":
             if helper == 0:
@@ -54,13 +54,16 @@ label a2intro:
     menu:
         "Gdy trzeba walczyć, co robię?"
         "Strzelam":
-            $ cechy["Bron"] = 4
+            $ skile["Bron"] = 4
 
         "Spierdalam":
-            $ cechy["Atletyka"] = 4
+            $ skile["Atletyka"] = 4
 
         "Perswaduje":
-            $ cechy["Gadanie"] = 4
+            $ skile["Gadanie"] = 4
+
+        "Zastanawiam się: Dlaczego?":
+            $ skile["Myslenie"] = 4
 
     sb "No dobra, pora otworzyć oczy"
     scene opor
@@ -119,12 +122,20 @@ label a2intro:
     ja "Spokojnie, jeszcze kilka lat i się przyzwyczaisz"
     cr "No to co, zaczynamy pierdolnik?"
     p "Chyba nie mam innego wyjścia"
+    show screen hud
     jump opor
 
 label opor:
-    # i tu będą buttony do ziomów i dworu
+    show screen oportalk
+    window hide
+    pause 10
+
+label bufor:
+    jump opor
 
 label jaxowo:
+    scene opor
+    show jax
     $ talkloop = 0
     while talkloop == 0:
         menu:
@@ -142,9 +153,12 @@ label jaxowo:
             "To chyba na tyle":
                 ja "Luz"
                 $ talkloop = 1
+
     jump opor
 
 label viocha:
+    scene opor
+    show vio
     $ talkloop = 0
     while talkloop == 0:
         menu:
@@ -165,13 +179,65 @@ label viocha:
     jump opor
 
 label krzis:
+    scene opor
+    show kris
     if bigquest == 0:
+        if stan2["Kris"] == 0:
+            cr "Dobra [player_name], pora na twoje zadanie, musisz połazić trochę po mieście i poszukać chipów"
+            p "I co, tak randomowo będą na ulicy?"
+            cr "To nie jest aż takie proste"
+            cr "Masz tu wykrywacz"
+            cr "Jak będziesz w okolicy to będzie brzęczeć"
+            p "WOW! I co wtedy?"
+            cr "Wtedy ruszasz dzielnie tam gdzie pika"
+            cr "Może tam być niebezpiecznie, więc radzę iść z kimś"
+            cr "VIO i JAX się polecają do napierdalania"
+            p "A nie mogę wziąć ich obu?"
+            cr "W sensie że do walki tak?"
+            p "Tak"
+            cr "Uf, nie możesz bo:"
+            cr "a) To by było zbyt proste"
+            cr "b) Jak walczą razem to wpadają w dziki szał"
+            cr "I potrafi im czasem odjebać aż za bardzo"
+            cr "Ostatnio prawie rozjebali pół osiedla"
+            cr "A ja nie wiem jak to powstrzymać"
+            cr "Odkąd Arasaka porwała JAX-a to jest z nim coraz gorzej"
+            cr "Ale dobra, czas kończyć ten Ted tok"
+            cr "Ruszaj dzielnie do roboty"
+            p "Tajest!"
+            $ stan2["Kris"] = 1
+            jump opor
 
     elif bigquest == 1:
+        pass
 
     elif bigquest == 2:
+        pass
 
     elif bigquest == 3:
+        pass
     jump opor
 
 label anomalia:
+    jump opor
+
+label chipnik:
+    if chipy == 0:
+        p "No i git"
+
+    elif chipy == 1:
+        mg "in dev"
+        
+    elif chipy == 2:
+        mg "in dev"
+
+    elif chipy == 3:
+        mg "in dev"
+
+    elif chipy == 4:
+        mg "in dev"
+
+    else:
+        p "Mam już wszystko"
+
+    jump opor

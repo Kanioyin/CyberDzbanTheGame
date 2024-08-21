@@ -1,78 +1,38 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 415, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 2502, in script
-    menu:
-  File "game/customscreen.rpy", line 203, in execute
-    screen kody():
-  File "game/customscreen.rpy", line 203, in execute
-    screen kody():
-  File "game/customscreen.rpy", line 206, in execute
-    vbox:
-  File "game/customscreen.rpy", line 208, in execute
-    $ kod = renpy.input("Podaj kod")
-  File "game/customscreen.rpy", line 208, in <module>
-    $ kod = renpy.input("Podaj kod")
-Exception: ui.interact called with non-empty widget/layer stack. Did you forget a ui.close() somewhere?
-Stack was <Layer: 'transient'>
-<Many: <renpy.display.layout.Fixed object at 0x0000000007448310>>
-<renpy.sl2.slast.SLContext object at 0x0000000007345160>
+  File "game/akt2.rpy", line 131, in script call
+    pause 10
+  File "game/script.rpy", line 2733, in script call
+    call testSkili(Gadanie,7)
+  File "game/script.rpy", line 86, in script
+    label testSkili(skil, PT):
+  File "game/script.rpy", line 2733, in <module>
+    call testSkili(Gadanie,7)
+NameError: name 'Gadanie' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 415, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 2502, in script
-    menu:
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1618, in execute
-    choice = renpy.exports.menu(choices, self.set, args, kwargs, item_arguments)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports.py", line 1109, in menu
-    rv = renpy.store.menu(new_items)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports.py", line 1364, in display_menu
-    rv = renpy.ui.interact(mouse='menu', type=type, roll_forward=roll_forward)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2165, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2687, in interact_core
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\displayable.py", line 431, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\displayable.py", line 431, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\displayable.py", line 431, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 480, in visit_all
-    callback(self)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2687, in <lambda>
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 491, in per_interact
-    self.update()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 697, in update
-    self.screen.function(**self.scope)
-  File "game/customscreen.rpy", line 203, in execute
-    screen kody():
-  File "game/customscreen.rpy", line 203, in execute
-    screen kody():
-  File "game/customscreen.rpy", line 206, in execute
-    vbox:
-  File "game/customscreen.rpy", line 208, in execute
-    $ kod = renpy.input("Podaj kod")
-  File "game/customscreen.rpy", line 208, in <module>
-    $ kod = renpy.input("Podaj kod")
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports.py", line 984, in input
-    rv = renpy.ui.interact(mouse='prompt', type="input", roll_forward=roll_forward)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 295, in interact
-    raise Exception("ui.interact called with non-empty widget/layer stack. Did you forget a ui.close() somewhere?\nStack was " + ('\n'.join([str(item) for item in stack])))
-Exception: ui.interact called with non-empty widget/layer stack. Did you forget a ui.close() somewhere?
-Stack was <Layer: 'transient'>
-<Many: <renpy.display.layout.Fixed object at 0x0000000007448310>>
-<renpy.sl2.slast.SLContext object at 0x0000000007345160>
+  File "game/akt2.rpy", line 131, in script call
+    pause 10
+  File "game/script.rpy", line 2733, in script call
+    call testSkili(Gadanie,7)
+  File "game/script.rpy", line 86, in script
+    label testSkili(skil, PT):
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1421, in execute
+    args, kwargs = self.arguments.evaluate()
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\parameter.py", line 477, in evaluate
+    value = renpy.python.py_eval(v, locals=scope)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1209, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1202, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 2733, in <module>
+    call testSkili(Gadanie,7)
+NameError: name 'Gadanie' is not defined
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.2.1.24030407
-CyberDzban 0.000000009
-Sun Aug 18 14:22:28 2024
+CyberDzban 0.00000001
+Wed Aug 21 17:17:21 2024
