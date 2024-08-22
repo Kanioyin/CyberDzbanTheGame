@@ -2,9 +2,11 @@
 errors listed below, and try again.
 
 
-File "game/customscreen.rpy", line 267: 'call' is not a keyword argument or valid child of the imagebutton statement.
-    action Hide("map_screen"), call("spacerek")
-                                   ^
+The label _call_checkHP_23 is defined twice, at File "game/script.rpy", line 2882:
+                call checkHP(10) from _call_checkHP_23
+and File "game/script.rpy", line 2909:
+                    call checkHP(10) from _call_checkHP_23
+
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Wed Aug 21 12:56:26 2024
+Thu Aug 22 10:11:25 2024

@@ -1,38 +1,44 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/akt2.rpy", line 131, in script call
+  File "game/akt2.rpy", line 132, in script call
     pause 10
-  File "game/script.rpy", line 2733, in script call
-    call testSkili(Gadanie,7)
-  File "game/script.rpy", line 86, in script
-    label testSkili(skil, PT):
-  File "game/script.rpy", line 2733, in <module>
-    call testSkili(Gadanie,7)
-NameError: name 'Gadanie' is not defined
+  File "game/akt2.rpy", line 132, in script call
+    pause 10
+  File "game/akt2.rpy", line 132, in script call
+    pause 10
+  File "game/script.rpy", line 2835, in script call
+    call testSkili("Broń","ZW",renpy.random.randint(8, 12))
+  File "game/script.rpy", line 114, in script
+    if skile[skil]+cechy[cecha]+d10 > PT-1:
+  File "game/script.rpy", line 114, in <module>
+    if skile[skil]+cechy[cecha]+d10 > PT-1:
+KeyError: 'Broń'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/akt2.rpy", line 131, in script call
+  File "game/akt2.rpy", line 132, in script call
     pause 10
-  File "game/script.rpy", line 2733, in script call
-    call testSkili(Gadanie,7)
-  File "game/script.rpy", line 86, in script
-    label testSkili(skil, PT):
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1421, in execute
-    args, kwargs = self.arguments.evaluate()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\parameter.py", line 477, in evaluate
-    value = renpy.python.py_eval(v, locals=scope)
+  File "game/akt2.rpy", line 132, in script call
+    pause 10
+  File "game/akt2.rpy", line 132, in script call
+    pause 10
+  File "game/script.rpy", line 2835, in script call
+    call testSkili("Broń","ZW",renpy.random.randint(8, 12))
+  File "game/script.rpy", line 114, in script
+    if skile[skil]+cechy[cecha]+d10 > PT-1:
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1842, in execute
+    if renpy.python.py_eval(condition):
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1209, in py_eval
     return py_eval_bytecode(code, globals, locals)
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1202, in py_eval_bytecode
     return eval(bytecode, globals, locals)
-  File "game/script.rpy", line 2733, in <module>
-    call testSkili(Gadanie,7)
-NameError: name 'Gadanie' is not defined
+  File "game/script.rpy", line 114, in <module>
+    if skile[skil]+cechy[cecha]+d10 > PT-1:
+KeyError: 'Broń'
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.2.1.24030407
 CyberDzban 0.00000001
-Wed Aug 21 17:17:21 2024
+Thu Aug 22 10:13:15 2024

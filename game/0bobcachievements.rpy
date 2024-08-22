@@ -59,6 +59,7 @@ define BOBCACHIEVEMENT_LIST = (
     ("Mocz", _("Super pęcherz"), _("Teraz mój wór jest większy!")),
     ("Fri", _("Piątkowa noc"), _("Takiej imperzy się nie spodziewałem.")),
     ("Bug", _("ON ISTNIEJE"), _("Porozmawiałeś z głosem w głowie.")),
+    ("Cip", _("Wcipiam się"), _("Pierwszy cip zdobyty.")),
     )
     
 # 3) In your game script, when you want to grant an achievement, type "achieve <reference_id>" without the

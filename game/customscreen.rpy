@@ -86,7 +86,10 @@ screen znaj():
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
-        text "{color=000}Cypher: [postacie['Cypher']] \n Kałach: [postacie['Kalach']] \n Gun: [postacie['Gun']] \n Hartmann: [postacie['Hartmann']] \n Łaskawca: [postacie['Laskawca']] \n Krateus: [postacie['Krateus']] \n Jhin: [postacie['Jhin']]"
+        if akt == 1:
+            text "{color=000}Cypher: [postacie['Cypher']] \n Kałach: [postacie['Kalach']] \n Gun: [postacie['Gun']] \n Hartmann: [postacie['Hartmann']] \n Łaskawca: [postacie['Laskawca']] \n Krateus: [postacie['Krateus']] \n Jhin: [postacie['Jhin']]"
+        else:
+            text "{color=000} Nie wiem czy muszę się z nimi zaprzyjaźniać"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -100,6 +103,20 @@ screen day():
     vbox:
         pos 0.4, 0.1
         text "{color=000} Dzień: [dzien] \n"
+        if dzien % 7 == 0:
+            text "{color=000} Poniedziałek"
+        elif dzien % 7 == 1:
+            text "{color=000} Wtorek"
+        elif dzien % 7 == 2:
+            text "{color=000} Środa"
+        elif dzien % 7 == 3:
+            text "{color=000} Czwartek"
+        elif dzien % 7 == 4:
+            text "{color=000} Piątek"
+        elif dzien % 7 == 5:
+            text "{color=000} Sobota"
+        elif dzien % 7 == 6:
+            text "{color=000} Niedziela"
         if czas > 0:
             text "{color=000} Zostało mi jeszcze [czas] \n jednostek czasu"
         elif czas < 1:
@@ -206,10 +223,10 @@ screen cechy():
     vbox:
         pos 0.4, 0.1
         text "{color=000} Twoje cechy"
-        text "{color=000} Budowa ciała: [BC]"
-        text "{color=000} Zwinność: [ZW]"
-        text "{color=000} Charakter [CHAR]"
-        text "{color=000} Umysł [INT]"
+        text "{color=000} Budowa ciała: [cechy['BC']]"
+        text "{color=000} Zwinność: [cechy['ZW']]"
+        text "{color=000} Charakter [cechy['CHAR']]"
+        text "{color=000} Umysł [cechy['INT']]"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -223,10 +240,10 @@ screen skile():
     vbox:
         pos 0.4, 0.1
         text "{color=000} Twoje umiejętności"
-        text "{color=000} Strzelanie: [Bron]"
-        text "{color=000} Gadanie: [Gadanie]"
-        text "{color=000} Spierdalanie: [Atletyka]"
-        text "{color=000} Myślenie: [Myslenie]"
+        text "{color=000} Strzelanie: [skile['Bron']]"
+        text "{color=000} Gadanie: [skile['Gadanie']]"
+        text "{color=000} Spierdalanie: [skile['Atletyka']]"
+        text "{color=000} Myślenie: [skile['Myslenie']]"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -342,3 +359,9 @@ screen oportalk():
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("oportalk"), Show("map_screen")
+
+    imagebutton auto "opor_slep_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("oportalk"), Call("oporslep")

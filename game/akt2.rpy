@@ -126,6 +126,7 @@ label a2intro:
     jump opor
 
 label opor:
+    call checktime
     show screen oportalk
     window hide
     pause 10
@@ -150,6 +151,43 @@ label jaxowo:
                 $ kompan = 0
                 "JAX wraca do swoich zajęć"
             
+            "Co powiesz na mały trening?" if exp > 9:
+                ja "Jasne mordeczko"
+                $ exp -= 10
+                menu:
+                    ja "Co chciałbyś ulepszyć?"
+                    "Wytłumacz mi o co chodzi":
+                        ja "Jak sprawdzasz swoje umiejętności, zdobywasz doświadczenie"
+                        ja "Gdy zdobędziesz go wystarczająco dużo, to przychodzisz do mnie"
+                        ja "Ja Ci pokażę jak wykożystać to doświadczenie w praktyce"
+                        ja "A tobie następne testy idą łatwiej"
+                        p "Wow, to takie proste?"
+                        ja "Proste że tak!"
+
+                    "Bieganie" if skile["Atletyka"] < 7:
+                        ja "No to lecimy, czas trenować cardio"
+                        $ skile["Atletyka"] += 1
+                        "Spędziłeś trochę czasu na bieganiu"
+                        $ czas -= 10
+
+                    "Strzelanie" if skile["Bron"] < 7:
+                        ja "Kierunek strzelnica!"
+                        $ skile["Bron"] += 1
+                        "Udało Ci się trafić nawet 10"
+                        $ czas -= 10
+
+                    "Rozmawianie" if skile["Gadanie"] < 7:
+                        ja "No to opowiadaj, jak Ci życie mija"
+                        $ skile["Gadanie"] += 1
+                        "Opowiedziałeś JAX-owi o swoich problemach"
+                        $ czas -= 10
+
+                    "Rozmyślanie" if skile["Myslenie"] < 7:
+                        ja "Zastanów się, co było pierwsze: Egg czy Qra?"
+                        $ skile["Myslenie"] += 1
+                        "Obstawiasz że egg"
+                        $ czas -= 10
+
             "To chyba na tyle":
                 ja "Luz"
                 $ talkloop = 1
@@ -172,6 +210,22 @@ label viocha:
                 vi "Vozumiem"
                 $ kompan = 0
                 "VIO vraca do swoich zajęć"
+
+            "Możesz mnie uleczyć?" if HP < MaxHP:
+                if inventory.has_item(HuMeat) == True:
+                    vi "Vuzik vrbuzik"
+                    $ HP = MaxHP
+                    p "Dzięki VIO"
+
+                else:
+                    vi "Vłopie, tu nie ma nic za darmo"
+                    p "To ile chcesz tych edków?"
+                    vi "Va vcę vięsa, vudzkiego vakiego"
+                    p "Ale żeby je zdobyć to muszę kogoś zabić"
+                    vi "Vak"
+                    p "I jak mam mało HP, to oni mogą mnie zabić"
+                    vi "Vo vdź vpać"
+                    p "AHA66"
             
             "To chyba na tyle":
                 vi "Vuz"
@@ -208,6 +262,10 @@ label krzis:
             $ stan2["Kris"] = 1
             jump opor
 
+        else:
+            cr "Zajęty jestem, przyjdź jak zrobisz jakieś postępy"
+            jump opor
+
     elif bigquest == 1:
         pass
 
@@ -216,14 +274,110 @@ label krzis:
 
     elif bigquest == 3:
         pass
+
     jump opor
+
+
+label oporslep:
+    scene pokoj
+    show screen hud
+    call bigunl
+    p "Pusto tu"
+    menu:
+        "Jesteś w swoim pokoju, co chcesz zrobić?"
+        "Idę spać":
+            $ czas = 20
+            $ dzien += 1
+            if HP < MaxHP:
+                if inventory.has_item(Flaszka) == True and MaxHP>HP+4:
+                    p "Flaszka, moja żono"
+                    $ inventory.remove_item(Flaszka)
+                    $ HP += 5
+
+                elif edki > 19:
+                    "Przed snem zjadłeś jeszcze coś z automatu"
+                    $ edki -= 20
+                    $ HP += cechy["BC"]
+                    if HP > MaxHP:
+                        $ HP = MaxHP
+
+                else:
+                    "Zasnąłeś z pustym brzuchem"
+
+            elif HP == MaxHP:
+                "Śpisz słodko, jak aniołek"
+
+            jump rozstaje
+
+        "Czy ja przypadkiem nie dostałem?":
+            if HP < MaxHP:
+                p "Faktycznie mam tylko [HP] na [MaxHP]."
+                p "Pancerz ma [armor] punktów"
+                jump sypialnia
+
+            else:
+                p "Zdawało mi się."
+                jump sypialnia
+
+        "Wyjść" if czas > 0:
+            return
 
 label anomalia:
     jump opor
 
 label chipnik:
     if chipy == 0:
-        p "No i git"
+        scene black
+        p "Dobra, to tutaj wykrywa mi cipa"
+        p "Pora dostać się do środka"
+        "Co ciekawe, są one otwarte"
+        p "No to wchodzimy do środka"
+        "Wesoło tuptasz po okolicy aż znajdujesz źródło sygnału"
+        p "Co jest kurwa"
+        p "Kto wsadził cipa do miktofalówki"
+        sb "Ja"
+        p "A przepraszam bardzo, kim ty jesteś"
+        sb "Senior Ciri, Krejzi Konstruktor"
+        p "A pan inżynier oddałby mi tego cipa?"
+        sb "Ty na łep upadłeś chyba"
+        menu:
+            p "No to jak rozwiązujemy ten problem?"
+            "Masz tu 500 edków i spierdalaj" if edki > 499:
+                $ edki -= 500
+                sb "No dobra, mi pasuje"
+                p "No to dogadani"
+                "Zabrałeś cipa z mikrofalówki"
+                $ chipy = 1
+                p "Bywaj Ciri"
+                sb "Bywaj"
+
+            "VIO, weź go zjedz!" if kompan == 1:
+                vi "Vpoko"
+                sb "Co kurwa"
+                vi "Vrup"
+                "I VIO tak serio opierdolił chłopa"
+                p "Ja pierdolę"
+                vi "Vtrasznie Verstwy"
+                "Zabrałeś chipa i w ciszy wydzedłeś"
+                $ chipy = 1
+                vi "Va vewno vie vcesz vawałka?"
+
+            "Jax? Możesz pomóc?" if kompan == 2:
+                ja "Kolego, daj nam chipa albo będzie problem"
+                "Zastraszanie JAX-a się udało"
+                sb "Dobra kurwa, masz"
+                "Dostałeś cipa"
+                $ chipy = 1
+                p "Dziękujemy za współpracę"
+                ja "I polecamy się na przyszłośc"
+
+            "A ja Ci zaraz strzelę w łep":
+                call testSkili("Bron","ZW",12)
+                call checkHP(10)
+                "Oddał do Ciebie strzał przed śmiercią"
+                p "Dobrej nocy panie Ciri"
+                "Podnosisz cip i wychodzisz"
+                $ chipy = 1
 
     elif chipy == 1:
         mg "in dev"

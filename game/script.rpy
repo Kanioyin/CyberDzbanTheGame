@@ -73,17 +73,35 @@ label updict(Who,dict):
                 
 
 label checktime:
-    call klontwakalacha from _call_klontwakalacha
+    if akt == 1:
+        call klontwakalacha from _call_klontwakalacha
     if czas < 1:
         p "Późno już, idę spać"
-        jump sypialnia
+        if akt == 1:
+            jump sypialnia
+        
+        elif akt == 2:
+            jump oporslep
 
     else:
         return
 
 
 # input call testSkili("Cecha", PT), nie fogoruj ""
-label testSkili(skil, PT):
+label testSkili(skil,cecha, PT):
+    if skil == "Bron":
+        if inventory.has_item(AR):
+            $ PT -= 3
+
+        elif inventory.has_item(Granat):
+            $ PT -= 2
+
+        elif inventory.has_item(Pistolecik):
+            $ PT -= 1
+
+        else:
+            pass
+
     $ exp += 1
     $ wynik = 0
     $ d10 = renpy.random.randint(1,10)
@@ -93,13 +111,11 @@ label testSkili(skil, PT):
     if d10 == 10:
         $ d10 += renpy.random.randint(1,10)
 
-    if skile[skil]+d10 > PT-1:
-        "Sukces"
+    if skile[skil]+cechy[cecha]+d10 > PT-1:
         $ wynik = 1
         return
 
     else:
-        "Porażka"
         $ wynik = 0
         return
 
@@ -211,6 +227,7 @@ label start:
     default Ser = InventoryItem("Ser","Strasznie cheesy, Gun musi go lubić")
     default THeal = InventoryItem("Turbouzdrawiacz","Turbo uzdrawia")
     default NRG = InventoryItem("Energol","Waluta permium")
+    default HuMeat = InventoryItem("Ludzkie mięso","VIO chętnie to schrupie")
 
     #Stany postaci
     default kibel_stan = 0
@@ -2698,10 +2715,17 @@ label spacerek:
     $ czas -= 5
     $ cel = renpy.random.randint(1, 9)
     if cel == 1:
-        "Znalazłeś jakieś drobniaki"
-        $ zysk = renpy.random.randint(1, 50)
-        $ edki += zysk
-        p "Znalazłem [zysk] edków"
+        if akt == 1:
+            "Znalazłeś jakieś drobniaki"
+            $ zysk = renpy.random.randint(1, 50)
+            $ edki += zysk
+            p "Znalazłem [zysk] edków"
+
+        else:
+            "Znalazłeś jakieś drobniaki"
+            $ zysk = renpy.random.randint(20, 90)
+            $ edki += zysk
+            p "Znalazłem [zysk] edków"
 
     elif cel == 2:
         "Ni chuja, same nudy"
@@ -2718,19 +2742,22 @@ label spacerek:
             menu:
                 "Co robisz?"
                 "Atak na suki":
-                    call testSkili("Bron",7)
+                    call testSkili("Bron","ZW",7)
                     if wynik == 1:
                         "Demony zostały pokonane, natenczas"
                         p "Szach mat frajery"
                         $ edki += 250
                         p "Wszystkie wasze portfele są teraz moje"
+                        if inventory.has_item(HuMeat) == Flase:
+                            $ inventory.add_item(HuMeat)
+                            p "Wezmę trochę boczku dla VIO"
                     
                     else:
                         p "Ło nie, są silniejsi"
                         call checkHP(renpy.random.randint(4, 18))
 
                 "Ted Talk":
-                    call testSkili("Gadanie",7)
+                    call testSkili("Gadanie","CHAR",7)
                     "Powiedziałeś demonom żeby spierdalali"
                     if wynik == 1:
                         "I nawet Ci się udało"
@@ -2742,7 +2769,7 @@ label spacerek:
                         call checkHP(renpy.random.randint(4, 18))
 
                 "Ucieczka":
-                    call testSkili("Atletyka",7)
+                    call testSkili("Atletyka","ZW",7)
                     "Gdy tylko ich zobaczyłeś zacząłeś uciekać"
                     "Te pojeby otworzyły ogień"
                     if wynik == 1:
@@ -2782,7 +2809,7 @@ label spacerek:
 
     elif cel == 5:
         "Wszedłeś do bloku furrasów"
-        if dzien % 3 == 0:
+        if dzien % 7 == 4:
             "Futrzana domina Cię dopadła"
             achieve Futa
             $ HP = 1
@@ -2795,9 +2822,21 @@ label spacerek:
         menu:
             "Co robisz?"
             "Napadańsko":
-                "Atakujesz kasztana"
-                call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
-                $ edki += renpy.random.randint(50, 200)
+                if akt == 1:
+                    "Atakujesz kasztana"
+                    call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
+                    $ zysk = renpy.random.randint(50, 150)
+                    $ edki += zysk
+                    p "Trochę dostałem ale udało mi się zarobić [zysk] edków!"
+
+                elif akt == 2:
+                    call testSkili("Bron","ZW",renpy.random.randint(8, 12))
+                    if wynik == 1:
+                        "Ziomo dostał wpierdol"
+                        p "A ja wypatę"
+                        $ zysk = renpy.random.randint(100, 300)
+                        $ edki += zysk
+                        p "Trochę dostałem ale udało mi się zarobić [zysk] edków!"
 
             "Lepiej nie":
                 pass
@@ -2840,12 +2879,38 @@ label spacerek:
                 p "Kurwa! TU JEST BOMBA!"
                 call checkHP(10) from _call_checkHP_23
                 p "Jebać trapy"
-
             
             elif helper == 4:
                 p "O proszę, powiększenie ekwipunku"
                 $ Cap += 1
                 p "Zawsze jeden przedmio więcej"
+
+        elif akt == 2:
+            call testSkili("Myslenie","INT",10)
+            if wynik == 1:
+                p "Mój giga mózg pomógł mi to otworzyć"
+                $ helper = renpy.random.randint(1, 4)
+                if renpy.random.randint(1, 5) == 5:
+                    $ inventory.remove_item(Wytrych)
+
+                if helper == 1:
+                    p "O proszę! Hajsiwo"
+                    $ edki += renpy.random.randint(50, 300)
+
+                elif helper == 2 and inventory.has_space(Cap) == True:
+                    p "Ktoś tu kurwa wsadził szczura!"
+                    $ inventory.add_item(Rat)
+                    p "Może mi się do czegoś przyda"
+
+                elif helper == 3:
+                    p "Kurwa! TU JEST BOMBA!"
+                    call checkHP(10)
+                    p "Jebać trapy"
+                
+                elif helper == 4:
+                    p "O proszę, powiększenie ekwipunku"
+                    $ Cap += 1
+                    p "Zawsze jeden przedmio więcej"
 
         else:
             p "Kurwa nie, przydał by się wytrych"
