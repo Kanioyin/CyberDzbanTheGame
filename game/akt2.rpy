@@ -262,6 +262,16 @@ label krzis:
             $ stan2["Kris"] = 1
             jump opor
 
+        elif stan2["Kris"] == 1 and chipy == 1:
+            cr "O! Widzę że udało Ci się zdobyć pierwszego Chipa"
+            cr "Gratulacje [player_name]"
+            cr "Nie wiem czy widziałeś ale dodałem Ci do pokoju możliwość czytania tych danych"
+            p "Wow, po chuj mi to?"
+            cr "Jakby cię lore interesował to możesz sobie przeczytać"
+            p "Fantastycznie, czy coś"
+            cr "Dobra, nei truj mi dupy"
+            $ stan2["Kris"] = 2
+
         else:
             cr "Zajęty jestem, przyjdź jak zrobisz jakieś postępy"
             jump opor
@@ -307,18 +317,36 @@ label oporslep:
             elif HP == MaxHP:
                 "Śpisz słodko, jak aniołek"
 
-            jump rozstaje
+            return
 
         "Czy ja przypadkiem nie dostałem?":
             if HP < MaxHP:
                 p "Faktycznie mam tylko [HP] na [MaxHP]."
                 p "Pancerz ma [armor] punktów"
-                jump sypialnia
+                jump oporslep
 
             else:
                 p "Zdawało mi się."
-                jump sypialnia
+                jump oporslep
 
+        "Sprawdzam chipy" if chipy > 0:
+            menu:
+                achieve Red
+                "Który chip?"
+                "Pierwszy" if chipy > 0:
+                    "Sprawdzasz pierwszy chip"
+                    "Wszystko co było na nim zarawte to info o Benku"
+                    "Jest on fixerem w Glenn"
+                    "Otwarcie toczy wojnę z gangami"
+                    "Jeśli nie udaje mu się ich przekonać do rozejmu wysyła na nich łowców"
+                    "Prowadzi jeszcze poszukiwania pozostałości po Seckond handzie"
+                    "Chuja Ci to mówi"
+                    "Ale podobno daje tonę kapusty za protezy"
+                    "Kto wie, może i tobie uda się coś znaleźć"
+
+                "Drugi" if chipy > 1:
+                    "Bla bla bla"
+                    
         "Wyjść" if czas > 0:
             return
 

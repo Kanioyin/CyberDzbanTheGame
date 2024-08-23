@@ -18,6 +18,7 @@ define gr = Character(_("Grupa"), color = "#324511")
 define cr = Character(_("Kris"), color = "#EE0000")
 define ja = Character(_("Jax"), color = "#e4adf1")
 define vi = Character(_("VIO"), color = "#ffbcbc")
+define ec = Character(_("Evil Cypher"), color = "#FF0009")
 
 init python:
     import os 
@@ -2713,8 +2714,8 @@ label podsumowanie1:
 label spacerek:
     scene black
     $ czas -= 5
-    $ cel = renpy.random.randint(1, 9)
-    if cel == 1:
+    $ cel = renpy.random.randint(1, 99)
+    if cel > 0 and cel < 11:
         if akt == 1:
             "Znalazłeś jakieś drobniaki"
             $ zysk = renpy.random.randint(1, 50)
@@ -2727,10 +2728,10 @@ label spacerek:
             $ edki += zysk
             p "Znalazłem [zysk] edków"
 
-    elif cel == 2:
+    elif cel > 10 and cel < 21:
         "Ni chuja, same nudy"
 
-    elif cel == 3:
+    elif cel > 20 and cel < 31:
         if akt == 1:
             "Przez przypadek wszedłeś do Bloku Władcy Demonów"
             $ wpierdol = renpy.random.randint(4, 18)
@@ -2784,7 +2785,7 @@ label spacerek:
         else:
             "Coś się zjebało"
 
-    elif cel == 4:
+    elif cel > 30 and cel < 47:
         if znajOkol == 0:
             "Udało Ci się odkryć fajny osiedlowy sklepik"
             $ znajOkol = 1
@@ -2807,7 +2808,7 @@ label spacerek:
                 p "Ta? To zajebiście."
                 "Plasterek trafił do kosza."
 
-    elif cel == 5:
+    elif cel > 46 and cel < 57:
         "Wszedłeś do bloku furrasów"
         if dzien % 7 == 4:
             "Futrzana domina Cię dopadła"
@@ -2817,7 +2818,7 @@ label spacerek:
         else:
             "Masz farta, był zamknięty"
 
-    elif cel == 6:
+    elif cel > 56 and cel < 66:
         "Chodząc widzisz fagasa którego możesz obrabować"
         menu:
             "Co robisz?"
@@ -2841,7 +2842,21 @@ label spacerek:
             "Lepiej nie":
                 pass
 
-    elif cel == 7:
+    elif cel == 66:
+        show evilc
+        ec "Witaj [player_name]!"
+        p "O kierwa! To zły Cypher"
+        ec "Tak, to ja"
+        p "Proszę, nie rób mi krzywdy!"
+        ec "Nawet nie chcę"
+        $ HP = MaxHP
+        "Magiczna moc złego Cyphera cię uleczyła"
+        p "Cholera Cypher, dzięki"
+        hide evilc with dissolve
+        ec "Hi Hi Ha Ha..."
+
+
+    elif cel > 66 and cel < 78:
         if inventory.has_item(Kokos) == True:
             "Znalazły Cię ćpuny"
             "Niestety mięli przewagę liczebną (było ich 3)"
@@ -2856,7 +2871,7 @@ label spacerek:
         else:
             p "Dziwne, nic się nie stało"
             
-    elif cel == 8:
+    elif cel > 77 and cel < 81:
         p "Na chuja mego wuja, ktoś tu zostawił skrzynkę!"
         p "Ciekawe czy mam jak ją otworzyć?"
         if inventory.has_item(Wytrych) == True:
@@ -2915,7 +2930,7 @@ label spacerek:
         else:
             p "Kurwa nie, przydał by się wytrych"
 
-    elif cel == 9:
+    elif cel > 80 and cel < 99:
         if chipy == 0:
             $ chiplok = 1
 
