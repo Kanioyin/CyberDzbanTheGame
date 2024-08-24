@@ -2844,6 +2844,7 @@ label spacerek:
 
     elif cel == 66:
         show evilc
+        achieve Zns
         ec "Witaj [player_name]!"
         p "O kierwa! To zły Cypher"
         ec "Tak, to ja"
@@ -2932,18 +2933,23 @@ label spacerek:
 
     elif cel > 80 and cel < 99:
         if chipy == 0:
+            p "Pierdolnik drży, to miejsce cipa"
             $ chiplok = 1
 
         elif chipy == 1:
+            p "Pierdolnik drży, to miejsce cipa"
             $ chiplok = 2
 
         elif chipy == 2:
+            p "Pierdolnik drży, to miejsce cipa"
             $ chiplok = 3
 
         elif chipy == 3:
+            p "Pierdolnik drży, to miejsce cipa"
             $ chiplok = 4
 
         elif chipy == 4:
+            p "Pierdolnik drży, to miejsce cipa"
             $ chiplok = 5   
 
         else:
