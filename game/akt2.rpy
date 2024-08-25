@@ -400,15 +400,22 @@ label chipnik:
                 ja "I polecamy się na przyszłośc"
 
             "A ja Ci zaraz strzelę w łep":
-                call testSkili("Bron","ZW",12)
-                call checkHP(10)
-                "Oddał do Ciebie strzał przed śmiercią"
+                if testSkili("Bron","ZW",12) == True:
+                    "Odstrzeliłeś mu łep nim zdążył cokolwiek zrobić"
+
+                else:
+                    call checkHP(10)
+                    "Oddał do Ciebie strzał przed śmiercią"
+
                 p "Dobrej nocy panie Ciri"
                 "Podnosisz cip i wychodzisz"
                 $ chipy = 1
 
     elif chipy == 1:
-        mg "in dev"
+        p "No popierdoli mnie"
+        scene badblok
+        p "Cip jest w bloku demonów"
+        
         
     elif chipy == 2:
         mg "in dev"

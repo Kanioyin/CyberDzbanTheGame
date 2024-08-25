@@ -19,6 +19,8 @@ define cr = Character(_("Kris"), color = "#EE0000")
 define ja = Character(_("Jax"), color = "#e4adf1")
 define vi = Character(_("VIO"), color = "#ffbcbc")
 define ec = Character(_("Evil Cypher"), color = "#FF0009")
+define ja = Character(_("James"), color = "#ffbcbc")
+define je = Character(_("Jessie"), color = "#213543")
 
 init python:
     import os 
