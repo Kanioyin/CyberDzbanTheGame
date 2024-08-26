@@ -400,8 +400,12 @@ label chipnik:
                 ja "I polecamy się na przyszłośc"
 
             "A ja Ci zaraz strzelę w łep":
-                if testSkili("Bron","ZW",12) == True:
+                call testSkili("Bron","ZW",12)
+                if  wynik == 1:
                     "Odstrzeliłeś mu łep nim zdążył cokolwiek zrobić"
+                    if inventory.has_item(HuMeat) == Flase and inventory.has_space(Cap) == True:
+                        "Zebrałeś jeszcze trochę mięsa"
+                        $ inventory.add_item(HuMeat)
 
                 else:
                     call checkHP(10)
@@ -411,10 +415,92 @@ label chipnik:
                 "Podnosisz cip i wychodzisz"
                 $ chipy = 1
 
+        p "Zadanie wykonane, wracam do bazy"
+        jump opor
+
     elif chipy == 1:
         p "No popierdoli mnie"
         scene badblok
         p "Cip jest w bloku demonów"
+        p "Obawiam się, że to może być za trudne zadanie dla mnie"
+        p "Ale w sumie, chuj. Jak coś będzie źle to wczytam sejva"
+        p "IDI"
+        "Wchodzisz do środka"
+        scene black
+        p "Kurwa, ciemno tu jak w dupie u Cyphera"
+        show ciphate
+        p "Szkoda, że nie mam laratki"
+        hide ciphate
+        p "Mam nadzieję, że nie stanie mi się nic złego"
+        "I kurwa deklu wykrakałeś"
+        sb "Kurwa Mietek, dawaj na browara"
+        sb "Spoko Waldek, żabka jest blisko"
+        menu:
+            "Jak unikniesz kłopotów?"
+            "Jestem jak cień":
+                call testSkili("Atletyka", "ZW", 10)
+                if wynik == 1:
+                    "Jesteś jak Cień, domony cie nie zauważyły"
+
+                else:
+                    call checkHP(12)
+                    "Jeden z demonów cię kopnął"
+                    p "Kurwa cosplay trupa nie był dobrym pomysłem"
+
+            "Pora na buchowego potwora" if inventory.has_item(Smoke):
+                $ inventory.remove_item(Smoke)
+                sb "Kierwa Waldek, Zbychu znowó pali to gówno"
+                sb "No to dawaj mu najebiemy przed wyjściem"
+                "Jakiś inny demon dostał agro"
+
+            "Jax, śmigło" if komapn == 2:
+                ja "Fyr fyr fyr"
+                "Widzisz jak Jax wyśmiglił oponentów z pomieszczenia"
+                p "Dobra robota"
+
+            "Chuj kurwa, atak frontalny":
+                call testSkili("Bron", "ZW", 15)
+                if wynik == 1:
+                    "Demony zostały pokonane (przynajmniej te dwa i to na pięć minut)"
+                
+                else:
+                    call checkHP(15)
+                    "Jeden z nich sprzedał Ci luja na łep i poszli dalej"
+
+        p "Dobra, to było intensywne"
+        p "Trza iść dalej"
+        "Wesoło tuptasz dalej aż trafiasz do celu"
+        p "No nie, NO KURWA NO NIE"
+        p "Te skurwysyny dały chipa do automatu typu wending"
+        menu:
+            "Co mam robić?"
+            "Niech stracę te 200 edków" if edki > 199:
+                "Wpłaciłeś dwie stówy"
+                $ edki -= 200
+                p "Noi cip zdobyty"
+                $ chipy = 2
+
+            "VIO, możesz pomóc?" if kompan == 1:
+                vi "Vaden vroblem"
+                "Widzisz jak VIO zaczął trząść maszyną"
+                "I dzięki temu wypadł cip"
+                $ chipy = 2
+                p "Dzięki VIO"
+
+            "Zacznę hackowanie":
+                call testSkili("Myslenie", "INT", 10)
+                if wynik == 1:
+                    "No i ez, cipek za friko"
+                    $ chipy = 2
+
+                else:
+                    $ edki = 0
+                    p "No kurwa bez jaj, zabrało mi wszystkie pieniądze"
+                    $ chipy = 2
+                    p "Oby ten cip był tego wart"
+
+        p "Zadanie wykonane, wracam do bazy"
+        jump opor
         
         
     elif chipy == 2:

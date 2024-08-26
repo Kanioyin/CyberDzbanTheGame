@@ -173,6 +173,10 @@ screen day():
                 if stan["Krateus"] < 5:
                     text "{color=000} Krateus"
 
+        elif akt == 2:
+            if bigquest == 1:
+                text "{color=000} Zdobądż [5-chipy] chipów"
+
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True

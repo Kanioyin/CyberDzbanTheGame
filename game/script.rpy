@@ -231,6 +231,7 @@ label start:
     default THeal = InventoryItem("Turbouzdrawiacz","Turbo uzdrawia")
     default NRG = InventoryItem("Energol","Waluta permium")
     default HuMeat = InventoryItem("Ludzkie mięso","VIO chętnie to schrupie")
+    default Smoke = InventoryItem("Bomba dymna", "Taki szlug, tylko nie psuje płuc")
 
     #Stany postaci
     default kibel_stan = 0
@@ -2608,6 +2609,7 @@ label akt1:
             g "To mi się podoba"
             $ wojownik = True
             jump akcja
+
         "Ja wracam, bo się trochę cykam":
             $ postacie["Gun"] -= 1
             $ postacie["Cypher"] += 1
@@ -2751,7 +2753,7 @@ label spacerek:
                         p "Szach mat frajery"
                         $ edki += 250
                         p "Wszystkie wasze portfele są teraz moje"
-                        if inventory.has_item(HuMeat) == Flase:
+                        if inventory.has_item(HuMeat) == Flase and inventory.has_space(Cap) == True:
                             $ inventory.add_item(HuMeat)
                             p "Wezmę trochę boczku dla VIO"
                     
@@ -2986,9 +2988,13 @@ label trader:
                     $ inventory.add_item(AR)
                     $ edki -= 600
 
-                "Wytrych? " if edki >= 200 and inventory.has_space(Cap) == True:
-                    $ inventory.add_item(Wytrych)
+                "Bomba dymna" if edki > 199 and inventory.has_space(Cap) == True and akt > 1:
+                    $ inventory.add_item(Smoke)
                     $ edki -= 200
+
+                "Wytrych? " if edki >= 100 and inventory.has_space(Cap) == True:
+                    $ inventory.add_item(Wytrych)
+                    $ edki -= 100
 
                 "Kurwa ser?" if edki >= 50 and inventory.has_space(Cap) == True:
                     $ inventory.add_item(Ser)
