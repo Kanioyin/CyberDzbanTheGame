@@ -2,11 +2,9 @@
 errors listed below, and try again.
 
 
-The label _call_checkHP_23 is defined twice, at File "game/script.rpy", line 2882:
-                call checkHP(10) from _call_checkHP_23
-and File "game/script.rpy", line 2909:
-                    call checkHP(10) from _call_checkHP_23
-
+File "game/akt2.rpy", line 335: expected menuitem
+    achieve Red
+    ^
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Thu Aug 22 10:11:25 2024
+Tue Aug 27 07:41:21 2024

@@ -19,8 +19,6 @@ define cr = Character(_("Kris"), color = "#EE0000")
 define ja = Character(_("Jax"), color = "#e4adf1")
 define vi = Character(_("VIO"), color = "#ffbcbc")
 define ec = Character(_("Evil Cypher"), color = "#FF0009")
-define ja = Character(_("James"), color = "#ffbcbc")
-define je = Character(_("Jessie"), color = "#213543")
 
 init python:
     import os 
@@ -279,6 +277,7 @@ label start:
     default chiplok = 0
     default exp = 0
     default wynik = 0
+    default opd = " "
 
     play music "Bongo_Madness.mp3" volume 0.2
 
@@ -689,65 +688,48 @@ label kuchnia:
                 g "No to zacznijmy rozmowę kwalifikacyjną"
                 g "Pytanie pierwsze"
                 $ config.rollback_enabled = False
-                menu:
-                    "Jaki jest twój ulubiony kolor?"
-                    "Zielony":
-                        g "Ok"
-                    "Ciorny":
-                        g "Niepozorny"
-                    "Fioletowy":
-                        g "Trochę gejowy"
-                    "Żółty":
-                        g "2137"
-                    "Szczurzy":
-                        g "I to mi się podoba"
-                        $ postacie["Gun"] += 1
+                $ opd = renpy.input("Jaki jest twój ulubiony kolor?")
+                if odp == "Szczurzy":
+                    g "I to mi się podoba"
+                    $ postacie["Gun"] += 1
+
+                else:
+                    g "Chuja się znasz"
 
                 g "Pytanie numero dos"
-                menu:
-                    "Lubisz bigos"
-                    "Co kurwa?":
-                        g "Pstro"
-                    "Tak":
-                        g "To chujowo"
-                        $ postacie["Gun"] -= 1
+                $ odp = renpy.input("Lubisz bigos?")
+                if odp == "Tak":
+                    g "To chujowo"
+                    $ postacie["Gun"] -= 1
 
-                    "Nie":
-                        show ciphate with dissolve
-                        g "To dobrze"
-                        $ postacie["Gun"] += 1
-                        hide ciphate with dissolve
+                elif odp == "Nie":
+                    show ciphate with dissolve
+                    g "To dobrze"
+                    $ postacie["Gun"] += 1
+                    hide ciphate with dissolve
+
+                else:
+                    g "Chyba źle zrozumiałeś pytanie"
 
                 g "Pytanie trzecie"
-                menu:
-                    "Jaka jest stolica Asyrii?"
-                    "Ashur, Calah, Sharrukin, Niniwa":
-                        g "Masz rację"
-                        $ postacie["Gun"] += 1
+                $ odp = renpy.input("Jaka jest prędkość lotu nieobciążonej jaskółki w metrach na sekundę?")
+                if odp == "10":
+                    g "Tak, takiej europejskiej"
 
-                    "Bezbekistan środkowy":
-                        g "Ty chyba na cymbał upadłeś"
-                        $ postacie["Gun"] -= 1
+                elif odp == "14":
+                    g "Tak, takiej z afryki"
 
-                    "Ischtar, Salam, Spartan":
-                        g "Nie ale byłeś blisko"
+                else:
+                    "Tak to lata twój stary"
 
-                    "Nie wiem":
-                        g "Przynajmniej jesteś szczery"
-                        $ postacie["Gun"] += 1
-
-                g "Kolejne pytanie"
-                menu:
-                    "Jak rozpoznać czy ktoś jest wiedźmą?"
-                    "Test Yolka":
-                        g "Nie znam twoich hebrajskich metod, więc odpada"
-
-                    "Kacza waga":
-                        g "Dobrze"
-                        $ postacie["Gun"] += 1
-
-                    "Metoda Kramara":
-                        g "Spierdalaj z tym chujem"
+                g "Pytanie czwarte"
+                $ odp = renpy.input("Jaki rodzaj sera jest najlepszy?")
+                if odp == "Prawdziwy":
+                    g "Bardzo dobrze"
+                    $ postacie["Gun"] += 1
+                
+                else:
+                    g "Ten też dobry ale nie top"
 
                 $ renpy.block_rollback()
                 $ config.rollback_enabled = True
@@ -2936,32 +2918,44 @@ label spacerek:
             p "Kurwa nie, przydał by się wytrych"
 
     elif cel > 80 and cel < 99:
-        if chipy == 0:
-            p "Pierdolnik drży, to miejsce cipa"
-            $ chiplok = 1
+        if akt == 1:
+            p "Nic tu nie ma"
 
-        elif chipy == 1:
-            p "Pierdolnik drży, to miejsce cipa"
-            $ chiplok = 2
+        elif akt == 2:
+            if chipy == 0:
+                p "Pierdolnik drży, to miejsce cipa"
+                $ chiplok = 1
 
-        elif chipy == 2:
-            p "Pierdolnik drży, to miejsce cipa"
-            $ chiplok = 3
+            elif chipy == 1:
+                p "Pierdolnik drży, to miejsce cipa"
+                $ chiplok = 2
 
-        elif chipy == 3:
-            p "Pierdolnik drży, to miejsce cipa"
-            $ chiplok = 4
+            elif chipy == 2:
+                p "Pierdolnik drży, to miejsce cipa"
+                $ chiplok = 3
 
-        elif chipy == 4:
-            p "Pierdolnik drży, to miejsce cipa"
-            $ chiplok = 5   
+            elif chipy == 3:
+                p "Pierdolnik drży, to miejsce cipa"
+                $ chiplok = 4
 
-        else:
-            p "Znalazłem chyba wszystko" 
+            elif chipy == 4:
+                p "Pierdolnik drży, to miejsce cipa"
+                $ chiplok = 5   
+
+            else:
+                p "Znalazłem chyba wszystko" 
 
     else:
         "Print dupa, nie powinno Cię tu być."
 
+    show screen map_screen
+    window hide
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
     return
 
 
@@ -2971,40 +2965,36 @@ label trader:
     play music "szop.mp3" volume 0.2
     scene szop
     p "A se coś kupię"
-    if edki < 1:
-        p "Karamba, jestem biedakiem. Wracam do domu"
-        jump rozstaje
-    else:
-        p "Ile mam mamony? [edki] edków, mogło być mniej"
-        $ helper = 1
-        while helper == 1:
-            menu:
-                "Szopping tajm"
-                "Tajemniczy energol?" if edki > 999 and inventory.has_item(NRG) == False and inventory.has_space(Cap) == True:
-                    $ inventory.add_item(NRG)
-                    $ edki -= 1000
+    p "Ile mam mamony? [edki] edków, mogło być mniej"
+    $ helper = 1
+    while helper == 1:
+        menu:
+            "Szopping tajm"
+            "Tajemniczy energol?" if edki > 999 and inventory.has_item(NRG) == False and inventory.has_space(Cap) == True:
+                $ inventory.add_item(NRG)
+                $ edki -= 1000
 
-                "Ale fajna Aerka" if edki >= 600 and inventory.has_item(AR) == False and inventory.has_space(Cap) == True:
-                    $ inventory.add_item(AR)
-                    $ edki -= 600
+            "Ale fajna Aerka" if edki >= 600 and inventory.has_item(AR) == False and inventory.has_space(Cap) == True:
+                $ inventory.add_item(AR)
+                $ edki -= 600
 
-                "Bomba dymna" if edki > 199 and inventory.has_space(Cap) == True and akt > 1:
-                    $ inventory.add_item(Smoke)
-                    $ edki -= 200
+            "Bomba dymna" if edki > 199 and inventory.has_space(Cap) == True and akt > 1:
+                $ inventory.add_item(Smoke)
+                $ edki -= 200
 
-                "Wytrych? " if edki >= 100 and inventory.has_space(Cap) == True:
-                    $ inventory.add_item(Wytrych)
-                    $ edki -= 100
+            "Wytrych? " if edki >= 100 and inventory.has_space(Cap) == True:
+                $ inventory.add_item(Wytrych)
+                $ edki -= 100
 
-                "Kurwa ser?" if edki >= 50 and inventory.has_space(Cap) == True:
-                    $ inventory.add_item(Ser)
-                    $ edki -= 50
+            "Kurwa ser?" if edki >= 50 and inventory.has_space(Cap) == True:
+                $ inventory.add_item(Ser)
+                $ edki -= 50
 
-                "Na nic więcej mnie nie stać":
-                    p "Get zakuped"  
-                    $ helper = 0
+            "Na nic więcej mnie nie stać":
+                p "Get zakuped"  
+                $ helper = 0
 
-        stop music
+    stop music
     show screen map_screen
     window hide
     pause 1

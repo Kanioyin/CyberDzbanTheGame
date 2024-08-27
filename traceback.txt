@@ -1,44 +1,19 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/akt2.rpy", line 132, in script call
-    pause 10
-  File "game/akt2.rpy", line 132, in script call
-    pause 10
-  File "game/akt2.rpy", line 128, in script
-    label opor:
-  File "game/akt2.rpy", line 132, in script call
-    pause 10
-  File "game/akt2.rpy", line 132, in script call
-    pause 10
-  File "game/akt2.rpy", line 128, in script
-    label opor:
+  File "game/akt2.rpy", line 129, in script call
+    call checktime
+  File "game/script.rpy", line 90, in script
+    return
 Exception: Possible infinite loop.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\bootstrap.py", line 359, in bootstrap
-    renpy.main.main()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\main.py", line 635, in main
-    run(restart)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\main.py", line 145, in run
-    renpy.execution.run_context(True)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\execution.py", line 955, in run_context
-    context.run()
-  File "game/akt2.rpy", line 132, in script call
-    pause 10
-  File "game/akt2.rpy", line 132, in script call
-    pause 10
-  File "game/akt2.rpy", line 128, in script
-    label opor:
-  File "lib/python3.9/future/utils/__init__.py", line 444, in raise_
-  File "game/akt2.rpy", line 132, in script call
-    pause 10
-  File "game/akt2.rpy", line 132, in script call
-    pause 10
-  File "game/akt2.rpy", line 128, in script
-    label opor:
+  File "game/akt2.rpy", line 129, in script call
+    call checktime
+  File "game/script.rpy", line 90, in script
+    return
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\execution.py", line 61, in check_infinite_loop
     raise Exception("Possible infinite loop.")
 Exception: Possible infinite loop.
@@ -46,4 +21,4 @@ Exception: Possible infinite loop.
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.2.1.24030407
 CyberDzban 0.00000001
-Thu Aug 22 21:20:58 2024
+Tue Aug 27 13:30:49 2024

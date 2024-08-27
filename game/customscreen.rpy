@@ -89,7 +89,7 @@ screen znaj():
         if akt == 1:
             text "{color=000}Cypher: [postacie['Cypher']] \n Kałach: [postacie['Kalach']] \n Gun: [postacie['Gun']] \n Hartmann: [postacie['Hartmann']] \n Łaskawca: [postacie['Laskawca']] \n Krateus: [postacie['Krateus']] \n Jhin: [postacie['Jhin']]"
         else:
-            text "{color=000} Nie wiem czy muszę się z nimi zaprzyjaźniać"
+            text "{color=000} Nie wiem czy muszę się \n z nimi zaprzyjaźniać"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -222,7 +222,7 @@ screen frak():
         action Hide("frak"), Show("phone")
 
 screen cechy():
-    modal False
+    modal True
     add "cyberfon_clear"
     vbox:
         pos 0.4, 0.1
@@ -236,10 +236,10 @@ screen cechy():
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
-        action Hide("frak"), Show("phone")
+        action Hide("cechy"), Show("phone")
 
 screen skile():
-    modal False
+    modal True
     add "cyberfon_clear"
     vbox:
         pos 0.4, 0.1
@@ -253,22 +253,40 @@ screen skile():
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
-        action Hide("frak"), Show("phone")
+        action Hide("skile"), Show("phone")
 
 
 screen kody():
     modal True
     add "cyberfon_clear.png"
-    vbox:
-        pos 0.4, 0.1
-        $ kod = renpy.input("Podaj kod")
 
+    if kody < 5:
+        if nua > 4:
+            imagebutton auto "cyberfon_kody_hajs_%s":
+                focus_mask True
+                hovered SetVariable("screen_tooltip", "Return")
+                unhovered SetVariable("screen_tooltip","")
+                action IncrementVariable("edki",500), IncrementVariable("kody",1)
+
+        if nua > 9:
+            imagebutton auto "cyberfon_kody_spac_%s":
+                focus_mask True
+                hovered SetVariable("screen_tooltip", "Return")
+                unhovered SetVariable("screen_tooltip","")
+                action IncrementVariable("cap",1), IncrementVariable("kody",1)
+
+        if nua > 19 and akt > 1:
+            imagebutton auto "cyberfon_kody_exp_%s":
+                focus_mask True
+                hovered SetVariable("screen_tooltip", "Return")
+                unhovered SetVariable("screen_tooltip","")
+                action IncrementVariable("exp",10), IncrementVariable("kody",1)
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
-        action Hide("frak"), Show("phone")
+        action Hide("kody"), Show("phone")
 
 screen map_screen():
     add "mapa.png"

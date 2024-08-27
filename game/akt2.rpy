@@ -128,10 +128,12 @@ label a2intro:
 label opor:
     call checktime
     show screen oportalk
+    show screen hud
     window hide
     pause 10
 
 label bufor:
+    $ czas -= 1
     jump opor
 
 label jaxowo:
@@ -330,8 +332,8 @@ label oporslep:
                 jump oporslep
 
         "Sprawdzam chipy" if chipy > 0:
+            achieve Red
             menu:
-                achieve Red
                 "Który chip?"
                 "Pierwszy" if chipy > 0:
                     "Sprawdzasz pierwszy chip"
