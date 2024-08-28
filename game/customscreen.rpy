@@ -348,7 +348,7 @@ screen map_screen():
             action Hide("map_screen"), Jump("opor")
 
     if chipy == 0 and chiplok == 1 or chipy == 1 and chiplok == 2 or chipy == 2 and chiplok == 3 or chipy == 3 and chiplok == 4 or chipy == 4 and chiplok == 5:
-        imagebutton auto "city_hid_%s":
+        imagebutton auto "city_chip_%s":
             focus_mask True
             hovered SetVariable("screen_tooltip", "Return")
             unhovered SetVariable("screen_tooltip","")
