@@ -512,7 +512,21 @@ label chipnik:
         mg "in dev"
 
     elif chipy == 4:
-        mg "in dev"
+        p "No dobra, ostatni chip"
+        p "Obstawiam, że czeka mnie tutaj niesamowicie trudna walka"
+        p "FInałowy boss, wyzwanie mojego życia"
+        "I się niesamowicie myliłeś"
+        p "Co jest kurwa"
+        p "Ten cip literalnie leży na podłodze"
+        "Podnosisz cip z podłogi"
+        $ chipy = 5
+        p "No dawaj kurwa, go pvp"
+        "But nobody came"
+        p "No dobra, to jest dziwne"
+        "I tak czekałeś do końca dnia ale nikt się nie pojawił"
+        p "No to chuj, wracam"
+        jump opor
+
 
     else:
         p "Mam już wszystko"
