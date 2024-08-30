@@ -3007,6 +3007,8 @@ label trader:
 
 
 label frogszop:
+    stop music
+    play music "szop.mp3" volume 0.2
     $ czas -= 1
     scene frogszop
     fse "Dzień dobry"

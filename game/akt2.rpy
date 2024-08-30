@@ -506,7 +506,60 @@ label chipnik:
         
         
     elif chipy == 2:
-        mg "in dev"
+        stop music
+        play music "szop.mp3" volume 0.2
+        p "O proszę, ciekawe"
+        p "Wygląda na to, że ten chip jest w żabce"
+        scene frogszop
+        fse "Dzień dobry, mogę w czymś pomóc?"
+        p "Tak, czy ma pani gdzieś tu cip?"
+        fse "Zobczeńcu!"
+        p "Nie, nie, nie, taki z danymi"
+        fse "Jeśli pan zaraz nie wyjdzie, to wezwę ochronę"
+        p "Dobra dobra"
+        menu:
+            p "Czy mam jakiś pomysł jak go zdobyć"
+            "spróbuje ją zagadać":
+                call testSkili("Gadanie", "CHAR", 10)
+                p "Droga babko w żabko, proszę wysłuchaj mnie"
+                if wynik == 1:
+                    "Wyperswadowałeś babeczce swój dostęp do sklepu"
+                    fse "No dobra, tylko bez napaswowań w przyszłości"
+                    p "Luzik arbuzik"
+                
+                else:
+                    "Babeczka nie chciała słuchać"
+                    fse "OCHRONA"
+                    sb "A Ci jebne"
+                    p "Ło nie"
+                    call checkHP(15)
+                    p "Ała, jak to mocno uderzyło"
+                    sb "Dobra, teraz możesz znowu robić zakupy"
+
+        p "Czyli mogę wracać do zakupów"
+        p "Mam jakieś pięć minut aby go znaleść"
+        if komapn == 1:
+            vi "Vobra, vnalazłem vo"
+            p "Zajebiście VIO"
+            $ chipy = 3
+            p "Chyba możemy wracać"
+        
+        elif komapn == 2:
+            ja "To jest to czego szukamy?"
+            p "Bingo"
+            $ chipy = 3
+            p "No to wracamy"
+
+        else:
+            p "Kurwa, trochę mi zajęło szukanie tego gówna"
+            fse "Jeśli pan nie wyjdze wezwę ochronę"
+            $ czas = 0
+            p "Dobra, dobra, już spierdalam"
+            $ chipy = 3
+            p "Ale przynajmniej mam cipa"
+
+        stop music
+        jump opor
 
     elif chipy == 3:
         mg "in dev"
