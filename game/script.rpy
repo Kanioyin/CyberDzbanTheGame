@@ -1,6 +1,6 @@
 
 define c = Character(_("Cypher"), color="#00FFF7")
-define g = Character(_("Gun"), color = "#03FEFA")
+define g = Character(_("Gun"), color = "#3f4140")
 define h = Character(_("Hartmann"), color = "#1945FF")
 define pl = Character(_("Łaskawca"), color = "#696969")
 define k = Character(_("Kałach"),color="#FF00FF")
@@ -19,6 +19,7 @@ define cr = Character(_("Kris"), color = "#EE0000")
 define ja = Character(_("Jax"), color = "#e4adf1")
 define vi = Character(_("VIO"), color = "#ffbcbc")
 define ec = Character(_("Evil Cypher"), color = "#FF0009")
+define gk = Character(_("Gatekeeper"), color = "#213213")
 
 init python:
     import os 

@@ -562,7 +562,31 @@ label chipnik:
         jump opor
 
     elif chipy == 3:
-        mg "in dev"
+        p "Kolejny chipek"
+        p "I mi pokazuje, że jest w jednej z alejek"
+        p "I to takiej dziwnej ciemnej"
+        p "Chuj tam, robota to robota"
+        scene black
+        "Wchodzisz w ciemną alejkę i tak jak się mogłeś spodziewać"
+        "Jakiś sus typus wyszedł, blokując Ci drogę"
+        gk "Witaj [player_name]"
+        p "Skąd znasz moje imię?"
+        gk "To nie jest istotne"
+        gk "Muszę sprawdzić  czy jesteś gotowy"
+        if nua > 19:
+            gk "Tak, jesteś gotowy"
+            p "Ale co to kurwa w ogóle znaczy?"
+            "Ziomo zniknął, zostawiając po sobie tylko cip"
+            $ chipy = 4
+            p "No dobra, jakoś poszło"
+            jump opor
+
+        else:
+            gk "Musisz jeszcze pozdobywać osiągnięć"
+            p "Serio kurwa? Nie masz innych pomysłów na wydłużenie gry?"
+            "Ale ziomka już nie było"
+            p "No i spermastycznie"
+            jump opor
 
     elif chipy == 4:
         p "No dobra, ostatni chip"
