@@ -348,6 +348,15 @@ label oporslep:
 
                 "Drugi" if chipy > 1:
                     "Bla bla bla"
+
+                "Trzeci" if chipy > 2:
+                    "Ble Ble ble"
+
+                "Czwarty" if chipy > 3:
+                    "Blo blo blo"
+
+                "Piąty" if chipy > 4:
+                    "Bli bli bli"
                     
         "Wyjść" if czas > 0:
             return
