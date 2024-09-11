@@ -20,6 +20,9 @@ define ja = Character(_("Jax"), color = "#e4adf1")
 define vi = Character(_("VIO"), color = "#ffbcbc")
 define ec = Character(_("Evil Cypher"), color = "#FF0009")
 define gk = Character(_("Gatekeeper"), color = "#213213")
+define be = Character(_("Szybki Ben"), color = "#ed4040")
+define au = Character(_("Automatoniks"), color = "#383303")
+define bo = Character(_("Borabor"), color = "#abba69")
 
 init python:
     import os 
@@ -65,6 +68,45 @@ init python:
         def __init__(self, name, desc):
             self.name = name
             self.desc = desc
+
+
+label yeet:
+    $ odp = renpy.input("Co chcesz wyjebać?")
+    if odp == "AR" or odp == "Ar" or odp == "ar" and inventory.has_item(AR) == True:
+        achieve Eko
+        $ inventory.remove_item(AR)
+        window hide
+
+    elif odp == "Szczur" or odp == "Rat" and inventory.has_item(Rat) == True:
+        achieve Eko
+        $ inventory.remove_item(Rat) 
+
+    elif odp == "Flaszka" or odp == "Flacha" and inventory.has_item(Flaszka) == True:
+        achieve Eko
+        $ inventory.remove_item(Flaszka)
+
+    elif odp == "Kokos" or odp == "Koks" and inventory.has_item(Kokos) == True:
+        achieve Eko
+        $ inventory.remove_item(Kokos)
+        $ postacie["Laskawca"] -= 2
+
+    elif odp == "Pistolet" or odp == "Pistol" or odp == "Pistolecik" and inventory.has_item(Pistolecik) == True:
+        achieve Eko
+        $ inventory.remove_item(Pistolecik)
+
+    elif odp == "Granat" and inventory.has_item(Granat) == True:
+        achieve Eko
+        $ inventory.remove_item(Granat)
+
+    elif odp == "Wytrych" and inventory.has_item(Wytrych) == True:
+        achieve Eko
+        $ inventory.remove_item(Wytrych)
+
+    else:
+        "Nie masz tego"
+        window hide
+        
+    return
 
 
 label updict(Who,dict):
@@ -231,6 +273,7 @@ label start:
     default NRG = InventoryItem("Energol","Waluta permium")
     default HuMeat = InventoryItem("Ludzkie mięso","VIO chętnie to schrupie")
     default Smoke = InventoryItem("Bomba dymna", "Taki szlug, tylko nie psuje płuc")
+    default RadArm = InventoryItem("Hazmat", "Pancerz przeciw radjacji")
 
     #Stany postaci
     default kibel_stan = 0
@@ -252,6 +295,7 @@ label start:
     # 3 = Visty
     # 4 = Uda
     # 5 = Wojsko
+    # 6 = Żabka
     default dzien = 1
     default armor = 0
     default ammo = 0
@@ -273,12 +317,14 @@ label start:
     # 0 = Nikt
     # 1 = VIO
     # 2 = JAX
+    # 3 = Borabor
     default talkloop = 0
     default chipy = 0
     default chiplok = 0
     default exp = 0
     default wynik = 0
     default opd = " "
+    default anom = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
 
@@ -2971,6 +3017,10 @@ label trader:
     while helper == 1:
         menu:
             "Szopping tajm"
+            "Hazmat" if edki > 999 and inventory.has_item(RadArm) == False and inventory.has_space(Cap) == True:
+                $ inventory.add_item(RadArm)
+                $ edki -= 1000
+
             "Tajemniczy energol?" if edki > 999 and inventory.has_item(NRG) == False and inventory.has_space(Cap) == True:
                 $ inventory.add_item(NRG)
                 $ edki -= 1000
@@ -3057,6 +3107,25 @@ label frogszop:
                 $ edki += (vdolce*50)
                 $ vdolce = 0
                 p "Dziękuję"
+
+            "Szukacie może pracowników?" if Frakcja == 0:
+                fse "Mamy jeszcze wolny wakat"
+                fse "Byłby pan zainteresowany pracą?"
+                menu:
+                    "Dołączam do żabki?"
+                    "PEWEX":
+                        $ frakcja = 6
+                        fse "Witamy na pokładzie"
+
+                    "Podziękuję":
+                        fse "Wakat nie będzie wiecznie wolny! (Będzie)"
+
+            "Ja do roboty przyszedłem" if Frakcja == 6:
+                fse "To dawaj za kasę"
+                $ edki = czas * 8
+                $ czas = 0
+                "Przepracowałeś cały dzień"
+                $ helper = 0
                 
             "To tyle, dziękuję, dowidzenia":
                 fse "Dowidzenia, zapraszam ponownie"
@@ -4966,12 +5035,3 @@ label podpowiedz:
     return
 
 
-label tempend:
-    mg "Gratulacje, skończyłeś akt 1 cptg"
-    mg "Jeśli udało Ci się skończyć ten moment historii, wyślij mi screena następnej wiadomości"
-    mg "Historia wzruszająca, moją dupę ssąca"
-    mg "Obfita nagroda Cię czeka"
-    mg "Btw. wielkie dzięki dla Mandauskyego, Araba, Czajniga i Żyda za ich wielką pomoc w testach"
-    mg "Wielkie dzięki za granie"
-    mg "Papatki"
-    $ MainMenu(confirm=False)()

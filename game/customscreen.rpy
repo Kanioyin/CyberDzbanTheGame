@@ -18,15 +18,26 @@ screen inventory():
     modal True
 
     vbox:
+        pos 0.05, 0.1
+        text "Pojemność [inventory.quantity]/[Cap]"
+
+    vbox:
         pos 0.1, 0.25
         for item in inventory.items:
-            text "{size=30}[item.name] - [item.desc] \n{/size}"
+            text "{size=40}[item.name] - [item.desc] \n{/size}"
+
+    imagebutton auto "inventory_yeet_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Call("yeet")
 
     imagebutton auto "inventory_screen_return_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("inventory"), Show("hud"), Play("sound", "opi.wav")
+
 
 screen phone():
     add "cyberfon_clear.png"
@@ -214,6 +225,8 @@ screen frak():
             text "{color=000} Vist"
         elif Frakcja == 4:
             text "{color=000} Kościołu Ud"
+        elif Frakcja == 6:
+            text "{color=000} Żabki"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -325,6 +338,13 @@ screen map_screen():
             hovered SetVariable("screen_tooltip", "Return")
             unhovered SetVariable("screen_tooltip","")
             action Hide("map_screen"), Call("workowiec")
+
+    if znajOkol > 3:
+        imagebutton auto "city_jajo_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Call("jajquest")
 
     if Frakcja == 3:
         imagebutton auto "city_vlok_%s":

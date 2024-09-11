@@ -63,6 +63,8 @@ define BOBCACHIEVEMENT_LIST = (
     ("Red", _("Czytelnik"), _("A se poczytam.")),
     ("Zns", _("Zło nie śpi"), _("A nawet czasami leczy.")),
     ("Zjw", _("Pomekon"), _("Znalazłeś je wszystkie?.")),
+    ("Psy", _("Cipnik"), _("Ty weź może strzelaj a nie edki wydajesz")),
+    ("Eko", _("Ekolog"), _("Po chuj ty to wyhebałeś")),
     )
     
 # 3) In your game script, when you want to grant an achievement, type "achieve <reference_id>" without the

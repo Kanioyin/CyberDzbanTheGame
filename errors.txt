@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/akt2.rpy", line 335: expected menuitem
-    achieve Red
-    ^
+File "game/customscreen.rpy", line 21: expected a keyword argument or end of line.
+    pos 0.05 0.1
+             ^
 
 Ren'Py Version: Ren'Py 8.2.1.24030407
-Tue Aug 27 07:41:21 2024
+Wed Sep 11 10:48:18 2024

@@ -71,7 +71,7 @@ label a2intro:
     sb "Dzień dobry [player_name]"
     p "Kim ty kurwa jesteś?"
     sb "Faktycznie, wypada się przedstawić"
-    sb "Krzysztof Czerownopole"
+    sb "Krzysztof Czerownopolski"
     cr "Do usług"
     p "Dobra kurwa ale skąd ty wiesz jak ja się nazywam?"
     cr "Mam swoje źródła"
@@ -274,12 +274,54 @@ label krzis:
             cr "Dobra, nei truj mi dupy"
             $ stan2["Kris"] = 2
 
+
+        elif stan2["Kris"] == 2 and chipy == 5:
+            cr "Gratulacje [player_name]! Zebrałeś je wszystkie"
+            p "Ale co w sumie z tego, jak na tych cipach gówno jest o Benku"
+            cr "Do dobry omen"
+            p "Ale jak kurwa"
+            cr "To znaczy, że nasi informatorzy to gówno"
+            cr "Ale na spokojnie"
+            cr "Zaraz ruszysz na misje, która nam wszystko wyjaśni"
+            cr "Ten ostatni chip jaki znalazłeś będzie naszym kluczem"
+            cr "Idziesz teraz do kowala, on może coś ci wyjaśni"
+            cr "No, to lecisz"
+            cr "Powodzenia"
+            jump cipfin
+
+
         else:
             cr "Zajęty jestem, przyjdź jak zrobisz jakieś postępy"
             jump opor
 
     elif bigquest == 1:
-        pass
+        if stan2["Kris"] == 0:
+            p "No, pogadałem z kowalem"
+            cr "No to klawo, teraz masz kilka dni na przygotowanie się"
+            p "Ale na co?"
+            cr "Na specjalną misję w gnieźdźie anomalii"
+            p "Czyli?"
+            cr "Wasza dawna baza"
+            p "Co tam się kurwa stało?"
+            cr "Jacyś deblie stwierdzili, że umyją Cyphera"
+            p "I co tam się teraz dzieje?"
+            cr "Takie sprawy co się nawet fizjologom nie śniły"
+            cr "Musisz kupić sobie outfit na radiacje"
+            if inventory.has_item(RadArm) == True:
+                p "Już mam"
+                cr "No to git"
+
+            cr "Więc się przygotuj ze wszystkim"
+            cr "Bo z tego co słyszałem, wielu śmiałków tam już zeszło"
+            cr "Jeszcze nikt nie wyszedł"
+            p "No to grubo"
+            cr "Niech busz będzie z tobą"
+            $ stan2["Kris"] = 1
+            jump opor
+
+        elif stan2["Kris"] == 1 and inventory.has_item(RadArm) == True:
+            cr "No to ruszaj"
+            jump anomalia
 
     elif bigquest == 2:
         pass
@@ -347,22 +389,51 @@ label oporslep:
                     "Kto wie, może i tobie uda się coś znaleźć"
 
                 "Drugi" if chipy > 1:
-                    "Bla bla bla"
+                    p "No to lecimy"
+                    "Niestety cip zawierał coś, czego świat nigdy nie powinien zobaczyć"
+                    "5 nocy z Haliną"
+                    p "Na chuja mego wuja"
+                    p "Zgiń przepadnij cipie zła"
+                    "Zrobiłeś taktyczny format pistoletem"
 
                 "Trzeci" if chipy > 2:
-                    "Ble Ble ble"
+                    "Przeglądasz znalezionego w żabce cipa"
+                    p "A niech mnie dunder świśnie, ten cip jest pełen informacji o DH"
+                    p "Tak na 7 procent to są jakieś pamiętniki Cyphera"
+                    p "Tu coś pierdoli o wakacjach"
+                    p "Instrukcja wróbla"
+                    p "50 twarzy Młynarczyka"
+                    p "Kurwica, robi się nieciekawie"
+                    "Ale najbardziej niepokojący był ostatni plik"
+                    "Było na nim zdjęcie Cyphera i dokładna twoja lokalizacja"
+                    c "JA i DE"
+                    j "Noi chuj noi cześć"
+                    "Cypher już po Ciebie idzie"
 
                 "Czwarty" if chipy > 3:
-                    "Blo blo blo"
+                    p "No dobra, co my tu mamy"
+                    p "O kurwica (Robert taki)"
+                    "Twoim oczom ukazuje się pełna kolekcja streamów Kody"
+                    p "Słyszałem legendy o tym typie"
+                    p "Podobno jego jajca mogą zresetować uniwersum"
+                    p "Jest tu lokacja warsztatu Fanta i Kanta"
+                    p "Muszę to sprawdzić"
+                    $ znajOkol = 4
 
                 "Piąty" if chipy > 4:
-                    "Bli bli bli"
+                    p "Ostatni cip, jak tu nic nie będzie to mnie popierdoli"
+                    "I Cię popierdoliło"
+                    p "Jakim kurwa prawem tu niczego nie ma?"
+                    p "Powinny być tajne informacje na tego Benka"
+                    p "A tu jest jakiś dziwny pornol z Vistami"
+                    p "Kris musi coś z tym zrobić"
                     
         "Wyjść" if czas > 0:
             return
 
 label anomalia:
-    jump opor
+    scene rozstaje
+    jump tempend
 
 label chipnik:
     if chipy == 0:
@@ -382,6 +453,7 @@ label chipnik:
         menu:
             p "No to jak rozwiązujemy ten problem?"
             "Masz tu 500 edków i spierdalaj" if edki > 499:
+                achieve Psy
                 $ edki -= 500
                 sb "No dobra, mi pasuje"
                 p "No to dogadani"
@@ -611,6 +683,7 @@ label chipnik:
         p "No dobra, to jest dziwne"
         "I tak czekałeś do końca dnia ale nikt się nie pojawił"
         p "No to chuj, wracam"
+        achieve Zjw
         jump opor
 
 
@@ -618,3 +691,48 @@ label chipnik:
         p "Mam już wszystko"
 
     jump opor
+
+
+label jajquest:
+    scene black
+    mg "Byczku, poczekaj sobie troszeczkę, ja to jeszcze robie"
+    return
+
+
+label cipfin:
+    scene black
+    p "Dobra, to chyba to miejsce"
+    p "Mam nawiązać kontakt z jakimś randomem żeby zdobyć od niego inprinty mózgów"
+    p "Nie mam zielonego pojęcia co to kurwa znaczy"
+    p "Gdzie ta jego jebana kuźnia?"
+    p "Tu chyba"
+    "Wchodzisz to kuźni osobowości"
+    p "Halo, kurwa, jest ktoś w domu?"
+    au "Jestem"
+    p "Przysyła mnie Czerwonopolski, podobno masz dla mnie jakieś maski"
+    au "Ta będę je miał, tylko daj mi te chipy i będzie można lecieć z tematem"
+    "Przekazałeś cipy kowalowi"
+    au "Teraz spierdalaj i czekaj na mój znak"
+    p "Napiszesz do mnie sms-a?"
+    au "Pojebało Cię, na telefonie nie ma miejsca na więcej aplikacji"
+    p "Fuckt"
+    au "Przyjdź do Krisa w odpowiednim czasie, on cie wysle do mnie"
+    p "A nie mogę na mapce kliknąć?"
+    au "Ty widzisz ile tam jest miejsca zabranego?"
+    p "Czaje"
+    au "Dobra, to spierdalaj mi stąd [player_name], muszę wracać do roboty"
+    p "Dobra, dobra, już spierdalam"
+    $ bigquest = 1
+    $ stan2["Kris"] = 0
+    jump opor
+
+
+label tempend:
+    mg "Gratulacje, skończyłeś pierwszy czapter 2 aktu cptg"
+    mg "Jeśli udało Ci się skończyć ten moment historii, wyślij mi screena następnej wiadomości"
+    mg "Jax i VIO mnie bijo"
+    mg "Obfita nagroda Cię czeka"
+    mg "Btw. wielkie dzięki dla Mandauskyego, Araba, Czajniga i Żyda za ich wielką pomoc w testach"
+    mg "Wielkie dzięki za granie"
+    mg "Papatki"
+    $ MainMenu(confirm=False)()
