@@ -156,6 +156,9 @@ label bigunl:
 
         elif nua > 50 and cnt == 51:
             galleryunlock cg50
+
+        elif nua > 51 and cnt == 52:
+            galleryunlock cg51
             
         else:
             return

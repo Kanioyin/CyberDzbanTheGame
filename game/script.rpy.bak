@@ -1,6 +1,6 @@
 
 define c = Character(_("Cypher"), color="#00FFF7")
-define g = Character(_("Gun"), color = "#03FEFA")
+define g = Character(_("Gun"), color = "#3f4140")
 define h = Character(_("Hartmann"), color = "#1945FF")
 define pl = Character(_("Łaskawca"), color = "#696969")
 define k = Character(_("Kałach"),color="#FF00FF")
@@ -13,8 +13,16 @@ define gk = Character(_("Gen. Kennedy"), color = "#098703")
 define kr = Character(_("Krateus"), color = "#023a10")
 define mg = Character(_("Wielki Dzik"), color = "#482809")
 define fse = Character(_("Babka from żabka"), color = "#006600")
-define sb = Character(_("Ktoś"), color = "#000000")
+define sb = Character(_("Ktoś"), color = "#77036d")
 define gr = Character(_("Grupa"), color = "#324511")
+define cr = Character(_("Kris"), color = "#EE0000")
+define ja = Character(_("Jax"), color = "#e4adf1")
+define vi = Character(_("VIO"), color = "#ffbcbc")
+define ec = Character(_("Evil Cypher"), color = "#FF0009")
+define gkp = Character(_("Gatekeeper"), color = "#213213")
+define be = Character(_("Szybki Ben"), color = "#ed4040")
+define au = Character(_("Automatoniks"), color = "#383303")
+define bo = Character(_("Borubabor"), color = "#abba69")
 
 init python:
     import os 
@@ -24,7 +32,7 @@ init python:
             self.quantity = quantity
 
         def has_space(self, max):
-            if self.quantity <= max:
+            if self.quantity < max:
                 return True
             
             else:
@@ -62,6 +70,52 @@ init python:
             self.desc = desc
 
 
+label yeet:
+    scene black
+    $ odp = renpy.input("Co chcesz wyjebać?")
+    if (odp == "AR" or odp == "Ar" or odp == "ar") and inventory.has_item(AR) == True:
+        achieve Eko
+        $ inventory.remove_item(AR)
+        window hide
+
+    elif (odp == "Szczur" or odp == "Rat") and inventory.has_item(Rat) == True:
+        achieve Eko
+        $ postacie["Gun"] -= 1
+        $ inventory.remove_item(Rat) 
+
+    elif (odp == "Flaszka" or odp == "Flacha") and inventory.has_item(Flaszka) == True:
+        achieve Eko
+        $ postacie["Kalach"] -= 1
+        $ inventory.remove_item(Flaszka)
+
+    elif (odp == "Kokos" or odp == "Koks") and inventory.has_item(Kokos) == True:
+        achieve Eko
+        $ inventory.remove_item(Kokos)
+        $ postacie["Laskawca"] -= 1
+
+    elif (odp == "Pistolet" or odp == "Pistol" or odp == "Pistolecik") and inventory.has_item(Pistolecik) == True:
+        achieve Eko
+        $ inventory.remove_item(Pistolecik)
+
+    elif (odp == "Granat") and inventory.has_item(Granat) == True:
+        achieve Eko
+        $ inventory.remove_item(Granat)
+
+    elif (odp == "Wytrych") and inventory.has_item(Wytrych) == True:
+        achieve Eko
+        $ inventory.remove_item(Wytrych)
+
+    else:
+        "Nie masz tego"
+        window hide
+        
+    if akt == 1:
+        jump sypialnia
+    
+    elif akt == 2:
+        jump oporslep
+
+
 label updict(Who,dict):
         python:
             for key in dict.keys():
@@ -70,18 +124,37 @@ label updict(Who,dict):
                 
 
 label checktime:
-    call klontwakalacha from _call_klontwakalacha
+    if akt == 1:
+        call klontwakalacha from _call_klontwakalacha
     if czas < 1:
         p "Późno już, idę spać"
-        jump sypialnia
+        if akt == 1:
+            jump sypialnia
+        
+        elif akt == 2:
+            jump oporslep
 
     else:
         return
 
 
-# input call testCech("Cecha", PT), nie fogoruj ""
-label testCech(cecha, PT):
-    $ testPass = 0
+# input call testSkili("Cecha", PT), nie fogoruj ""
+label testSkili(skil,cecha, PT):
+    if skil == "Bron":
+        if inventory.has_item(AR):
+            $ PT -= 3
+
+        elif inventory.has_item(Granat):
+            $ PT -= 2
+
+        elif inventory.has_item(Pistolecik):
+            $ PT -= 1
+
+        else:
+            pass
+
+    $ exp += 1
+    $ wynik = 0
     $ d10 = renpy.random.randint(1,10)
     if d10 == 1:
         $ d10 -= renpy.random.randint(1,10)
@@ -89,12 +162,12 @@ label testCech(cecha, PT):
     if d10 == 10:
         $ d10 += renpy.random.randint(1,10)
 
-    if cechy[cecha]+d10 > PT-1:
-        $ testPass = 1
+    if skile[skil]+cechy[cecha]+d10 > PT-1:
+        $ wynik = 1
         return
 
     else:
-        $ testPass = 0
+        $ wynik = 0
         return
 
 
@@ -140,7 +213,9 @@ label checkHP(dmg):
 
     if umieram == 1:
         if inventory.has_item(THeal) == True:
-            $ HP =  BC * 2
+            achieve Clos
+            $ inventory.remove_item(THeal)
+            $ HP =  ["BC"] * 2
             $ umieram = 0
             p "Dobrze że miałem Turbo Uzrawiacz"
         else:
@@ -181,8 +256,8 @@ transform bounce:
 
 label start:
     default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
-    default cechy = {"INT":2, "REF":2, "ZW":2, "TECH":2, "CHAR":2, "SW":2, "SZ":2, "RUCH":2, "BC":2, "EMP":2}
-    default skile = {"Atletyka": 0, "Pistole": 0, "Karabiny": 0}
+    default cechy = {"INT":2, "ZW":2, "CHAR":2,"BC":2}
+    default skile = {"Atletyka": 2, "Bron": 2, "Gadanie": 2, "Myslenie": 2}
     default stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
     #deklaracja inventory
     default inventory = Inventory([],0)
@@ -203,6 +278,9 @@ label start:
     default Ser = InventoryItem("Ser","Strasznie cheesy, Gun musi go lubić")
     default THeal = InventoryItem("Turbouzdrawiacz","Turbo uzdrawia")
     default NRG = InventoryItem("Energol","Waluta permium")
+    default HuMeat = InventoryItem("Ludzkie mięso","VIO chętnie to schrupie")
+    default Smoke = InventoryItem("Bomba dymna", "Taki szlug, tylko nie psuje płuc")
+    default RadArm = InventoryItem("Hazmat", "Pancerz przeciw radjacji")
 
     #Stany postaci
     default kibel_stan = 0
@@ -211,19 +289,21 @@ label start:
     #deklaracja reszty
     default edki = 0
     default vdolce = 0
-    default MaxHP = 10 + (5*((cechy["BC"]+cechy["SW"])/2))
+    default frogsy = 0
+    default MaxHP = 20
     default Fragi = 0
     default akt = 0
     default HP = 0
     $ HP = MaxHP
     default Frakcja = 0
-    default Cap = 4
     # 0 = Niezrzeszony
     # 1 = DH
     # 2 = DN
     # 3 = Visty
     # 4 = Uda
     # 5 = Wojsko
+    # 6 = Żabka
+    default Cap = 4
     default dzien = 1
     default armor = 0
     default ammo = 0
@@ -231,9 +311,11 @@ label start:
     default maxarmor = 0
     default czas = 20
     default veq = 0
-    default psycha = 0
-    $ psycha = cechy["EMP"] * 10
     default znajOkol = 0
+    # 1 = sklep
+    # 2 = żabka
+    # 3 = worek
+    # 4 = jaja
     default lilquest = 0
     default vrrr = 0
     default bigquest = 0
@@ -242,11 +324,25 @@ label start:
     default helper2 = 0
     default part = 0
     default testPass = 0
+    default kody = 0
+    default kompan = 0
+    # 0 = Nikt
+    # 1 = VIO
+    # 2 = JAX
+    # 3 = Borabor
+    default talkloop = 0
+    default chipy = 0
+    default chiplok = 0
+    default exp = 0
+    default wynik = 0
+    default odp = " "
+    default anom = 0
+    default frogrel = 0
 
     play music "Bongo_Madness.mp3" volume 0.2
 
     while helper == 1:
-        $ player_name = renpy.input("Nazywasz się")
+        $ player_name = renpy.input("Nazywasz się:")
         if player_name == "Gun":
             g "Prawa autorskie kurwa"
 
@@ -320,16 +416,40 @@ label start:
         elif player_name == "Cycu":
             "Co jest kurde, to cyber jest kurde"
 
+        elif player_name == "Czajnik":
+            "A ty nie widziałeś już wszystkiego?"
+            $ helper = 0
+
+        elif player_name == "Jax":
+            ja "Wywiatracze cię zaraz"
+
+        elif player_name == "Vio":
+            vi "Vipierdalaj"
+
+        elif player_name == "Kris":
+            cr "Kolego nie pomyliło Ci się coś?"
+
+        elif player_name == "Alfonso":
+            k "Siema byku"
+            $ postacie["Kalach"] += 5
+            $ Frakcja = 4
+            $ inventory.add_item(Flacha)
+            $ helper = 0
+
         elif player_name == "XD2":
-            $ stan = {"Kalach":6, "Gun":6, "Cypher":6, "Laskawca":6, "Hartmann":6, "Jhin":6, "Visty":6, "Kennedy":6, "Krateus":6}
-            jump wojowezadanie
+            $ atrefakty["Jaja"] = "W sejfie"
+            jump artcrack
+
+        elif player_name == "Zium":
+            jump a2intro
+            $ chipy = 5
 
         else:
             $ helper = 0
 
     
     "Nie miałeś edków"
-    call bigunl
+    call bigunl from _call_bigunl
     "Sensu życia"
     "Ani nawet broni"
 
@@ -395,6 +515,7 @@ label gameover:
     $ MainMenu(confirm=False)()
 
 label rozstaje:
+    play sound "scen.mp3"
     scene rozstaje
     stop music
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
@@ -405,30 +526,39 @@ label rozstaje:
         "Kaj leziesz?"
 
         "Kierunek kuchnia":
+            play sound "scen.mp3"
             jump kuchnia
 
         "Może się pomodlę?":
+            play sound "scen.mp3"
             jump kosciol
 
         "Przycisnęło mnie" if bigquest < 5:
+            play sound "scen.mp3"
             jump kibel
 
         "Nie boję się śmierci":
+            play sound "scen.mp3"
             jump dach
 
         "Co tam tak napierdala?":
+            play sound "scen.mp3"
             jump warsztat
 
         "Ten czerwony krzyż wygląda obiecująco":
+            play sound "scen.mp3"
             jump klinika
 
         "Dziupla Jhina" if bigquest > 2:
+            play sound "scen.mp3"
             jump jhinownia
 
         "Lil Brazil" if bigquest > 4:
+            play sound "scen.mp3"
             jump bruhzylia
 
         "Idę do siebie" if akt > 0:
+            play sound "scen.mp3"
             jump sypialnia
 
         "Wychodzę stąd" if akt > 0:
@@ -441,6 +571,7 @@ label rozstaje:
             pause 1
             pause 1
             jump rozstaje
+
 
 label kuchnia:
     scene kuchnia
@@ -474,7 +605,7 @@ label kuchnia:
 
                 "Po gadaniu z takimi deklami, jednak spierdalam":
                     "Good Ending"
-                    return
+                    $ MainMenu(confirm=False)()
 
     elif akt == 1:
         if bigquest == 0:
@@ -532,6 +663,18 @@ label kuchnia:
                 jump rozstaje
 
         elif bigquest == 5:
+            if inventory.has_item(Rat) == True:
+                menu:
+                    "Mam w eq szczura, dać go Gunowi?"
+                    "Ta":
+                        p "Te Gun, chcesz może szczura?"
+                        g "Pewnie"
+                        $ inventory.remove_item(Rat)
+                        g "Dzięki"
+
+                    "Nah":
+                        "Niech posra jeszcze w kieszeni"
+                        
             if stan["Cypher"] == 3:
                 show cypher at left with moveinleft
                 c "Dzień dobry [player_name]!"
@@ -622,65 +765,56 @@ label kuchnia:
                 g "No to zacznijmy rozmowę kwalifikacyjną"
                 g "Pytanie pierwsze"
                 $ config.rollback_enabled = False
-                menu:
-                    "Jaki jest twój ulubiony kolor?"
-                    "Zielony":
-                        g "Ok"
-                    "Ciorny":
-                        g "Niepozorny"
-                    "Fioletowy":
-                        g "Trochę gejowy"
-                    "Żółty":
-                        g "2137"
-                    "Szczurzy":
-                        g "I to mi się podoba"
-                        $ postacie["Gun"] += 1
+                $ opd = renpy.input("Jaki jest twój ulubiony kolor?")
+                if odp == "Szczurzy":
+                    g "I to mi się podoba"
+                    $ postacie["Gun"] += 1
+
+                else:
+                    g "Chuja się znasz"
 
                 g "Pytanie numero dos"
-                menu:
-                    "Lubisz bigos"
-                    "Co kurwa?":
-                        g "Pstro"
-                    "Tak":
-                        g "To chujowo"
-                        $ postacie["Gun"] -= 1
+                $ odp = renpy.input("Lubisz bigos?")
+                if odp == "Tak":
+                    g "To chujowo"
+                    $ postacie["Gun"] -= 1
 
-                    "Nie":
-                        show ciphate with dissolve
-                        g "To dobrze"
-                        $ postacie["Gun"] += 1
-                        hide ciphate with dissolve
+                elif odp == "Nie":
+                    show ciphate with dissolve
+                    g "To dobrze"
+                    $ postacie["Gun"] += 1
+                    hide ciphate with dissolve
+
+                else:
+                    g "Chyba źle zrozumiałeś pytanie"
 
                 g "Pytanie trzecie"
-                menu:
-                    "Jaka jest stolica Asyrii?"
-                    "Ashur, Calah, Sharrukin, Niniwa":
-                        g "Masz rację"
-                        $ postacie["Gun"] += 1
+                $ odp = renpy.input("Jaka jest prędkość lotu nieobciążonej jaskółki w metrach na sekundę?")
+                if odp == "10":
+                    g "Tak, takiej europejskiej"
 
-                    "Bezbekistan środkowy":
-                        g "Ty chyba na cymbał upadłeś"
-                        $ postacie["Gun"] -= 1
+                elif odp == "14":
+                    g "Tak, takiej z afryki"
 
-                    "Ischtar, Salam, Spartan":
-                        g "Nie ale byłeś blisko"
+                else:
+                    "Tak to lata twój stary"
 
-                    "Nie wiem":
-                        g "Przynajmniej jesteś szczery"
-                        $ postacie["Gun"] += 1
+                g "Pytanie czwarte"
+                $ odp = renpy.input("Jaki rodzaj sera jest najlepszy?")
+                if odp == "Prawdziwy":
+                    g "Bardzo dobrze"
+                    $ postacie["Gun"] += 1
+                
+                else:
+                    g "Ten też dobry ale nie top"
 
-                g "Kolejne pytanie"
-                menu:
-                    "Jak rozpoznać czy ktoś jest wiedźmą?"
-                    "Test Yolka":
-                        g "Nie znam twoich hebrajskich metod, więc odpada"
+                g "Pytanie piąte"
+                $ odp = renpy.input("Gdzie leży prawo według BB?")
+                if odp == "Na południe":
+                    g "DOBRZE!"
 
-                    "Kacza waga":
-                        g "Dobrze"
-                        $ postacie["Gun"] += 1
-
-                    "Metoda Kramara":
-                        g "Spierdalaj z tym chujem"
+                else:
+                    g "Źle"
 
                 $ renpy.block_rollback()
                 $ config.rollback_enabled = True
@@ -769,6 +903,7 @@ label kuchnia:
                 p "No dobra, to nie było trudne"
                 "Drzwi nie były nawet zakluczone"
                 p "Zbyt łatwo"
+                play sound "Dzwi.wav"
                 "Wszedłeś do środka"
                 p "Chuja widzę"
                 p "Gdzie Cypher schowałby spodnie"
@@ -1053,7 +1188,7 @@ label kosciol:
                     k "Spierdalaj syfer"
                     $ postacie["Kalach"] -= 1
 
-                $ stan["Kalach"] = 2
+                $ stan["Kalach"] = 1
                 k "Zdupcaj, wracam do picia"
                 jump rozstaje
 
@@ -1061,31 +1196,33 @@ label kosciol:
                 "Kałach alkoholizuje się, lepiej mu nie przeszkadzaj"
                 jump rozstaje
 
-        elif bigquest == 2:
-            $ czas -= 1
-            if stan["Kalach"] == 0:
+        elif bigquest == 3:
+            if stan["Kalach"] == 1:
                 k "Niech mnie uda i zimna wóda"
                 k "Wróciłeś żywy z siedliska Vist"
                 $ postacie["Kalach"] += 1
                 k "Masz nagrodę"
-                play sound "THROWING.mp3"
-                $ inventory.add_item(Flaszka)
-                k "Zachowaj na specjalną okazję, albo chlej teraz"
-                $ stan["Kalach"] += 1
+                if inventory.has_space(Cap) == True:
+                    play sound "THROWING.mp3"
+                    $ inventory.add_item(Flaszka)
+                    k "Zachowaj na specjalną okazję, albo chlej teraz"
+                
+                else:
+                    k "Albo jednak nie"
+                $ stan["Kalach"] = 2
                 jump rozstaje
 
             else:
                 "Kałach alkoholizuje się, lepiej mu nie przeszkadzaj"
-                jump rozstaje
 
-        elif bigquest == 3 or bigquest == 4:
-            if stan["Kalach"] != 2:
+        elif bigquest == 4:
+            if stan["Kalach"] != 3:
                 if dzien < 10:
                     "Kościół jest zamknięty, wróć później"
                     jump rozstaje
 
                 elif dzien > 9:
-                    $ stan["Kalach"] = 2
+                    $ stan["Kalach"] = 3
                     k "Wróciłem z krucjaty."
                     k "I niech mnie dunder świśnie, tak mnie w krzyżu napierdala."
                     k "Jeśli kiedykolwiek dołączysz do fanów stópek."
@@ -1117,7 +1254,7 @@ label kosciol:
                     jump rozstaje
 
         elif bigquest == 5:
-            if stan["Kalach"] == 3:
+            if stan["Kalach"] == 9:
                 k "Hubert spierdalaj"
                 jump rozstaje
 
@@ -1129,7 +1266,7 @@ label kosciol:
             p "A ja muszę się z wami zakumplować"
             if [player_name] == "Hubert":
                 k "Kurwa Hubert, spierdalaj"
-                $ stan["Kalach"] = 3
+                $ stan["Kalach"] = 9
                 jump rozstaje
 
             k "Łe dobra, nie strasz mnie kurwa"
@@ -1594,12 +1731,43 @@ label dach:
                         achieve Foch
                         "I bez słowa zaczął uciekać"
                         $ postacie["Cypher"] -= 9999
-                        $ stan["Cypher"] = 3
+                        $ stan["Cypher"] = 9
                         $ renpy.block_rollback()
                         $ config.rollback_enabled = True
                         jump rozstaje
 
-            if stan["Cypher"] == 3:
+            if stan["Cypher"] == 5 or stan["Cypher"] == 6:
+                scene disko
+                show cypher at left
+                stop music
+                play music "inba.mp3"
+                p "Co tu się kurwa dzieje?"
+                c "Witam na imperzie"
+                p "Ale czemu? Zrobiłem z tobą kłesty!"
+                c "To jest bonus!"
+                c "Całkiem za friko!"
+                p "Serio?!"
+                c "No ta, nie wiem po chuj tu wchodziłeś"
+                p "Gra mi pozwoliła"
+                c "Tu powinni być tylko ludzie z DH"
+                c "Ale chuj, niech zyskam"
+                p "To co, będzie jeszcze jakiś bonus?"
+                c "Będzie tylko dla posiadaczy Cibuch Premium Premium"
+                p "Co to znaczy?"
+                c "Nie mogę Ci powiedzieć, to załamie kontinuum czasoprzestrzenne, a to będę mógł robić dopiero w następnym arku"
+                p "To może dasz mi jakieś zadanie specjalne?"
+                c "A spierdalaj, tańcz kurwa"
+                "I zacząłeś tańczyć z Cypherem"
+                $ stan["Cypher"] = 7
+                achieve Fri
+                jump rozstaje
+
+            if stan["Cypher"] == 7:
+                c "Ja tu czekam na zadanie"
+                c "Przybędę jak zawołasz na nie"
+                jump rozstaje
+
+            if stan["Cypher"] == 9:
                 c "Spierdalaj"
                 jump rozstaje 
 
@@ -1627,7 +1795,7 @@ label warsztat:
             menu:
                 "Czy potrzebny mi jest pancerz?"
 
-                "Kurwa biorę" if edki > 99:
+                "Kurwa biorę" if edki > 99 and inventory.has_space(Cap) == True:
                     if edki > 100:
                         $ inventory.add_item(MalyArmor)
                         $ edki -= 100
@@ -1840,7 +2008,7 @@ label klinika:
             pl "Chcesz kupić kokosa kurwa ten?"
             menu:
                 "Dawaj tego kokosa":
-                    if edki > 20:
+                    if edki > 20 and inventory.has_space(Cap) == True:
                         $ postacie["Laskawca"] += 1
                         play sound "THROWING.mp3"
                         $ inventory.add_item(Kokos)
@@ -1856,7 +2024,7 @@ label klinika:
             pl "Może chcesz zakupić turbouzdrawiacz?"
             pl "Uratuje cię przed dedem"
             menu:
-                "Bardzo chętnie" if edki > 199:
+                "Bardzo chętnie" if edki > 199 and inventory.has_space(Cap) == True:
                     play sound "THROWING.mp3"
                     $ inventory.add_item(THeal)
                     $ edki -= 200
@@ -1896,6 +2064,9 @@ label klinika:
                 $ config.rollback_enabled = True
                 pl "No to czekam na info z niecierpliwością"
                 $ stan["Laskawca"] = 1
+                jump rozstaje
+
+            else:
                 jump rozstaje
 
         elif bigquest == 5:
@@ -1980,12 +2151,14 @@ label klinika:
                 $ stan["Laskawca"] = 2
                 jump rozstaje
 
+            else:
+                jump rozstaje
+
         else:
             pl "U mnie po staremu, wracaj do siebie"
             jump rozstaje
 
-    else:
-        jump rozstaje
+    jump rozstaje
 
 label jhinownia:
     $ czas -= 1
@@ -2424,7 +2597,7 @@ label bruhzylia:
 label sypialnia:
     scene pokoj
     show screen hud
-    call bigunl
+    call bigunl from _call_bigunl_1
     p "Pusto tu"
     menu:
         "Jesteś w swoim pokoju, co chcesz zrobić?"
@@ -2437,20 +2610,23 @@ label sypialnia:
                     $ inventory.remove_item(Flaszka)
                     $ HP += 5
 
-                if edki > 19:
+                elif edki > 19:
                     "Przed snem zjadłeś jeszcze coś z automatu"
                     $ edki -= 20
                     $ HP += cechy["BC"]
                     if HP > MaxHP:
                         $ HP = MaxHP
 
+                else:
+                    "Zasnąłeś z pustym brzuchem"
+
             elif HP == MaxHP:
                 "Śpisz słodko, jak aniołek"
 
-            else:
-                "Zasnąłeś z pustym brzuchem"
-
             jump rozstaje
+
+        "Wyjebie gówno przez okno":
+            jump yeet
 
         "Czy ja przypadkiem nie dostałem?":
             if HP < MaxHP:
@@ -2503,6 +2679,7 @@ label akt1:
             g "To mi się podoba"
             $ wojownik = True
             jump akcja
+
         "Ja wracam, bo się trochę cykam":
             $ postacie["Gun"] -= 1
             $ postacie["Cypher"] += 1
@@ -2611,22 +2788,78 @@ label podsumowanie1:
 label spacerek:
     scene black
     $ czas -= 5
-    $ cel = renpy.random.randint(1, 8)
-    if cel == 1:
-        "Znalazłeś jakieś drobniaki"
-        $ zysk = renpy.random.randint(1, 50)
-        $ edki += zysk
-        p "Znalazłem [zysk] edków"
+    $ cel = renpy.random.randint(1, 99)
+    if cel > 0 and cel < 11:
+        if akt == 1:
+            "Znalazłeś jakieś drobniaki"
+            $ zysk = renpy.random.randint(1, 50)
+            $ edki += zysk
+            p "Znalazłem [zysk] edków"
 
-    elif cel == 2:
+        else:
+            "Znalazłeś jakieś drobniaki"
+            $ zysk = renpy.random.randint(20, 90)
+            $ edki += zysk
+            p "Znalazłem [zysk] edków"
+
+    elif cel > 10 and cel < 21:
         "Ni chuja, same nudy"
 
-    elif cel == 3:
-        "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-        $ wpierdol = renpy.random.randint(4, 18)
-        call checkHP(wpierdol) from _call_checkHP_4
+    elif cel > 20 and cel < 31:
+        if akt == 1:
+            "Przez przypadek wszedłeś do Bloku Władcy Demonów"
+            $ wpierdol = renpy.random.randint(4, 18)
+            call checkHP(wpierdol) from _call_checkHP_4
 
-    elif cel == 4:
+        elif akt == 2:
+            "Przez przypadek wszedłeś do Bloku Władcy Demonów"
+            "Ale teraz nadszedł czas działać"
+            menu:
+                "Co robisz?"
+                "Atak na suki":
+                    call testSkili("Bron","ZW",7) from _call_testSkili_5
+                    if wynik == 1:
+                        "Demony zostały pokonane, natenczas"
+                        p "Szach mat frajery"
+                        $ edki += 250
+                        p "Wszystkie wasze portfele są teraz moje"
+                        if inventory.has_item(HuMeat) == False and inventory.has_space(Cap) == True:
+                            $ inventory.add_item(HuMeat)
+                            p "Wezmę trochę boczku dla VIO"
+                    
+                    else:
+                        p "Ło nie, są silniejsi"
+                        call checkHP(renpy.random.randint(4, 18)) from _call_checkHP_28
+
+                "Ted Talk":
+                    call testSkili("Gadanie","CHAR",7) from _call_testSkili_6
+                    "Powiedziałeś demonom żeby spierdalali"
+                    if wynik == 1:
+                        "I nawet Ci się udało"
+                        p "Krowy doić! He he"
+                        "Kolejny sukces Night Citiowskich punków"
+
+                    else:
+                        "Niestety, nikt Cie nie zrozumiał"
+                        call checkHP(renpy.random.randint(4, 18)) from _call_checkHP_29
+
+                "Ucieczka":
+                    call testSkili("Atletyka","ZW",7) from _call_testSkili_7
+                    "Gdy tylko ich zobaczyłeś zacząłeś uciekać"
+                    "Te pojeby otworzyły ogień"
+                    if wynik == 1:
+                        "Uniknąłeś części pocisków"
+                        call checkHP(renpy.random.randint(1, 10)) from _call_checkHP_30
+
+                    else:
+                        "Skurwysyny chyba mają snipera"
+                        call checkHP(renpy.random.randint(4, 18)) from _call_checkHP_31
+
+
+        else:
+            "Coś się zjebało"
+
+    elif cel > 30 and cel < 47:
         if znajOkol == 0:
             "Udało Ci się odkryć fajny osiedlowy sklepik"
             $ znajOkol = 1
@@ -2635,9 +2868,10 @@ label spacerek:
             p "Ty kurwa, żabka jest obok, zapamiętam to sobie"
             $ znajOkol = 2
 
-        elif znajOkol == 3:
+        elif znajOkol == 2:
             p "Ten ziomek przypadkiem nie powiększa wora?"
             p "Muszę to sprawdzić"
+            $ znajOkol = 3
 
         else:
             p "Jaki fajny plasterek"
@@ -2648,9 +2882,9 @@ label spacerek:
                 p "Ta? To zajebiście."
                 "Plasterek trafił do kosza."
 
-    elif cel == 5:
+    elif cel > 46 and cel < 57:
         "Wszedłeś do bloku furrasów"
-        if dzien % 3 == 0:
+        if dzien % 7 == 4:
             "Futrzana domina Cię dopadła"
             achieve Futa
             $ HP = 1
@@ -2658,19 +2892,51 @@ label spacerek:
         else:
             "Masz farta, był zamknięty"
 
-    elif cel == 6:
+    elif cel > 56 and cel < 66:
         "Chodząc widzisz fagasa którego możesz obrabować"
         menu:
             "Co robisz?"
             "Napadańsko":
-                "Atakujesz kasztana"
-                call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
-                $ edki += renpy.random.randint(50, 200)
+                if akt == 1:
+                    "Atakujesz kasztana"
+                    call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
+                    $ zysk = renpy.random.randint(50, 150)
+                    $ edki += zysk
+                    p "Trochę dostałem ale udało mi się zarobić [zysk] edków!"
+
+                elif akt == 2:
+                    call testSkili("Bron","ZW",renpy.random.randint(8, 12)) from _call_testSkili_8
+                    if wynik == 1:
+                        "Ziomo dostał wpierdol"
+                        p "A ja wypłatę"
+                        $ zysk = renpy.random.randint(100, 300)
+                        $ edki += zysk
+                        p "Trochę dostałem ale udało mi się zarobić [zysk] edków!"
+
+                    else:
+                        p "Oj kurwa, typ jest silny"
+                        call checkHP(20)
+                        p "Następnym razem muszę się lepiej uzbroić"
 
             "Lepiej nie":
                 pass
 
-    elif cel == 7:
+    elif cel == 66:
+        show evilc
+        achieve Zns
+        ec "Witaj [player_name]!"
+        p "O kierwa! To zły Cypher"
+        ec "Tak, to ja"
+        p "Proszę, nie rób mi krzywdy!"
+        ec "Nawet nie chcę"
+        $ HP = MaxHP
+        "Magiczna moc złego Cyphera cię uleczyła"
+        p "Cholera Cypher, dzięki"
+        hide evilc with dissolve
+        ec "Hi Hi Ha Ha..."
+
+
+    elif cel > 66 and cel < 78:
         if inventory.has_item(Kokos) == True:
             "Znalazły Cię ćpuny"
             "Niestety mięli przewagę liczebną (było ich 3)"
@@ -2681,35 +2947,122 @@ label spacerek:
             "Obracasz się za siebię i widzisz że czegoś brakuje"
             p "Kurwa"
             $ inventory.remove_item(AR)
+
+        elif inventory.has_item(Ser) == True:
+            "W twoim kierunku leci chmara (5) szczurów"
+            p "Na chuja mego wuja, tylko nie to"
+            $ invenotry.remove_item(Ser)
+            "Po chwili pojawia się też Gun"
+            show gun at left
+            g "Serson [player_name], nie mogę ich złapać"
+            if akt == 2:
+                p "Ty nie powinieneś być w pierdlu?"
+                g "Faktycznie, to ja znikam"
+                hide gun with dissolve
         
         else:
             p "Dziwne, nic się nie stało"
             
-    elif cel == 8:
+    elif cel > 77 and cel < 81:
         p "Na chuja mego wuja, ktoś tu zostawił skrzynkę!"
         p "Ciekawe czy mam jak ją otworzyć?"
         if inventory.has_item(Wytrych) == True:
             p "Jest i wytryszek, pogczamp"
             p "Opening time!"
-            $ helper = renpy.random.randint(1, 3)
+            $ helper = renpy.random.randint(1, 4)
+            if renpy.random.randint(1, 5) == 5:
+                $ inventory.remove_item(Wytrych)
+
             if helper == 1:
                 p "O proszę! Hajsiwo"
                 $ edki += renpy.random.randint(50, 300)
 
-            elif helper == 2:
+            elif helper == 2 and inventory.has_space(Cap) == True:
                 p "Ktoś tu kurwa wsadził szczura!"
                 $ inventory.add_item(Rat)
                 p "Może mi się do czegoś przyda"
 
             elif helper == 3:
                 p "Kurwa! TU JEST BOMBA!"
-                call checkHP(10)
+                call checkHP(10) from _call_checkHP_23
                 p "Jebać trapy"
+            
+            elif helper == 4:
+                p "O proszę, powiększenie ekwipunku"
+                $ Cap += 1
+                p "Zawsze jeden przedmio więcej"
+
+        elif akt == 2:
+            call testSkili("Myslenie","INT",10) from _call_testSkili_9
+            if wynik == 1:
+                p "Mój giga mózg pomógł mi to otworzyć"
+                $ helper = renpy.random.randint(1, 4)
+                if helper == 1:
+                    p "O proszę! Hajsiwo"
+                    $ edki += renpy.random.randint(50, 300)
+
+                elif helper == 2 and inventory.has_space(Cap) == True:
+                    p "Ktoś tu kurwa wsadził szczura!"
+                    $ inventory.add_item(Rat)
+                    p "Może mi się do czegoś przyda"
+
+                elif helper == 3:
+                    p "Kurwa! TU JEST BOMBA!"
+                    call checkHP(10) from _call_checkHP_32
+                    p "Jebać trapy"
                 
+                elif helper == 4:
+                    p "O proszę, powiększenie ekwipunku"
+                    $ Cap += 1
+                    p "Zawsze jeden przedmio więcej"
+
+        else:
+            p "Kurwa nie, przydał by się wytrych"
+
+    elif cel > 80 and cel < 99:
+        if akt == 1:
+            p "Nic tu nie ma"
+
+        elif akt == 2:
+            if bigquest == 0:
+                if chipy == 0:
+                    p "Pierdolnik drży, to miejsce cipa"
+                    $ chiplok = 1
+
+                elif chipy == 1:
+                    p "Pierdolnik drży, to miejsce cipa"
+                    $ chiplok = 2
+
+                elif chipy == 2:
+                    p "Pierdolnik drży, to miejsce cipa"
+                    $ chiplok = 3
+
+                elif chipy == 3:
+                    p "Pierdolnik drży, to miejsce cipa"
+                    $ chiplok = 4
+
+                elif chipy == 4:
+                    p "Pierdolnik drży, to miejsce cipa"
+                    $ chiplok = 5   
+
+                else:
+                    p "Znalazłem chyba wszystko" 
+
+            else:
+                "Nic ciekawego tym razem"
+
     else:
         "Print dupa, nie powinno Cię tu być."
 
-    jump rozstaje
+    show screen map_screen
+    window hide
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    return
 
 
 label trader:
@@ -2718,40 +3071,54 @@ label trader:
     play music "szop.mp3" volume 0.2
     scene szop
     p "A se coś kupię"
-    if edki < 1:
-        p "Karamba, jestem biedakiem. Wracam do domu"
-        jump rozstaje
-    else:
-        p "Ile mam mamony? [edki] edków, mogło być mniej"
-        $ helper = 1
-        while helper == 1:
-            menu:
-                "Szopping tajm"
-                "Tajemniczy energol?" if edki > 999 and inventory.has_item(NRG) == False:
-                    $ inventory.add_item(NRG)
-                    $ edki -= 1000
+    p "Ile mam mamony? [edki] edków, mogło być mniej"
+    $ helper = 1
+    while helper == 1:
+        menu:
+            "Szopping tajm"
+            "Hazmat" if edki > 999 and inventory.has_item(RadArm) == False and inventory.has_space(Cap) == True:
+                $ inventory.add_item(RadArm)
+                $ edki -= 1000
 
-                "Ale fajna Aerka" if edki >= 600 and inventory.has_item(AR) == False:
-                    $ inventory.add_item(AR)
-                    $ edki -= 600
+            "Tajemniczy energol?" if edki > 999 and inventory.has_item(NRG) == False and inventory.has_space(Cap) == True:
+                $ inventory.add_item(NRG)
+                $ edki -= 1000
 
-                "Wytrych? " if edki >= 200:
-                    $ inventory.add_item(Wytrych)
-                    $ edki -= 200
+            "Ale fajna Aerka" if edki >= 600 and inventory.has_item(AR) == False and inventory.has_space(Cap) == True:
+                $ inventory.add_item(AR)
+                $ edki -= 600
 
-                "Kurwa ser?" if edki >= 50:
-                    $ inventory.add_item(Ser)
-                    $ edki -= 50
+            "Bomba dymna" if edki > 199 and invenotry.has_item(Smoke) == False and inventory.has_space(Cap) == True and akt > 1:
+                $ inventory.add_item(Smoke)
+                $ edki -= 200
 
-                "Na nic więcej mnie nie stać":
-                    p "Get zakuped"  
-                    $ helper = 0
+            "Wytrych? " if edki >= 100 and inventory.has_space(Cap) == True:
+                $ inventory.add_item(Wytrych)
+                $ edki -= 100
 
-        stop music
-        jump rozstaje
+            "Kurwa ser?" if edki >= 50 and inventory.has_space(Cap) == True:
+                $ inventory.add_item(Ser)
+                $ edki -= 50
+
+            "Na nic więcej mnie nie stać":
+                p "Get zakuped"  
+                $ helper = 0
+
+    stop music
+    show screen map_screen
+    window hide
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    jump trader
 
 
 label frogszop:
+    stop music
+    play music "szop.mp3" volume 0.2
     $ czas -= 1
     scene frogszop
     fse "Dzień dobry"
@@ -2759,10 +3126,18 @@ label frogszop:
     while helper == 1:
         menu:
             fse "Co chciałby pan kupić?"
-            "Dej mnie hot doga" if edki > 9 and HP < MaxHP:
-                $ edki -= 10
+            "Dej mnie hot doga" if (edki > 9 or frogsy > 89) and HP < MaxHP:
                 fse "To będzie 10 edków"
-                p "Proszę"
+                if frogsy > 89:
+                    achieve Frg
+                    p "Zapłacę frogsami"
+                    $ frogsy -= 90
+
+                else:
+                    p "Proszę"
+                    $ edki -= 10
+                    $ frogsy += 40
+
                 "Chwilę poczekałeś i jadło otrzymałeś"
                 fse "Smacznego"
                 play sound "EAT OR MUNCH.mp3"
@@ -2770,10 +3145,18 @@ label frogszop:
                 if HP > MaxHP:
                     $ HP = MaxHP
 
-            "Dupnę sobie monsterka" if edki > 24 and czas < 30:
-                $ edki -= 25
+            "Dupnę sobie monsterka" if (edki > 24 or frogsy > 224) and czas < 30:
                 fse "To będzie 25 edków"
-                p "Proszę"
+                if frogsy > 224:
+                    achieve Frg
+                    p "Zapłace frogsami"
+                    $ frogsy -= 225
+
+                else:
+                    p "Proszę"
+                    $ edki -= 25
+                    $ frogsy += 100
+                
                 "Wypiłeś potwora"
                 p "Czuję, że mogę dziś zrobić więcej"
                 $ czas += 10
@@ -2781,6 +3164,7 @@ label frogszop:
 
             "Zdrapeczka" if edki > 24:
                 $ edki -= 25
+                $ frogsy += 100
                 fse "25 edków"
                 p "Proszę"
                 p "Dobra, zobaczymy czy wygrałem"
@@ -2794,19 +3178,44 @@ label frogszop:
                 else:
                     p "Kurwa, nie siadło"
 
+            "Przewalutowanie" if vdolce > 0:
+                fse "Już, oto normalne edki"
+                $ edki += (vdolce*50)
+                $ vdolce = 0
+                p "Dziękuję"
+
+            "Szukacie może pracowników?" if Frakcja == 0:
+                fse "Mamy jeszcze wolny wakat"
+                fse "Byłby pan zainteresowany pracą?"
+                menu:
+                    "Dołączam do żabki?"
+                    "PEWEX":
+                        $ Frakcja = 6
+                        fse "Witamy na pokładzie"
+
+                    "Podziękuję":
+                        fse "Wakat nie będzie wiecznie wolny! (Będzie)"
+
+            "Ja do roboty przyszedłem" if Frakcja == 6 and czas > 0:
+                fse "To dawaj za kasę"
+                $ edki += czas * 8
+                $ czas = 0
+                "Przepracowałeś cały dzień"
+                $ helper = 0
+                
             "To tyle, dziękuję, dowidzenia":
                 fse "Dowidzenia, zapraszam ponownie"
                 $ helper = 0
 
-        show screen map_screen
-        window hide
-        pause 1
-        pause 1
-        pause 1
-        pause 1
-        pause 1
-        pause 1
-        jump frogszop
+    show screen map_screen
+    window hide
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    jump frogszop
 
 
 label vradeZewn:
@@ -2823,25 +3232,25 @@ label vradeZewn:
             $ vdolce -= 1
             $ edki += 100
 
-        "Ale fajna Aerka" if vdolce >= 5 and inventory.has_item(AR) == False:
+        "Ale fajna Aerka" if vdolce >= 5 and inventory.has_item(AR) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(AR)
             $ vdolce -= 5
             $ veq += 1
             "Wydałeś 5 vdolcy na AR-kę"
 
-        "Wytrych? " if vdolce >= 2 and inventory.has_item(Wytrych) == False:
+        "Wytrych? " if vdolce >= 2 and inventory.has_item(Wytrych) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(Wytrych)
             $ vdolce -= 2
             $ veq += 1
             "Wydałeś 2 vdolce na Wytrych"
 
-        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False:
+        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(Flaszka)
             $ vdolce -= 1
             $ veq += 1
             "Wydałeś 1 vdolca na Flaszkę"
 
-        "Varmor" if vdolce >= 3 and inventory.has_item(MalyArmor) == False:
+        "Varmor" if vdolce >= 3 and inventory.has_item(MalyArmor) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(MalyArmor)
             $ armor = 11
             $ vdolce -= 3
@@ -2851,18 +3260,41 @@ label vradeZewn:
         "Nie potrzebuję twoich towarów":
             jump rozstaje
 
-    jump rozstaje
+    show screen map_screen
+    window hide
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    jump vradeZewn
 
 label workowiec:
+    scene bager
     $ czas -= 2
     menu:
         p "Czy chcę powiększyć wora?"
-        "Pewex" if edki > (Cap*2)*100:
+        "Pewex" if edki > (Cap+1)*100:
+            achieve Mocz
             p "Zwiększaj"
             $ Cap += 1
+            if akt == 1:
+                jump rozstaje
+
+            elif akt == 2:
+                jump opor
 
         "Lepiej nie":
-            jump rozstaje 
+            show screen map_screen
+            window hide
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            jump workowiec
 
 label wojsko:
     $ czas -= 5
@@ -2873,8 +3305,10 @@ label wojsko:
         gk "Jestem Generał Kennedy, przywódca tego pierdolnika"
         if Frakcja == 0 or Frakcja == 3:
             gk "I jesteś tu z woli Guna"
+
         elif Frakcja == 1:
             gk "Jasna cholera, jesteś od Cyphera"
+
         gk "To co masz ogarnąć to destrukcja Vist"
         gk "Jakaś kurwa z Arasaki chce przejąć nad nimi kontrolę"
         p "Ależ to skurwysyn musi być"
@@ -2901,7 +3335,7 @@ label wojsko:
         hide cypher with moveoutright
         gk "To jest coraz mocniejsze"
         gk "Znikam"
-        hide genken
+        hide genken with dissolve
         p "No i zniknął"
         p "Jak zwykle kurwa"
         p "I wyjdzie, że dostanę 7,50 edka"
@@ -2953,23 +3387,22 @@ label wojsko:
             $ wojsko_stan += 1
             $ stan["Jhin"] = 6
 
-        if stan["Cypher"] == 5:
+        if stan["Cypher"] == 5 or stan["Cypher"] == 6:
             "Dumnie ogłosiłeś dołączenie Cyphera"
             gk "Dlaczego?"
             $ wojsko_stan += 1
-            $ stan["Cypher"] = 6
+            $ stan["Cypher"] = 9
 
         if stan["Krateus"] == 5:
             "Pochwaliłeś się przyjaźnią z Krateusem"
             gk "Krateus też tam jest?"
             gk "Powinien wykonywać zadanie bojowe"
             gk "Oj, będę musiał z nim pogadać"
+            $ wojsko_stan += 1
             $ stan["Krateus"] += 1
-            $ krateus_stan = 6
 
-        jump rozstaje
 
-    elif wojsko_stan > 4: 
+    if wojsko_stan > 4: 
         if wojsko_stan > 7:
             achieve Full
             mg "Gratulacje, zebrałeś całą drużynę"
@@ -2990,11 +3423,13 @@ label wojsko:
         gk "Siłą przyjaźni musicie wysadzić jedno z vniazd"
         gk "Prowadzą tam badania nad ściśle tajnym projektem Vezuwiusz"
         gk "Niech bóg was przyjmie"
-        if inventory.has_item(Pistolecik)== False:
+        if inventory.has_item(Pistolecik) == False and  inventory.has_space(Cap) == True:
             gk "Masz przyda Ci się"
             $ inventory.add_item(Pistolecik)
             
         jump wojowezadanie
+
+    jump rozstaje
 
 label wojowezadanie:
     stop music
@@ -3053,12 +3488,13 @@ label wojowezadanie:
                         p "A to jednak jest trochę sus"
                         g "To ma sers"
                         $ helper -= 25
+                        hide gun
+                        scene agunus
                         g "Kurwa, ciemno tu"
                         g "O, jest chyba wyjście"
                         "Gun skończył wentować"
                         g "Przycisk z napisem tajne vejście"
                         g "A se kliknę"
-                        hide gun
                         "I dzięki temu, reszta drużyny dostała się do środka"
 
                 scene vards
@@ -3188,6 +3624,8 @@ label wojowezadanie:
                 "Zaczęliście biec do wyjścia"
                 "Ale na waszej drodze stanął VPrime"
                 scene vinalvoss
+                stop music
+                play music "bossa.mp3"
                 v "Vavava"
                 p "Spierdalaj"
                 v "NIE"
@@ -3397,6 +3835,7 @@ label wojowezadanie:
                                 $ renpy.quit()
 
                     "Czy moc pay to play też na mnie działa?" if edki > 199:
+                        achieve Bug
                         mg "TAK"
                         p "O jasna dupa, to Wielki Dzik"
                         mg "To prawda, jestem więc myślę"
@@ -3404,6 +3843,12 @@ label wojowezadanie:
                         mg "Mogę zrobić wszystko ale ile jesteś gotowy za to zapłacić?"
                         menu:
                             "Ilę chcę dać?"
+                            "Może dziczeg?" if inventory.has_item(NRG) == True:
+                                mg "Oj kolego, kupiłeś mnie tym jak paczkę żelków"
+                                mg "Oto moje błogosławieństwo"
+                                p "Dziękuję wielki dziku"
+                                $ helper -= 25
+
                             "Masz tu 200 edków i spierdalaj":
                                 mg "Przyjmuję tę ofertę"
                                 p "Fr fr?"
@@ -3501,6 +3946,8 @@ label wojowezadanie:
                 v "Vie Vwal vnia vprzed vachodem vłońca"
                 p "Co kurwa"
                 scene vinalvoss
+                stop music
+                play music "bossa.mp3"
                 v "Vestem V-Max"
                 v "Vopowa vakość V"
                 p "Oj nie zesraj się"
@@ -3787,6 +4234,8 @@ label wojowezadanie:
         "Skończyliście rozmawiać i wyszliście z laba"
         "Ale na waszej drodze stanął V-Max"
         scene vinalvoss
+        stop music
+        play music "bossa.mp3"
         v "Vrrr"
         c "Spierdalaj ziomo, śpieszy nam się"
         v "Vozjebaliście vi vazę"
@@ -3937,6 +4386,8 @@ label wojowezadanie:
         p "No to dobrze Ci idzie"
         k "Spokojnie, ja dopiero się rozkręcam"
         scene vinalvoss
+        stop music
+        play music "bossa.mp3"
         show kalach at left
         k "Ło kurwa, VMax się pojawił"
         v "Vrrrr"
@@ -3958,6 +4409,31 @@ label wojowezadanie:
         p "Aha 66"
         "I Kałach poszedł sobie w pizdu"
         jump akt1pods
+
+    elif Frakcja == 6:
+        scene frogszop
+        fse "Siema [player_name], mam wiadomość od szefa"
+        p "O kierwa, co on takiego chce?"
+        fse "Powiedział, że jak pójdziesz na tą robotę od wojska to Cie wyjebie z roboty"
+        p "Pojebało go"
+        fse "Dokładnie to samo mu powiedziałam"
+        fse "I co masz teraz w planach"
+        menu:
+            "Co ja teraz zrobię?"
+            "Żegnaj żabko":
+                p "Odchodzę, to jednak nie dla mnie"
+                fse "Tylko nie daj się zabić"
+                p "Pa teraz"
+                $ Frakcja = 0
+                jump wojowezadanie
+
+            "Może uciekniemy stąd razem?":
+                fse "OMG anon, myślałam o tym odkąd Cię zobaczyłam"
+                p "No to klawo, spierdalaj"
+                scene bew
+                achieve Crg
+                "CRINGE DETEKTED"
+                $ MainMenu(confirm=False)()
 
     return
 
@@ -3984,7 +4460,7 @@ label akt1pods:
     sb "To nie jest pora jeszcze umierać"
     sb "Mam co do Ciebie plany"
     achieve GG1
-    jump tempend
+    jump a2intro
 
 label amongthev:
     stop music fadeout 1.0
@@ -4006,7 +4482,7 @@ label amongthev:
         c "Cienkie pizdeczki"
         c "Musisz zabrać im dokumenty z archiw"
         c "Dasz sobie radę ale dla pewności"
-        if inventory.has_item(AR) == True:
+        if inventory.has_item(AR) == True and inventory.has_space(Cap) == True:
             c "Widzę że jakąś broń już masz"
             c "To masz ode mnie inny gadżet"
             play sound "THROWING.mp3"
@@ -4399,7 +4875,7 @@ label vending:
         "Kurwa no pewex" if vdolce > 0 :
             $ vdolce -= 1
             $ vagroda = renpy.random.randint(0,4)
-            if vagroda == 0:
+            if vagroda == 0 and inventory.has_space(Cap) == True:
                 p "Dostałem vranat"
                 $ inventory.add_item(Vranat)
                 jump vending
@@ -4440,7 +4916,7 @@ label vrade:
     scene vshop
     menu:
         v "Co chciałbyś zakupić?"
-        "Ale fajna Aerka" if vdolce >= 5 and inventory.has_item(AR) == False:
+        "Ale fajna Aerka" if vdolce >= 5 and inventory.has_item(AR) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(AR)
             $ vdolce -= 5
             $ veq += 1
@@ -4452,13 +4928,13 @@ label vrade:
             $ veq += 1
             "Wydałeś 2 vdolce na Wytrych"
 
-        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False:
+        "Flaszka?" if vdolce >= 1 and inventory.has_item(Flaszka) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(Flaszka)
             $ vdolce -= 1
             $ veq += 1
             "Wydałeś 1 vdolca na Flaszkę"
 
-        "Varmor" if vdolce >= 3 and inventory.has_item(MalyArmor) == False:
+        "Varmor" if vdolce >= 3 and inventory.has_item(MalyArmor) == False and inventory.has_space(Cap) == True:
             $ inventory.add_item(MalyArmor)
             $ armor = 11
             $ vdolce -= 3
@@ -4662,14 +5138,3 @@ label gatekeeper:
 
 label podpowiedz:
     return
-
-
-label tempend:
-    mg "Gratulacje, skończyłeś akt 1 cptg"
-    mg "Jeśli udało Ci się skończyć ten moment historii, wyślij mi screena następnej wiadomości"
-    mg "Historia wzruszająca, moją dupę ssąca"
-    mg "Obfita nagroda Cię czeka"
-    mg "Btw. wielkie dzięki dla Mandauskyego, Araba, Czajniga i Żyda za ich wielką pomoc w testach"
-    mg "Wielkie dzięki za granie"
-    mg "Papatki"
-    $ MainMenu(confirm=False)()

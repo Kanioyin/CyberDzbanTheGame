@@ -26,12 +26,6 @@ screen inventory():
         for item in inventory.items:
             text "{size=40}[item.name] - [item.desc] \n{/size}"
 
-    imagebutton auto "inventory_yeet_%s":
-        focus_mask True
-        hovered SetVariable("screen_tooltip", "Return")
-        unhovered SetVariable("screen_tooltip","")
-        action Call("yeet")
-
     imagebutton auto "inventory_screen_return_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
@@ -185,8 +179,11 @@ screen day():
                     text "{color=000} Krateus"
 
         elif akt == 2:
-            if bigquest == 1:
-                text "{color=000} Zdobądż [5-chipy] chipów"
+            if bigquest == 0:
+                text "{color=000} Zdobądź [5-chipy] chipów"
+
+            elif bigquest == 1:
+                text "{color=000} Odzyskaj dane z bazy"
 
 
     imagebutton auto "cyberfon_won_%s":
@@ -202,6 +199,7 @@ screen bank():
         pos 0.4, 0.1
         text "{color=000} Masz na koncie [edki] edków"
         text "{color=000} Masz na koncie [vdolce] Vdolców"
+        text "{color=000} Masz na koncie [frogsy] żabsów"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -311,12 +309,12 @@ screen map_screen():
             hovered SetVariable("screen_tooltip", "Return")
             unhovered SetVariable("screen_tooltip","")
             action Hide("map_screen"), Jump("rozstaje")
-
-    imagebutton auto "city_tup_%s":
-        focus_mask True
-        hovered SetVariable("screen_tooltip", "Return")
-        unhovered SetVariable("screen_tooltip","")
-        action Hide("map_screen"), Call("spacerek")
+    if czas > 4:
+        imagebutton auto "city_tup_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Call("spacerek")
 
     if znajOkol > 0:
         imagebutton auto "city_sklep_%s":

@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/customscreen.rpy", line 21: expected a keyword argument or end of line.
-    pos 0.05 0.1
-             ^
+File "game/akt2.rpy", line 876: reached end of line when expecting ':'.
+    if odp == 
+              ^
 
-Ren'Py Version: Ren'Py 8.2.1.24030407
-Wed Sep 11 10:48:18 2024
+Ren'Py Version: Ren'Py 8.3.2.24090902
+Sun Sep 15 17:43:35 2024
