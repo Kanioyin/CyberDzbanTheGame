@@ -765,7 +765,7 @@ label kuchnia:
                 g "No to zacznijmy rozmowę kwalifikacyjną"
                 g "Pytanie pierwsze"
                 $ config.rollback_enabled = False
-                $ opd = renpy.input("Jaki jest twój ulubiony kolor?")
+                $ odp = renpy.input("Jaki jest twój ulubiony kolor?")
                 if odp == "Szczurzy":
                     g "I to mi się podoba"
                     $ postacie["Gun"] += 1
@@ -3276,6 +3276,7 @@ label workowiec:
     menu:
         p "Czy chcę powiększyć wora?"
         "Pewex" if edki > (Cap+1)*100:
+            $ edki -= (Cap) * 100
             achieve Mocz
             p "Zwiększaj"
             $ Cap += 1
@@ -4227,7 +4228,7 @@ label wojowezadanie:
         c "Koniec smęcenia, wychodzimy"
         p "I teraz nagle chcesz wychodzić?"
         c "Nom, nowy helikopter jest"
-        p "Jak to? Przecież zawsze miałęś tylko jeden"
+        p "Jak to? Przecież zawsze miałeś tylko jeden"
         c "Magia dzika młody"
         p "Nic już nie rozumiem"
         c "Same"

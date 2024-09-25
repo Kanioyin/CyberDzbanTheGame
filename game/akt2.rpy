@@ -1,4 +1,5 @@
 label a2intro:
+    play music "a2amb.mp3"
     $ akt = 2
     $ bigquest = 0
     default stan2 = {"Vio":0, "Jax":0, "Kris":0, "Bo":0}
@@ -130,6 +131,8 @@ label a2intro:
     jump opor
 
 label opor:
+    stop music
+    play music "a2amb.mp3"
     call checktime from _call_checktime_1
     show screen hud
     show screen oportalk
@@ -169,6 +172,7 @@ label jaxowo:
                         ja "A tobie następne testy idą łatwiej"
                         p "Wow, to takie proste?"
                         ja "Proste że tak!"
+                        $ exp += 10
 
                     "Bieganie" if skile["Atletyka"] < 7:
                         ja "No to lecimy, czas trenować cardio"
@@ -219,6 +223,7 @@ label viocha:
 
             "Możesz mnie uleczyć?" if HP < MaxHP:
                 if inventory.has_item(HuMeat) == True:
+                    $ inventory.remove_item(HuMeat)
                     vi "Vuzik vrbuzik"
                     $ HP = MaxHP
                     $ umieram = 0
@@ -305,11 +310,11 @@ label krzis:
             p "No, pogadałem z kowalem"
             cr "No to klawo, teraz masz kilka dni na przygotowanie się"
             p "Ale na co?"
-            cr "Na specjalną misję w gnieźdźie anomalii"
+            cr "Na specjalną misję w gnieździe anomalii"
             p "Czyli?"
             cr "Wasza dawna baza"
             p "Co tam się kurwa stało?"
-            cr "Jacyś deblie stwierdzili, że umyją Cyphera"
+            cr "Jacyś debile stwierdzili, że umyją Cyphera"
             p "I co tam się teraz dzieje?"
             cr "Takie sprawy co się nawet fizjologom nie śniły"
             cr "Musisz kupić sobie outfit na radiacje"
@@ -489,7 +494,7 @@ label anomalia:
         ja "Nom, to ja"
         bo "A co to za wywłoka obok Ciebie?"
         p "Jestem [player_name]"
-        bo "Nawet mówic potrafi"
+        bo "Nawet mówić potrafi"
         bo "Jaki zdolniacha"
         bo "Bezi w końcu daje Ci jakiś odpowiednich ludzi?"
         p "Kim jest bezi?"
@@ -631,6 +636,7 @@ label chipnik:
                 sb "No dobra, mi pasuje"
                 p "No to dogadani"
                 "Zabrałeś cipa z mikrofalówki"
+                achieve Cip
                 $ chipy = 1
                 p "Bywaj Ciri"
                 sb "Bywaj"
@@ -643,6 +649,7 @@ label chipnik:
                 p "Ja pierdolę"
                 vi "Vtrasznie Verstwy"
                 "Zabrałeś chipa i w ciszy wydzedłeś"
+                achieve Cip
                 $ chipy = 1
                 vi "Va vewno vie vcesz vawałka?"
 
@@ -651,6 +658,7 @@ label chipnik:
                 "Zastraszanie JAX-a się udało"
                 sb "Dobra kurwa, masz"
                 "Dostałeś cipa"
+                achieve Cip
                 $ chipy = 1
                 p "Dziękujemy za współpracę"
                 ja "I polecamy się na przyszłość"
@@ -669,6 +677,7 @@ label chipnik:
 
                 p "Dobrej nocy panie Ciri"
                 "Podnosisz cip i wychodzisz"
+                achieve Cip
                 $ chipy = 1
 
         p "Zadanie wykonane, wracam do bazy"
@@ -685,7 +694,7 @@ label chipnik:
         scene black
         p "Kurwa, ciemno tu jak w dupie u Cyphera"
         show ciphate
-        p "Szkoda, że nie mam laratki"
+        p "Szkoda, że nie mam latatki"
         hide ciphate
         p "Mam nadzieję, że nie stanie mi się nic złego"
         "I kurwa deklu wykrakałeś"
@@ -779,7 +788,7 @@ label chipnik:
                 p "Droga babko w żabko, proszę wysłuchaj mnie"
                 if wynik == 1:
                     "Wyperswadowałeś babeczce swój dostęp do sklepu"
-                    fse "No dobra, tylko bez napaswowań w przyszłości"
+                    fse "No dobra, tylko bez napastowań w przyszłości"
                     p "Luzik arbuzik"
                 
                 else:
@@ -824,6 +833,7 @@ label chipnik:
         jump opor
 
     elif chipy == 3:
+        $ nua = len(persistent._achievements)
         p "Kolejny chipek"
         p "I mi pokazuje, że jest w jednej z alejek"
         p "I to takiej dziwnej ciemnej"
@@ -883,7 +893,7 @@ label jajquest:
     "Tylko, że w sejfie"
     p "No kurwa, jak ja to otworzę?"
     p "Ten sejf nie jest jakiś giga duży, zabiorę go ze sobą"
-    "Spakowałes sejf do plecaka"
+    "Spakowałeś sejf do plecaka"
     p "Kod jest na 6 cyfr"
     p "Jak mnie pamięć nie myli to mam 1/10^6 szansy na trafienie"
     p "Chuj, coś wykombinuje"
@@ -925,7 +935,7 @@ label artcrack:
     p "Dobra, to czym się mogę zająć"
     menu:
         "Odblokuję jaja Kody" if atrefakty["Jaja"] == "W sejfie":
-            p "Ok, porsty sejf, z 6 cyfrowym zamkiem"
+            p "Ok, prosty sejf, z 6 cyfrowym zamkiem"
             p "No to strzelamy kod"
             $ odp = renpy.input("Kod",length=6)
             if odp == "111221":

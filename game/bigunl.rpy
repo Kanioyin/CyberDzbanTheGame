@@ -1,4 +1,4 @@
-default foty = 40
+default foty = 51
 default nua = len(persistent._achievements)
 default cnt = 1
 
