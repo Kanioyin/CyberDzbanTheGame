@@ -1,4 +1,0 @@
-Długości:
-script: 5131
-akt2: 955
-customscreen: 407

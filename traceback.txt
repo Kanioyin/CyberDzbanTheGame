@@ -1,122 +1,30 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 131, in script call
-    call checktime from _call_checktime_1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 686, in script
-    menu:
-  File "game/akt2.rpy", line 704, in <module>
-    "Jax, śmigło" if komapn == 2:
-NameError: name 'komapn' is not defined
+  File "game/script.rpy", line 2724, in script call
+    call checkHP(7) from _call_checkHP
+  File "game/script.rpy", line 176, in script
+    $ wybrany_dzwiek = random.choice(buul)
+  File "game/script.rpy", line 176, in <module>
+    $ wybrany_dzwiek = random.choice(buul)
+NameError: name 'random' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 131, in script call
-    call checktime from _call_checktime_1
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/akt2.rpy", line 135, in script call
-    pause 10
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/script.rpy", line 3054, in script call
-    pause 1
-  File "game/akt2.rpy", line 686, in script
-    menu:
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1619, in execute
-    choice = renpy.exports.menu(choices, self.set, args, kwargs, item_arguments)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\menuexports.py", line 100, in menu
-    condition = renpy.python.py_eval(condition)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1209, in py_eval
-    return py_eval_bytecode(code, globals, locals)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1202, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/akt2.rpy", line 704, in <module>
-    "Jax, śmigło" if komapn == 2:
-NameError: name 'komapn' is not defined
+  File "game/script.rpy", line 2724, in script call
+    call checkHP(7) from _call_checkHP
+  File "game/script.rpy", line 176, in script
+    $ wybrany_dzwiek = random.choice(buul)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 821, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1178, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 176, in <module>
+    $ wybrany_dzwiek = random.choice(buul)
+NameError: name 'random' is not defined
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.2.24090902
 CyberDzban 0.00000001
-Sun Sep 15 18:57:49 2024
+Sat Sep 28 10:45:59 2024

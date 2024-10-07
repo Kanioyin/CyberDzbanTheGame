@@ -360,6 +360,7 @@ label oporslep:
         bo "Te kurwa, dawaj tu"
         p "Spoczko foczko, jak mi się zachce to ruszę"
         $ stan2["Bo"] = 3
+        
     p "Pusto tu"
     menu:
         "Jesteś w swoim pokoju, co chcesz zrobić?"

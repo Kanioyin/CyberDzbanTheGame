@@ -173,6 +173,7 @@ label testSkili(skil,cecha, PT):
 
 
 label checkHP(dmg):
+    $ wybrany_dzwiek = renpy.random.choice(buul)
     if inventory.has_item(Kokos):
         $ inventory.remove_item(Kokos)
         p "Pa ten unik szmato, Koks+L+Ratio"
@@ -191,12 +192,12 @@ label checkHP(dmg):
     
     elif armor == 0:
         $ HP -= dmg
-        play sound "hit.mp3"
+        play sound (wybrany_dzwiek)
 
     else:
         $ HP -= (dmg - armor)
         $ armor -= 1
-        play sound "hit.mp3"
+        play sound (wybrany_dzwiek)
 
     if armor < 0:
         $ armor = 0
@@ -338,6 +339,7 @@ label start:
     default odp = " "
     default anom = 0
     default frogrel = 0
+    default buul = ["bul1.mp3"]
 
     play music "Bongo_Madness.mp3" volume 0.2
 
