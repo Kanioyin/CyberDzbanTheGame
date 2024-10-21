@@ -490,7 +490,7 @@ label anomalia:
         show jax at left
         show bo at right
         bo "A kogo to moje oczenta widzą?"
-        ja "Witaj Bo"
+        ja "Witaj Bo" 
         bo "Tożto Jaxini!"
         ja "Nom, to ja"
         bo "A co to za wywłoka obok Ciebie?"
@@ -606,7 +606,29 @@ label anomalia:
         jump opor
 
     elif stan2["Bo"] == 3:
-        bo "Nie rozpędzaj się tak wariacie"
+        bo "Dobra, możemy brać się za robotę"
+        p "A co to za robota?"
+        bo "Ty jesteś głupi czy akustyczny?"
+        p "Czasami mi się zdaje że oba"
+        bo "Mogłem się domyślić"
+        bo "Twoim celem jest wlecenie w dziurę, tam musisz wyłapać wspomnienie Kody"
+        p "A po mojemu?"
+        bo "Tu masz taki pierdolniczek do łapania sygnałów"
+        $ inventory.add_item(WykSyg)
+        bo "Jak będziesz chodził po strefie anomalii to zapisuje wszystko co złapie"
+        bo "Jak jakaś tania kurwa"
+        bo "Następnie moi technicy alby ty zajmiecie się odszyfrowywaniem"
+        mg "Zależy czy mi się będzie chciało robić jakąś minigierkę"
+        bo "I z odszyfrowanych danych "
+        p "Jak wcześniej mi to opowiadałeś to było prostrze"
+        bo "Sprawdzałem czy podstawy zrozumiesz"
+        p "Czyli mam już wskakiwać"
+        bo "Tak"
+        "I Bo wepchnął Cię do dziury"
+        p "KURWAAAAAA"
+        scene black
+        p "Ja pierdolę, jak tu jest ciemno"
+        
         jump tempend
 
     else:

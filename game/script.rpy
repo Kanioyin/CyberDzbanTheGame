@@ -282,6 +282,7 @@ label start:
     default HuMeat = InventoryItem("Ludzkie mięso","VIO chętnie to schrupie")
     default Smoke = InventoryItem("Bomba dymna", "Taki szlug, tylko nie psuje płuc")
     default RadArm = InventoryItem("Hazmat", "Pancerz przeciw radjacji")
+    default WykSyg = InventoryItem("Wykrywacz sygnałów", "Wykrywa sygnały(no way)")
 
     #Stany postaci
     default kibel_stan = 0
