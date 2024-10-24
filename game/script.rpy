@@ -282,7 +282,6 @@ label start:
     default HuMeat = InventoryItem("Ludzkie mięso","VIO chętnie to schrupie")
     default Smoke = InventoryItem("Bomba dymna", "Taki szlug, tylko nie psuje płuc")
     default RadArm = InventoryItem("Hazmat", "Pancerz przeciw radjacji")
-    default WykSyg = InventoryItem("Wykrywacz sygnałów", "Wykrywa sygnały(no way)")
 
     #Stany postaci
     default kibel_stan = 0
@@ -439,6 +438,18 @@ label start:
             $ inventory.add_item(Flacha)
             $ helper = 0
 
+        elif player_name == "Anon":
+            fse "OMG, Anon-kun"
+            fse "Nawet nie wiesz jak tęskniłam"
+            fse "Pora wracać do roboty"
+            $ Frakcja == 6
+            $ helper = 0
+
+        elif player_nam == "Anton":
+            mg "OMG, Anton-kun"
+            mg "Hai Hai"
+            $ helper = 0
+
         elif player_name == "XD2":
             $ atrefakty["Jaja"] = "W sejfie"
             jump artcrack
@@ -446,6 +457,7 @@ label start:
         elif player_name == "Zium":
             jump a2intro
             $ chipy = 5
+            
 
         else:
             $ helper = 0

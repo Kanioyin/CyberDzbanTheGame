@@ -3,6 +3,7 @@ label a2intro:
     $ akt = 2
     $ bigquest = 0
     default stan2 = {"Vio":0, "Jax":0, "Kris":0, "Bo":0}
+    default postacie2 = {"Jax":0}
     default atrefakty = {"Jaja":"szukane"}
     default wspomnienia = {}
     if helper < 0:
@@ -154,6 +155,10 @@ label jaxowo:
                 ja "Spoczko foczko"
                 $ kompan = 2
                 "JAX dołącza jako kompan"
+
+            "Wyskakujesz może na piwko?" if kompan == 2:
+                ja "Spoczko, da się zrobić"
+                jump piwko
 
             "Idę questować solo" if kompan == 2:
                 ja "Żaden problem mordeczko"
@@ -340,7 +345,26 @@ label krzis:
             cr "Jak znajdziesz jakieś info to przyjdź"
 
         elif stan2["Kris"] == 3:
-            jump tempend
+            p "SZEFIE MAM INFO"
+            cr "Po co się drzesz?"
+            p "Sorki, trochę się podnieciłem"
+            "Opowiedziałeś o swoich znaleziskach"
+            cr "No dobra, przynajmniej jest coś. Dam twoje dane do kowala i zobaczymy co on z tego zrobi"
+            p "Nie będę musiał tam iść sam?"
+            cr "Dzień dziecka jest dziś. Możesz zająć się swoimi sprawami"
+            $ stan2["Kris"] = 4
+
+        elif stan2["Kris"] == 4 and dzien > 30:
+            cr "Dobra [player_name], mam info od kowala"
+            p "Co takiego Ci powiedział?"
+            cr "Zrobił inprint i go sprawdził. Dane które zebrałeś są faktycznie czyste"
+            cr "Czyli wracasz do Bo szukać kolejnych"
+            p "Się robi szefie"
+            $ stan2["Kris"] = 5
+
+        else:
+            cr "Zdupcaj, przeszkadzasz mi"
+
 
     elif bigquest == 2:
         pass
@@ -614,7 +638,6 @@ label anomalia:
         bo "Twoim celem jest wlecenie w dziurę, tam musisz wyłapać wspomnienie Kody"
         p "A po mojemu?"
         bo "Tu masz taki pierdolniczek do łapania sygnałów"
-        $ inventory.add_item(WykSyg)
         bo "Jak będziesz chodził po strefie anomalii to zapisuje wszystko co złapie"
         bo "Jak jakaś tania kurwa"
         bo "Następnie moi technicy alby ty zajmiecie się odszyfrowywaniem"
@@ -628,7 +651,49 @@ label anomalia:
         p "KURWAAAAAA"
         scene black
         p "Ja pierdolę, jak tu jest ciemno"
-        
+        p "To to chuj, idziemy po ciemku"
+        "Wędrujesz po tym ciemnym miejscu w poszukiwaniu sygnału i po godzince słyszysz pikanie"
+        p "Dobra kurwa, to jest chyba to miejsce. Co ja mam teraz zrobić?"
+        call testSkili("Myslenie", "INT", 9)
+        if wynik == 1:
+            p "Z tego co Bo opowiadał to mam zrobić skrinszota"
+            "I to faktycznie zadziałało"
+
+        else:
+            p "Chuj kurwa, chuj. Brutforsuje to"
+            "Jakimś cudem Ci się to udało"
+
+        p "Pogczamp pacjent, pora wracać"
+        scene dziura
+        show bo at right
+        bo "Kurwa dzieciaku, nie spodziewałem się, że Ci się to uda"
+        p "Ja też się trochę tego nie spodziewałem"
+        bo "To znaczy, że możemy się teraz zabrać za przeglądanie tego gówna"
+        p "Ja też muszę?"
+        bo "TAK"
+        $ czas = 0
+        "Siedziałeś resztę dnia z Bo oglądając filmiki z życia Kody"
+        p "Tu się kurwa tyle żeczy nie klei, najpierw zdrada Wujka, potem solo kręcenie fixerów"
+        p "Po kiego grzyba on w ogóle robił tye głupich rzeczy?"
+        bo "Kody był kretynem ale to nie jest jedyna jego zaleta"
+        p "Chodzi Ci o ten fragment z Talibami?"
+        bo "Uznałbyś, że to jest brud na Benka?"
+        p "No ja nie ale inni mogą mieć mniej radykalne poglądy"
+        bo "Dla bezpieczeństwa to zniszczymy"
+        p "Ale czemu? Moglibyśmy na tym trochę zarobić"
+        bo "Jeszcze raz mi coś takiego zaproponujesz to Ci jebne"
+        p "Dobra, sorki. Ile Ci w ogóle Benek płaci że tak go bronisz?"
+        bo "W pierdlu siedzi mój znajomy, twoi w sumie też. Znając ich to będą próbowali uciec jak tylko się da"
+        bo "Mój kumpel z tego skorzysta a twoi pewnie nawet sobie nie zdadzą z tego sprawy"
+        p "No dobra, to jest spoko plan. A kim jest ten twój kolega?"
+        bo "Nazywa się Tar. To jest strzelec, konstruktor, dyplomata i najbardziej szczwany skurwysyn jakiego znam"
+        p "Brzmi groźnie"
+        bo "On jest groźny ale tylko jak go wkurwisz. Będzie dobrym kompanem do trudnych chwil"
+        p "Dobra, dzięki za info, wracam do Sójeczki z wieściami"
+        $ stan2["Kris"] = 3
+        $ stan2["Bo"] = 4
+
+    elif stan2["Bo"] == 4 and stan2["Kris"] == 5:
         jump tempend
 
     else:
@@ -778,7 +843,7 @@ label chipnik:
             "Zacznę hackowanie":
                 call testSkili("Myslenie", "INT", 10) from _call_testSkili_3
                 if wynik == 1:
-                    "No i ez, cipek za friko"
+                    p "No i ez, cipek za friko"
                     $ chipy = 2
 
                 else:
@@ -983,6 +1048,61 @@ label artcrack:
 
     jump oporslep
 
+
+label piwko:
+    if kompan == 2:
+        scene japiwko
+        if postacie2["Jax"] == 0:
+            ja "Kurwa, przyjemnie tak sobie skoczyć na browca"
+            p "Ciężko się z tobą nie zgodzić"
+            ja "To opowiadaj [old_pn], co tam u Ciebie"
+            p "Pamiętasz moje imię nawet, jestem pełen podziwu"
+            ja "No słuchaj, to jest tylko zmienna"
+            mg "(Jeśli się nie wyjebało)"
+            p "Tak czy siak, podziwko."
+            ja "Wracajmy do tematu, jak tam Ci życie mija?"
+            p "No powoli to jakoś leci, wiesz, questy się robi, edki zarabia"
+            ja "Czyli po staremu"
+            p "Gadaj lepiej jak u Ciebie"
+            ja "No co, czekam aż koledzu wyjdą z pierdla i staram nie dać się zabić"
+            p "To jest już klasyk"
+            ja "Nom, jak już wrócą to czeka nas bojowe zadanie"
+            p "O kurwens, brzmi poważnie. Co to za robota"
+            ja "Ty jeszcze szczylem jesteś w mieście, nie mieszaj się w to"
+            p "Kurwa, teraz to mnie zainteresowałeś, opowiadaj"
+            ja "VIO znalazł jednego z ziomków którzy mnie porwali. Musimy go teraz dopaść"
+            p "Jak VIO dał radę coś takiego w ogóle znaleźć?"
+            ja "On ma swoje sposoby, tak Ci powiem w tajemnicy, on nie jest tak głupi na jakiego się wydaje"
+            p "Ciekawe, cały czas siedzi pod taką przykrywką?"
+            ja "To jest bardziej jak Doktor Jekyll i pan Hyde"
+            p "Takie pojebane rozdwojenie jaźni, ciekawe. Tak miał od startu czy od niedawna"
+            ja "Jak drużyna trafiła do więzienia zaczął przesiadywać w labie Łaskawcy"
+            ja "Prawdopodobnie udało mu się zrobić szczepionke na Visty"
+            p "Pierdolisz"
+            ja "Serio, poszedł testować to na dzikich Vistach i się sam przeraził, to zadziałało ale odkrył coś jeszcze gorszego"
+            p "Visty zaczęły szczekać?"
+            ja "Powstała nowa generacja Vist. V5 zaczyna wchodzić do obiegu. Mają zwiększone limity inta"
+            p "Do jakiego stopnia?"
+            ja "Teraz mogą mieć max 4"
+            p "To serio jest niebezpieczne i tam się dowiedział o agentach?"
+            ja "Coś w tym rodzaju. Jakiś korpos był na miejscu, potem wpadł w ręce VIO"
+            p "Jak bardzo groźnie tam może być?"
+            ja "Sami agenci nie są niebezpieczni, jest ich chyba trzech, z czego jeden robił to tylko dla awansu"
+            p "Jebane korposzczury"
+            ja "Złapiemy jakiegoś z nich i znajdziemy szefa. Potem będę mógł się zemścić i spierdalać z tego miasta"
+            p "Znudziło Ci się bycie gangusem?"
+            ja "Żonka z dzieckiem na mnie czekają"
+            p "Kurwa Jax, czy ty chcesz zrobić sobie dobre zakończenie?"
+            ja "Przelałem już wystarczająco dużo krwi"
+            p "Kurwa.... głębokie"
+            "I tak spędziłeś wieczorek na piwerku z Jaxem"
+            achieve Bir
+            $ postacie2["Jax"] = 1
+
+        elif postacie2["Jax"] == 1:
+            "Na ten moment Jax nie chce więcej gadać"
+
+        jump opor
 
 label tempend:
     mg "Gratulacje, skończyłeś to zacząłem z 2 aktu cptg"
