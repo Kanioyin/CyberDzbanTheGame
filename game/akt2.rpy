@@ -2,7 +2,7 @@ label a2intro:
     play music "a2amb.mp3"
     $ akt = 2
     $ bigquest = 0
-    default stan2 = {"Vio":0, "Jax":0, "Kris":0, "Bo":0}
+    default stan2 = {"Vio":0, "Jax":0, "Kris":0, "Bo":0, "Halina":0}
     default postacie2 = {"Jax":0}
     default atrefakty = {"Jaja":"szukane"}
     default wspomnienia = {}
@@ -694,7 +694,81 @@ label anomalia:
         $ stan2["Bo"] = 4
 
     elif stan2["Bo"] == 4 and stan2["Kris"] == 5:
-        jump tempend
+        bo "Witam ponownie [player_name]! Jak rozumiem wracamy do poszukiwań"
+        p "Tja, Kris sprawdził dokładnie imprint, trzeba szukać kolejnego"
+        bo "To tym razem lecisz szukać danych po CJ-u"
+        p "Kodę jeszcze kiedyś na streamie widziałem a tego kasztana w ogóle nie kojarzę"
+        bo "CJ był jednym z normalniejszych policjantów w NC, debil, kanibal, chyba wiesz co mam na myśli"
+        p "Standardzik chyba"
+        bo "Rng to straszne jest, czasami trafiają się u nich śmieszniejsze cechy"
+        bo "Ale o tym sobie raczej później pogadamy, teraz pora na nurka"
+        p "Za demokrację!"
+        "I dzielnie wskoczyłeś do dziury"
+        scene black
+        p "Kurwa, zapomniałem jak tu jest ciemno"
+        "Przez kilka godzin wędrowałeś po podziemiach, aż nagle trafiłeś na skrzynkę"
+        p "O jasny chuj, co w tym miejscu robi czest?"
+        p "Pora na otwarcie"
+        if inventory.has_item(Wytrych) == True:
+            p "Dzięki wielkie wytryszku, zobaczmy co jest w środku"
+            $ edki += 500
+            p "JA PIERDOLĘ! 500 edków, bogactwo skurwysyny"
+
+        else:
+            p "Na mózg tego nie zrobię, jest za ciemno"
+        
+        "Łaziłeś dalej aż nie znalazłeś kolejnego sygnału"
+        p "Pyk, zgrywamy dane na telefon i spierdalamy"
+        $ stan2["Bo"] = 5
+        "Nagle usłyszałeś dziwny krzyk gdzieś dalej"
+        p "Jasny chuj, co to było?"
+        menu:
+            p "Iść to zbadać?"
+            "Spierdalam stąd":
+                jump opor
+
+            "Ruszam dzielne":
+                "Wędrujesz dalej w podziemiach NC"
+                "Po jakimś czasie ponownie usłyszałeś dziwny krzyk"
+                p "Popierdoli mnie zaraz, chyba się też zestam ze strachu"
+                "Idziesz dalej i znalazłeś jakiegoś naprutego gangusa"
+                sb "Te kurwa, spierdalaj stąd"
+                p "Jesteś moim darmowym lootem, szykuj się na śmierć"
+                call testSkili("Bron","ZW",7)
+                if wynik == 1:
+                    p "Słodkich snów, parówczaku"
+                    p "Pora zebrać twoje itemki"
+                    $ edki += 200
+                    P "Darmowe edeczki, to się szanuje"
+
+                else:
+                    $ checkHP(10)
+                    p "Kurwa chuj mnie trafił, z mi jeszcze chujowo siadło"
+                    p "Nawet nie ma co zbierać"
+                
+                p "Przynajmniej nie umarłem, zawsze jakiś sukces"
+                sb "Halo! jest tam kto?"
+                p "Jestem, w dodatku uzbrojony"
+                sb "A ja jestem tu uwięziona"
+                p "Na jaja mojej matki, kobieta w opałach. Jako biały rycerz muszę ją uratować"
+                "Podchodzisz bliżej i swoim oczom nie dajesz wiary"
+                p "Zaraz, zaraz, ja cię chyba znam"
+                ha "Niewykluczone"
+                p "Jak ty w to wpadłaś"
+                ha "Niestety moi klienci są czasami jebnięci"
+                p "I co, mam cię teraz uwolnić?"
+                ha "Byłoby bardzo miło z twojej strony"
+                p "Jakie będę miał z tego korzyści?"
+                ha "Postaram się panować nad sobą w środy"
+                p "Coś jeszcze?"
+                ha "Uspokoję blok demonów"
+                p "Wiesz co, niech stracę"
+                "Uwalniasz Halinę z więzów"
+                ha "Dziękuję słoneczko"
+                "Halina cichaczem wyszła z pomieszczenia"
+                $ stan2["Halina"] == 1
+                p "A ja powinienem wracać do bazy"
+                jump opor
 
     else:
         bo "Zdupcaj, utrudniasz mi pracę"

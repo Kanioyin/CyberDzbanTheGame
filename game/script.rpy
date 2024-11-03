@@ -23,6 +23,7 @@ define gkp = Character(_("Gatekeeper"), color = "#213213")
 define be = Character(_("Szybki Ben"), color = "#ed4040")
 define au = Character(_("Automatoniks"), color = "#383303")
 define bo = Character(_("Borubabor"), color = "#abba69")
+define ha = Character(_("Halina", color = "#423123"))
 
 init python:
     import os 
