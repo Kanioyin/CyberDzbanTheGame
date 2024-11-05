@@ -2,10 +2,6 @@ label a2intro:
     play music "a2amb.mp3"
     $ akt = 2
     $ bigquest = 0
-    default stan2 = {"Vio":0, "Jax":0, "Kris":0, "Bo":0, "Halina":0}
-    default postacie2 = {"Jax":0}
-    default atrefakty = {"Jaja":"szukane"}
-    default wspomnienia = {}
     if helper < 0:
         $ helper = 0
     sb "Aj karamba, bolało"
@@ -362,12 +358,31 @@ label krzis:
             p "Się robi szefie"
             $ stan2["Kris"] = 5
 
+        elif stan2["Kris"] == 6:
+            p "Przyniosłem kolejne dane z bazy"
+            cr "Coś ciekawego na nich w ogóle było?"
+            p "Bo mówi, że nie"
+            cr "Dam go do kowalowania i zobaczymy"
+            p "Bo mówił, że to mógł być ostatni którego szukaliśmy"
+            cr "To prawda, twoi kumple wracają, przez nich raczej nie będziemy w stanie spokojnie szukać"
+            p "To znaczy, że przerwiemy zadanie?"
+            cr "Delikatnie zmienimy jego założenia"
+            p "Co to znaczy?"
+            cr "Jak już połączysz się z resztą wrócicie do normalnego życia"
+            cr "Trafią wam się pewnie jakieś zadania od Bena"
+            p "I na nich będę szpiegował?"
+            cr "Bingo"
+            p "To mogę wracać cieszyć się wolnym"
+            cr "Bingo, odmaszerować"
+            $ bigquest = 2        
+
         else:
             cr "Zdupcaj, przeszkadzasz mi"
 
 
     elif bigquest == 2:
-        pass
+        cr "Czekaj na dalsze updaty"
+        jump tempend
 
     elif bigquest == 3:
         pass
@@ -379,7 +394,7 @@ label oporslep:
     scene pokoj
     show screen hud
     call bigunl from _call_bigunl_2
-    if stan2["Bo"] == 2 and dzien > 29:
+    if stan2["Bo"] == 2 and dzien > 19:
         show bocall
         bo "Te kurwa, dawaj tu"
         p "Spoczko foczko, jak mi się zachce to ruszę"
@@ -564,6 +579,7 @@ label anomalia:
         mg "Spierdalaj" 
         p "No to wskakuję"
         "I wskoczyłeś do dziury"
+        play sound "fall.mp3"
         bo "Głupcze zaczekaj"
         scene podziemia
         p "Kurwa, gdzie to mnie wyjebało"
@@ -591,6 +607,7 @@ label anomalia:
         bo "Siemson"
         $ stan2["Bo"] = 1
         $ stan2["Kris"] = 2
+        $ czas = 0
         jump opor
 
     elif stan2["Bo"] == 1:
@@ -648,20 +665,23 @@ label anomalia:
         p "Czyli mam już wskakiwać"
         bo "Tak"
         "I Bo wepchnął Cię do dziury"
+        play sound "fall.mp3"
         p "KURWAAAAAA"
         scene black
         p "Ja pierdolę, jak tu jest ciemno"
         p "To to chuj, idziemy po ciemku"
         "Wędrujesz po tym ciemnym miejscu w poszukiwaniu sygnału i po godzince słyszysz pikanie"
         p "Dobra kurwa, to jest chyba to miejsce. Co ja mam teraz zrobić?"
-        call testSkili("Myslenie", "INT", 9)
+        call testSkili("Myslenie", "INT", 9) from _call_testSkili_10
         if wynik == 1:
             p "Z tego co Bo opowiadał to mam zrobić skrinszota"
             "I to faktycznie zadziałało"
 
         else:
             p "Chuj kurwa, chuj. Brutforsuje to"
-            "Jakimś cudem Ci się to udało"
+            "Niestety pierdolnął cie prąd"
+            call checkHP(10) from _call_checkHP_34
+            "Ale jakimś cudem Ci się to udało"
 
         p "Pogczamp pacjent, pora wracać"
         scene dziura
@@ -734,7 +754,7 @@ label anomalia:
                 "Idziesz dalej i znalazłeś jakiegoś naprutego gangusa"
                 sb "Te kurwa, spierdalaj stąd"
                 p "Jesteś moim darmowym lootem, szykuj się na śmierć"
-                call testSkili("Bron","ZW",7)
+                call testSkili("Bron","ZW",7) from _call_testSkili_11
                 if wynik == 1:
                     p "Słodkich snów, parówczaku"
                     p "Pora zebrać twoje itemki"
@@ -753,6 +773,7 @@ label anomalia:
                 p "Na jaja mojej matki, kobieta w opałach. Jako biały rycerz muszę ją uratować"
                 "Podchodzisz bliżej i swoim oczom nie dajesz wiary"
                 p "Zaraz, zaraz, ja cię chyba znam"
+                achieve Wow
                 ha "Niewykluczone"
                 p "Jak ty w to wpadłaś"
                 ha "Niestety moi klienci są czasami jebnięci"
@@ -769,6 +790,39 @@ label anomalia:
                 $ stan2["Halina"] == 1
                 p "A ja powinienem wracać do bazy"
                 jump opor
+
+    elif stan2["Bo"] == 5:
+        bo "Dobra, sprawdziłem chipa, nic nie znalazłem"
+        p "Serio kurwa, to na chuj ja tam latam"
+        bo "Czekaj chwilę debliu jebany. Nic na Bena ale coś co może Ci się spodobać"
+        p "No co? Brudy na jakiegoś psa?"
+        bo "Coś znacznie ciekawszego, wskazówkę do insygni"
+        p "W sensie?"
+        bo "Trupy zostawiają po sobie insygnie śmierci, my możemy je zbierać"
+        bo "Każda daje potężną moc i zerową odpowiedzialność"
+        p "Kurwa, podoba mi się to"
+        bo "Po CJ-u została jego pała"
+        p "Kinky jak King"
+        bo "Nie ta pała debilu jebany. Jego policyjna pałeczka"
+        bo "Z jej pomocą możesz znaleźć jego kajdanki"
+        p "To jest jakiś pojebany qłest kurjerski z Jakuzy?"
+        bo "Jeszcze raz mi przerwiesz i dostaniesz w mordę"
+        p "Sorki"
+        call checkHP(10) from _call_checkHP_35
+        bo "Ostrzegałem"
+        bo "Kajdanki pozwalają Ci na zakucie pierdalnych chłopów"
+        bo "I tylko odpowiednio dochromowani mogą próbować się z nich uwolnić"
+        bo "Masz jakieś pytania?"
+        p "Gdzie mogę je znaleźć?"
+        bo "Musisz się udać na komisariat, potem pokażę Ci gdzie on jest"
+        p "Nie możesz mi teraz pokazać?"
+        bo "To wymaga zbyt dużo pracy"
+        p "Zrozumiałe"
+        bo "Łap tego Cipa i wracaj do szefa z wieściami, prawdopodobnie to był ostatni"
+        p "Serio? Myślałem, że to będzie dłuższy quest"
+        bo "Jest wystarczająco długi, zdupcaj"
+        $ stan2["Bo"] = 6
+        $ stan2["Kris"] = 6
 
     else:
         bo "Zdupcaj, utrudniasz mi pracę"
@@ -937,59 +991,74 @@ label chipnik:
         p "O proszę, ciekawe"
         p "Wygląda na to, że ten chip jest w żabce"
         scene frogszop
-        fse "Dzień dobry, mogę w czymś pomóc?"
-        p "Tak, czy ma pani gdzieś tu cip?"
-        fse "Zboczeńcu!"
-        p "Nie, nie, nie, taki z danymi"
-        fse "Jeśli pan zaraz nie wyjdzie, to wezwę ochronę"
-        p "Dobra dobra"
-        menu:
-            p "Czy mam jakiś pomysł jak go zdobyć"
-            "Spróbuje ją zagadać":
-                call testSkili("Gadanie", "CHAR", 10) from _call_testSkili_4
-                p "Droga babko w żabko, proszę wysłuchaj mnie"
-                if wynik == 1:
-                    "Wyperswadowałeś babeczce swój dostęp do sklepu"
-                    fse "No dobra, tylko bez napastowań w przyszłości"
-                    p "Luzik arbuzik"
-                
-                else:
-                    "Babeczka nie chciała słuchać"
-                    fse "OCHRONA"
-                    sb "A Ci jebne"
-                    p "Ło nie"
-                    call checkHP(15) from _call_checkHP_27
-                    p "Ała, jak to mocno uderzyło"
-                    sb "Dobra, teraz możesz znowu robić zakupy"
-
-            "Przepraszam, przejęzyczyłem się, 200 załatwi sprawę?" if edki > 199:
-                $ edki -= 200
-                fse "No dobra, niech będzie"
-                fse "Ale proszę się pośpieszyć, bo zaraz tu będzie ochrona"
-                p "Myślałem że mamona rozwiąże sprawę"
-                fse "Ochrony to nie interesuje, a ja za szybko po nią zadzwoniłam"
-
-        p "Czyli mogę wracać do zakupów"
-        p "Mam jakieś pięć minut aby go znaleść"
-        if kompan == 1:
-            vi "Vobra, vnalazłem vo"
-            p "Zajebiście VIO"
+        if Frakcja == 6:
+            fse "OMG Anon, ty wróciłeś!"
+            p "Prawda żabeńko ale teraz nazywam się [player_name]"
+            fse "Czemu?"
+            p "Tajne przez poufne"
+            fse "I jesteś tu pracować dalej czy co?"
+            p "Chipa szukam, szef zgubił tu jakieś ważne dane"
+            fse "To pomogę Ci szukać"
+            "I razem szukaliście tylko chwilę"
             $ chipy = 3
-            p "Chyba możemy wracać"
-        
-        elif kompan == 2:
-            ja "To jest to czego szukamy?"
-            p "Bingo"
-            $ chipy = 3
-            p "No to wracamy"
+            p "Zajebiście, wielkie dzięki"
+            fse "Polecam się na przyszłość"
+            jump opor
 
         else:
-            p "Kurwa, trochę mi zajęło szukanie tego gówna"
-            fse "Jeśli pan nie wyjdze wezwę ochronę"
-            $ czas = 0
-            p "Dobra, dobra, już spierdalam"
-            $ chipy = 3
-            p "Ale przynajmniej mam cipa"
+            fse "Dzień dobry, mogę w czymś pomóc?"
+            p "Tak, czy ma pani gdzieś tu cip?"
+            fse "Zboczeńcu!"
+            p "Nie, nie, nie, taki z danymi"
+            fse "Jeśli pan zaraz nie wyjdzie, to wezwę ochronę"
+            p "Dobra dobra"
+            menu:
+                p "Czy mam jakiś pomysł jak go zdobyć"
+                "Spróbuje ją zagadać":
+                    call testSkili("Gadanie", "CHAR", 10) from _call_testSkili_4
+                    p "Droga babko w żabko, proszę wysłuchaj mnie"
+                    if wynik == 1:
+                        "Wyperswadowałeś babeczce swój dostęp do sklepu"
+                        fse "No dobra, tylko bez napastowań w przyszłości"
+                        p "Luzik arbuzik"
+                    
+                    else:
+                        "Babeczka nie chciała słuchać"
+                        fse "OCHRONA"
+                        sb "A Ci jebne"
+                        p "Ło nie"
+                        call checkHP(15) from _call_checkHP_27
+                        p "Ała, jak to mocno uderzyło"
+                        sb "Dobra, teraz możesz znowu robić zakupy"
+
+                "Przepraszam, przejęzyczyłem się, 200 załatwi sprawę?" if edki > 199:
+                    $ edki -= 200
+                    fse "No dobra, niech będzie"
+                    fse "Ale proszę się pośpieszyć, bo zaraz tu będzie ochrona"
+                    p "Myślałem że mamona rozwiąże sprawę"
+                    fse "Ochrony to nie interesuje, a ja za szybko po nią zadzwoniłam"
+
+            p "Czyli mogę wracać do zakupów"
+            p "Mam jakieś pięć minut aby go znaleść"
+            if kompan == 1:
+                vi "Vobra, vnalazłem vo"
+                p "Zajebiście VIO"
+                $ chipy = 3
+                p "Chyba możemy wracać"
+            
+            elif kompan == 2:
+                ja "To jest to czego szukamy?"
+                p "Bingo"
+                $ chipy = 3
+                p "No to wracamy"
+
+            else:
+                p "Kurwa, trochę mi zajęło szukanie tego gówna"
+                fse "Jeśli pan nie wyjdze wezwę ochronę"
+                $ czas = 0
+                p "Dobra, dobra, już spierdalam"
+                $ chipy = 3
+                p "Ale przynajmniej mam cipa"
 
         stop music
         jump opor
@@ -1176,7 +1245,13 @@ label piwko:
         elif postacie2["Jax"] == 1:
             "Na ten moment Jax nie chce więcej gadać"
 
-        jump opor
+    elif kompan == 1:
+        vi "Pije solo"
+
+    else:
+        "Wyjebali Cię z baru"
+
+    jump opor
 
 label tempend:
     mg "Gratulacje, skończyłeś to zacząłem z 2 aktu cptg"

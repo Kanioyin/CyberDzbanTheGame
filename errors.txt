@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/akt2.rpy", line 876: reached end of line when expecting ':'.
-    if odp == 
-              ^
+File "game/akt2.rpy", line 7: invalid syntax
+    {"Jaja":"szukane" "Kajdanki":"szukane"}
+                                 ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Sun Sep 15 17:43:35 2024
+Tue Nov  5 13:14:09 2024

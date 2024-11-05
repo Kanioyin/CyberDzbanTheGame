@@ -185,6 +185,9 @@ screen day():
             elif bigquest == 1:
                 text "{color=000} Odzyskaj dane z bazy"
 
+            elif bigquest == 2:
+                text "{color=000} Czekaj na kolejne instrukcje"
+
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True

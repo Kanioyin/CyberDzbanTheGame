@@ -1,30 +1,71 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 2724, in script call
-    call checkHP(7) from _call_checkHP
-  File "game/script.rpy", line 176, in script
-    $ wybrany_dzwiek = random.choice(buul)
-  File "game/script.rpy", line 176, in <module>
-    $ wybrany_dzwiek = random.choice(buul)
-NameError: name 'random' is not defined
+  File "game/script.rpy", line 421, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 464, in script call
+    pause 1
+  File "game/spacerek.rpy", line 284, in script call
+    pause 1
+  File "game/script.rpy", line 464, in script call
+    pause 1
+  File "game/spacerek.rpy", line 284, in script call
+    pause 1
+  File "game/spacerek.rpy", line 284, in script call
+    pause 1
+  File "game/spacerek.rpy", line 284, in script call
+    pause 1
+  [Previous line repeated 1 more time]
+  File "game/script.rpy", line 2796, in script
+    fse "Dowidzenia, zapraszam ponownie"
+NameError: name 'baba_name' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 2724, in script call
-    call checkHP(7) from _call_checkHP
-  File "game/script.rpy", line 176, in script
-    $ wybrany_dzwiek = random.choice(buul)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 821, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1178, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "game/script.rpy", line 176, in <module>
-    $ wybrany_dzwiek = random.choice(buul)
-NameError: name 'random' is not defined
+  File "game/script.rpy", line 421, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 464, in script call
+    pause 1
+  File "game/spacerek.rpy", line 284, in script call
+    pause 1
+  File "game/script.rpy", line 464, in script call
+    pause 1
+  File "game/spacerek.rpy", line 284, in script call
+    pause 1
+  File "game/spacerek.rpy", line 284, in script call
+    pause 1
+  File "game/spacerek.rpy", line 284, in script call
+    pause 1
+  [Previous line repeated 1 more time]
+  File "game/script.rpy", line 2796, in script
+    fse "Dowidzenia, zapraszam ponownie"
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2573, in execute
+    Say.execute(self)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 615, in execute
+    renpy.exports.say(who, what, *args, **kwargs)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\sayexports.py", line 132, in say
+    who(what, *args, **kwargs)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1438, in __call__
+    who = self.prefix_suffix("who", self.who_prefix, who, self.who_suffix)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1354, in prefix_suffix
+    return (sub(prefix) + sub(body) + sub(suffix))
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1334, in sub
+    return renpy.substitutions.substitute(s, scope=scope, force=force, translate=translate)[0]
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\substitutions.py", line 373, in substitute
+    s = interpolate(s, variables) # type: ignore
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\substitutions.py", line 86, in interpolate
+    raise e
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\substitutions.py", line 78, in interpolate
+    value = renpy.python.py_eval(code, {}, scope)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1209, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1202, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "<none>", line 1, in <module>
+NameError: name 'baba_name' is not defined
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.2.24090902
 CyberDzban 0.00000001
-Sat Sep 28 10:45:59 2024
+Tue Nov  5 14:07:00 2024
