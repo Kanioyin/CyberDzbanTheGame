@@ -70,7 +70,8 @@ define BOBCACHIEVEMENT_LIST = (
     ("Egg", _("Ale jaja"), _("Znalazłeś przeklęte jajca")),
     ("Bir", _("Dobre piwko"), _("Dobry browarek nie jest zły")),
     ("Wow", _("Poszukiwacz"), _("Szukałeś złota, znalazłeś futro")),
-    ("Owo", _("ÓWÓ"), ("Anonek znaleziony"))
+    ("Owo", _("ÓWÓ"), ("Anonek znaleziony")),
+    ("DHW", _("Gniew firmy"), ("Wyrzuciłeś coś, czego nie powinieneś")),
     )
     
 # 3) In your game script, when you want to grant an achievement, type "achieve <reference_id>" without the

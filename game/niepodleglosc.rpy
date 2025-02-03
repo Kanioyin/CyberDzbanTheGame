@@ -66,7 +66,6 @@ default MaxHP = 20
 default Fragi = 0
 default akt = 0
 default HP = 0
-$ HP = MaxHP
 default Frakcja = 0
 # 0 = Niezrzeszony
 # 1 = DH

@@ -375,6 +375,13 @@ screen map_screen():
             unhovered SetVariable("screen_tooltip","")
             action Hide("map_screen"), Jump("chipnik")
 
+    if akt == 2 and bigquest > 1:
+        imagebutton auto "city_dom_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("anomalia")
+
 screen oportalk():
     add "opor"
     modal True

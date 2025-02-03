@@ -24,6 +24,7 @@ label spacerek:
             p "Ciperowe śmieci, wezmę sobie"
             $ helper = renpy.random.randint(1,200)
             "Znalazłeś [helper] edków"
+            $ edki += helper
             p "Kurde balans, zawsze coś"
             $ helper = 0
 

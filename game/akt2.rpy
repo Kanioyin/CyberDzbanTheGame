@@ -4,8 +4,7 @@ label a2intro:
     $ bigquest = 0
     if helper < 0:
         $ helper = 0
-    sb "Aj karamba, bolało"
-    sb "Mam nadzeję, że jesteś cały"
+    sb "Aj karamba, bolało! Mam nadzeję, że jesteś cały"
     sb "Zobaczmy z czego jesteś zbudowany"
     menu:
         "Co jest moją mocną stroną?"
@@ -72,12 +71,10 @@ label a2intro:
     show kris
     sb "Dzień dobry [player_name]"
     p "Kim ty kurwa jesteś?"
-    sb "Faktycznie, wypada się przedstawić"
-    sb "Krzysztof Czerownopolski"
+    sb "Faktycznie, wypada się przedstawić. Krzysztof Czerownopolski"
     cr "Do usług"
     p "Dobra kurwa ale skąd ty wiesz jak ja się nazywam?"
-    cr "Mam swoje źródła"
-    cr "Oto przed tobą: Jax"
+    cr "Mam swoje źródła. Oto przed tobą: Jax"
     show jax at left
     ja "Witam"
     cr "I VIO"
@@ -87,15 +84,13 @@ label a2intro:
     vi "Jestem, takim udomowionym"
     p "Ok, zrozumiałe"
     p "To powiesz mi co ty ode mnie chcesz?"
-    cr "Ano tak. Mamy jeden prosty plan."
-    cr "Drużyna już o tobie zapomniała"
+    cr "Ano tak. Mamy jeden prosty plan. Drużyna już o tobie zapomniała"
     $ old_pn = [player_name]
     $ player_name = "Zbigniew"
     cr "Od teraz jesteś Zbigniew"
     p "Co kurwa?"
-    cr "Spokojnie, mamy zapisane twoje dawne imię"
-    cr "Jak nie zapomnę to kiedyś wróci"
-    p "I co mam teraz zrobć?"
+    cr "Spokojnie, mamy zapisane twoje dawne imię. Jak nie zapomnę to kiedyś wróci"
+    p "I co mam teraz zrobić?"
     cr "Jako tajny agent musisz odzyskać chipy ze wspomnieniami"
     p "Jaki kurwa tajny agent?"
     cr "Specjalna jednostka pułkownika Sójeczki"
@@ -108,8 +103,7 @@ label a2intro:
     p "Czyli nie dostali dożywocia?"
     cr "Nie. Oni są tam w sumie na wakacjach"
     p "Czyli cała robota trafia znowu na moje barki"
-    cr "No nie. Masz tu dwóch dzielnych wojowników."
-    cr "Będą mogli Ci pomagać w trudnych chwilach"
+    cr "No nie. Masz tu dwóch dzielnych wojowników. Będą mogli Ci pomagać w trudnych chwilach"
     cr "Ale wracając do roboty, po całym mieście są chipy z danymi."
     cr "Musisz je zdobyć a ja je sprawdzę czy są właściwe"
     p "A co się będzie na nich znajdować?"
@@ -167,10 +161,8 @@ label jaxowo:
                 menu:
                     ja "Co chciałbyś ulepszyć?"
                     "Wytłumacz mi o co chodzi":
-                        ja "Jak sprawdzasz swoje umiejętności, zdobywasz doświadczenie"
-                        ja "Gdy zdobędziesz go wystarczająco dużo, to przychodzisz do mnie"
-                        ja "Ja Ci pokażę jak wykożystać to doświadczenie w praktyce"
-                        ja "A tobie następne testy idą łatwiej"
+                        ja "Jak sprawdzasz swoje umiejętności, zdobywasz doświadczenie. Gdy zdobędziesz go wystarczająco dużo, to przychodzisz do mnie"
+                        ja "Ja Ci pokażę jak wykożystać to doświadczenie w praktyce a tobie następne testy idą łatwiej"
                         p "Wow, to takie proste?"
                         ja "Proste że tak!"
                         $ exp += 10
@@ -252,32 +244,26 @@ label krzis:
         if stan2["Kris"] == 0:
             cr "Dobra [player_name], pora na twoje zadanie, musisz połazić trochę po mieście i poszukać chipów"
             p "I co, tak randomowo będą na ulicy?"
-            cr "To nie jest aż takie proste"
-            cr "Masz tu wykrywacz"
+            cr "To nie jest aż takie proste. Masz tu wykrywacz"
             cr "Jak będziesz w okolicy to będzie brzęczeć"
             p "WOW! I co wtedy?"
-            cr "Wtedy ruszasz dzielnie tam gdzie pika"
-            cr "Może tam być niebezpiecznie, więc radzę iść z kimś"
+            cr "Wtedy ruszasz dzielnie tam gdzie pika. Może tam być niebezpiecznie, więc radzę iść z kimś"
             cr "VIO i JAX się polecają do napierdalania"
             p "A nie mogę wziąć ich obu?"
             cr "W sensie że do walki tak?"
             p "Tak"
             cr "Uf, nie możesz bo:"
             cr "a) To by było zbyt proste"
-            cr "b) Jak walczą razem to wpadają w dziki szał"
-            cr "I potrafi im czasem odjebać aż za bardzo"
-            cr "Ostatnio prawie rozjebali pół osiedla"
-            cr "A ja nie wiem jak to powstrzymać"
-            cr "Odkąd Arasaka porwała JAX-a to jest z nim coraz gorzej"
-            cr "Ale dobra, czas kończyć ten Ted tok"
+            cr "b) Jak walczą razem to wpadają w dziki szał i potrafi im czasem odjebać aż za bardzo"
+            cr "Ostatnio prawie rozjebali pół osiedla a ja nie wiem jak to powstrzymać"
+            cr "Odkąd Arasaka porwała JAX-a to jest z nim coraz gorzej ale dobra, czas kończyć ten Ted tok"
             cr "Ruszaj dzielnie do roboty"
             p "Tajest!"
             $ stan2["Kris"] = 1
             jump opor
 
         elif stan2["Kris"] == 1 and chipy == 1:
-            cr "O! Widzę że udało Ci się zdobyć pierwszego Chipa"
-            cr "Gratulacje [player_name]"
+            cr "O! Widzę że udało Ci się zdobyć pierwszego Chipa. Gratulacje [player_name]"
             cr "Nie wiem czy widziałeś ale dodałem Ci do pokoju możliwość czytania tych danych"
             p "Wow, po chuj mi to?"
             cr "Jakby cię lore interesował to możesz sobie przeczytać"
@@ -286,20 +272,18 @@ label krzis:
             $ stan2["Kris"] = 2
             jump opor
 
-        elif stan2["Kris"] == 2 and chipy == 5:
+        elif (stan2["Kris"] == 2 or stan2["Kris"] == 1) and chipy == 5:
             cr "Gratulacje [player_name]! Zebrałeś je wszystkie"
             cr "Pozwól, że ja je teraz wezmę"
             $ chipy = 0
             p "Ale co w sumie z tego, jak na tych cipach gówno jest o Benku"
             cr "To dobry omen"
             p "Ale jak kurwa"
-            cr "To znaczy, że nasi informatorzy to gówno"
-            cr "Ale na spokojnie"
+            cr "To znaczy, że nasi informatorzy to gówno ale na spokojnie"
             cr "Zaraz ruszysz na misje, która nam wszystko wyjaśni"
             cr "Ten ostatni chip jaki znalazłeś będzie naszym kluczem"
             cr "Idziesz teraz do kowala, on może coś ci wyjaśni"
-            cr "No, to lecisz"
-            cr "Powodzenia"
+            cr "No, to lecisz! Powodzenia"
             jump cipfin
 
         else:
@@ -323,10 +307,8 @@ label krzis:
                 p "Już mam"
                 cr "No to git"
 
-            cr "Więc się przygotuj ze wszystkim"
-            cr "I jak będziesz gotowy to wracaj"
-            cr "Bo z tego co słyszałem, wielu śmiałków tam już zeszło"
-            cr "Jeszcze nikt nie wyszedł"
+            cr "Więc się przygotuj ze wszystkim i jak będziesz gotowy to wracaj"
+            cr "Bo z tego co słyszałem, wielu śmiałków tam już zeszło. Jeszcze nikt nie wyszedł"
             p "No to grubo"
             cr "Niech busz będzie z tobą"
             $ stan2["Kris"] = 1
@@ -453,14 +435,11 @@ label oporslep:
             menu:
                 "Który chip?"
                 "Pierwszy" if chipy > 0:
-                    "Sprawdzasz pierwszy chip"
-                    "Wszystko co było na nim zarawte to info o Benku"
-                    "Jest on fixerem w Glenn"
-                    "Otwarcie toczy wojnę z gangami"
+                    "Sprawdzasz pierwszy chip. Wszystko co było na nim zarawte to info o Benku"
+                    "Jest on fixerem w Glenn. Otwarcie toczy wojnę z gangami"
                     "Jeśli nie udaje mu się ich przekonać do rozejmu wysyła na nich łowców"
                     "Prowadzi jeszcze poszukiwania pozostałości po Seckond handzie"
-                    "Chuja Ci to mówi"
-                    "Ale podobno daje tonę kapusty za protezy"
+                    "Chuja Ci to mówi ale podobno daje tonę kapusty za protezy"
                     "Kto wie, może i tobie uda się coś znaleźć"
                     jump oporslep
 
@@ -468,44 +447,34 @@ label oporslep:
                     p "No to lecimy"
                     "Niestety cip zawierał coś, czego świat nigdy nie powinien zobaczyć"
                     "5 nocy z Haliną"
-                    p "Na chuja mego wuja"
-                    p "Zgiń przepadnij cipie zła"
+                    p "Na chuja mego wuja! Zgiń przepadnij cipie zła"
                     "Zrobiłeś taktyczny format pistoletem"
                     jump oporslep
 
                 "Trzeci" if chipy > 2:
                     "Przeglądasz znalezionego w żabce cipa"
-                    p "A niech mnie dunder świśnie, ten cip jest pełen informacji o DH"
-                    p "Tak na 7 procent to są jakieś pamiętniki Cyphera"
-                    p "Tu coś pierdoli o wakacjach"
-                    p "Instrukcja wróbla"
-                    p "50 twarzy Młynarczyka"
+                    p "A niech mnie dunder świśnie, ten cip jest pełen informacji o DH. Tak na 7 procent to są jakieś pamiętniki Cyphera"
+                    p "Tu coś pierdoli o wakacjach. Instrukcja wróbla. 50 twarzy Młynarczyka"
                     p "Kurwica, robi się nieciekawie"
-                    "Ale najbardziej niepokojący był ostatni plik"
-                    "Było na nim zdjęcie Cyphera i dokładna twoja lokalizacja"
+                    "Ale najbardziej niepokojący był ostatni plik. Było na nim zdjęcie Cyphera i dokładna twoja lokalizacja"
                     c "JA i DE"
                     p "Noi chuj noi cześć"
                     "Cypher już po Ciebie idzie"
                     jump oporslep
 
                 "Czwarty" if chipy > 3:
-                    p "No dobra, co my tu mamy"
-                    p "O kurwica (Robert taki)"
+                    p "No dobra, co my tu mamy. O kurwica! (Robert taki)"
                     "Twoim oczom ukazuje się pełna kolekcja streamów Kody"
-                    p "Słyszałem legendy o tym typie"
-                    p "Podobno jego jajca mogą zresetować uniwersum"
-                    p "Jest tu lokacja warsztatu Fanta i Kanta"
-                    p "Muszę to sprawdzić"
+                    p "Słyszałem legendy o tym typie. Podobno jego jajca mogą zresetować uniwersum"
+                    p "Jest tu lokacja warsztatu Fanta i Kanta. Muszę to sprawdzić"
                     $ znajOkol = 4
                     jump oporslep
 
                 "Piąty" if chipy > 4:
                     p "Ostatni cip, jak tu nic nie będzie to mnie popierdoli"
                     "I Cię popierdoliło"
-                    p "Jakim kurwa prawem tu niczego nie ma?"
-                    p "Powinny być tajne informacje na tego Benka"
-                    p "A tu jest jakiś dziwny pornol z Vistami"
-                    p "Kris musi coś z tym zrobić"
+                    p "Jakim kurwa prawem tu niczego nie ma? Powinny być tajne informacje na tego Benka"
+                    p "A tu jest jakiś dziwny pornol z Vistami! Kris musi coś z tym zrobić"
                     jump oporslep
                     
         "Wyjść" if czas > 0:
@@ -534,15 +503,13 @@ label anomalia:
         ja "Nom, to ja"
         bo "A co to za wywłoka obok Ciebie?"
         p "Jestem [player_name]"
-        bo "Nawet mówić potrafi"
-        bo "Jaki zdolniacha"
+        bo "Nawet mówić potrafi! Jaki zdolniacha"
         bo "Bezi w końcu daje Ci jakiś odpowiednich ludzi?"
         p "Kim jest bezi?"
         ja "Bezi nie żyje"
         bo "Bruh"
         ja "Wypadł z helikoptera i zamienił się w gerberka"
-        bo "Ha ha ha"
-        bo "To sam zostałeś fixerem, czy dalej zlecenia?"
+        bo "Ha ha ha! To sam zostałeś fixerem, czy dalej zlecenia?"
         ja "Umowa zlecenie"
         bo "Czyli jesteś od Krisa?"
         ja "Bingo"
@@ -554,16 +521,13 @@ label anomalia:
         p "No widzę"
         bo "To wyobraź sobie, że jest w niej ekstrakt z Cyphera"
         p "O cholera"
-        bo "A to jeszcze nie wszystko"
-        bo "Wyobraź sobie, że szczury Guna były z biotechu"
-        bo "I część z nich wpadła do tego ścieku"
-        bo "Potem się wymieszała i się stały większe jaja"
+        bo "A to jeszcze nie wszystko! Wyobraź sobie, że szczury Guna były z biotechu"
+        bo "I część z nich wpadła do tego ścieku. Potem się wymieszała i się stały większe jaja"
         p "Co kurwa"
         ja "Wyobraź sobie, że tu była sobie wcześniej arasaka"
         ja "Rozstawili tu jakieś swoje prototypowe nagrywaczki braindanców"
         ja "I ponagrywali co tylko się dało"
-        bo "I tu wchodzi kolejny poziom spierdolenia"
-        bo "Bo sok z Cyphera rozjebał im kable"
+        bo "I tu wchodzi kolejny poziom spierdolenia! Bo sok z Cyphera rozjebał im kable"
         bo "Tak powstał tzw. Wyciek danych"
         p "Ale po chuj mi opowiadasz te całe backstory"
         bo "Bo będziesz musiał zejść do piwnicy wyłapywać dane"
@@ -759,7 +723,7 @@ label anomalia:
                     p "Słodkich snów, parówczaku"
                     p "Pora zebrać twoje itemki"
                     $ edki += 200
-                    P "Darmowe edeczki, to się szanuje"
+                    p "Darmowe edeczki, to się szanuje"
 
                 else:
                     $ checkHP(10)
