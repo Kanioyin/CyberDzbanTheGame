@@ -1078,6 +1078,20 @@ label chipnik:
 
     jump opor
 
+label pierdex:
+    scene pierdex
+    if bigquest == 2:
+        if postacie2["BB"] == 0
+            show bbb
+            bb "Siema młody, witamy w Pierdex! Od teraz jesteś jednym z kurierów."
+            p "I będę musiał jeździć po miejscach z paczkami?"
+            bb "Szybko się uczysz. Dokładnie tak, będziesz miał paczki do przewozu z opcjonalnym strzelaniem do oponentów"
+            bb "Czasami będzie niebezpieczna dostawa ale za to dostaniesz większą wypłatę"
+            p "Chwila chwila, ty mi będziesz płacił za pracę?"
+            bb "Witamy w normalnej pracy. Będziesz tu dostawał mamonę, psie pieniądze co prawda ale zawsze coś"
+            p "Jasny gwint, wypłata w pracy. Chyba aż tu będę pracował dłużej"
+            bb "Tak jak każdy normik."
+
 
 label jajquest:
     scene kfws

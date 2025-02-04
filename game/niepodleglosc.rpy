@@ -24,6 +24,7 @@ define be = Character(_("Szybki Ben"), color = "#ed4040")
 define au = Character(_("Automatoniks"), color = "#383303")
 define bo = Character(_("Borubabor"), color = "#abba69")
 define ha = Character(_("Halina"), color = "#423123")
+define bb = Character(_("Blink Blink"), color = "#3ef374")
 
 # słowniki
 default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
@@ -112,6 +113,6 @@ default frogrel = 0
 default buul = ["bul1.mp3", "demon.mp3"]
 
 # akt 2
-default stan2 = {"Vio":0, "Jax":0, "Kris":0, "Bo":0, "Halina":0}
+default stan2 = {"Vio":0, "Jax":0, "Kris":0, "Bo":0, "Halina":0, "BB":0}
 default postacie2 = {"Jax":0}
 default atrefakty = {"Jaja":"szukane", "Kajdanki":"szukane"}
