@@ -1082,7 +1082,6 @@ label pierdex:
     scene pierdex
     if bigquest == 2:
         if postacie2["BB"] == 0
-            show bbb
             bb "Siema młody, witamy w Pierdex! Od teraz jesteś jednym z kurierów."
             p "I będę musiał jeździć po miejscach z paczkami?"
             bb "Szybko się uczysz. Dokładnie tak, będziesz miał paczki do przewozu z opcjonalnym strzelaniem do oponentów"
@@ -1090,7 +1089,19 @@ label pierdex:
             p "Chwila chwila, ty mi będziesz płacił za pracę?"
             bb "Witamy w normalnej pracy. Będziesz tu dostawał mamonę, psie pieniądze co prawda ale zawsze coś"
             p "Jasny gwint, wypłata w pracy. Chyba aż tu będę pracował dłużej"
-            bb "Tak jak każdy normik."
+            bb "Tak jak każdy normik. Zaraz dostaniesz już pierwszą dostawę."
+            p "A niech mnie kule biją! Co będę musiał dostarczyć?"
+            bb "Na start będzie Ciebie czekało proste zadanie. Przejedziesz się z pizzą do kilku miejsc"
+            bb "Po dostawie, dostaniesz 60 edków wypłaty"
+            p "O JA PIERDOLE! To chyba największa wypłata w moim życiu"
+            bb "Nie przyzwyczajaj się, to taki bonus powitalny."
+            bb "Przebieraj się w zestaw roboczy i lecisz"
+            p "Się robi szefie!"
+            "Przebrałeś się w outfit pierdexu i wskoczyłes na skuter"
+            $ postacie2["BB"] = 1
+
+        elif postacie2["BB"] == 1:
+            pass
 
 
 label jajquest:
