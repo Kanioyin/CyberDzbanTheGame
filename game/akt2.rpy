@@ -1098,6 +1098,25 @@ label pierdex:
             bb "Przebieraj się w zestaw roboczy i lecisz"
             p "Się robi szefie!"
             "Przebrałeś się w outfit pierdexu i wskoczyłes na skuter"
+            play music "idrive.mp3"
+            scene dostawa
+            "Zapierdalasz skuterkiem przez zakorkowane night city"
+            p "Kurde balans, nie wiedziałem, że potrafię jeździć na skuterku"
+            p "Za 50 metrów mam skręcić w prawo i będę na miejscu"
+            "Parkujesz jak prawdziwy sigma"
+            "Na klatce schodowej"
+            p "Kolejne udane parkowanie, lepiej mi poszło, niż goonowi"
+            p "Dobrze, że mnie nie słyszy, nasłałby pewnie na mnie szczury"
+            stop music
+            p "Pora kończyć wspominki, czas na robotę. Pizzka idzie na 6 piętro"
+            p "Tup, tup, tup, tup, tup"
+            "Dostarczyłeś pizzę, i wróciłeś do firmy"
+            scene pierdex
+            bb "Dobra robota młody, udało Ci się dostarczyć zamówienie"
+            bb "Masz tu swoją wypłatę"
+            $ edki += 60
+            bb "Przyjdź do mnie jeszcze za jakiś czas, następna robota będzie czekać"
+            $ czas = 0
             $ postacie2["BB"] = 1
 
         elif postacie2["BB"] == 1:

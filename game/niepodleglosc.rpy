@@ -58,6 +58,7 @@ default RadArm = InventoryItem("Hazmat", "Pancerz przeciw radjacji")
 #Stany postaci
 default kibel_stan = 0
 default wojsko_stan = 0
+default dywanomierz = 0
 
 #deklaracja reszty
 default edki = 0

@@ -4205,6 +4205,8 @@ label varchiwa:
                 "Dyvan?":
                     "Podchodzisz do dyvanu. Vygląda dość normalnie na pierwszy rzut voka"
                     "Po kolejnym rzucie vokiem, skończyły Ci się voczy ale jest to najzwyklejszy dyvan"
+                    $ dywanomierz += 1
+                    "Kliknąłeś już ten jebany dyvan [dywanomierz] razy"
                     jump varchiwa
 
                 "Pudełeczko" if helper == 2:
