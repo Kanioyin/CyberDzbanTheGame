@@ -1215,7 +1215,7 @@ label piwko:
             p "No powoli to jakoś leci, wiesz, questy się robi, edki zarabia"
             ja "Czyli po staremu"
             p "Gadaj lepiej jak u Ciebie"
-            ja "No co, czekam aż koledzu wyjdą z pierdla i staram nie dać się zabić"
+            ja "No co, czekam aż koledzy wyjdą z pierdla i staram nie dać się zabić"
             p "To jest już klasyk"
             ja "Nom, jak już wrócą to czeka nas bojowe zadanie"
             p "O kurwens, brzmi poważnie. Co to za robota"
