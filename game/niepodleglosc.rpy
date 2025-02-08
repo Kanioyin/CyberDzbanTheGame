@@ -54,6 +54,7 @@ default NRG = InventoryItem("Energol","Waluta permium")
 default HuMeat = InventoryItem("Ludzkie mięso","VIO chętnie to schrupie")
 default Smoke = InventoryItem("Bomba dymna", "Taki szlug, tylko nie psuje płuc")
 default RadArm = InventoryItem("Hazmat", "Pancerz przeciw radjacji")
+default Kwiat = InventoryItem("Kwiatki", "Działają na kobiety jak dzik na MG")
 
 #Stany postaci
 default kibel_stan = 0
@@ -111,6 +112,7 @@ default wynik = 0
 default odp = " "
 default anom = 0
 default frogrel = 0
+default jajca = 0
 default buul = ["bul1.mp3", "demon.mp3"]
 
 # akt 2

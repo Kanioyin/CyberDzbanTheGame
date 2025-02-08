@@ -168,24 +168,28 @@ label jaxowo:
                         $ exp += 10
 
                     "Bieganie" if skile["Atletyka"] < 7:
+                        achieve UPG
                         ja "No to lecimy, czas trenować cardio"
                         $ skile["Atletyka"] += 1
                         "Spędziłeś trochę czasu na bieganiu"
                         $ czas -= 10
 
                     "Strzelanie" if skile["Bron"] < 7:
+                        achieve UPG
                         ja "Kierunek strzelnica!"
                         $ skile["Bron"] += 1
                         "Udało Ci się trafić nawet 10"
                         $ czas -= 10
 
                     "Rozmawianie" if skile["Gadanie"] < 7:
+                        achieve UPG
                         ja "No to opowiadaj, jak Ci życie mija"
                         $ skile["Gadanie"] += 1
                         "Opowiedziałeś JAX-owi o swoich problemach"
                         $ czas -= 10
 
                     "Rozmyślanie" if skile["Myslenie"] < 7:
+                        achieve UPG
                         ja "Zastanów się, co było pierwsze: Egg czy Qra?"
                         $ skile["Myslenie"] += 1
                         "Obstawiasz że egg"
@@ -363,8 +367,15 @@ label krzis:
 
 
     elif bigquest == 2:
-        cr "Czekaj na dalsze updaty"
-        jump tempend
+            cr "Dobra młody, nowe zadanie bojowe Ciebie czeka."
+            p "O rety kotlety, co tym razem, mordowanie korposów, polowanie w strefie radiacji czy może inwigilacja Arasaki?"
+            cr "Zostaniesz kurierem."
+            p "Odkleiłeś się w tym momencie. Co ma wspólnego kurier z tajną misją?"
+            cr "Znajomy prowadzi firmę kurierską, a ja czasami dostaję od niego info o sus paczkach"
+            p "I mam jeździć aż nie będę miał jakieś sus paczki?"
+            cr "Dokładnie. Trochę u niego popracujesz, może nawet coś zarobisz i wrócisz do zadań specjalnych"
+            p "Nie podoba mi się ten plan ale chuj, jak trzeba, to to zrobię"
+            cr "Zuch chłopak! Kieruj się na Pierdex."
 
     elif bigquest == 3:
         pass
@@ -463,11 +474,16 @@ label oporslep:
                     jump oporslep
 
                 "Czwarty" if chipy > 3:
-                    p "No dobra, co my tu mamy. O kurwica! (Robert taki)"
-                    "Twoim oczom ukazuje się pełna kolekcja streamów Kody"
-                    p "Słyszałem legendy o tym typie. Podobno jego jajca mogą zresetować uniwersum"
-                    p "Jest tu lokacja warsztatu Fanta i Kanta. Muszę to sprawdzić"
-                    $ znajOkol = 4
+                    if jajca == 0:
+                        p "No dobra, co my tu mamy. O kurwica! (Robert taki)"
+                        "Twoim oczom ukazuje się pełna kolekcja streamów Kody"
+                        p "Słyszałem legendy o tym typie. Podobno jego jajca mogą zresetować uniwersum"
+                        p "Jest tu lokacja warsztatu Fanta i Kanta. Muszę to sprawdzić"
+                        $ jajca = 1
+
+                    else:
+                        p "No tu było pierdolenie o jajcach, nie wiem po chuj mam to znowu czytać."
+
                     jump oporslep
 
                 "Piąty" if chipy > 4:
@@ -607,10 +623,14 @@ label anomalia:
         jump opor
 
     elif stan2["Bo"] == 2:
+        scene dziura
+        show bo at right
         bo "Czekaj na sms-a"
         jump opor
 
     elif stan2["Bo"] == 3:
+        scene dziura
+        show bo at right
         bo "Dobra, możemy brać się za robotę"
         p "A co to za robota?"
         bo "Ty jesteś głupi czy akustyczny?"
@@ -678,6 +698,8 @@ label anomalia:
         $ stan2["Bo"] = 4
 
     elif stan2["Bo"] == 4 and stan2["Kris"] == 5:
+        scene dziura
+        show bo at right
         bo "Witam ponownie [player_name]! Jak rozumiem wracamy do poszukiwań"
         p "Tja, Kris sprawdził dokładnie imprint, trzeba szukać kolejnego"
         bo "To tym razem lecisz szukać danych po CJ-u"
@@ -756,6 +778,8 @@ label anomalia:
                 jump opor
 
     elif stan2["Bo"] == 5:
+        scene dziura
+        show bo at right
         bo "Dobra, sprawdziłem chipa, nic nie znalazłem"
         p "Serio kurwa, to na chuj ja tam latam"
         bo "Czekaj chwilę debliu jebany. Nic na Bena ale coś co może Ci się spodobać"
@@ -787,10 +811,15 @@ label anomalia:
         bo "Jest wystarczająco długi, zdupcaj"
         $ stan2["Bo"] = 6
         $ stan2["Kris"] = 6
+        jump opor
 
     else:
+        scene dziura
+        show bo at right
         bo "Zdupcaj, utrudniasz mi pracę"
         jump opor
+
+    jump opor
 
 label chipnik:
     if chipy == 0:
@@ -1081,7 +1110,7 @@ label chipnik:
 label pierdex:
     scene pierdex
     if bigquest == 2:
-        if postacie2["BB"] == 0
+        if stan2["BB"] == 0:
             bb "Siema młody, witamy w Pierdex! Od teraz jesteś jednym z kurierów."
             p "I będę musiał jeździć po miejscach z paczkami?"
             bb "Szybko się uczysz. Dokładnie tak, będziesz miał paczki do przewozu z opcjonalnym strzelaniem do oponentów"
@@ -1110,17 +1139,45 @@ label pierdex:
             stop music
             p "Pora kończyć wspominki, czas na robotę. Pizzka idzie na 6 piętro"
             p "Tup, tup, tup, tup, tup"
-            "Dostarczyłeś pizzę, i wróciłeś do firmy"
-            scene pierdex
-            bb "Dobra robota młody, udało Ci się dostarczyć zamówienie"
-            bb "Masz tu swoją wypłatę"
-            $ edki += 60
-            bb "Przyjdź do mnie jeszcze za jakiś czas, następna robota będzie czekać"
-            $ czas = 0
-            $ postacie2["BB"] = 1
+            "Po wejściu, zapukałeś do drzwi i otworzyła Ci gorąca milfica w szlafroku"
+            p "Dzień dobry, kurier pierdex, z pizzą przyjechałem"
+            sb "Kurcze, chyba nie mam portfela, mogę zapłacić w inny sposób?"
+            menu:
+                "Niech stracę":
+                    "Wchodzisz z pizzą do środka"
+                    sb "Pora sprawdzić, z czego jesteś zrobiony"
+                    "Widzisz, jak ta ponętna samica wyciąga strapona"
+                    achieve GOO
+                    p "TO JEST WIĘKSZE OD MOJEJ RĘKI!"
+                    sb "(:"
+                    call testSkili("Atletyka", "ZW", 10) from _call_testSkili_12
+                    if wynik == 1:
+                        "Udało Ci się w porę uciec, przed napaloną samicą"
+                        p "Dżisus, faken, koken, saken. Było zbyt blisko"
+                        p "Jeszcze mi nawet lampucera nie zapłaciła. Kolosalnie zjebałem"
+                        "Wróciłeś do firmy"
+                        scene pierdex
+                        bb "Dobra robota młody, zjebałeś"
+                        bb "W nagrodę, nic nie dostaniesz, sam jesteś sobie winny"
+                        bb "Tylko tym razem potraktuję Cię ulgowo. Jak inne zlecenia zjebiesz, sam płacisz"
+                        bb "Przyjdź do mnie jeszcze za jakiś czas, następna robota będzie czekać"
+                        $ czas = 0
 
-        elif postacie2["BB"] == 1:
-            pass
+                        $ stan2["BB"] = 1
+                "Domagam się wypłaty":
+                    sb "No dobrze, się przejdę po edki"
+                    "Samica zapłaciła, a ty wróciłeś do firmy"
+                    scene pierdex
+                    bb "Dobra robota młody, udało Ci się dostarczyć zamówienie"
+                    bb "Masz tu swoją wypłatę"
+                    $ edki += 60
+                    bb "Przyjdź do mnie jeszcze za jakiś czas, następna robota będzie czekać"
+                    $ czas = 0
+                    $ stan2["BB"] = 1
+                    jump opor
+
+        elif stan2["BB"] == 1:
+            jump tempend
 
 
 label jajquest:
@@ -1138,7 +1195,7 @@ label jajquest:
     p "Chuj, coś wykombinuje"
     "Spakowałeś itemki i wróciłeś do domu"
     $ atrefakty["Jaja"] = "W sejfie"
-    $ znajOkol = 3
+    $ jajca = 2
     return
 
 
@@ -1262,7 +1319,8 @@ label piwko:
     jump opor
 
 label tempend:
-    mg "Gratulacje, skończyłeś to zacząłem z 2 aktu cptg"
+    scene black
+    mg "Gratulacje, skończyłeś aktualny progress 2 aktu cptg"
     mg "Kiedy następne updaty będą to studia ocenią"
     mg "Jeśli udało Ci się skończyć ten moment historii, wyślij mi screena następnej wiadomości"
     mg "Jax i VIO mnie bijo"

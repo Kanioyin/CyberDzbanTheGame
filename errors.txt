@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/akt2.rpy", line 7: invalid syntax
-    {"Jaja":"szukane" "Kajdanki":"szukane"}
-                                 ^
+File "game/customscreen.rpy", line 371: screen expects a non-empty block.
+    if akt == 2 and bigquest = 2: 
+                                  ^
 
-Ren'Py Version: Ren'Py 8.3.2.24090902
-Tue Nov  5 13:14:09 2024
+Ren'Py Version: Ren'Py 8.3.4.24120703
+Sat Feb  8 18:43:11 2025

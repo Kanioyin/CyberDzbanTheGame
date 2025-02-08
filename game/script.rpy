@@ -2581,6 +2581,10 @@ label trader:
                 $ inventory.add_item(Ser)
                 $ edki -= 50
 
+            "Sztuczne kwiaty" if edki >= 20 and inventory.has_space(Cap) == True:
+                $ inventory.add_item(Kwiat)
+                $ edki -= 20
+
             "Na nic więcej mnie nie stać":
                 p "Get zakuped"  
                 $ helper = 0
@@ -2684,6 +2688,13 @@ label frogszop:
                 $ czas = 0
                 "Przepracowałeś cały dzień"
                 $ helper = 0
+
+            "Mam kwiateczki dla ładnej babeczki" if inventory.has_item(Kwiat) == True and frogrel < 6:
+                achieve Gtm
+                $ inventory.remove_item(Kwiat)
+                fse ":fluszed"
+                fse "To bardzo miłe z twojej strony, dziękuję"
+                $ frogrel += 1
                 
             "To tyle, dziękuję, dowidzenia":
                 fse "Dowidzenia, zapraszam ponownie"
@@ -2699,6 +2710,19 @@ label frogszop:
     pause 1
     jump frogszop
 
+label frogsimp:
+    $ czas -= 1
+    scene frogsimp
+    fse "Dzień dobry"
+    show screen map_screen
+    window hide
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    jump frogsimp
 
 label vradeZewn:
     $ czas -= 3
@@ -3503,7 +3527,7 @@ label wojowezadanie:
         fse "OCHRONA"
         p "Nie będzie potrzebna, ja zapłacę"
         $ edki -= 40
-        fse "Macie kurwa szczęście, grubcio zaczął już wstawać"
+        fse "Macie kurcze szczęście, grubcio zaczął już wstawać"
         p "Przepraszam za kłopot"
         "Wróciłeś do DH koptera"
         stop music
@@ -3816,8 +3840,8 @@ label wojowezadanie:
                 jump wojowezadanie
 
             "Może uciekniemy stąd razem?":
-                fse "OMG anon, myślałam o tym odkąd Cię zobaczyłam"
-                p "No to klawo, spierdalaj"
+                fse "OMG Anon, myślałam o tym odkąd Cię zobaczyłam"
+                p "No to klawo, spierdalajmy"
                 scene bew
                 achieve Crg
                 "CRINGE DETEKTED"

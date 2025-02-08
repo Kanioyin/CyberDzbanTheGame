@@ -20,6 +20,11 @@
 #   (If you're using Steam, the reference_ids should be the API name of the achievements.)
 #   (This does not currently support progress stats.)
 define BOBCACHIEVEMENT_LIST = (
+    # tworzenie
+    ("Ttsd", _("TO TAK SIĘ DA?"), _("Umarłeś przy tworzeniu postaci.")),
+    ("Msnc", _("Mi się nie chce"), _("Uciekłeś przed przygodą")),
+    ("Owo", _("ÓWÓ"), ("Anonek znaleziony")),
+    # akt 1
     ("Poczatek", _("Weź w to zagraj"), _("Tylko 3 procent cyberdzbanów to ma!")),
     ("GitGud",_("Umarłeś"), _("Dwukropek czacha.")),
     ("Iabk", _("Wróciłem!"), _("Niespodzianka skurwysyny!")),
@@ -33,8 +38,6 @@ define BOBCACHIEVEMENT_LIST = (
     ("Krapp", _("Krateus++"), _("Krateus dołączył do ataku.")),
     ("Musk", _("Giga Musk"), _("Bardzo się starałeś...")),
     ("GG1", _("Fin"), _("...ale chuja dostałeś,")),
-    ("Ttsd", _("TO TAK SIĘ DA?"), _("Umarłeś przy tworzeniu postaci.")),
-    ("Msnc", _("Mi się nie chce"), _("Uciekłeś przed przygodą")),
     ("Holy", _("Krzyżowiec"), _("Dołączyłeś do kościoła Kałacha.")),
     ("Damm", _("Pies"), _("Zostałeś psem, takim z diamentów.")),
     ("Smrut", _("Ale to śmierdzi"), _("Dałeś Gunowi ser.")),
@@ -53,25 +56,28 @@ define BOBCACHIEVEMENT_LIST = (
     ("Hero", _("Łaskawca 2"), _("Nie możesz teraz zginąć, to nie kanoniczne")),
     ("Curs", _("Przeklęty"), _("Dopadła Cię klątwa.")),
     ("Frik", _("Pierwsza działka"), _("Ten koks to faktycznie fajna sprawa.")),
+    ("DHW", _("Gniew firmy"), ("Wyrzuciłeś coś, czego nie powinieneś")),
     ("Tam", _("Jeść, pić, spać"), _("Srać mi też się chce.")),
     ("Full", _("Drużyna pierdzenia"), _("Jak ty chyba masz max charyzmy.")),
     ("Clos", _("Było blisko"), _("Faktycznie warto było go mieć.")),
     ("Mocz", _("Super pęcherz"), _("Teraz mój wór jest większy!")),
     ("Fri", _("Piątkowa noc"), _("Takiej imperzy się nie spodziewałem.")),
-    ("Bug", _("ON ISTNIEJE"), _("Porozmawiałeś z głosem w głowie.")),
-    ("Cip", _("Wcipiam się"), _("Pierwszy cip zdobyty.")),
-    ("Red", _("Czytelnik"), _("A se poczytam.")),
-    ("Zns", _("Zło nie śpi"), _("A nawet czasami leczy.")),
-    ("Zjw", _("Pomekon"), _("Znalazłeś je wszystkie?.")),
-    ("Psy", _("Cipnik"), _("Ty weź może strzelaj a nie edki wydajesz")),
-    ("Eko", _("Ekolog"), _("Po chuj ty to wyjebałeś")),
     ("Crg", _("Cringe"), _("Po co Ci ta baba?")),
     ("Frg", _("Żabiarz"), _("Pierwsze frogi w nogi")),
+    ("Bug", _("ON ISTNIEJE"), _("Porozmawiałeś z głosem w głowie.")),
+    ("Eko", _("Ekolog"), _("Po chuj ty to wyjebałeś")),
+    ("Zns", _("Zło nie śpi"), _("A nawet czasami leczy.")),
+    ("Gtm", _("Gentleman"), _("Miły z Ciebie człowiek")),
+    # akt 2
+    ("Cip", _("Wcipiam się"), _("Pierwszy cip zdobyty.")),
+    ("Red", _("Czytelnik"), _("A se poczytam.")),
+    ("Zjw", _("Pomekon"), _("Znalazłeś je wszystkie?.")),
+    ("Psy", _("Cipnik"), _("Ty weź może strzelaj a nie edki wydajesz")),
+    ("UPG", _("UPGRADE"), _("Ulepszyłeś się!")),
     ("Egg", _("Ale jaja"), _("Znalazłeś przeklęte jajca")),
     ("Bir", _("Dobre piwko"), _("Dobry browarek nie jest zły")),
     ("Wow", _("Poszukiwacz"), _("Szukałeś złota, znalazłeś futro")),
-    ("Owo", _("ÓWÓ"), ("Anonek znaleziony")),
-    ("DHW", _("Gniew firmy"), ("Wyrzuciłeś coś, czego nie powinieneś")),
+    ("GOO", _("Gooner"), ("Ty tu serio walić konia przyszedłeś?")),
     )
     
 # 3) In your game script, when you want to grant an achievement, type "achieve <reference_id>" without the

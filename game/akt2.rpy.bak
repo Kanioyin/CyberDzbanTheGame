@@ -4,8 +4,7 @@ label a2intro:
     $ bigquest = 0
     if helper < 0:
         $ helper = 0
-    sb "Aj karamba, bolało"
-    sb "Mam nadzeję, że jesteś cały"
+    sb "Aj karamba, bolało! Mam nadzeję, że jesteś cały"
     sb "Zobaczmy z czego jesteś zbudowany"
     menu:
         "Co jest moją mocną stroną?"
@@ -72,12 +71,10 @@ label a2intro:
     show kris
     sb "Dzień dobry [player_name]"
     p "Kim ty kurwa jesteś?"
-    sb "Faktycznie, wypada się przedstawić"
-    sb "Krzysztof Czerownopolski"
+    sb "Faktycznie, wypada się przedstawić. Krzysztof Czerownopolski"
     cr "Do usług"
     p "Dobra kurwa ale skąd ty wiesz jak ja się nazywam?"
-    cr "Mam swoje źródła"
-    cr "Oto przed tobą: Jax"
+    cr "Mam swoje źródła. Oto przed tobą: Jax"
     show jax at left
     ja "Witam"
     cr "I VIO"
@@ -87,15 +84,13 @@ label a2intro:
     vi "Jestem, takim udomowionym"
     p "Ok, zrozumiałe"
     p "To powiesz mi co ty ode mnie chcesz?"
-    cr "Ano tak. Mamy jeden prosty plan."
-    cr "Drużyna już o tobie zapomniała"
+    cr "Ano tak. Mamy jeden prosty plan. Drużyna już o tobie zapomniała"
     $ old_pn = [player_name]
     $ player_name = "Zbigniew"
     cr "Od teraz jesteś Zbigniew"
     p "Co kurwa?"
-    cr "Spokojnie, mamy zapisane twoje dawne imię"
-    cr "Jak nie zapomnę to kiedyś wróci"
-    p "I co mam teraz zrobć?"
+    cr "Spokojnie, mamy zapisane twoje dawne imię. Jak nie zapomnę to kiedyś wróci"
+    p "I co mam teraz zrobić?"
     cr "Jako tajny agent musisz odzyskać chipy ze wspomnieniami"
     p "Jaki kurwa tajny agent?"
     cr "Specjalna jednostka pułkownika Sójeczki"
@@ -108,8 +103,7 @@ label a2intro:
     p "Czyli nie dostali dożywocia?"
     cr "Nie. Oni są tam w sumie na wakacjach"
     p "Czyli cała robota trafia znowu na moje barki"
-    cr "No nie. Masz tu dwóch dzielnych wojowników."
-    cr "Będą mogli Ci pomagać w trudnych chwilach"
+    cr "No nie. Masz tu dwóch dzielnych wojowników. Będą mogli Ci pomagać w trudnych chwilach"
     cr "Ale wracając do roboty, po całym mieście są chipy z danymi."
     cr "Musisz je zdobyć a ja je sprawdzę czy są właściwe"
     p "A co się będzie na nich znajdować?"
@@ -167,33 +161,35 @@ label jaxowo:
                 menu:
                     ja "Co chciałbyś ulepszyć?"
                     "Wytłumacz mi o co chodzi":
-                        ja "Jak sprawdzasz swoje umiejętności, zdobywasz doświadczenie"
-                        ja "Gdy zdobędziesz go wystarczająco dużo, to przychodzisz do mnie"
-                        ja "Ja Ci pokażę jak wykożystać to doświadczenie w praktyce"
-                        ja "A tobie następne testy idą łatwiej"
+                        ja "Jak sprawdzasz swoje umiejętności, zdobywasz doświadczenie. Gdy zdobędziesz go wystarczająco dużo, to przychodzisz do mnie"
+                        ja "Ja Ci pokażę jak wykożystać to doświadczenie w praktyce a tobie następne testy idą łatwiej"
                         p "Wow, to takie proste?"
                         ja "Proste że tak!"
                         $ exp += 10
 
                     "Bieganie" if skile["Atletyka"] < 7:
+                        achieve UPG
                         ja "No to lecimy, czas trenować cardio"
                         $ skile["Atletyka"] += 1
                         "Spędziłeś trochę czasu na bieganiu"
                         $ czas -= 10
 
                     "Strzelanie" if skile["Bron"] < 7:
+                        achieve UPG
                         ja "Kierunek strzelnica!"
                         $ skile["Bron"] += 1
                         "Udało Ci się trafić nawet 10"
                         $ czas -= 10
 
                     "Rozmawianie" if skile["Gadanie"] < 7:
+                        achieve UPG
                         ja "No to opowiadaj, jak Ci życie mija"
                         $ skile["Gadanie"] += 1
                         "Opowiedziałeś JAX-owi o swoich problemach"
                         $ czas -= 10
 
                     "Rozmyślanie" if skile["Myslenie"] < 7:
+                        achieve UPG
                         ja "Zastanów się, co było pierwsze: Egg czy Qra?"
                         $ skile["Myslenie"] += 1
                         "Obstawiasz że egg"
@@ -252,32 +248,26 @@ label krzis:
         if stan2["Kris"] == 0:
             cr "Dobra [player_name], pora na twoje zadanie, musisz połazić trochę po mieście i poszukać chipów"
             p "I co, tak randomowo będą na ulicy?"
-            cr "To nie jest aż takie proste"
-            cr "Masz tu wykrywacz"
+            cr "To nie jest aż takie proste. Masz tu wykrywacz"
             cr "Jak będziesz w okolicy to będzie brzęczeć"
             p "WOW! I co wtedy?"
-            cr "Wtedy ruszasz dzielnie tam gdzie pika"
-            cr "Może tam być niebezpiecznie, więc radzę iść z kimś"
+            cr "Wtedy ruszasz dzielnie tam gdzie pika. Może tam być niebezpiecznie, więc radzę iść z kimś"
             cr "VIO i JAX się polecają do napierdalania"
             p "A nie mogę wziąć ich obu?"
             cr "W sensie że do walki tak?"
             p "Tak"
             cr "Uf, nie możesz bo:"
             cr "a) To by było zbyt proste"
-            cr "b) Jak walczą razem to wpadają w dziki szał"
-            cr "I potrafi im czasem odjebać aż za bardzo"
-            cr "Ostatnio prawie rozjebali pół osiedla"
-            cr "A ja nie wiem jak to powstrzymać"
-            cr "Odkąd Arasaka porwała JAX-a to jest z nim coraz gorzej"
-            cr "Ale dobra, czas kończyć ten Ted tok"
+            cr "b) Jak walczą razem to wpadają w dziki szał i potrafi im czasem odjebać aż za bardzo"
+            cr "Ostatnio prawie rozjebali pół osiedla a ja nie wiem jak to powstrzymać"
+            cr "Odkąd Arasaka porwała JAX-a to jest z nim coraz gorzej ale dobra, czas kończyć ten Ted tok"
             cr "Ruszaj dzielnie do roboty"
             p "Tajest!"
             $ stan2["Kris"] = 1
             jump opor
 
         elif stan2["Kris"] == 1 and chipy == 1:
-            cr "O! Widzę że udało Ci się zdobyć pierwszego Chipa"
-            cr "Gratulacje [player_name]"
+            cr "O! Widzę że udało Ci się zdobyć pierwszego Chipa. Gratulacje [player_name]"
             cr "Nie wiem czy widziałeś ale dodałem Ci do pokoju możliwość czytania tych danych"
             p "Wow, po chuj mi to?"
             cr "Jakby cię lore interesował to możesz sobie przeczytać"
@@ -286,20 +276,18 @@ label krzis:
             $ stan2["Kris"] = 2
             jump opor
 
-        elif stan2["Kris"] == 2 and chipy == 5:
+        elif (stan2["Kris"] == 2 or stan2["Kris"] == 1) and chipy == 5:
             cr "Gratulacje [player_name]! Zebrałeś je wszystkie"
             cr "Pozwól, że ja je teraz wezmę"
             $ chipy = 0
             p "Ale co w sumie z tego, jak na tych cipach gówno jest o Benku"
             cr "To dobry omen"
             p "Ale jak kurwa"
-            cr "To znaczy, że nasi informatorzy to gówno"
-            cr "Ale na spokojnie"
+            cr "To znaczy, że nasi informatorzy to gówno ale na spokojnie"
             cr "Zaraz ruszysz na misje, która nam wszystko wyjaśni"
             cr "Ten ostatni chip jaki znalazłeś będzie naszym kluczem"
             cr "Idziesz teraz do kowala, on może coś ci wyjaśni"
-            cr "No, to lecisz"
-            cr "Powodzenia"
+            cr "No, to lecisz! Powodzenia"
             jump cipfin
 
         else:
@@ -323,10 +311,8 @@ label krzis:
                 p "Już mam"
                 cr "No to git"
 
-            cr "Więc się przygotuj ze wszystkim"
-            cr "I jak będziesz gotowy to wracaj"
-            cr "Bo z tego co słyszałem, wielu śmiałków tam już zeszło"
-            cr "Jeszcze nikt nie wyszedł"
+            cr "Więc się przygotuj ze wszystkim i jak będziesz gotowy to wracaj"
+            cr "Bo z tego co słyszałem, wielu śmiałków tam już zeszło. Jeszcze nikt nie wyszedł"
             p "No to grubo"
             cr "Niech busz będzie z tobą"
             $ stan2["Kris"] = 1
@@ -381,8 +367,15 @@ label krzis:
 
 
     elif bigquest == 2:
-        cr "Czekaj na dalsze updaty"
-        jump tempend
+            cr "Dobra młody, nowe zadanie bojowe Ciebie czeka."
+            p "O rety kotlety, co tym razem, mordowanie korposów, polowanie w strefie radiacji czy może inwigilacja Arasaki?"
+            cr "Zostaniesz kurierem."
+            p "Odkleiłeś się w tym momencie. Co ma wspólnego kurier z tajną misją?"
+            cr "Znajomy prowadzi firmę kurierską, a ja czasami dostaję od niego info o sus paczkach"
+            p "I mam jeździć aż nie będę miał jakieś sus paczki?"
+            cr "Dokładnie. Trochę u niego popracujesz, może nawet coś zarobisz i wrócisz do zadań specjalnych"
+            p "Nie podoba mi się ten plan ale chuj, jak trzeba, to to zrobię"
+            cr "Zuch chłopak! Kieruj się na Pierdex."
 
     elif bigquest == 3:
         pass
@@ -453,14 +446,11 @@ label oporslep:
             menu:
                 "Który chip?"
                 "Pierwszy" if chipy > 0:
-                    "Sprawdzasz pierwszy chip"
-                    "Wszystko co było na nim zarawte to info o Benku"
-                    "Jest on fixerem w Glenn"
-                    "Otwarcie toczy wojnę z gangami"
+                    "Sprawdzasz pierwszy chip. Wszystko co było na nim zarawte to info o Benku"
+                    "Jest on fixerem w Glenn. Otwarcie toczy wojnę z gangami"
                     "Jeśli nie udaje mu się ich przekonać do rozejmu wysyła na nich łowców"
                     "Prowadzi jeszcze poszukiwania pozostałości po Seckond handzie"
-                    "Chuja Ci to mówi"
-                    "Ale podobno daje tonę kapusty za protezy"
+                    "Chuja Ci to mówi ale podobno daje tonę kapusty za protezy"
                     "Kto wie, może i tobie uda się coś znaleźć"
                     jump oporslep
 
@@ -468,44 +458,39 @@ label oporslep:
                     p "No to lecimy"
                     "Niestety cip zawierał coś, czego świat nigdy nie powinien zobaczyć"
                     "5 nocy z Haliną"
-                    p "Na chuja mego wuja"
-                    p "Zgiń przepadnij cipie zła"
+                    p "Na chuja mego wuja! Zgiń przepadnij cipie zła"
                     "Zrobiłeś taktyczny format pistoletem"
                     jump oporslep
 
                 "Trzeci" if chipy > 2:
                     "Przeglądasz znalezionego w żabce cipa"
-                    p "A niech mnie dunder świśnie, ten cip jest pełen informacji o DH"
-                    p "Tak na 7 procent to są jakieś pamiętniki Cyphera"
-                    p "Tu coś pierdoli o wakacjach"
-                    p "Instrukcja wróbla"
-                    p "50 twarzy Młynarczyka"
+                    p "A niech mnie dunder świśnie, ten cip jest pełen informacji o DH. Tak na 7 procent to są jakieś pamiętniki Cyphera"
+                    p "Tu coś pierdoli o wakacjach. Instrukcja wróbla. 50 twarzy Młynarczyka"
                     p "Kurwica, robi się nieciekawie"
-                    "Ale najbardziej niepokojący był ostatni plik"
-                    "Było na nim zdjęcie Cyphera i dokładna twoja lokalizacja"
+                    "Ale najbardziej niepokojący był ostatni plik. Było na nim zdjęcie Cyphera i dokładna twoja lokalizacja"
                     c "JA i DE"
                     p "Noi chuj noi cześć"
                     "Cypher już po Ciebie idzie"
                     jump oporslep
 
                 "Czwarty" if chipy > 3:
-                    p "No dobra, co my tu mamy"
-                    p "O kurwica (Robert taki)"
-                    "Twoim oczom ukazuje się pełna kolekcja streamów Kody"
-                    p "Słyszałem legendy o tym typie"
-                    p "Podobno jego jajca mogą zresetować uniwersum"
-                    p "Jest tu lokacja warsztatu Fanta i Kanta"
-                    p "Muszę to sprawdzić"
-                    $ znajOkol = 4
+                    if jajca == 0:
+                        p "No dobra, co my tu mamy. O kurwica! (Robert taki)"
+                        "Twoim oczom ukazuje się pełna kolekcja streamów Kody"
+                        p "Słyszałem legendy o tym typie. Podobno jego jajca mogą zresetować uniwersum"
+                        p "Jest tu lokacja warsztatu Fanta i Kanta. Muszę to sprawdzić"
+                        $ jajca = 1
+
+                    else:
+                        p "No tu było pierdolenie o jajcach, nie wiem po chuj mam to znowu czytać."
+
                     jump oporslep
 
                 "Piąty" if chipy > 4:
                     p "Ostatni cip, jak tu nic nie będzie to mnie popierdoli"
                     "I Cię popierdoliło"
-                    p "Jakim kurwa prawem tu niczego nie ma?"
-                    p "Powinny być tajne informacje na tego Benka"
-                    p "A tu jest jakiś dziwny pornol z Vistami"
-                    p "Kris musi coś z tym zrobić"
+                    p "Jakim kurwa prawem tu niczego nie ma? Powinny być tajne informacje na tego Benka"
+                    p "A tu jest jakiś dziwny pornol z Vistami! Kris musi coś z tym zrobić"
                     jump oporslep
                     
         "Wyjść" if czas > 0:
@@ -534,15 +519,13 @@ label anomalia:
         ja "Nom, to ja"
         bo "A co to za wywłoka obok Ciebie?"
         p "Jestem [player_name]"
-        bo "Nawet mówić potrafi"
-        bo "Jaki zdolniacha"
+        bo "Nawet mówić potrafi! Jaki zdolniacha"
         bo "Bezi w końcu daje Ci jakiś odpowiednich ludzi?"
         p "Kim jest bezi?"
         ja "Bezi nie żyje"
         bo "Bruh"
         ja "Wypadł z helikoptera i zamienił się w gerberka"
-        bo "Ha ha ha"
-        bo "To sam zostałeś fixerem, czy dalej zlecenia?"
+        bo "Ha ha ha! To sam zostałeś fixerem, czy dalej zlecenia?"
         ja "Umowa zlecenie"
         bo "Czyli jesteś od Krisa?"
         ja "Bingo"
@@ -554,16 +537,13 @@ label anomalia:
         p "No widzę"
         bo "To wyobraź sobie, że jest w niej ekstrakt z Cyphera"
         p "O cholera"
-        bo "A to jeszcze nie wszystko"
-        bo "Wyobraź sobie, że szczury Guna były z biotechu"
-        bo "I część z nich wpadła do tego ścieku"
-        bo "Potem się wymieszała i się stały większe jaja"
+        bo "A to jeszcze nie wszystko! Wyobraź sobie, że szczury Guna były z biotechu"
+        bo "I część z nich wpadła do tego ścieku. Potem się wymieszała i się stały większe jaja"
         p "Co kurwa"
         ja "Wyobraź sobie, że tu była sobie wcześniej arasaka"
         ja "Rozstawili tu jakieś swoje prototypowe nagrywaczki braindanców"
         ja "I ponagrywali co tylko się dało"
-        bo "I tu wchodzi kolejny poziom spierdolenia"
-        bo "Bo sok z Cyphera rozjebał im kable"
+        bo "I tu wchodzi kolejny poziom spierdolenia! Bo sok z Cyphera rozjebał im kable"
         bo "Tak powstał tzw. Wyciek danych"
         p "Ale po chuj mi opowiadasz te całe backstory"
         bo "Bo będziesz musiał zejść do piwnicy wyłapywać dane"
@@ -643,10 +623,14 @@ label anomalia:
         jump opor
 
     elif stan2["Bo"] == 2:
+        scene dziura
+        show bo at right
         bo "Czekaj na sms-a"
         jump opor
 
     elif stan2["Bo"] == 3:
+        scene dziura
+        show bo at right
         bo "Dobra, możemy brać się za robotę"
         p "A co to za robota?"
         bo "Ty jesteś głupi czy akustyczny?"
@@ -672,7 +656,7 @@ label anomalia:
         p "To to chuj, idziemy po ciemku"
         "Wędrujesz po tym ciemnym miejscu w poszukiwaniu sygnału i po godzince słyszysz pikanie"
         p "Dobra kurwa, to jest chyba to miejsce. Co ja mam teraz zrobić?"
-        call testSkili("Myslenie", "INT", 9)
+        call testSkili("Myslenie", "INT", 9) from _call_testSkili_10
         if wynik == 1:
             p "Z tego co Bo opowiadał to mam zrobić skrinszota"
             "I to faktycznie zadziałało"
@@ -680,7 +664,7 @@ label anomalia:
         else:
             p "Chuj kurwa, chuj. Brutforsuje to"
             "Niestety pierdolnął cie prąd"
-            call checkHP(10)
+            call checkHP(10) from _call_checkHP_34
             "Ale jakimś cudem Ci się to udało"
 
         p "Pogczamp pacjent, pora wracać"
@@ -714,6 +698,8 @@ label anomalia:
         $ stan2["Bo"] = 4
 
     elif stan2["Bo"] == 4 and stan2["Kris"] == 5:
+        scene dziura
+        show bo at right
         bo "Witam ponownie [player_name]! Jak rozumiem wracamy do poszukiwań"
         p "Tja, Kris sprawdził dokładnie imprint, trzeba szukać kolejnego"
         bo "To tym razem lecisz szukać danych po CJ-u"
@@ -754,12 +740,12 @@ label anomalia:
                 "Idziesz dalej i znalazłeś jakiegoś naprutego gangusa"
                 sb "Te kurwa, spierdalaj stąd"
                 p "Jesteś moim darmowym lootem, szykuj się na śmierć"
-                call testSkili("Bron","ZW",7)
+                call testSkili("Bron","ZW",7) from _call_testSkili_11
                 if wynik == 1:
                     p "Słodkich snów, parówczaku"
                     p "Pora zebrać twoje itemki"
                     $ edki += 200
-                    P "Darmowe edeczki, to się szanuje"
+                    p "Darmowe edeczki, to się szanuje"
 
                 else:
                     $ checkHP(10)
@@ -792,6 +778,8 @@ label anomalia:
                 jump opor
 
     elif stan2["Bo"] == 5:
+        scene dziura
+        show bo at right
         bo "Dobra, sprawdziłem chipa, nic nie znalazłem"
         p "Serio kurwa, to na chuj ja tam latam"
         bo "Czekaj chwilę debliu jebany. Nic na Bena ale coś co może Ci się spodobać"
@@ -808,7 +796,7 @@ label anomalia:
         p "To jest jakiś pojebany qłest kurjerski z Jakuzy?"
         bo "Jeszcze raz mi przerwiesz i dostaniesz w mordę"
         p "Sorki"
-        call checkHP(10)
+        call checkHP(10) from _call_checkHP_35
         bo "Ostrzegałem"
         bo "Kajdanki pozwalają Ci na zakucie pierdalnych chłopów"
         bo "I tylko odpowiednio dochromowani mogą próbować się z nich uwolnić"
@@ -823,10 +811,15 @@ label anomalia:
         bo "Jest wystarczająco długi, zdupcaj"
         $ stan2["Bo"] = 6
         $ stan2["Kris"] = 6
+        jump opor
 
     else:
+        scene dziura
+        show bo at right
         bo "Zdupcaj, utrudniasz mi pracę"
         jump opor
+
+    jump opor
 
 label chipnik:
     if chipy == 0:
@@ -1114,6 +1107,78 @@ label chipnik:
 
     jump opor
 
+label pierdex:
+    scene pierdex
+    if bigquest == 2:
+        if stan2["BB"] == 0:
+            bb "Siema młody, witamy w Pierdex! Od teraz jesteś jednym z kurierów."
+            p "I będę musiał jeździć po miejscach z paczkami?"
+            bb "Szybko się uczysz. Dokładnie tak, będziesz miał paczki do przewozu z opcjonalnym strzelaniem do oponentów"
+            bb "Czasami będzie niebezpieczna dostawa ale za to dostaniesz większą wypłatę"
+            p "Chwila chwila, ty mi będziesz płacił za pracę?"
+            bb "Witamy w normalnej pracy. Będziesz tu dostawał mamonę, psie pieniądze co prawda ale zawsze coś"
+            p "Jasny gwint, wypłata w pracy. Chyba aż tu będę pracował dłużej"
+            bb "Tak jak każdy normik. Zaraz dostaniesz już pierwszą dostawę."
+            p "A niech mnie kule biją! Co będę musiał dostarczyć?"
+            bb "Na start będzie Ciebie czekało proste zadanie. Przejedziesz się z pizzą do kilku miejsc"
+            bb "Po dostawie, dostaniesz 60 edków wypłaty"
+            p "O JA PIERDOLE! To chyba największa wypłata w moim życiu"
+            bb "Nie przyzwyczajaj się, to taki bonus powitalny."
+            bb "Przebieraj się w zestaw roboczy i lecisz"
+            p "Się robi szefie!"
+            "Przebrałeś się w outfit pierdexu i wskoczyłes na skuter"
+            play music "idrive.mp3"
+            scene dostawa
+            "Zapierdalasz skuterkiem przez zakorkowane night city"
+            p "Kurde balans, nie wiedziałem, że potrafię jeździć na skuterku"
+            p "Za 50 metrów mam skręcić w prawo i będę na miejscu"
+            "Parkujesz jak prawdziwy sigma"
+            "Na klatce schodowej"
+            p "Kolejne udane parkowanie, lepiej mi poszło, niż goonowi"
+            p "Dobrze, że mnie nie słyszy, nasłałby pewnie na mnie szczury"
+            stop music
+            p "Pora kończyć wspominki, czas na robotę. Pizzka idzie na 6 piętro"
+            p "Tup, tup, tup, tup, tup"
+            "Po wejściu, zapukałeś do drzwi i otworzyła Ci gorąca milfica w szlafroku"
+            p "Dzień dobry, kurier pierdex, z pizzą przyjechałem"
+            sb "Kurcze, chyba nie mam portfela, mogę zapłacić w inny sposób?"
+            menu:
+                "Niech stracę":
+                    "Wchodzisz z pizzą do środka"
+                    sb "Pora sprawdzić, z czego jesteś zrobiony"
+                    "Widzisz, jak ta ponętna samica wyciąga strapona"
+                    achieve GOO
+                    p "TO JEST WIĘKSZE OD MOJEJ RĘKI!"
+                    sb "(:"
+                    call testSkili("Atletyka", "ZW", 10)
+                    if wynik == 1:
+                        "Udało Ci się w porę uciec, przed napaloną samicą"
+                        p "Dżisus, faken, koken, saken. Było zbyt blisko"
+                        p "Jeszcze mi nawet lampucera nie zapłaciła. Kolosalnie zjebałem"
+                        "Wróciłeś do firmy"
+                        scene pierdex
+                        bb "Dobra robota młody, zjebałeś"
+                        bb "W nagrodę, nic nie dostaniesz, sam jesteś sobie winny"
+                        bb "Tylko tym razem potraktuję Cię ulgowo. Jak inne zlecenia zjebiesz, sam płacisz"
+                        bb "Przyjdź do mnie jeszcze za jakiś czas, następna robota będzie czekać"
+                        $ czas = 0
+
+                        $ stan2["BB"] = 1
+                "Domagam się wypłaty":
+                    sb "No dobrze, się przejdę po edki"
+                    "Samica zapłaciła, a ty wróciłeś do firmy"
+                    scene pierdex
+                    bb "Dobra robota młody, udało Ci się dostarczyć zamówienie"
+                    bb "Masz tu swoją wypłatę"
+                    $ edki += 60
+                    bb "Przyjdź do mnie jeszcze za jakiś czas, następna robota będzie czekać"
+                    $ czas = 0
+                    $ stan2["BB"] = 1
+                    jump opor
+
+        elif stan2["BB"] == 1:
+            jump tempend
+
 
 label jajquest:
     scene kfws
@@ -1130,7 +1195,7 @@ label jajquest:
     p "Chuj, coś wykombinuje"
     "Spakowałeś itemki i wróciłeś do domu"
     $ atrefakty["Jaja"] = "W sejfie"
-    $ znajOkol = 3
+    $ jajca = 2
     return
 
 
@@ -1207,7 +1272,7 @@ label piwko:
             p "No powoli to jakoś leci, wiesz, questy się robi, edki zarabia"
             ja "Czyli po staremu"
             p "Gadaj lepiej jak u Ciebie"
-            ja "No co, czekam aż koledzu wyjdą z pierdla i staram nie dać się zabić"
+            ja "No co, czekam aż koledzy wyjdą z pierdla i staram nie dać się zabić"
             p "To jest już klasyk"
             ja "Nom, jak już wrócą to czeka nas bojowe zadanie"
             p "O kurwens, brzmi poważnie. Co to za robota"
@@ -1254,7 +1319,8 @@ label piwko:
     jump opor
 
 label tempend:
-    mg "Gratulacje, skończyłeś to zacząłem z 2 aktu cptg"
+    scene black
+    mg "Gratulacje, skończyłeś aktualny progress 2 aktu cptg"
     mg "Kiedy następne updaty będą to studia ocenią"
     mg "Jeśli udało Ci się skończyć ten moment historii, wyślij mi screena następnej wiadomości"
     mg "Jax i VIO mnie bijo"

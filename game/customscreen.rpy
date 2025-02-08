@@ -95,6 +95,8 @@ screen znaj():
             text "{color=000}Cypher: [postacie['Cypher']] \n Kałach: [postacie['Kalach']] \n Gun: [postacie['Gun']] \n Hartmann: [postacie['Hartmann']] \n Łaskawca: [postacie['Laskawca']] \n Krateus: [postacie['Krateus']] \n Jhin: [postacie['Jhin']]"
         else:
             text "{color=000} Nie wiem czy muszę się \n z nimi zaprzyjaźniać"
+        if znajOkol > 1:
+            text "{color=000} Żabiara: [frogrel] \n"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -184,9 +186,14 @@ screen day():
 
             elif bigquest == 1:
                 text "{color=000} Odzyskaj dane z bazy"
+                if stan2["Bo"] == 1 or stan2["Bo"] == 3 or (stan2["Bo"] == 4 and stan2["Kris"] == 5) or stan2["Bo"] == 5:
+                    text "{color=000} Idź do bazy"
+
+                if stan2["Bo"] == 2:
+                    text "{color=000} Czekaj na SMS"
 
             elif bigquest == 2:
-                text "{color=000} Czekaj na kolejne instrukcje"
+                text "{color=000} Pracuj dla Pierdexu"
 
 
     imagebutton auto "cyberfon_won_%s":
@@ -340,7 +347,7 @@ screen map_screen():
             unhovered SetVariable("screen_tooltip","")
             action Hide("map_screen"), Call("workowiec")
 
-    if znajOkol > 3:
+    if jajca == 1:
         imagebutton auto "city_jajo_%s":
             focus_mask True
             hovered SetVariable("screen_tooltip", "Return")
@@ -368,6 +375,13 @@ screen map_screen():
             unhovered SetVariable("screen_tooltip","")
             action Hide("map_screen"), Jump("opor")
 
+    if akt == 2 and bigquest == 2: 
+        imagebutton auto "city_pierd_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("pierdex")
+
     if chipy == 0 and chiplok == 1 or chipy == 1 and chiplok == 2 or chipy == 2 and chiplok == 3 or chipy == 3 and chiplok == 4 or chipy == 4 and chiplok == 5:
         imagebutton auto "city_chip_%s":
             focus_mask True
@@ -375,7 +389,7 @@ screen map_screen():
             unhovered SetVariable("screen_tooltip","")
             action Hide("map_screen"), Jump("chipnik")
 
-    if akt == 2 and bigquest > 1:
+    if akt == 2 and bigquest > 0:
         imagebutton auto "city_dom_%s":
             focus_mask True
             hovered SetVariable("screen_tooltip", "Return")
