@@ -85,7 +85,6 @@ label a2intro:
     p "Ok, zrozumiałe"
     p "To powiesz mi co ty ode mnie chcesz?"
     cr "Ano tak. Mamy jeden prosty plan. Drużyna już o tobie zapomniała"
-    $ old_pn = [player_name]
     $ player_name = "Zbigniew"
     cr "Od teraz jesteś Zbigniew"
     p "Co kurwa?"
@@ -367,6 +366,7 @@ label krzis:
 
 
     elif bigquest == 2:
+        if stan2["BB"] == 0:
             cr "Dobra młody, nowe zadanie bojowe Ciebie czeka."
             p "O rety kotlety, co tym razem, mordowanie korposów, polowanie w strefie radiacji czy może inwigilacja Arasaki?"
             cr "Zostaniesz kurierem."
@@ -376,6 +376,10 @@ label krzis:
             cr "Dokładnie. Trochę u niego popracujesz, może nawet coś zarobisz i wrócisz do zadań specjalnych"
             p "Nie podoba mi się ten plan ale chuj, jak trzeba, to to zrobię"
             cr "Zuch chłopak! Kieruj się na Pierdex."
+            $ stan2["BB"] = 1
+
+        elif stan2["BB"] == 6:
+            pass
 
     elif bigquest == 3:
         pass
@@ -641,7 +645,7 @@ label anomalia:
         bo "Tu masz taki pierdolniczek do łapania sygnałów"
         bo "Jak będziesz chodził po strefie anomalii to zapisuje wszystko co złapie"
         bo "Jak jakaś tania kurwa"
-        bo "Następnie moi technicy alby ty zajmiecie się odszyfrowywaniem"
+        bo "Następnie moi technicy albo ty zajmiecie się odszyfrowywaniem"
         mg "Zależy czy mi się będzie chciało robić jakąś minigierkę"
         bo "I z odszyfrowanych danych "
         p "Jak wcześniej mi to opowiadałeś to było prostrze"
@@ -653,7 +657,7 @@ label anomalia:
         p "KURWAAAAAA"
         scene black
         p "Ja pierdolę, jak tu jest ciemno"
-        p "To to chuj, idziemy po ciemku"
+        p "No to chuj, idziemy po ciemku"
         "Wędrujesz po tym ciemnym miejscu w poszukiwaniu sygnału i po godzince słyszysz pikanie"
         p "Dobra kurwa, to jest chyba to miejsce. Co ja mam teraz zrobić?"
         call testSkili("Myslenie", "INT", 9) from _call_testSkili_10
@@ -678,8 +682,8 @@ label anomalia:
         $ czas = 0
         "Siedziałeś resztę dnia z Bo oglądając filmiki z życia Kody"
         p "Tu się kurwa tyle żeczy nie klei, najpierw zdrada Wujka, potem solo kręcenie fixerów"
-        p "Po kiego grzyba on w ogóle robił tye głupich rzeczy?"
-        bo "Kody był kretynem ale to nie jest jedyna jego zaleta"
+        p "Po kiego grzyba on w ogóle robił tyle głupich rzeczy?"
+        bo "Koda był kretynem ale to nie jest jedyna jego zaleta"
         p "Chodzi Ci o ten fragment z Talibami?"
         bo "Uznałbyś, że to jest brud na Benka?"
         p "No ja nie ale inni mogą mieć mniej radykalne poglądy"
@@ -693,7 +697,7 @@ label anomalia:
         bo "Nazywa się Tar. To jest strzelec, konstruktor, dyplomata i najbardziej szczwany skurwysyn jakiego znam"
         p "Brzmi groźnie"
         bo "On jest groźny ale tylko jak go wkurwisz. Będzie dobrym kompanem do trudnych chwil"
-        p "Dobra, dzięki za info, wracam do Sójeczki z wieściami"
+        p "Dobra, dzięki za info, wracam do Krisa z wieściami"
         $ stan2["Kris"] = 3
         $ stan2["Bo"] = 4
 
@@ -736,7 +740,7 @@ label anomalia:
             "Ruszam dzielne":
                 "Wędrujesz dalej w podziemiach NC"
                 "Po jakimś czasie ponownie usłyszałeś dziwny krzyk"
-                p "Popierdoli mnie zaraz, chyba się też zestam ze strachu"
+                p "Popierdoli mnie zaraz, chyba się też zesram ze strachu"
                 "Idziesz dalej i znalazłeś jakiegoś naprutego gangusa"
                 sb "Te kurwa, spierdalaj stąd"
                 p "Jesteś moim darmowym lootem, szykuj się na śmierć"
@@ -1058,14 +1062,14 @@ label chipnik:
 
     elif chipy == 3:
         $ nua = len(persistent._achievements)
-        p "Kolejny chipek"
+        p "Kolejny cipek"
         p "I mi pokazuje, że jest w jednej z alejek"
         p "I to takiej dziwnej ciemnej"
         p "Chuj tam, robota to robota"
         scene black
         "Wchodzisz w ciemną alejkę i tak jak się mogłeś spodziewać"
         "Jakiś sus typus wyszedł, blokując Ci drogę"
-        gkp "Witaj [player_name]"
+        gkp "Witaj [old_pn]"
         p "Skąd znasz moje imię?"
         gkp "To nie jest istotne"
         gkp "Muszę sprawdzić  czy jesteś gotowy"
@@ -1085,7 +1089,7 @@ label chipnik:
             jump opor
 
     elif chipy == 4:
-        p "No dobra, ostatni chip"
+        p "No dobra, ostatni cip"
         p "Obstawiam, że czeka mnie tutaj niesamowicie trudna walka"
         p "FInałowy boss, wyzwanie mojego życia"
         "I się niesamowicie myliłeś"
@@ -1110,7 +1114,7 @@ label chipnik:
 label pierdex:
     scene pierdex
     if bigquest == 2:
-        if stan2["BB"] == 0:
+        if stan2["BB"] == 1:
             bb "Siema młody, witamy w Pierdex! Od teraz jesteś jednym z kurierów."
             p "I będę musiał jeździć po miejscach z paczkami?"
             bb "Szybko się uczysz. Dokładnie tak, będziesz miał paczki do przewozu z opcjonalnym strzelaniem do oponentów"
@@ -1163,7 +1167,7 @@ label pierdex:
                         bb "Przyjdź do mnie jeszcze za jakiś czas, następna robota będzie czekać"
                         $ czas = 0
 
-                        $ stan2["BB"] = 1
+                        $ stan2["BB"] = 2
                 "Domagam się wypłaty":
                     sb "No dobrze, się przejdę po edki"
                     "Samica zapłaciła, a ty wróciłeś do firmy"
@@ -1173,10 +1177,10 @@ label pierdex:
                     $ edki += 60
                     bb "Przyjdź do mnie jeszcze za jakiś czas, następna robota będzie czekać"
                     $ czas = 0
-                    $ stan2["BB"] = 1
+                    $ stan2["BB"] = 2
                     jump opor
 
-        elif stan2["BB"] == 1:
+        elif stan2["BB"] == 2:
             jump tempend
 
 
@@ -1209,7 +1213,7 @@ label cipfin:
     "Wchodzisz to kuźni osobowości"
     p "Halo, kurwa, jest ktoś w domu?"
     au "Jestem"
-    p "Przysyła mnie Czerwonopolski, podobno masz dla mnie jakieś maski"
+    p "Przysyła mnie Czerownopolski, podobno masz dla mnie jakieś maski"
     au "Ta będę je miał, tylko daj mi te chipy i będzie można lecieć z tematem"
     "Przekazałeś cipy kowalowi"
     au "Teraz spierdalaj i czekaj na mój znak"

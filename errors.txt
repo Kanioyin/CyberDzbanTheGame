@@ -2,9 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/customscreen.rpy", line 371: screen expects a non-empty block.
-    if akt == 2 and bigquest = 2: 
-                                  ^
+File "game/akt2.rpy", line 369: reached end of line when expecting ':'.
+    if stan2["BB"] == 0
+                       ^
+
+File "game/akt2.rpy", line 381: expected statement.
+    elif stan2["BB"] == 6:
+              ^
 
 Ren'Py Version: Ren'Py 8.3.4.24120703
-Sat Feb  8 18:43:11 2025
+Sat Feb  8 21:56:41 2025

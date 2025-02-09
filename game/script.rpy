@@ -83,7 +83,7 @@ label yeet:
         achieve Eko
         $ inventory.remove_item(Ser)
 
-    elif (opd == "Klapek" or odp == "Laczek") and inventory.has_item(Klapek) == True:
+    elif (odp == "Klapek" or odp == "Laczek") and inventory.has_item(Klapek) == True:
         achieve Eko
         achieve DHW
         $ inventory.remove_item(Klapek)
@@ -248,7 +248,7 @@ label start:
     $ baba_name = "Babka from żabka"
     $ HP = MaxHP
     while helper == 1:
-        $ player_name = renpy.input("Nazywasz się:")
+        $ player_name = old_pn = renpy.input("Nazywasz się:")
         if player_name == "Gun":
             g "Prawa autorskie kurwa"
 
@@ -2025,7 +2025,7 @@ label jhinownia:
                 "Aż taki głupi nie jestem":
                     j "Bardzo dobrze, to był tylko test"
                     $ postacie["Jhin"] += 1
-                    j "Jednak jesteś mądrzejszy od ośmioklasistya a to nie jest typowa sytuacja w tej bazie"
+                    j "Jednak jesteś mądrzejszy od ośmioklasisty a to nie jest typowa sytuacja w tej bazie"
                     j "To dobry znak, nie będzie jeszcze z Ciebie insygni"
                     $ stan["Jhin"] = 3
 
@@ -3047,7 +3047,7 @@ label wojowezadanie:
                         "Schował kanatę i wyjął broń z ręki"
                         p "NIEEEEEE"
                         "Jhin przeciął kable ostrzem z dłoni"
-                        "I tak jak przwidywałeś, jebnął go prąd"
+                        "I tak jak przewidywałeś, jebnął go prąd"
                         j "Oj karamba"
                         p "Jhin, jesteś cały?"
                         j "Powiedz mojej żonie, że jej nie mam"
@@ -3295,6 +3295,7 @@ label wojowezadanie:
                         menu:
                             "Ilę chcę dać?"
                             "Może dziczeg?" if inventory.has_item(NRG) == True:
+                                $ inventory.remove_item(NRG)
                                 mg "Oj kolego, kupiłeś mnie tym jak paczkę żelków. Oto moje błogosławieństwo"
                                 p "Dziękuję wielki dziku"
                                 $ helper -= 25
@@ -3387,7 +3388,7 @@ label wojowezadanie:
                         $ helper -= 20
 
                 p "Kurwa panowie, to było zajebiście łatwe"
-                v "Vie Vwal vnia vprzed vachodem vłońca"
+                v "Vie Vwal vnia vrzed vachodem vłońca"
                 p "Co kurwa"
                 scene vinalvoss
                 stop music
@@ -3837,6 +3838,8 @@ label wojowezadanie:
                 $ edki -= 2000
                 p "Oto moje pieniądze, bywaj natenczas"
                 fse "Żegnaj, adios"
+                $ Frakcja = 0
+                $ oldFrakcja = 6
                 jump wojowezadanie
 
             "Może uciekniemy stąd razem?":
@@ -4175,7 +4178,7 @@ label varchiwa:
                 p "Vusze vać vokumenty vo varchiv"
                 v "Vo va vens, vapraszam"
                 p "Vięki"
-                $ varchiwa_stago = 2
+                $ varchiwa_stage = 2
                 jump varchiwa
                 
             "Vpierdalam":
