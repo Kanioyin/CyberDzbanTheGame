@@ -1333,4 +1333,5 @@ label tempend:
     mg "Wielkie dzięki za granie"
     mg "Pamiętaj poszukać nagród w galeri"
     mg "Papatki"
+    $ presistent.czasGry = int(renpy.get_game_runtime()/60)
     $ MainMenu(confirm=False)()

@@ -2,13 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/akt2.rpy", line 369: reached end of line when expecting ':'.
-    if stan2["BB"] == 0
-                       ^
-
-File "game/akt2.rpy", line 381: expected statement.
-    elif stan2["BB"] == 6:
-              ^
+File "game/screens.rpy", line 325: keyword argument 'action' appears more than once in a textbutton statement.
+    textbutton _("Main Menu") action MainMenu() action [Function(save_playtime), ShowMenu("main_menu")]
+                                                      ^
 
 Ren'Py Version: Ren'Py 8.3.4.24120703
-Sat Feb  8 21:56:41 2025
+Mon Feb 10 12:17:00 2025

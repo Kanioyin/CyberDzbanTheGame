@@ -311,6 +311,8 @@ screen navigation():
 
         textbutton _("Wyczyny") action ShowMenu("bobcachievements")
 
+        textbutton _("Staty") action ShowMenu("stats")
+
         if main_menu:
             textbutton _("Album") action ShowMenu("bobcgallery")
 
@@ -320,7 +322,7 @@ screen navigation():
 
         elif not main_menu:
 
-            textbutton _("Main Menu") action MainMenu()
+            textbutton _("Main Menu") action [Function(save_playtime), MainMenu()]
 
         textbutton _("About") action ShowMenu("about")
 
@@ -333,7 +335,32 @@ screen navigation():
 
             ## The quit button is banned on iOS and unnecessary on Android and
             ## Web.
-            textbutton _("Quit") action Quit(confirm=not main_menu)
+            textbutton _("Quit") action [Function(save_playtime), Quit(confirm=not main_menu)]
+
+screen stats():
+    tag menu
+
+    frame:
+        style_prefix "stats"
+        xalign 0.5
+        yalign 0.5
+        xsize 600
+        ysize 400
+
+        vbox:
+            spacing 10
+            xalign 0.5
+            yalign 0.5
+
+            text _("Staty") size 40
+            text _("Kliknięty dywan: [persistent.dywanomierz] razy") size 30
+            text _("Czas grania: [persistent.czasGry] minut") size 30
+            text _("Wypite monstery: [persistent.monsters]") size 30
+            text _("Zdrapane zdrapki: [persistent.skracz]") size 30
+            test _("Godziny przepracowane: [persistent.work]")
+
+            textbutton _("Back") action Return()
+
 
 
 style navigation_button is gui_button

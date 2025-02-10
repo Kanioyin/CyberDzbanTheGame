@@ -30,7 +30,7 @@ define bb = Character(_("Blink Blink"), color = "#3ef374")
 default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
 default cechy = {"INT":2, "ZW":2, "CHAR":2,"BC":2}
 default skile = {"Atletyka": 2, "Bron": 2, "Gadanie": 2, "Myslenie": 2}
-default stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
+default stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0, "Kasia":0}
 
 # inventory
 default inventory = Inventory([],0)
@@ -59,9 +59,14 @@ default Kwiat = InventoryItem("Kwiatki", "Działają na kobiety jak dzik na MG")
 #Stany postaci
 default kibel_stan = 0
 default wojsko_stan = 0
-default dywanomierz = 0
+default persistent.dywanomierz = 0
 
 #deklaracja reszty
+default persistent.czasGry = 0
+default persistent.session_start_time = 0
+default persistent.monsters = 0
+default persistent.skracz = 0
+default persistent.work = 0
 default edki = 0
 default vdolce = 0
 default frogsy = 0
@@ -105,6 +110,7 @@ default kompan = 0
 # 1 = VIO
 # 2 = JAX
 # 3 = Borabor
+default zawal = 0
 default talkloop = 0
 default chipy = 0
 default chiplok = 0
@@ -115,6 +121,12 @@ default anom = 0
 default frogrel = 0
 default jajca = 0
 default buul = ["bul1.mp3", "demon.mp3"]
+
+# deklaracje co do V
+default vechnik_stage = 0
+default voktor_stage = 0
+default varchiva_stage = 0
+default valki = 5
 
 # akt 2
 default stan2 = {"Vio":0, "Jax":0, "Kris":0, "Bo":0, "Halina":0, "BB":0}
