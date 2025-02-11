@@ -681,7 +681,7 @@ label anomalia:
         bo "TAK"
         $ czas = 0
         "Siedziałeś resztę dnia z Bo oglądając filmiki z życia Kody"
-        p "Tu się kurwa tyle żeczy nie klei, najpierw zdrada Wujka, potem solo kręcenie fixerów"
+        p "Tu się kurwa tyle rzeczy nie klei, najpierw zdrada Wujka, potem solo kręcenie fixerów"
         p "Po kiego grzyba on w ogóle robił tyle głupich rzeczy?"
         bo "Koda był kretynem ale to nie jest jedyna jego zaleta"
         p "Chodzi Ci o ten fragment z Talibami?"

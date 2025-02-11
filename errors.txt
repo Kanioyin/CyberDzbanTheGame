@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 325: keyword argument 'action' appears more than once in a textbutton statement.
-    textbutton _("Main Menu") action MainMenu() action [Function(save_playtime), ShowMenu("main_menu")]
-                                                      ^
+File "game/customscreen.rpy", line 277: imagebutton expects a non-empty block.
+    imagebutton auto "cyberfon_won_%s":
+                                       ^
 
 Ren'Py Version: Ren'Py 8.3.4.24120703
-Mon Feb 10 12:17:00 2025
+Mon Feb 10 20:24:17 2025

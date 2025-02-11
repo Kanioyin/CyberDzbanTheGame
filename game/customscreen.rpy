@@ -18,19 +18,37 @@ screen inventory():
     modal True
 
     vbox:
-        pos 0.05, 0.1
+        pos (0.05, 0.1)
         text "Pojemność [inventory.quantity]/[Cap]"
 
-    vbox:
-        pos 0.1, 0.25
+    grid 20 5: 
+        pos (0.1, 0.25)
+        spacing 20
         for item in inventory.items:
-            text "{size=40}[item.name] - [item.desc] \n{/size}"
-
+            imagebutton:
+                idle item.image
+                hover item.image
+                action Show("item_details", item=item)
+    
     imagebutton auto "inventory_screen_return_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("inventory"), Show("hud"), Play("sound", "opi.wav")
+
+screen item_details(item):
+    modal True
+    frame:
+        xalign 0.5
+        yalign 0.5
+        padding (20, 20)
+        vbox:
+            spacing 10
+            xalign 0.5
+            image item.image
+            text "[item.name]" size 40
+            text "[item.desc]" size 30
+            textbutton _("Wyjdź") action Hide("item_details")
 
 
 screen phone():
@@ -61,18 +79,12 @@ screen phone():
         unhovered SetVariable("screen_tooltip","")
         action Hide("phone"), Show("day")
     
-    if akt > 1:
-        imagebutton auto "cyberfon_cechy_%s":
-            focus_mask True
-            hovered SetVariable("screen_tooltip", "Return")
-            unhovered SetVariable("screen_tooltip","")
-            action Hide("phone"), Show("cechy")
+    imagebutton auto "cyberfon_postac_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("phone"), Show("postac")
 
-        imagebutton auto "cyberfon_skil_%s":
-            focus_mask True
-            hovered SetVariable("screen_tooltip", "Return")
-            unhovered SetVariable("screen_tooltip","")
-            action Hide("phone"), Show("skile")
     if kody < 6:
         imagebutton auto "cyberfon_kody_%s":
             focus_mask True
@@ -242,40 +254,34 @@ screen frak():
         unhovered SetVariable("screen_tooltip","")
         action Hide("frak"), Show("phone")
 
-screen cechy():
+screen postac():
     modal True
     add "cyberfon_clear"
     vbox:
-        pos 0.4, 0.1
-        text "{color=000} Twoje cechy"
-        text "{color=000} Budowa ciała: [cechy['BC']]"
-        text "{color=000} Zwinność: [cechy['ZW']]"
-        text "{color=000} Charakter [cechy['CHAR']]"
-        text "{color=000} Umysł [cechy['INT']]"
+        pos 0.4, 0.10
+        text "{color=000}HP: [HP]/[MaxHP]"
+    if akt > 1:
+        vbox:
+            pos 0.4, 0.13
+            text "{color=000} Twoje cechy"
+            text "{color=000} Budowa ciała: [cechy['BC']]"
+            text "{color=000} Zwinność: [cechy['ZW']]"
+            text "{color=000} Charakter [cechy['CHAR']]"
+            text "{color=000} Umysł [cechy['INT']]"
+
+        vbox:
+            pos 0.4, 0.32
+            text "{color=000} Twoje umiejętności"
+            text "{color=000} Strzelanie: [skile['Bron']]"
+            text "{color=000} Gadanie: [skile['Gadanie']]"
+            text "{color=000} Spierdalanie: [skile['Atletyka']]"
+            text "{color=000} Myślenie: [skile['Myslenie']]"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
-        action Hide("cechy"), Show("phone")
-
-screen skile():
-    modal True
-    add "cyberfon_clear"
-    vbox:
-        pos 0.4, 0.1
-        text "{color=000} Twoje umiejętności"
-        text "{color=000} Strzelanie: [skile['Bron']]"
-        text "{color=000} Gadanie: [skile['Gadanie']]"
-        text "{color=000} Spierdalanie: [skile['Atletyka']]"
-        text "{color=000} Myślenie: [skile['Myslenie']]"
-
-    imagebutton auto "cyberfon_won_%s":
-        focus_mask True
-        hovered SetVariable("screen_tooltip", "Return")
-        unhovered SetVariable("screen_tooltip","")
-        action Hide("skile"), Show("phone")
-
+        action Hide("postac"), Show("phone")
 
 screen kody():
     modal True

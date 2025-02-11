@@ -1,43 +1,39 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "renpy/common/00gamemenu.rpy", line 174, in script
-    $ ui.interact()
-  File "renpy/common/00gamemenu.rpy", line 174, in <module>
-    $ ui.interact()
-  File "game/screens.rpy", line 381, in execute
-    screen main_menu():
-  File "game/screens.rpy", line 381, in execute
-    screen main_menu():
-  File "game/screens.rpy", line 394, in execute
-    use navigation
-  File "game/screens.rpy", line 288, in execute
-    screen navigation():
-  File "game/screens.rpy", line 288, in execute
-    screen navigation():
-  File "game/screens.rpy", line 290, in execute
+  File "game/script.rpy", line 448, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 1321, in script
+    menu:
+  File "game/customscreen.rpy", line 39, in execute
+    screen item_details(item):
+  File "game/customscreen.rpy", line 39, in execute
+    screen item_details(item):
+  File "game/customscreen.rpy", line 41, in execute
+    frame:
+  File "game/customscreen.rpy", line 45, in execute
     vbox:
-  File "game/screens.rpy", line 319, in execute
-    if _in_replay:
-  File "game/screens.rpy", line 325, in execute
-    textbutton _("Main Menu") action [Function(save_playtime), main_menu()]
-  File "game/screens.rpy", line 325, in keywords
-    textbutton _("Main Menu") action [Function(save_playtime), main_menu()]
-  File "game/screens.rpy", line 325, in <module>
-    textbutton _("Main Menu") action [Function(save_playtime), main_menu()]
-TypeError: 'bool' object is not callable
+  File "game/customscreen.rpy", line 52, in execute
+    textbutton _("Wyjeb") action Inventory.remove_item("item")
+  File "game/customscreen.rpy", line 52, in keywords
+    textbutton _("Wyjeb") action Inventory.remove_item("item")
+  File "game/customscreen.rpy", line 52, in <module>
+    textbutton _("Wyjeb") action Inventory.remove_item("item")
+TypeError: remove_item() missing 1 required positional argument: 'item'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "renpy/common/00gamemenu.rpy", line 174, in script
-    $ ui.interact()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 827, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1178, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "renpy/common/00gamemenu.rpy", line 174, in <module>
-    $ ui.interact()
+  File "game/script.rpy", line 448, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 1321, in script
+    menu:
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1625, in execute
+    choice = renpy.exports.menu(choices, self.set, args, kwargs, item_arguments)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\menuexports.py", line 134, in menu
+    rv = renpy.store.menu(new_items)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\menuexports.py", line 424, in display_menu
+    rv = renpy.ui.interact(mouse='menu', type=type, roll_forward=roll_forward)
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 301, in interact
     rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2215, in interact
@@ -58,29 +54,23 @@ Full traceback:
     self.update()
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 697, in update
     self.screen.function(**self.scope)
-  File "game/screens.rpy", line 381, in execute
-    screen main_menu():
-  File "game/screens.rpy", line 381, in execute
-    screen main_menu():
-  File "game/screens.rpy", line 394, in execute
-    use navigation
-  File "game/screens.rpy", line 288, in execute
-    screen navigation():
-  File "game/screens.rpy", line 288, in execute
-    screen navigation():
-  File "game/screens.rpy", line 290, in execute
+  File "game/customscreen.rpy", line 39, in execute
+    screen item_details(item):
+  File "game/customscreen.rpy", line 39, in execute
+    screen item_details(item):
+  File "game/customscreen.rpy", line 41, in execute
+    frame:
+  File "game/customscreen.rpy", line 45, in execute
     vbox:
-  File "game/screens.rpy", line 319, in execute
-    if _in_replay:
-  File "game/screens.rpy", line 325, in execute
-    textbutton _("Main Menu") action [Function(save_playtime), main_menu()]
-  File "game/screens.rpy", line 325, in keywords
-    textbutton _("Main Menu") action [Function(save_playtime), main_menu()]
-  File "game/screens.rpy", line 325, in <module>
-    textbutton _("Main Menu") action [Function(save_playtime), main_menu()]
-TypeError: 'bool' object is not callable
+  File "game/customscreen.rpy", line 52, in execute
+    textbutton _("Wyjeb") action Inventory.remove_item("item")
+  File "game/customscreen.rpy", line 52, in keywords
+    textbutton _("Wyjeb") action Inventory.remove_item("item")
+  File "game/customscreen.rpy", line 52, in <module>
+    textbutton _("Wyjeb") action Inventory.remove_item("item")
+TypeError: remove_item() missing 1 required positional argument: 'item'
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.4.24120703
 CyberDzban 0.00000004
-Mon Feb 10 12:26:18 2025
+Mon Feb 10 16:40:42 2025

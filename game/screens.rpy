@@ -357,7 +357,7 @@ screen stats():
             text _("Czas grania: [persistent.czasGry] minut") size 30
             text _("Wypite monstery: [persistent.monsters]") size 30
             text _("Zdrapane zdrapki: [persistent.skracz]") size 30
-            test _("Godziny przepracowane: [persistent.work]")
+            text _("Godziny przepracowane: [persistent.work]") size 30
 
             textbutton _("Back") action Return()
 

@@ -46,9 +46,10 @@ init python:
                 return False
 
     class InventoryItem():
-        def __init__(self, name, desc):
+        def __init__(self, name, desc, image):
             self.name = name
             self.desc = desc
+            self.image = image
 
 
 label yeet:
@@ -431,6 +432,7 @@ label intro:
     jump rozstaje
 
 label gameover:
+    scene gameover
     $ session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
     $ persistent.czasGry += session_time
     achieve GitGud
@@ -1559,6 +1561,7 @@ label frogszop:
     $ czas -= 1
     if stan["Kasia"] == 1:
         jump frogsimp
+
     scene frogszop
     fse "Dzień dobry"
     $ helper = 1
