@@ -1563,7 +1563,11 @@ label frogszop:
         jump frogsimp
 
     scene frogszop
-    fse "Dzień dobry"
+    if Frakcja == 6 or stan["Kasia"] > 0:
+        fse "Cześć [old_pn]"
+    
+    else:
+        fse "Dzień dobry"
     $ helper = 1
     while helper == 1:
         menu:
@@ -1703,7 +1707,21 @@ label frogsimp:
             $ stan["Kasia"] = 2
 
         else:
-            fse "Dzień dobry"
+            p "Dzień dobry, masz może szlugiem poratować?"
+            fse "Dzień dobry, proszę, jeszcze mi zostało kilka"
+            p "Dziękuje, ciężki dzień? Pierwszy raz Cie widzę przed sklepem"
+            fse "Trochę luzu jest teraz ale za jakiś czas wchodzą ulepszenia do zdrapek"
+            p "Jakie ulepszenia?"
+            fse "Będą do wygrania jakieś fizyczne nagrody"
+            p "Jakie?"
+            fse "Miecz, tarcza, kupon na zakupy i jakieś jeszcze inne itemki"
+            p "Brzmi jak więcej robory"
+            fse "Dokładnie tym to jest"
+            p "Kurde balans, współczuje ale dobra, pora kończyć. Btw [player_name] jestem."
+            fse "Kasia"
+            $ baba_name = "Kasia"
+            $ stan["Kasia"] = 2
+
     show screen map_screen
     window hide
     pause 1

@@ -76,6 +76,7 @@ default akt = 0
 default HP = 0
 default Frakcja = 0
 default oldFrakcja = 0
+default tapeta = 0
 # 0 = Niezrzeszony
 # 1 = DH
 # 2 = DN

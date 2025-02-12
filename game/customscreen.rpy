@@ -52,6 +52,7 @@ screen item_details(item):
 
 
 screen phone():
+    add "tapety/bg1.png"
     add "cyberfon_clear.png"
     modal True
     
@@ -100,6 +101,7 @@ screen phone():
 
 screen znaj():
     modal True
+    add "tapety/bg1.png"
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
@@ -118,6 +120,7 @@ screen znaj():
 
 screen day():
     modal True
+    add "tapety/bg1.png"
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
@@ -216,6 +219,7 @@ screen day():
 
 screen bank():
     modal True
+    add "tapety/bg1.png"
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
@@ -231,6 +235,7 @@ screen bank():
 
 screen frak():
     modal True
+    add "tapety/bg1.png"
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
@@ -256,6 +261,7 @@ screen frak():
 
 screen postac():
     modal True
+    add "tapety/bg1.png"
     add "cyberfon_clear"
     vbox:
         pos 0.4, 0.10
@@ -285,6 +291,7 @@ screen postac():
 
 screen kody():
     modal True
+    add "tapety/bg1.png"
     add "cyberfon_clear.png"
 
     if kody < 5:
