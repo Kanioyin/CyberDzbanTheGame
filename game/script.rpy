@@ -7,6 +7,16 @@ init python:
     def save_playtime():
         session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
         persistent.czasGry += session_time
+
+    def drop_item(item):
+        if item in inventory.items:
+            inventory.remove_item(item)
+            if item == Klapek:
+                renpy.call("Mad_dog")
+            renpy.notify(f"Wyrzucono {item.name}")
+            renpy.call("eko")
+        else:
+            renpy.notify("Nie masz tego przedmiotu!")
     
     class Inventory():
         def __init__(self, items, quantity):
@@ -28,16 +38,6 @@ init python:
         def remove_item(self, item):
             self.items.remove(item)
             self.quantity -= 1
-            p(f"Straciłem {item.name}")
-
-        def list_items(self):
-            if self.quantity <= 0:
-                p("Nie mam nic przy sobie")
-
-            else:
-                p("Mam w plecaku:")
-                for item in self.items:
-                    p(f"{item.name}, {item.desc}")
 
         def has_item(self, item):
             if item in self.items:
@@ -51,70 +51,18 @@ init python:
             self.desc = desc
             self.image = image
 
+label eko:
+    achieve Eko
+    return
 
-label yeet:
-    scene black
-    $ odp = renpy.input("Co chcesz wyjebać?")
-    if (odp == "AR" or odp == "Ar" or odp == "ar") and inventory.has_item(AR) == True:
-        achieve Eko
-        $ inventory.remove_item(AR)
-        window hide
-
-    elif (odp == "Szczur" or odp == "Rat") and inventory.has_item(Rat) == True:
-        achieve Eko
-        $ postacie["Gun"] -= 1
-        $ inventory.remove_item(Rat) 
-
-    elif (odp == "Flaszka" or odp == "Flacha") and inventory.has_item(Flaszka) == True:
-        achieve Eko
-        $ postacie["Kalach"] -= 1
-        $ inventory.remove_item(Flaszka)
-
-    elif (odp == "Kokos" or odp == "Koks") and inventory.has_item(Kokos) == True:
-        achieve Eko
-        $ inventory.remove_item(Kokos)
-        $ postacie["Laskawca"] -= 1
-
-    elif (odp == "Pistolet" or odp == "Pistol" or odp == "Pistolecik") and inventory.has_item(Pistolecik) == True:
-        achieve Eko
-        $ inventory.remove_item(Pistolecik)
-
-    elif (odp == "Granat") and inventory.has_item(Granat) == True:
-        achieve Eko
-        $ inventory.remove_item(Granat)
-
-    elif (odp == "Wytrych") and inventory.has_item(Wytrych) == True:
-        achieve Eko
-        $ inventory.remove_item(Wytrych)
-
-    elif (odp == "Ser") and inventory.has_item(Ser) == True:
-        achieve Eko
-        $ inventory.remove_item(Ser)
-
-    elif (odp == "Klapek" or odp == "Laczek") and inventory.has_item(Klapek) == True:
-        achieve Eko
-        achieve DHW
-        $ inventory.remove_item(Klapek)
-        c "Co ty kurwa najlepszego zrobiłeś kretynie? Pozbyłeś się właśnie unikatowego klapka z merchu DH"
-        c "Po pierwsze, wypierdalasz z DH"
-        $ frakcja = 0
-        c "Po drugie, mam focha"
-        $ postacie['Cypher'] = -9999
-
-    elif (odp == "Kwiatki" or odp == "Kwiaty") and inventory.has_item(Kwiat) == True:
-        achieve Eko
-        $ inventory.remove_item(Kwiat)
-
-    else:
-        "Nie masz tego"
-        window hide
-        
-    if akt == 1:
-        jump sypialnia
-    
-    elif akt == 2:
-        jump oporslep
-
+label Mad_dog:
+    achieve DHW
+    $ inventory.remove_item(Klapek)
+    c "Co ty kurwa najlepszego zrobiłeś kretynie? Pozbyłeś się właśnie unikatowego klapka z merchu DH"
+    c "Po pierwsze, wypierdalasz z DH"
+    c "Po drugie, mam focha"
+    $ postacie['Cypher'] = -9999
+    return
 
 label updict(Who,dict):
         python:
@@ -1344,9 +1292,6 @@ label sypialnia:
                 "Śpisz słodko, jak aniołek"
 
             jump rozstaje
-
-        "Wyjebie gówno przez okno":
-            jump yeet
 
         "Czy ja przypadkiem nie dostałem?":
             if HP < MaxHP:

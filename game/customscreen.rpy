@@ -25,10 +25,16 @@ screen inventory():
         pos (0.1, 0.25)
         spacing 20
         for item in inventory.items:
-            imagebutton:
-                idle item.image
-                hover item.image
-                action Show("item_details", item=item)
+            frame:
+                padding (10, 10)
+                vbox:
+                    spacing 5
+                    xalign 0.5
+                    imagebutton:
+                        idle item.image
+                        hover item.image
+                        action Show("item_details", item=item)
+
     
     imagebutton auto "inventory_screen_return_%s":
         focus_mask True
@@ -48,7 +54,8 @@ screen item_details(item):
             image item.image
             text "[item.name]" size 40
             text "[item.desc]" size 30
-            textbutton _("Wyjdź") action Hide("item_details")
+            textbutton "Wyrzuć" action Function(drop_item, item)
+            textbutton _("Zamknij") action Hide("item_details")
 
 
 screen phone():

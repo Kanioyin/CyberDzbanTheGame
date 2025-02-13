@@ -439,9 +439,6 @@ label oporslep:
                 p "Zdawało mi się."
                 jump oporslep
 
-        "Wyjebie gówno przez okno":
-            jump yeet
-
         "Pora zająć się jajcami" if atrefakty["Jaja"] == "W sejfie":
             jump artcrack
 

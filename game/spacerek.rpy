@@ -28,6 +28,15 @@ label spacerek:
             p "Kurde balans, zawsze coś"
             $ helper = 0
 
+        elif Frakcja == 3:
+            "Wędrując, znalazłeś dziwny słoik, który postanowiłeś otworzyć"
+            $ vdolce += 2
+            p "Vajnie, vnalazłem 2 vdolce"
+
+        elif Frakcja == 4:
+            "Na mieście spotkałeś Kałacha. Dostałeś od niego flachę"
+            $ inventory.add_item(Flacha)
+
         else:
             "Ni chuja, same nudy"
 
@@ -110,13 +119,17 @@ label spacerek:
 
     elif cel > 46 and cel < 57:
         "Wszedłeś do bloku furrasów"
-        if dzien % 7 == 4:
-            "Futrzana domina Cię dopadła"
-            achieve Futa
-            $ HP = 1
-            $ czas = 0
-        else:
-            "Masz farta, był zamknięty"
+        if stan2["Halina"] == 0:
+            if dzien % 7 == 4:
+                "Futrzana domina Cię dopadła"
+                achieve Futa
+                $ HP = 1
+                $ czas = 0
+            else:
+                "Masz farta, był zamknięty"
+
+        elif stan2["Halina"] == 1:
+            "Halina dotrzymała obietnicy, blok jest spokojny"
 
     elif cel > 56 and cel < 66:
         "Chodząc widzisz fagasa którego możesz obrabować"
