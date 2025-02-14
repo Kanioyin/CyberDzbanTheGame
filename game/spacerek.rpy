@@ -37,6 +37,10 @@ label spacerek:
             "Na mieście spotkałeś Kałacha. Dostałeś od niego flachę"
             $ inventory.add_item(Flacha)
 
+        elif Frakcja == 6:
+            "Na mieście znalazłeś kupon na darmowego monsterka (żabsy)"
+            $ frogsy += 225
+
         else:
             "Ni chuja, same nudy"
 
@@ -200,7 +204,7 @@ label spacerek:
                 hide gun with dissolve
         
         else:
-            p "Dziwne, nic się nie stało"
+            p "Dziwne, nic się nie stało. Jakbym miał itemki to pewnie ktoś by mnie okradł."
             
     elif cel > 77 and cel < 81:
         p "Na chuja mego wuja, ktoś tu zostawił skrzynkę!"
@@ -263,32 +267,36 @@ label spacerek:
             p "Nic tu nie ma"
 
         elif akt == 2:
-            if bigquest == 0:
-                if chipy == 0:
-                    p "Pierdolnik drży, to miejsce cipa"
-                    $ chiplok = 1
+            if chipy == 0:
+                p "Pierdolnik drży, to miejsce cipa"
+                $ chiplok = 1
 
-                elif chipy == 1:
-                    p "Pierdolnik drży, to miejsce cipa"
-                    $ chiplok = 2
+            elif chipy == 1:
+                p "Pierdolnik drży, to miejsce cipa"
+                $ chiplok = 2
 
-                elif chipy == 2:
-                    p "Pierdolnik drży, to miejsce cipa"
-                    $ chiplok = 3
+            elif chipy == 2:
+                p "Pierdolnik drży, to miejsce cipa"
+                $ chiplok = 3
 
-                elif chipy == 3:
-                    p "Pierdolnik drży, to miejsce cipa"
-                    $ chiplok = 4
+            elif chipy == 3:
+                p "Pierdolnik drży, to miejsce cipa"
+                $ chiplok = 4
 
-                elif chipy == 4:
-                    p "Pierdolnik drży, to miejsce cipa"
-                    $ chiplok = 5   
+            elif chipy == 4:
+                p "Pierdolnik drży, to miejsce cipa"
+                $ chiplok = 5   
+
+            elif chipy == 5:
+                if inventory.has_item(HuMeat) == False and inventory.has_space(Cap) == True:
+                    p "Ty kurwa, tu jest ludzkie mięso, wezme sobie"
+                    $ inventory.add_item(HuMeat)
 
                 else:
-                    p "Znalazłem chyba wszystko" 
+                    p "Nic tu nie ma"
 
             else:
-                "Nic ciekawego tym razem"
+                p "Znalazłem chyba wszystko" 
 
     else:
         "Print dupa, nie powinno Cię tu być."

@@ -1,92 +1,48 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While loading <renpy.display.im.Image object ('gui/button/idle.png') at 0x000000000564ae80>:
-  File "game/script.rpy", line 454, in script call
+While running game code:
+  File "game/script.rpy", line 397, in script call
     call checktime from _call_checktime
-  File "game/script.rpy", line 454, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 454, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 1326, in script
-    p "Pusto tu"
-  File "renpy/common/00action_other.rpy", line 582, in __call__
-    rv = self.callable(*self.args, **self.kwargs)
-  File "game/script.rpy", line 13, in drop_item
-    inventory.remove_item(item)
-  File "game/script.rpy", line 36, in remove_item
-    p(f"Straciłem {item.name}")
-Exception: Cannot start an interaction in the middle of an interaction, without creating a new context.
+  File "game/script.rpy", line 440, in script call
+    pause 1
+  File "game/spacerek.rpy", line 306, in script call
+    pause 1
+  File "game/spacerek.rpy", line 306, in script call
+    pause 1
+  File "game/script.rpy", line 440, in script call
+    pause 1
+  File "game/script.rpy", line 1504, in script
+    if stan["Kasia"] == 1:
+  File "game/script.rpy", line 1504, in <module>
+    if stan["Kasia"] == 1:
+KeyError: 'Kasia'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 454, in script call
+  File "game/script.rpy", line 397, in script call
     call checktime from _call_checktime
-  File "game/script.rpy", line 454, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 454, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 1326, in script
-    p "Pusto tu"
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2579, in execute
-    Say.execute(self)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 621, in execute
-    renpy.exports.say(who, what, *args, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\sayexports.py", line 132, in say
-    who(what, *args, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1455, in __call__
-    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1106, in do_display
-    display_say(who,
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 803, in display_say
-    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2215, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 3286, in interact_core
-    rv = root_widget.event(ev, x, y, 0)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 791, in event
-    rv = self.child.event(ev, x, y, st)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1526, in event
-    rv = super(Window, self).event(ev, x, y, st)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 285, in event
-    rv = d.event(ev, x - xo, y - yo, st)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 1182, in event
-    return handle_click(self.clicked)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 1103, in handle_click
-    rv = run(action)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 401, in run
-    return action(*args, **kwargs)
-  File "renpy/common/00action_other.rpy", line 582, in __call__
-    rv = self.callable(*self.args, **self.kwargs)
-  File "game/script.rpy", line 13, in drop_item
-    inventory.remove_item(item)
-  File "game/script.rpy", line 36, in remove_item
-    p(f"Straciłem {item.name}")
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1455, in __call__
-    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1106, in do_display
-    display_say(who,
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 803, in display_say
-    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2184, in interact
-    raise Exception("Cannot start an interaction in the middle of an interaction, without creating a new context.")
-Exception: Cannot start an interaction in the middle of an interaction, without creating a new context.
+  File "game/script.rpy", line 440, in script call
+    pause 1
+  File "game/spacerek.rpy", line 306, in script call
+    pause 1
+  File "game/spacerek.rpy", line 306, in script call
+    pause 1
+  File "game/script.rpy", line 440, in script call
+    pause 1
+  File "game/script.rpy", line 1504, in script
+    if stan["Kasia"] == 1:
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1849, in execute
+    if renpy.python.py_eval(condition):
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1209, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1202, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 1504, in <module>
+    if stan["Kasia"] == 1:
+KeyError: 'Kasia'
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.4.24120703
 CyberDzban 0.00000004
-Wed Feb 12 15:18:41 2025
+Thu Feb 13 13:22:57 2025

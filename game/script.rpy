@@ -629,8 +629,7 @@ label warsztat:
                 menu:
                     "Co robisz?"
                     "(Kłamstwo) Żartowałem, dostaniemy 3k na głowę":
-                        h "No i to jest zysk"
-                        h "Wchodzę w to jak w albatrosa"
+                        h "No i to jest zysk. Wchodzę w to jak w albatrosa"
                         p "No to witamy na pokładzie"
                         $ helper2 = 1
                         $ stan["Hartmann"] = 5
@@ -1045,17 +1044,16 @@ label bruhzylia:
             jump rozstaje
 
         if stan["Krateus"] == 1:
-            if dzien < 14:
+            if dzien < 10:
                 "No chłop poluje"
                 "Daj mu trochę czasu"
 
-            elif dzien > 14:
+            elif dzien > 9:
                 kr "Kałabanga! Wróciłem z polowania"
                 p "Ta, to zajebiście"
                 kr "Co nie? Chcesz iść następnym razem ze mną?"
                 p "Mogę ale jeśli mi potem pomożesz"
-                kr "Pojebało cię chyba! Ja ci oferuję rozrywkę"
-                kr "A ty chcesz żebym Ci coś jeszcze zrobił"
+                kr "Pojebało cię chyba! Ja ci oferuję rozrywkę a ty chcesz żebym Ci coś jeszcze zrobił"
                 kr "Wkurwiasz mnie! Zaraz Ci pokaże Brazylijskie sztuki walki!"
                 p "CZEKAJ KURWA"
                 kr "TO MNIE ZATRZYMAJ"
@@ -1141,7 +1139,7 @@ label bruhzylia:
             jump rozstaje
 
         elif stan["Krateus"] == 3:
-            if dzien > 19:
+            if dzien > 15:
                 kr "Dobra, chyba tyle czasu wystarczy"
                 p "No, trochę ich tam trzymaliśmy, myślisz że jeszcze żyją?"
                 kr "Jeśli silni zjedli słabych, to raczej tak. Jeśli mają moralność to będzie doomstack trupów"
@@ -1195,8 +1193,7 @@ label bruhzylia:
                 show laskawca at left
                 pl "Siemaneczko"
                 p "Ale bojowa ekipa się zebrała"
-                kr "Plan mamy prosty, obecny tu Łaskawca robi Call of Bitches"
-                kr "Następnie usypia to co dopadnie, a my skalpujemy"
+                kr "Plan mamy prosty, obecny tu Łaskawca robi Call of Bitches, następnie usypia to co dopadnie, a my skalpujemy"
                 pl "Nom, plan w teorii prosty"
                 p "To zabieramy się za robotę?"
                 kr "Poczekaj chwilę"
@@ -1310,7 +1307,7 @@ label sypialnia:
 label akt1:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
     scene akt1
-    $ stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
+    $ stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0, "Kasia":0}
     $ akt = 1
     $ wojownik = False
     "A więc zostałeś w tej bazie pełnej degeneratów. Wybrałeś życie śmiecia za marne pieniądze"
@@ -1508,11 +1505,15 @@ label frogszop:
         jump frogsimp
 
     scene frogszop
+    if stan["Kasia"] == 2 and dzien % 2 == 0:
+        jump frogsimp
+
     if Frakcja == 6 or stan["Kasia"] > 0:
         fse "Cześć [old_pn]"
     
     else:
         fse "Dzień dobry"
+
     $ helper = 1
     while helper == 1:
         menu:
@@ -1629,8 +1630,9 @@ label frogszop:
 
 label frogsimp:
     $ czas -= 1
-    scene frogsimp
+    show kasias at right
     if stan["Kasia"] == 1:
+        scene frogsimp
         if Frakcja == 6:
             p "O cześć Kasia, przerwa?"
             fse "Tak, szef wpadł na nowy pomysł i sie szykuję na jajca"
@@ -1666,6 +1668,41 @@ label frogsimp:
             fse "Kasia"
             $ baba_name = "Kasia"
             $ stan["Kasia"] = 2
+
+    elif stan["Kasia"] == 2:
+        scene frogszop
+        p "Cześć Kasia, pytanko mam"
+        fse "Co tam [old_pn]?"
+        p "Masz jakieś plany po robocie?"
+        fse "Niestety, sama praca tutaj mi nie pozwala na opłacanie wszystkiego i robię jeszcze dorywczo"
+        p "Kurwa, na śmierć się tak zarobisz"
+        fse "To nie jest nic ciężkiego, zajmuję się dziećmi korposów. Ci zawsze w pracy, nie oszczędzają na opiekunkach"
+        p "Masz aż tak dobrą renomę, że tyle Ci płacą?"
+        fse "Czasmi trafi się klient, co płaci mi więcej niż dniówka tutaj"
+        if Frakcja == 6:
+            p "No nam płaci gówno"
+        
+        else:
+            p "Aż tak słabo płaci wielki Frog"
+        
+        fse "Może jakby dał jakąś podwyżkę to byłoby lepiej ale nie ma na co liczyć"
+        p "OOF. Hebrajski szef, podobno w bazie mioch znajomych był taki kiedyś"
+        fse "Gdzie pracują Ci twoi znajomi?"
+        p "Krawędziują"
+        fse "Zadajesz się z bardzo niebezpiecznym towarzystwem, pracujesz z nimi?"
+        if akt == 1:
+            p "Tak"
+
+        else:
+            p "Wcześniej z nimi pracowałem"
+
+        fse "Nie wyglądasz na takiego typowego krawędziowca"
+        p "Jestem zbudowany inaczej"
+        fse "Widać"
+        p "Co?"
+        fse "Klient przyszedł, muszę spadać"
+        p "Papatki"
+        $ stan["Kasia"] = 3
 
     show screen map_screen
     window hide
@@ -1903,8 +1940,7 @@ label wojowezadanie:
 
                     "Okno" if stan["Krateus"] > 5:
                         p "Krateus, wskakuj oknem i nam pomożesz"
-                        kr "Tajest kierowniku! Chopaky, to jest schowek na miotły"
-                        kr "Wskakujcie, macie tu linę"
+                        kr "Tajest kierowniku! Chopaky, to jest schowek na miotły! Wskakujcie, macie tu linę"
                         $ helper -= 15
                         hide krateus
                         "A po nim wskoczyła cała reszta"
@@ -2036,8 +2072,7 @@ label wojowezadanie:
                         $ helper -= 25
                         hide laskawca
 
-                "Laboratorium jest wasze"
-                "Badając dokumenty odkryłeś vistowy plan"
+                "Laboratorium jest wasze. Badając dokumenty odkryłeś vistowy plan"
                 p "Oni są tak głupi że ja pierdolę. Próbowali wrzucić Guna do wulkanu"
                 p "I tak chcieli przywołać boga gniewu. No debile"
                 "Po przeszukiwaniu postanowiliście wysadzić laba"
@@ -2070,7 +2105,7 @@ label wojowezadanie:
                         call checkHP(20) from _call_checkHP_15
                         v "To jeszcze nie jest koniec"
                         p "Panowie wychodzimy"
-                        " I w taki sposób wyszliście z vazy"
+                        "I w taki sposób wyszliście z vazy"
                         $ helper -= 10
                         jump akt1pods
                     

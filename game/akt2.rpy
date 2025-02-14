@@ -507,8 +507,7 @@ label anomalia:
         p "I za tym tak tęsknisz?"
         ja "No też nie do końca, brakuje mi ludzi"
         p "Tęsknisz za tymi pojebami?"
-        ja "Trochę, jednak da się z nimi dogadać"
-        ja "Dzięki nim też zacząłem cokolwiek znaczyć w mieście"
+        ja "Trochę, jednak da się z nimi dogadać. Dzięki nim też zacząłem cokolwiek znaczyć w mieście"
         p "No dobra, trochę rozumiem"
         ja "Ale dobra, kończmy te pogadanki, jest i nasz gość"
         scene dziura
@@ -520,8 +519,7 @@ label anomalia:
         ja "Nom, to ja"
         bo "A co to za wywłoka obok Ciebie?"
         p "Jestem [player_name]"
-        bo "Nawet mówić potrafi! Jaki zdolniacha"
-        bo "Bezi w końcu daje Ci jakiś odpowiednich ludzi?"
+        bo "Nawet mówić potrafi! Jaki zdolniacha! Bezi w końcu daje Ci jakiś odpowiednich ludzi?"
         p "Kim jest bezi?"
         ja "Bezi nie żyje"
         bo "Bruh"
@@ -541,7 +539,7 @@ label anomalia:
         bo "A to jeszcze nie wszystko! Wyobraź sobie, że szczury Guna były z biotechu"
         bo "I część z nich wpadła do tego ścieku. Potem się wymieszała i się stały większe jaja"
         p "Co kurwa"
-        ja "Wyobraź sobie, że tu była sobie wcześniej arasaka"
+        ja "Wyobraź sobie, że tu była sobie wcześniej Arasaka"
         ja "Rozstawili tu jakieś swoje prototypowe nagrywaczki braindanców"
         ja "I ponagrywali co tylko się dało"
         bo "I tu wchodzi kolejny poziom spierdolenia! Bo sok z Cyphera rozjebał im kable"
@@ -553,8 +551,7 @@ label anomalia:
         p "A czemu ja?"
         bo "Bo jesteś kurwa protagonistą"
         p "No dobra, to ma sens"
-        bo "To będziesz tam łaził i zbierał dane"
-        bo "Tylko musisz uważać na halucynacje"
+        bo "To będziesz tam łaził i zbierał dane. Tylko musisz uważać na halucynacje"
         p "No dobra, to chyba jestem gotowy"
         p "Nie wiem tylko czy ta cała bomba lorowa była potrzebna"
         mg "Spierdalaj" 
@@ -572,8 +569,7 @@ label anomalia:
         ja "To słuchaj"
         ja "Masz tu kurwa natychmiast wracać, albo urwę Ci jaja wraz z kutasem"
         p "Czemu? Ja tu robię speedrun"
-        ja "Za 5 minut zacznie się dekontaminacja"
-        ja "To Cie wymorbuje z całej gry"
+        ja "Za 5 minut zacznie się dekontaminacja! To Cie wymorbuje z całej gry"
         p "Dobra, teraz się wystraszyłem"
         "I grzecznie wróciłeś do reszty"
         scene dziura
@@ -652,7 +648,7 @@ label anomalia:
         "I Bo wepchnął Cię do dziury"
         play sound "fall.mp3"
         p "KURWAAAAAA"
-        scene black
+        scene podziemia
         p "Ja pierdolę, jak tu jest ciemno"
         p "No to chuj, idziemy po ciemku"
         "Wędrujesz po tym ciemnym miejscu w poszukiwaniu sygnału i po godzince słyszysz pikanie"
@@ -711,7 +707,7 @@ label anomalia:
         bo "Ale o tym sobie raczej później pogadamy, teraz pora na nurka"
         p "Za demokrację!"
         "I dzielnie wskoczyłeś do dziury"
-        scene black
+        scene podziemia
         p "Kurwa, zapomniałem jak tu jest ciemno"
         "Przez kilka godzin wędrowałeś po podziemiach, aż nagle trafiłeś na skrzynkę"
         p "O jasny chuj, co w tym miejscu robi czest?"
@@ -1008,6 +1004,15 @@ label chipnik:
             p "Dobra dobra"
             menu:
                 p "Czy mam jakiś pomysł jak go zdobyć"
+                "Bomba dymna" if inventory.has_item(Smoke):
+                    $ inventory.remove_item(Smoke)
+                    p "ZADYMA"
+                    "Zadymiłeś cały sklep, masz chwilę na szukanie"
+                    $ czas -= 5
+                    p "Dobra jest! Teraz trzeba spierdalać"
+                    $ chipy = 3
+                    jump opor
+
                 "Spróbuje ją zagadać":
                     call testSkili("Gadanie", "CHAR", 10) from _call_testSkili_4
                     p "Droga babko w żabko, proszę wysłuchaj mnie"
@@ -1025,7 +1030,7 @@ label chipnik:
                         p "Ała, jak to mocno uderzyło"
                         sb "Dobra, teraz możesz znowu robić zakupy"
 
-                "Przepraszam, przejęzyczyłem się, 200 załatwi sprawę?" if edki > 199:
+                "Przepraszam, przejęzyczyłem się, 200 edwardów załatwi sprawę?" if edki > 199:
                     $ edki -= 200
                     fse "No dobra, niech będzie"
                     fse "Ale proszę się pośpieszyć, bo zaraz tu będzie ochrona"

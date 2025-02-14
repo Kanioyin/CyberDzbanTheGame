@@ -5,3 +5,6 @@
 *.save
 /game/saves
 /game/saves
+traceback.txt
+log.txt
+*.save
