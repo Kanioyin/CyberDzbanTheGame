@@ -344,8 +344,8 @@ screen stats():
         style_prefix "stats"
         xalign 0.5
         yalign 0.5
-        xsize 600
-        ysize 400
+        xsize 800
+        ysize 600
 
         vbox:
             spacing 10

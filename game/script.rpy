@@ -14,7 +14,7 @@ init python:
             if item == Klapek:
                 renpy.call("Mad_dog")
             renpy.notify(f"Wyrzucono {item.name}")
-            renpy.call("eko")
+            bobcachievement_grant(Eko)
         else:
             renpy.notify("Nie masz tego przedmiotu!")
     
@@ -51,9 +51,6 @@ init python:
             self.desc = desc
             self.image = image
 
-label eko:
-    achieve Eko
-    return
 
 label Mad_dog:
     achieve DHW
@@ -86,7 +83,7 @@ label checktime:
         return
 
 
-# input call testSkili("Cecha", PT), nie fogoruj ""
+# input call testSkili("Skil","Cecha", PT), nie fogoruj ""
 label testSkili(skil,cecha, PT):
     if skil == "Bron":
         if inventory.has_item(AR):
@@ -101,7 +98,7 @@ label testSkili(skil,cecha, PT):
         else:
             pass
 
-    $ exp += 1
+    $ exp += 2
     $ wynik = 0
     $ d10 = renpy.random.randint(1,10)
     if d10 == 1:
@@ -117,7 +114,6 @@ label testSkili(skil,cecha, PT):
     else:
         $ wynik = 0
         return
-
 
 
 label checkHP(dmg):
@@ -437,12 +433,7 @@ label rozstaje:
         "Wychodzę stąd" if akt > 0:
             show screen map_screen
             window hide
-            pause 1
-            pause 1
-            pause 1
-            pause 1
-            pause 1
-            pause 1
+            with Pause(10)
             jump rozstaje
 
 
@@ -581,7 +572,9 @@ label warsztat:
                         jump rozstaje
 
                     "Opowiem Ci kawał, Vista gówno spawał":
+                        show ciphate with dissolve
                         h "KURWA WIEDZIAŁEM"
+                        hide ciphate with dissolve
                         h "MUSZĘ GO ZDOBYĆ"
                         h "WYRUSZAM BEZZWŁOCZNIE"
                         jump rozstaje
@@ -812,7 +805,9 @@ label klinika:
                 "I pojawił się sprzedawca sieciowy"
                 pl "Szanowny panie, 5 koła za to!? Literalnie cie popierdoliło"
                 if edki > 4999:
+                    show ciphate with dissolve
                     p "Spokojnie Łaskawca, mnie na to stać"
+                    hide ciphate with dissolve
                     $ edki -= 5000
                     pl "Jesteś pojebany! Gigantyczne czołgi człowieku"
                     pl "Masz mój miecz, pistolet i co tylko zapragniesz"
@@ -1488,12 +1483,7 @@ label trader:
     stop music
     show screen map_screen
     window hide
-    pause 1
-    pause 1
-    pause 1
-    pause 1
-    pause 1
-    pause 1
+    with Pause(10)
     jump trader
 
 
@@ -1620,12 +1610,7 @@ label frogszop:
 
     show screen map_screen
     window hide
-    pause 1
-    pause 1
-    pause 1
-    pause 1
-    pause 1
-    pause 1
+    with Pause(10)
     jump frogszop
 
 label frogsimp:
@@ -1706,12 +1691,7 @@ label frogsimp:
 
     show screen map_screen
     window hide
-    pause 1
-    pause 1
-    pause 1
-    pause 1
-    pause 1
-    pause 1
+    with Pause(10)
     jump frogszop
 
 label vradeZewn:
@@ -1758,12 +1738,7 @@ label vradeZewn:
 
     show screen map_screen
     window hide
-    pause 1
-    pause 1
-    pause 1
-    pause 1
-    pause 1
-    pause 1
+    with Pause(10)
     jump vradeZewn
 
 label workowiec:
@@ -1785,12 +1760,7 @@ label workowiec:
         "Lepiej nie":
             show screen map_screen
             window hide
-            pause 1
-            pause 1
-            pause 1
-            pause 1
-            pause 1
-            pause 1
+            with Pause(10)
             jump workowiec
 
 label wojsko:
@@ -1806,17 +1776,13 @@ label wojsko:
         elif Frakcja == 1:
             gk "Jasna cholera, jesteś od Cyphera"
 
-        gk "To co masz ogarnąć to destrukcja Vist"
-        gk "Jakaś kurwa z Arasaki chce przejąć nad nimi kontrolę"
+        gk "To co masz ogarnąć to destrukcja Vist. Jakaś kurwa z Arasaki chce przejąć nad nimi kontrolę"
         p "Ależ to skurwysyn musi być"
-        gk "To prawda, każdy pracownik korpo to skurwysyn"
-        gk "Ale ten skurwysyn, to taki super skurwysyn"
-        gk "Będziesz musiał zebrać drużynę"
-        gk "I razem wyruszycie pozbyć się kutasa"
+        gk "To prawda, każdy pracownik korpo to skurwysyn ale ten skurwysyn, to taki super skurwysyn"
+        gk "Będziesz musiał zebrać drużynę i razem wyruszycie pozbyć się kutasa"
         p "Ja pierdolę! Ty na prawdę wymagasz ode mnie, żebym się dogadał z tymi debilami"
         p "Przecież to jest kurwa niewykonalne"
-        gk "Dlatego to zadanie będzie dla ciebie wyzwaniem"
-        gk "Jeśli je wykonasz, to dostaniesz potężną wypłatę"
+        gk "Dlatego to zadanie będzie dla ciebie wyzwaniem. Jeśli je wykonasz, to dostaniesz potężną wypłatę"
         p "Już trzeci raz słyszę o ogromnej wypłacie! Opowiedz mi dokładnie, co JA KURWA DOSTANĘ"
         gk "Wypłatę"
         show cypher with moveinleft
@@ -1918,6 +1884,7 @@ label wojowezadanie:
     $ helper == 100
     $ config.rollback_enabled = False
     if Frakcja == 0:
+        $ oldFrakcja = 0
         scene vniazdo
         "Poprowadziłeś punków prosto w vniazdo"
         p "Panowie, Kennedy wybrał mnie jako szefa tej operacji, więc proszę słuchajcie się mnie"
@@ -2446,8 +2413,7 @@ label wojowezadanie:
 
                     "Volololo" if stan["Kalach"] > 5:
                         k "Niech będą pochwalone uda. I jak powiedział kiedyś prorok:"
-                        k "„Błogosławione uda, które nie postępują w radzie bezbożnych, ani nie stoją na drodze bonera,"
-                        k "ani nie siedzą na tronie simpów. Ale jego upodobanie jest w prawie THICC Ud!"
+                        k "„Błogosławione uda, które nie postępują w radzie bezbożnych, ani nie stoją na drodze bonera, ani nie siedzą na tronie simpów. Ale jego upodobanie jest w prawie THICC Ud!"
                         v "Vo vy vierdolisz?"
                         k "Twoją matkę"
                         v "Vooooo! Vylko vie voją vamusie! Varża"
@@ -2467,6 +2433,7 @@ label wojowezadanie:
 
 
     elif Frakcja == 1:
+        $ oldFrakcja = 1
         show cypher
         c "Hihi ha ha"
         c "Pozwól młody że ja zajmę się dowodzeniem"
@@ -2480,7 +2447,7 @@ label wojowezadanie:
         stop sound
         scene frogszop
         stop music
-        play music "chill.mp3"
+        play music "szop.mp3"
         show cypher at right
         c "Dzień dobry szanowny pracowniku tego sklepi"
         fse "Dzień dobry? Pomóc w czymś?"
@@ -2685,6 +2652,7 @@ label wojowezadanie:
         jump akt1pods
 
     elif Frakcja == 3:
+        $ oldFrakcja = 3
         p "Dobra kurwa, jestem Vista"
         p "Nie mogę pozwolić aby nasze tajne projekty zostały zniszczone ale z drugiej strony"
         p "Nikt mi za obronę nie płaci. Co powinienem zrobić?"
@@ -2744,6 +2712,7 @@ label wojowezadanie:
 
 
     elif Frakcja == 4:
+        $ oldFrakcja = 4
         scene vniazdo
         show kalach
         k "Dobra, ja szefuje"

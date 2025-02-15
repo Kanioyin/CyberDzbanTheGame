@@ -145,7 +145,9 @@ label kuchnia:
 
                     "Przyjmuję konsekwencje":
                         p "Przyszliśmy pooglądać kuchnie"
+                        show ciphate with dissolve
                         g "Po chuj"
+                        hide ciphate with dissolve
                         c "A bo ja chcę zrobić mały Re."
                         g "NIE MÓW TEGO SŁOWA"
                         c "A, faktycznie"

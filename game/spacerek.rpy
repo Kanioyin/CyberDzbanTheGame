@@ -1,7 +1,7 @@
 label spacerek:
-    scene black
+    scene spacer
     $ czas -= 5
-    $ cel = renpy.random.randint(1, 99)
+    $ cel = renpy.random.randint(1, 100)
     if cel > 0 and cel < 11:
         if akt == 1:
             "Znalazłeś jakieś drobniaki"
@@ -38,7 +38,7 @@ label spacerek:
             $ inventory.add_item(Flacha)
 
         elif Frakcja == 6:
-            "Na mieście znalazłeś kupon na darmowego monsterka (żabsy)"
+            "Na mieście znalazłeś kupon na darmowego monsterka (frogsy)"
             $ frogsy += 225
 
         else:
@@ -297,6 +297,9 @@ label spacerek:
 
             else:
                 p "Znalazłem chyba wszystko" 
+
+    elif cel > 99:
+        p "Nic tu nie ma"
 
     else:
         "Print dupa, nie powinno Cię tu być."

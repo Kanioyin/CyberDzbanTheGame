@@ -343,8 +343,10 @@ label dach:
 
                     "Nie":
                         c "To spierdalaj"
+                        show ciphate with dissolve
                         achieve Foch
                         "I bez słowa zaczął uciekać"
+                        hide ciphate with dissolve
                         $ postacie["Cypher"] -= 9999
                         $ stan["Cypher"] = 9
                         $ renpy.block_rollback()

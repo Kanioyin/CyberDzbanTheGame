@@ -25,6 +25,7 @@ define au = Character(_("Automatoniks"), color = "#383303")
 define bo = Character(_("Borubabor"), color = "#abba69")
 define ha = Character(_("Halina"), color = "#423123")
 define bb = Character(_("Blink Blink"), color = "#3ef374")
+define wr = Character(_("Wróżbitka"), color = "#f04eda")
 
 # słowniki
 default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
