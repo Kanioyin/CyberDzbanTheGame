@@ -14,7 +14,7 @@ init python:
             if item == Klapek:
                 renpy.call("Mad_dog")
             renpy.notify(f"Wyrzucono {item.name}")
-            bobcachievement_grant(Eko)
+            renpy.call("Eko")
         else:
             renpy.notify("Nie masz tego przedmiotu!")
     
@@ -50,6 +50,10 @@ init python:
             self.name = name
             self.desc = desc
             self.image = image
+
+label Eko:
+    achieve Eko
+    return
 
 
 label Mad_dog:
@@ -433,7 +437,12 @@ label rozstaje:
         "Wychodzę stąd" if akt > 0:
             show screen map_screen
             window hide
-            with Pause(10)
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
             jump rozstaje
 
 
@@ -1483,7 +1492,12 @@ label trader:
     stop music
     show screen map_screen
     window hide
-    with Pause(10)
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
     jump trader
 
 
@@ -1543,7 +1557,7 @@ label frogszop:
                 p "Czuję, że mogę dziś zrobić więcej"
                 $ zawal += 1
                 $ persistent.monsters += 1
-                if zawal >= renpy.radom.randint(0,99):
+                if zawal >= renpy.random.randint(0,99):
                     p "A niech to, chyba mam zawał"
                     $ HP = 0
                     $ zawal = 0
@@ -1610,14 +1624,19 @@ label frogszop:
 
     show screen map_screen
     window hide
-    with Pause(10)
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
     jump frogszop
 
 label frogsimp:
     $ czas -= 1
-    show kasias at right
     if stan["Kasia"] == 1:
         scene frogsimp
+        show kasia_dym at right
         if Frakcja == 6:
             p "O cześć Kasia, przerwa?"
             fse "Tak, szef wpadł na nowy pomysł i sie szykuję na jajca"
@@ -1691,7 +1710,12 @@ label frogsimp:
 
     show screen map_screen
     window hide
-    with Pause(10)
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
     jump frogszop
 
 label vradeZewn:
@@ -1738,7 +1762,12 @@ label vradeZewn:
 
     show screen map_screen
     window hide
-    with Pause(10)
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
     jump vradeZewn
 
 label workowiec:
@@ -1760,7 +1789,12 @@ label workowiec:
         "Lepiej nie":
             show screen map_screen
             window hide
-            with Pause(10)
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
+            pause 1
             jump workowiec
 
 label wojsko:

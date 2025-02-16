@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/customscreen.rpy", line 57: 'Eko' is not a keyword argument or valid child of the textbutton statement.
-    textbutton "Wyrzuć" action Function(drop_item, item), achieve Eko
-                                                                     ^
+File "game/customscreen.rpy", line 448: imagebutton expects a non-empty block.
+    imagebutton auto "cyberfon_kody_%s":
+                                        ^
 
 Ren'Py Version: Ren'Py 8.3.4.24120703
-Wed Feb 12 15:23:05 2025
+Sat Feb 15 13:57:59 2025

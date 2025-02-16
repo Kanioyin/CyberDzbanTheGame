@@ -54,53 +54,46 @@ screen item_details(item):
             image item.image
             text "[item.name]" size 40
             text "[item.desc]" size 30
-            textbutton "Wyrzuć" action Function(drop_item, item)
+            textbutton "Wyrzuć" action Function(drop_item, item), Hide("item_details")
             textbutton _("Zamknij") action Hide("item_details")
 
 
 screen phone():
     add "tapety/bg1.png"
-    add "fon/cyberfon_clear.png"
+    add "cyberfon_clear.png"
     modal True
     
-    imagebutton auto "fon/cyberfon_znaj_%s":
+    imagebutton auto "cyberfon_znaj_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("phone"), Show("znaj")
     
-    imagebutton auto "fon/cyberfon_frak_%s":
+    imagebutton auto "cyberfon_frak_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("phone"), Show("frak")
 
-    imagebutton auto "fon/cyberfon_hajs_%s":
+    imagebutton auto "cyberfon_hajs_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("phone"), Show("bank")
 
-    imagebutton auto "fon/cyberfon_day_%s":
+    imagebutton auto "cyberfon_day_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("phone"), Show("day")
     
-    imagebutton auto "fon/cyberfon_postac_%s":
+    imagebutton auto "cyberfon_postac_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("phone"), Show("postac")
 
-    if kody < 6:
-        imagebutton auto "fon/cyberfon_kody_%s":
-            focus_mask True
-            hovered SetVariable("screen_tooltip", "Return")
-            unhovered SetVariable("screen_tooltip","")
-            action Hide("phone"), Show("kody")
-
-    imagebutton auto "fon/cyberfon_won_%s":
+    imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
@@ -109,7 +102,7 @@ screen phone():
 screen znaj():
     modal True
     add "tapety/bg1.png"
-    add "fon/cyberfon_clear.png"
+    add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
         if akt == 1:
@@ -119,7 +112,7 @@ screen znaj():
         if znajOkol > 1:
             text "{color=000} Żabiara: [frogrel] \n"
 
-    imagebutton auto "fon/cyberfon_won_%s":
+    imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
@@ -128,7 +121,7 @@ screen znaj():
 screen day():
     modal True
     add "tapety/bg1.png"
-    add "fon/cyberfon_clear.png"
+    add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
         text "{color=000} Dzień: [dzien] \n"
@@ -218,7 +211,7 @@ screen day():
                 text "{color=000} Pracuj dla Pierdexu"
 
 
-    imagebutton auto "fon/cyberfon_won_%s":
+    imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
@@ -227,14 +220,14 @@ screen day():
 screen bank():
     modal True
     add "tapety/bg1.png"
-    add "fon/cyberfon_clear.png"
+    add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
         text "{color=000} Masz na koncie [edki] edków"
         text "{color=000} Masz na koncie [vdolce] Vdolców"
         text "{color=000} Masz na koncie [frogsy] frogsów"
 
-    imagebutton auto "fon/cyberfon_won_%s":
+    imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
@@ -243,7 +236,7 @@ screen bank():
 screen frak():
     modal True
     add "tapety/bg1.png"
-    add "fon/cyberfon_clear.png"
+    add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
         text "{color=000} Należysz do:"
@@ -260,7 +253,7 @@ screen frak():
         elif Frakcja == 6:
             text "{color=000} Żabki"
 
-    imagebutton auto "fon/cyberfon_won_%s":
+    imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
@@ -269,7 +262,7 @@ screen frak():
 screen postac():
     modal True
     add "tapety/bg1.png"
-    add "fon/cyberfon_clear"
+    add "cyberfon_clear"
     vbox:
         pos 0.4, 0.10
         text "{color=000}HP: [HP]/[MaxHP]"
@@ -290,7 +283,7 @@ screen postac():
             text "{color=000} Spierdalanie: [skile['Atletyka']]"
             text "{color=000} Myślenie: [skile['Myslenie']]"
 
-    imagebutton auto "fon/cyberfon_won_%s":
+    imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
@@ -299,31 +292,31 @@ screen postac():
 screen kody():
     modal True
     add "tapety/bg1.png"
-    add "fon/cyberfon_clear.png"
+    add "cyberfon_clear.png"
 
     if kody < 5:
         if nua > 4:
-            imagebutton auto "fon/cyberfon_kody_hajs_%s":
+            imagebutton auto "cyberfon_kody_hajs_%s":
                 focus_mask True
                 hovered SetVariable("screen_tooltip", "Return")
                 unhovered SetVariable("screen_tooltip","")
                 action IncrementVariable("edki",500), IncrementVariable("kody",1)
 
         if nua > 9:
-            imagebutton auto "fon/cyberfon_kody_spac_%s":
+            imagebutton auto "cyberfon_kody_spac_%s":
                 focus_mask True
                 hovered SetVariable("screen_tooltip", "Return")
                 unhovered SetVariable("screen_tooltip","")
                 action IncrementVariable("cap",1), IncrementVariable("kody",1)
 
         if nua > 19 and akt > 1:
-            imagebutton auto "fon/cyberfon_kody_exp_%s":
+            imagebutton auto "cyberfon_kody_exp_%s":
                 focus_mask True
                 hovered SetVariable("screen_tooltip", "Return")
                 unhovered SetVariable("screen_tooltip","")
                 action IncrementVariable("exp",10), IncrementVariable("kody",1)
 
-    imagebutton auto "fon/cyberfon_won_%s":
+    imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
@@ -333,29 +326,88 @@ screen map_screen():
     add "mapa.png"
     modal True
 
-    python:
-        locations = [
-            ("city_dom_%s", "rozstaje", akt == 1),
-            ("city_tup_%s", "spacerek", czas > 4),
-            ("city_sklep_%s", "trader", znajOkol > 0),
-            ("city_zab_%s", "frogszop", znajOkol > 1),
-            ("city_wor_%s", "workowiec", znajOkol > 2),
-            ("city_jajo_%s", "jajquest", jajca == 1),
-            ("city_vlok_%s", "vradeZewn", Frakcja == 3),
-            ("city_army_%s", "wojsko", bigquest > 3 and akt == 1),
-            ("city_hid_%s", "opor", akt == 2),
-            ("city_pierd_%s", "pierdex", akt == 2 and bigquest == 2),
-            ("city_chip_%s", "chipnik", chipy == chiplok - 1),
-            ("city_dom_%s", "anomalia", akt == 2 and bigquest > 0)
-        ]
+    if akt == 1:
+        imagebutton auto "city_dom_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("rozstaje")
+    if czas > 4:
+        imagebutton auto "city_tup_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Call("spacerek")
 
-    for image, destination, condition in locations:
-        if condition:
-            imagebutton auto image:
-                focus_mask True
-                hovered SetVariable("screen_tooltip", "Return")
-                unhovered SetVariable("screen_tooltip", "")
-                action Hide("map_screen"), Jump(destination)
+    if znajOkol > 0:
+        imagebutton auto "city_sklep_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Call("trader")
+
+    if znajOkol > 1:
+        imagebutton auto "city_zab_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Call("frogszop")
+
+    if znajOkol > 2:
+        imagebutton auto "city_wor_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Call("workowiec")
+
+    if jajca == 1:
+        imagebutton auto "city_jajo_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Call("jajquest")
+
+    if Frakcja == 3:
+        imagebutton auto "city_vlok_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Call("vradeZewn")
+
+    if bigquest > 3 and akt == 1:
+        imagebutton auto "city_army_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("wojsko")
+
+    if akt == 2:
+        imagebutton auto "city_hid_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("opor")
+
+    if akt == 2 and bigquest == 2: 
+        imagebutton auto "city_pierd_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("pierdex")
+
+    if chipy == 0 and chiplok == 1 or chipy == 1 and chiplok == 2 or chipy == 2 and chiplok == 3 or chipy == 3 and chiplok == 4 or chipy == 4 and chiplok == 5:
+        imagebutton auto "city_chip_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("chipnik")
+
+    if akt == 2 and bigquest > 0:
+        imagebutton auto "city_dom_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("map_screen"), Jump("anomalia")
 
 screen oportalk():
     add "opor"
@@ -390,3 +442,12 @@ screen oportalk():
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("oportalk"), Call("oporslep")
+
+screen kodziska:
+    if kody < 6:
+        imagebutton auto "cyberfon_kody_%s":
+            focus_mask True
+            hovered SetVariable("screen_tooltip", "Return")
+            unhovered SetVariable("screen_tooltip","")
+            action Hide("phone"), Show("kody")
+    

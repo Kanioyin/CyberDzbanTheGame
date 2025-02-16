@@ -257,7 +257,7 @@ label spacerek:
                 elif helper == 4:
                     p "O proszę, powiększenie ekwipunku"
                     $ Cap += 1
-                    p "Zawsze jeden przedmio więcej"
+                    p "Zawsze jeden przedmiot więcej"
 
         else:
             p "Kurwa nie, przydał by się wytrych"
