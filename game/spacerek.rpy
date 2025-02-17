@@ -2,6 +2,9 @@ label spacerek:
     scene spacer
     $ czas -= 5
     $ cel = renpy.random.randint(1, 100)
+    if stan["Kasia"] == 3:
+        jump frogsimp
+        
     if cel > 0 and cel < 11:
         if akt == 1:
             "Znalazłeś jakieś drobniaki"
@@ -22,6 +25,7 @@ label spacerek:
         elif Frakcja == 1:
             "Wędrując znalazłeś skrzynkę z symbolem DH"
             p "Ciperowe śmieci, wezmę sobie"
+            call cipflash
             $ helper = renpy.random.randint(1,200)
             "Znalazłeś [helper] edków"
             $ edki += helper

@@ -901,9 +901,8 @@ label chipnik:
         "Wchodzisz do środka"
         scene black
         p "Kurwa, ciemno tu jak w dupie u Cyphera"
-        show ciphate
+        call cipflash
         p "Szkoda, że nie mam latatki"
-        hide ciphate
         p "Mam nadzieję, że nie stanie mi się nic złego"
         "I kurwa deklu wykrakałeś"
         sb "Kurwa Mietek, dawaj na browara"

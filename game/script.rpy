@@ -202,6 +202,11 @@ transform bounce:
     linear 3.0 xalign 0.0
     repeat 2
 
+label cipflash:
+    show ciphate with dissolve
+    hide ciphate with dissolve
+    return
+
 
 label start:
     $ start_time = renpy.get_game_runtime()
@@ -352,9 +357,8 @@ label start:
     show gun at right
     show cypher at left
     g "Spokojnie kasztanie"
-    show ciphate with dissolve
+    call cipflash
     "Gun katyńskim kopem wysłał Cyphera na dach"
-    hide ciphate with dissolve
     c "DiamandHunde znowu błysnęło"
     play sound "CARTOON RICOCHET #2.mp3"
     hide cypher with fade
@@ -463,9 +467,8 @@ label kibel:
                 menu:
                     "Mam jednego w kieszeni"
                     "Wracaj do rodziny słoneczko":
-                        show ciphate with dissolve
+                        call cipflash
                         "Zostawiłeś szczura w kiblu"
-                        hide ciphate with dissolve
                         $ inventory.remove_item(Rat)
                         show grat at left
                         r "Dziękuje, dobry człowieku"
@@ -581,9 +584,8 @@ label warsztat:
                         jump rozstaje
 
                     "Opowiem Ci kawał, Vista gówno spawał":
-                        show ciphate with dissolve
+                        call cipflash
                         h "KURWA WIEDZIAŁEM"
-                        hide ciphate with dissolve
                         h "MUSZĘ GO ZDOBYĆ"
                         h "WYRUSZAM BEZZWŁOCZNIE"
                         jump rozstaje
@@ -642,9 +644,7 @@ label warsztat:
                         jump rozstaje
 
                     "Znajdę Ci tę spawarkę":
-                        show ciphate with dissolve
-                        h "Nie, Nie, Nie kochanieńki"
-                        hide ciphate with dissolve
+                        call cipflash
                         h "Idziemy teraz na market i Ci powiem jaką chcę"
                         scene nocny
                         show hartmann
@@ -758,9 +758,8 @@ label klinika:
                 $ config.rollback_enabled = False
                 menu:
                     "Mam nadzieję, że w naturze ( ͡° ͜ʖ ͡°)":
-                        show ciphate with dissolve
+                        call cipflash
                         pl "Kto wie kotku."
-                        hide ciphate with dissolve
                     
                     "Mam nadzieję, że w edkach":
                         pl "Pitos się znajdos"
@@ -814,9 +813,8 @@ label klinika:
                 "I pojawił się sprzedawca sieciowy"
                 pl "Szanowny panie, 5 koła za to!? Literalnie cie popierdoliło"
                 if edki > 4999:
-                    show ciphate with dissolve
+                    call cipflash
                     p "Spokojnie Łaskawca, mnie na to stać"
-                    hide ciphate with dissolve
                     $ edki -= 5000
                     pl "Jesteś pojebany! Gigantyczne czołgi człowieku"
                     pl "Masz mój miecz, pistolet i co tylko zapragniesz"
@@ -828,9 +826,8 @@ label klinika:
                     jump rozstaje
 
                 p "No plus jeden, to pewnie nawet tetrisa nie uciągnie"
-                show ciphate with dissolve
+                call cipflash
                 "Ale wasze gadanie nic nie dało"
-                hide ciphate with dissolve
                 pl "Dobra, chuj z tym, wracamy do bazy"
                 scene klinika
                 show laskawca at right
@@ -885,9 +882,8 @@ label jhinownia:
             $ config.rollback_enabled = False
             menu:
                 "Zdecydowanie pączkowanie":
-                    show ciphate with dissolve
+                    call cipflash
                     j "O cholibka, wiedziałem"
-                    hide ciphate with dissolve
                     $ postacie["Jhin"] += 1
                     j "To oznacza że trzeba zabić każdego piekarza w mieście! Wyruszam natychmiast!"
                     "I se poszedł"
@@ -1125,9 +1121,8 @@ label bruhzylia:
                 kr "Koło chuja mi to lata, idziemy do domu"
 
             else:
-                show ciphate with dissolve
+                call cipflash
                 p "No nie mam nic przy sobie"
-                hide ciphate with dissolve
                 kr "No ja też"
                 p "To po 10"
                 kr "Co?"
@@ -1337,9 +1332,8 @@ label akt1:
     menu:
         "Piszę się?"
         "Kurwa no pewex":
-            show ciphate with dissolve
+            call cipflash
             $ postacie["Gun"] += 1
-            hide ciphate with dissolve
             g "To mi się podoba"
             $ wojownik = True
             jump akcja
@@ -1414,9 +1408,8 @@ label akcja:
             $ edki += 50
             call checkHP(5) from _call_checkHP_3
         "Czekam aż reszta nabije sobie fragi":
-            show ciphate with dissolve
+            call cipflash
             "Kitrałeś się do końca"
-            hide ciphate with dissolve
 
     show gun
     g "Dobra robota panowie"
@@ -1707,6 +1700,36 @@ label frogsimp:
         fse "Klient przyszedł, muszę spadać"
         p "Papatki"
         $ stan["Kasia"] = 3
+
+    elif stan["Kasia"] == 3:
+        "Wędrując sobie po mieście, udało Ci się znaleźć Kasię, stojącą w kolejce pod kinem"
+        scene kino
+        p "OMG, to Kasia, chyba podejdę ją napastować poza miejscem pracy"
+        p "Pierwszy raz ją widzę gdziekolwiek poza Frogiem, chyba ma wolne"
+        p "Pora podejść i zagadać"
+        p "Hai Hai!"
+        show kasia_basic at right with moveinright
+        fse "O! Cześć [old_pn]! Do kina przyszedłeś?"
+        p "Raz na ruski rok trzeba zaznać trochę cooltury"
+        fse "A na co idziesz?"
+        p "Dobre pytanie"
+        call cipflash
+        fse "To może ta nowa komedyjka fantasy?"
+        p "Jak to się nazywa?"
+        fse "Łan men, Łan czar. Film o czarodzieju co zna tylko gobelin blast"
+        p "Brzmi tak głupio, że aż pójdę."
+        "Poszliście do kasy i kupiliście bilety"
+        $ edki -= 15
+        scene absolutnekino
+        p "Pusto tu dość"
+        fse "Nic dziwnego, mało ludzi teraz chodzi do kina. Lepszą rozrywkę zwykle mają na ulicy"
+        p "Popierdoleńcy, tylko latać z gnatem i strzelać do każdego. Chyba tylko Łaskawca czerpie z tego fun"
+        fse "Nie znam gościa, ktoś z twoich znajomych?"
+        menu:
+            "Opowiadać o dzbanach?"
+            "Wysprzęgl się":
+                $ kasiaknow += 1
+            "Jebać 60":
 
     show screen map_screen
     window hide
@@ -2272,6 +2295,8 @@ label wojowezadanie:
                             
                             "Fałsz":
                                 "Ty chory pojebie"
+                                $ session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
+                                $ persistent.czasGry += session_time
                                 $ renpy.quit()
 
                     "Czy moc pay to play też na mnie działa?" if edki > 199:
@@ -2345,9 +2370,8 @@ label wojowezadanie:
                         $ helper -= 25
                     
                     "Ocet jest smaczny, wypiję":
-                        show ciphate with dissolve
+                        call cipflash
                         mg "Obrzydzasz mnie"
-                        hide ciphate with dissolve
                         "Wypiłeś cały ocet jaki mieli"
                         "Dzięki twojej brawurze visty poniosły straty finansowe"
                         "Całe 4,50 w plecy"
@@ -2674,9 +2698,8 @@ label wojowezadanie:
         show cypher
         $ postacie["Cypher"] += 3
         p "Wracajmy już do domu"
-        show ciphate
+        call cipflash
         c "Tak wcześnie?"
-        hide ciphate
         p "No zrobiliśmy to co mieliśmy"
         c "Nudziaż! Jednak mi się nie podobasz"
         c "Wracasz z buta ja lecę do żabki"

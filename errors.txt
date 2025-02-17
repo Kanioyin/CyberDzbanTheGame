@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/customscreen.rpy", line 448: imagebutton expects a non-empty block.
-    imagebutton auto "cyberfon_kody_%s":
-                                        ^
+File "game/script.rpy", line 2275: Line is indented, but the preceding say statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
+    $ session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
+    ^
 
 Ren'Py Version: Ren'Py 8.3.4.24120703
-Sat Feb 15 13:57:59 2025
+Mon Feb 17 11:30:12 2025

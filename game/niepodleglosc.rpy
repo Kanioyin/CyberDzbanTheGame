@@ -121,6 +121,7 @@ default wynik = 0
 default odp = " "
 default anom = 0
 default frogrel = 0
+default kasiaknow = 0
 default jajca = 0
 default buul = ["bul1.mp3", "demon.mp3"]
 
