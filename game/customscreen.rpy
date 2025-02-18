@@ -208,7 +208,20 @@ screen day():
                     text "{color=000} Czekaj na SMS"
 
             elif bigquest == 2:
-                text "{color=000} Pracuj dla Pierdexu"
+                if stan2["BB"] == 0 or stan2["BB"] == 1 or stan2["BB"] == 2:
+                    text "{color=000} Pracuj dla Pierdexu"
+
+                if stan2["BB"] < 4:
+                    text "{color=000} Przywieź Cypherowi ser"
+
+                if stan2["BB"] < 5:
+                    text "{color=000} Daj Cypherowi 500 edków"
+
+                if stan2["BB"] < 6:
+                    text "{color=000} Weź Itemki od Cyphera"
+                
+                if stan2["BB"] < 7:
+                    text "{color=000} Dostarcz paczkę do Jax-a"
 
 
     imagebutton auto "cyberfon_won_%s":

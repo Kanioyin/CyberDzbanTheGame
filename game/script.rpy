@@ -1729,7 +1729,28 @@ label frogsimp:
             "Opowiadać o dzbanach?"
             "Wysprzęgl się":
                 $ kasiaknow += 1
+                p "Nom, Łaskawca jest medykiem, trochę pierdolnientym ale dobrym"
+                p "I przy okazji jeszcze nam towar produkuje"
+                p "I to jest chyba jeden z normalniejszych w naszym składzie"
+
             "Jebać 60":
+                p "Nom, taki kumpel z roboty"
+                p "Dużoby gadać"
+
+        fse "Cii, film się zaczyna"
+        "Film został oglądnięty"
+        $ czas -= 2
+        scene kino
+        show kasia_basic at right
+        p "Kurwa ale to było głupie"
+        achieve Abs
+        fse "Ale fajne efekty zrobili, postarali się tym razem"
+        p "Bywało gorzej?"
+        fse "Nah, czasami chodzę na te bolywoodzkie filmidła, straszna głupota ale mnie bawi"
+        p "Ok, nie dopytuje. Muszę się już zbierać. Siemaneczko Kasia, do następnego"
+        mg "(updata)"
+        fse "Papatki [old_pn]"
+        $ stan["Kasia"] = 4
 
     show screen map_screen
     window hide

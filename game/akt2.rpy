@@ -1185,8 +1185,78 @@ label pierdex:
                     jump opor
 
         elif stan2["BB"] == 2:
-            jump tempend
+            bb "Kolejna robota na horyzoncie się pojawiła, szykuj się"
+            p "Coś trudnijeszego tym razem?"
+            bb "No proste że tak, pierwszy był tutorial. Teraz masz zabić boga"
+            p "Co?"
+            bb "Poproszono nas o przysłanie najładniejszego dostawcy i ty zostałeś wybrany"
+            p "To mam być dostawcą czy szonem z roxy?"
+            bb "Dostawcą"
+            p "To po chuj taki opis? To jest groźba?"
+            bb "Nah, tylko opis taska. Twoją paczkę mamy tutaj obok"
+            "I to jest spory karton"
+            p "Powiesz mi przynajmniej co jest w śroku?"
+            bb "Nie mam zielonego pojęcia"
+            p "Klasyk. To chuj, ruszam dzielnie."
+            bb "Powodzenia"
+            play music "idrive.mp3"
+            scene dostawa
+            p "Popierdoli mnie, ta firma śmierdzi mi seksem na zawołanie"
+            p "Mam nadzieję, że w tej grze nie będzie nadmiernej seksualizacji"
+            mg "Spokojnie nie będzie"
+            achieve Bug
+            p "Dzięki, to mnie uspokoiło"
+            "Udało Ci się dojechać na miejsce"
+            jump nowedh   
+            jump opor
 
+        elif stan2["BB"] > 2:
+            bb "Już cie młody wysyłam do klienta"
+            jump nowedh
+
+label nowedh:
+    stop music
+    scene bazadh
+    if stan2["BB"] == 2
+        p "Co to kurwa jest? Czemu ktoś tu zamówił paczkę?"
+        show cypher at left with moveinleft
+        c "To byłem ja! HiHiHaHa"
+        p "Co do kurwy? Ty nie powinieneś być w więzieniu"
+        c "Słuchaj szczylu, ja mam swoje metody na unikanie konsekwencji swoich czynów"
+        p "Na przykład?"
+        c "Tym razem mój geniusz nawet mnie zaskoczył. Znalazłem maszynę klonującą i się zklonowałem"
+        c "Następnie, wysłałem czterysta swoich klonów do więzienia a sam sobie tu chilluję bombę"
+        p "Gdzie ty niby znalazłeś maszynę klonującą?"
+        c "W magazynie wojskowym stała niepilnowana, tylko głupi by nie zabrał"
+        p "A potem się dziwisz, że armia nie chce Ci dawać zadań"
+        call cipflash
+        c "Gnoju, nie pyskuj tu do mnie. Teraz będę twoim szefem!"
+        p "Jak kurwa niby?"
+        c "Pewnie BB nic Ci nie powiedział ale będziesz miał dla mnie kilka bojowych zadań do wypełnienia."
+        p "Będą tak samo głupie jak w pierwszym akcie?"
+        c "Lepiej! Będą ciut głupsze ale o to się nie powinieneś martwić."
+        p "To powiedz mi, co mam zrobić"
+        c "To ja tu wydaję rozkazy. Teraz słuchaj, bo powiem Ci co masz zrobić"
+        p "Pojebie mnie"
+        c "Twoje zadania to:"
+        $ stan2["BB"] = 3
+        c "Przywiezienie mi soczystego kawałka sera"
+        c "Następnie, będę potrzebował 500 edków"
+        c "Później, jak wydam te pieniądze, to się wyboirę na zakupy"
+        c "To co tam kupię, będziesz musiał dać Jaxowi, on powie Ci dalej co będziesz miał zrobić"
+        c "Po tym wszystkim, będzie ciebie czekać zadanie ostateczne ale o nim opowiem Ci później"
+        p "I jak ja mam to niby wszystko zapamiętać?"
+        c "Widziałem jak to notujesz w telefonie, nie rób mnie w chuja"
+        p "Sorson, sprawdzałem czy widzisz co ty pierdolisz. Ja tu robię ważne tajne zadania a ty marnujesz mój czas"
+        c "W NC żadnie zadanie nie jest ważne, przyzwyczaj się, a poza tym, ja zawszę muszę mieć coś do powiedzeia"
+        c "W porównaniu do Ciebie, więc kończ pierdolić i idź mi po ten ser. Tosty chcę sobie zjeść"
+        p "Dobrze Cypher"
+        c "A! I jeszcze jedno, nie przychodź tu do mnie mapą, tylko przez Pierdex."
+        p "Nie chce Ci się robić nowej ikony?"
+        c "Nie (Tak) debilu, to ma być tajna dostawa."
+        p "Sranie w banie, a nie tajne dostawianie"
+        $ czas = 0
+        jump opor
 
 label jajquest:
     scene kfws
