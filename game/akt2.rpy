@@ -449,7 +449,7 @@ label oporslep:
             menu:
                 "Który chip?"
                 "Pierwszy" if chipy > 0:
-                    "Sprawdzasz pierwszy chip. Wszystko co było na nim zarawte to info o Benku"
+                    "Sprawdzasz pierwszy chip. Wszystko co było na nim zawarte to info o Benku"
                     "Jest on fixerem w Glenn. Otwarcie toczy wojnę z gangami"
                     "Jeśli nie udaje mu się ich przekonać do rozejmu wysyła na nich łowców"
                     "Prowadzi jeszcze poszukiwania pozostałości po Seckond handzie"
@@ -1217,7 +1217,7 @@ label pierdex:
 label nowedh:
     stop music
     scene bazadh
-    if stan2["BB"] == 2
+    if stan2["BB"] == 2:
         p "Co to kurwa jest? Czemu ktoś tu zamówił paczkę?"
         show cypher at left with moveinleft
         c "To byłem ja! HiHiHaHa"

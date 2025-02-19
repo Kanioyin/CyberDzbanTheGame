@@ -249,14 +249,14 @@ screen quick_menu():
             xalign 0.5
             yalign 1.0
 
-            textbutton _("Back") action Rollback()
-            textbutton _("History") action ShowMenu('history')
-            textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
+            textbutton _("Wstecz") action Rollback()
+            textbutton _("Historia") action ShowMenu('history')
+            textbutton _("Zium") action Skip() alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Save") action ShowMenu('save')
-            textbutton _("Q.Save") action QuickSave()
-            textbutton _("Q.Load") action QuickLoad()
-            textbutton _("Prefs") action ShowMenu('preferences')
+            textbutton _("Zapisz") action ShowMenu('save')
+            textbutton _("Zium zapis") action QuickSave()
+            textbutton _("Zium wczyt") action QuickLoad()
+            textbutton _("Ustawienia") action ShowMenu('preferences')
 
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
@@ -303,11 +303,11 @@ screen navigation():
 
             textbutton _("History") action ShowMenu("history")
 
-            textbutton _("Save") action ShowMenu("save")
+            textbutton _("Zapisz") action ShowMenu("save")
 
-        textbutton _("Load") action ShowMenu("load")
+        textbutton _("Wczytaj") action ShowMenu("load")
 
-        textbutton _("Preferences") action ShowMenu("preferences")
+        textbutton _("Ustawienia") action ShowMenu("preferences")
 
         textbutton _("Wyczyny") action ShowMenu("bobcachievements")
 
@@ -322,9 +322,9 @@ screen navigation():
 
         elif not main_menu:
 
-            textbutton _("Main Menu") action [Function(save_playtime), MainMenu()]
+            textbutton _("Menu") action [Function(save_playtime), MainMenu()]
 
-        textbutton _("About") action ShowMenu("about")
+        textbutton _("O") action ShowMenu("about")
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
@@ -358,6 +358,7 @@ screen stats():
             text _("Wypite monstery: [persistent.monsters]") size 30
             text _("Zdrapane zdrapki: [persistent.skracz]") size 30
             text _("Godziny przepracowane: [persistent.work]") size 30
+            text _("Wydane frogsy: [persistent.frgout] size 30")
 
             textbutton _("Back") action Return()
 

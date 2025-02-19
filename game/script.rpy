@@ -33,7 +33,7 @@ init python:
         def add_item(self,item):
             self.items.append(item)
             self.quantity += 1
-            p(f"Dostałem {item.name}")
+            renpy.notify(f"Dostałem {item.name}")
 
         def remove_item(self, item):
             self.items.remove(item)
@@ -51,6 +51,7 @@ init python:
             self.desc = desc
             self.image = image
 
+
 label Eko:
     achieve Eko
     return
@@ -58,12 +59,12 @@ label Eko:
 
 label Mad_dog:
     achieve DHW
-    $ inventory.remove_item(Klapek)
     c "Co ty kurwa najlepszego zrobiłeś kretynie? Pozbyłeś się właśnie unikatowego klapka z merchu DH"
     c "Po pierwsze, wypierdalasz z DH"
     c "Po drugie, mam focha"
     $ postacie['Cypher'] = -9999
     return
+
 
 label updict(Who,dict):
         python:
@@ -213,6 +214,10 @@ label start:
     play music "Bongo_Madness.mp3" volume 0.2
     $ baba_name = "Babka from żabka"
     $ HP = MaxHP
+    if nua > 19:
+        $ znajOkol = 1
+        $ Cap = 5
+
     while helper == 1:
         $ player_name = old_pn = renpy.input("Nazywasz się:")
         if player_name == "Gun":
@@ -330,6 +335,9 @@ label start:
             jump a2intro
             $ chipy = 5
 
+        elif player_name == "Kasia":
+            mg "Nie pozwalaj sobie kurwa"
+
         else:
             $ helper = 0
 
@@ -370,8 +378,8 @@ label start:
     g "Znaczy, jeszcze nie jesteś jego członkiem ale na start masz rata. Ten chuj srał mi w kieszeni"
     g "Dawaj do środka"
     jump intro
-# intro
 
+# intro
 label intro:
     $ helper = 1
     achieve Poczatek
@@ -1354,8 +1362,10 @@ label akt1:
                     $ Frakcja = 1
                     $ czlonekFrakcji = True
                     $ postacie["Cypher"] += 3
-                    c "Witamy w szeregach, później powiem Ci więcej. Muszę iść trollować Ciper."
+                    c "Witamy w szeregach, później powiem Ci więcej. Muszę iść trollować."
+                    $ inventory.add_item(Odznaka)
                     jump podsumowanie1
+
                 "Podziękuje":
                     c "Pamiętaj, oferta jest ważna do śmierci"
                     jump podsumowanie1
@@ -1521,6 +1531,7 @@ label frogszop:
                     achieve Frg
                     p "Zapłacę frogsami"
                     $ frogsy -= 90
+                    $ persistent.frgout += 90
 
                 else:
                     p "Proszę"
@@ -1540,6 +1551,7 @@ label frogszop:
                     achieve Frg
                     p "Zapłace frogsami"
                     $ frogsy -= 225
+                    $ persistent.frgout += 225
 
                 else:
                     p "Proszę"
@@ -1581,7 +1593,7 @@ label frogszop:
                 $ vdolce = 0
                 p "Dziękuję"
 
-            "Szukacie może pracowników?" if Frakcja == 0 and dzien > 11:
+            "Szukacie może pracowników?" if Frakcja == 0 and dzien > 9:
                 fse "Mamy jeszcze wolny wakat. Byłby pan zainteresowany pracą?"
                 menu:
                     "Dołączam do żabki?"

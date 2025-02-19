@@ -51,7 +51,7 @@ label spacerek:
     elif cel > 20 and cel < 31:
         if akt == 1:
             "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-            $ wpierdol = renpy.random.randint(4, 18)
+            $ wpierdol = renpy.random.randint(4, 16)
             call checkHP(wpierdol) from _call_checkHP_4
 
         elif akt == 2:
@@ -72,7 +72,7 @@ label spacerek:
                     
                     else:
                         p "Ło nie, są silniejsi"
-                        call checkHP(renpy.random.randint(4, 18)) from _call_checkHP_28
+                        call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_28
 
                 "Ted Talk":
                     call testSkili("Gadanie","CHAR",7) from _call_testSkili_6
@@ -84,7 +84,7 @@ label spacerek:
 
                     else:
                         "Niestety, nikt Cie nie zrozumiał"
-                        call checkHP(renpy.random.randint(4, 18)) from _call_checkHP_29
+                        call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_29
 
                 "Ucieczka":
                     call testSkili("Atletyka","ZW",7) from _call_testSkili_7
@@ -92,11 +92,11 @@ label spacerek:
                     "Te pojeby otworzyły ogień"
                     if wynik == 1:
                         "Uniknąłeś części pocisków"
-                        call checkHP(renpy.random.randint(1, 10)) from _call_checkHP_30
+                        call checkHP(renpy.random.randint(1, 7)) from _call_checkHP_30
 
                     else:
                         "Skurwysyny chyba mają snipera"
-                        call checkHP(renpy.random.randint(4, 18)) from _call_checkHP_31
+                        call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_31
 
 
         else:
@@ -162,7 +162,7 @@ label spacerek:
 
                     else:
                         p "Oj kurwa, typ jest silny"
-                        call checkHP(20) from _call_checkHP_33
+                        call checkHP(18) from _call_checkHP_33
                         p "Następnym razem muszę się lepiej uzbroić"
 
             "Lepiej nie":
@@ -198,6 +198,7 @@ label spacerek:
         elif inventory.has_item(Ser) == True:
             "W twoim kierunku leci chmara (5) szczurów"
             p "Na chuja mego wuja, tylko nie to"
+            "Szalone raty opędzlowały twój ser"
             $ inventory.remove_item(Ser)
             "Po chwili pojawia się też Gun"
             show gun at left

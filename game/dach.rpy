@@ -378,8 +378,7 @@ label dach:
                 jump rozstaje
 
             if stan["Cypher"] == 7:
-                c "Ja tu czekam na zadanie"
-                c "Przybędę jak zawołasz na nie"
+                c "Ja tu czekam na zadanie i przybędę jak zawołasz na nie"
                 jump rozstaje
 
             if stan["Cypher"] == 9:

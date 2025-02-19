@@ -56,6 +56,7 @@ default HuMeat = InventoryItem("Ludzkie mięso","VIO chętnie to schrupie","item
 default Smoke = InventoryItem("Bomba dymna", "Taki szlug, tylko nie psuje płuc","itemy/Smoke.png")
 default RadArm = InventoryItem("Hazmat", "Pancerz przeciw radjacji","Itemy/Hazmat.png")
 default Kwiat = InventoryItem("Kwiatki", "Działają na kobiety jak dzik na MG","itemy/Kwiat.png")
+default Odznaka = InventoryItem("Odznaka Partioty", "Tylko dla ludzi z DH lub złodzieji","itemy/Dhbage.png")
 
 #Stany postaci
 default kibel_stan = 0
@@ -68,6 +69,7 @@ default persistent.session_start_time = 0
 default persistent.monsters = 0
 default persistent.skracz = 0
 default persistent.work = 0
+default persistent.frgout = 0
 default edki = 0
 default vdolce = 0
 default frogsy = 0

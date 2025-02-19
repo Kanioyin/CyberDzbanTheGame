@@ -397,7 +397,7 @@ label kuchnia:
                     g "Wyruszamy na wycieczkę tosteroznawczą"
                     p "Co kurwa?"
                     g "Zaraz zobaczysz"
-                    scene idrive
+                    scene idrivewtt
                     play music "idrive.mp3" volume 0.2
                     p "Nie rozjedź żadnej baby tym razem"
                     j "Jak to tym razem?"

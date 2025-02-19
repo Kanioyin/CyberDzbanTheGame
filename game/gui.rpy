@@ -218,8 +218,7 @@ define gui.choice_button_text_insensitive_color = '#8888887f'
 
 ## File Slot Buttons ###########################################################
 ##
-## A file slot button is a special kind of button. It contains a thumbnail
-## image, and text describing the contents of the save slot. A save slot uses
+## A file slot button is a special kind of button. It contains a thumbnail image, and text describing the contents of the save slot. A save slot uses
 ## image files in gui/button, like the other kinds of buttons.
 
 ## The save slot button.
