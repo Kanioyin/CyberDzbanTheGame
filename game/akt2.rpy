@@ -280,7 +280,7 @@ label krzis:
         elif (stan2["Kris"] == 2 or stan2["Kris"] == 1) and chipy == 5:
             cr "Gratulacje [player_name]! Zebrałeś je wszystkie"
             cr "Pozwól, że ja je teraz wezmę"
-            $ chipy = 0
+            $ chipy = 5
             p "Ale co w sumie z tego, jak na tych cipach gówno jest o Benku"
             cr "To dobry omen"
             p "Ale jak kurwa"
@@ -1211,7 +1211,7 @@ label pierdex:
             jump opor
 
         elif stan2["BB"] > 2:
-            bb "Już cie młody wysyłam do klienta"
+            bb "Już Cie młody wysyłam do klienta"
             jump nowedh
 
 label nowedh:
@@ -1256,6 +1256,60 @@ label nowedh:
         c "Nie (Tak) debilu, to ma być tajna dostawa."
         p "Sranie w banie, a nie tajne dostawianie"
         $ czas = 0
+        jump opor
+
+    if stan2["BB"] == 3 and inventory.has_item(Ser) == True:
+        show cypher at left with moveinleft
+        c "Jeśli mój węch mnie nie myli, to chyba przyniosłeś ser. Wezmę go sobie."
+        $ inventory.remowe_item(Ser)
+        $ stan2["BB"] = 4
+        p "Powiesz mi po co Ci ten ser?"
+        c "Znalazłem starą książkę kucharską jakiegoś anarchisty. Teraz będę robił sernik"
+        p "Masz przynajmniej piekarnik w tej bazie?"
+        c "Mam customowe cygaro z funkcją dopalacza ognia, to powinno wystarczyć"
+        c "Tak z innej beczki, masz może już te 500 edków?"
+        if edki > 499:
+            p "Tak, udało mi się zdobyć trochę kapitału"
+            c "To oddawaj"
+            $ edki -= 500
+            $ stan2["BB"] = 5
+            c "Teraz mogę iść na zakupy, bywaj"
+            hide cypher
+            jump opor
+
+        else:
+            p "Nie, jeszcze muszę trochę popracować"
+            c "No to idź do roboty lol"
+            p "A może sam pójdziesz? A nie mnie tylko męczysz"
+            c "Spierdalaj"
+            jump opor
+
+    if stan2["BB"] = 4:
+        show cypher at left with moveinleft
+        c "Masz te 500 edków?"
+        if edki > 499:
+            p "Tak, udało mi się zdobyć trochę kapitału"
+            c "To oddawaj"
+            $ edki -= 500
+            $ stan2["BB"] = 5
+            c "Teraz mogę iść na zakupy, bywaj"
+            hide cypher
+            jump opor
+
+        else:
+            p "Nie, jeszcze muszę trochę popracować"
+            c "No to idź do roboty lol"
+            p "A może sam pójdziesz? A nie mnie tylko męczysz"
+            c "Spierdalaj"
+            jump opor
+
+    if stan2["BB"] == 5:
+        show cypher at left with moveinleft
+
+
+    else:
+        show cypher at left with moveinleft
+        c "Kolego, ty chyba nie masz tego co mi jest potrzebne, powinieneś wrócić z odpowiednimi przedmiotami."
         jump opor
 
 label jajquest:
@@ -1346,5 +1400,5 @@ label tempend:
     mg "Wielkie dzięki za granie"
     mg "Pamiętaj poszukać nagród w galeri"
     mg "Papatki"
-    $ presistent.czasGry = int(renpy.get_game_runtime()/60)
+    $ persistent.czasGry = int(renpy.get_game_runtime()/60)
     $ MainMenu(confirm=False)()

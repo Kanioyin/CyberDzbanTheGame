@@ -2,6 +2,8 @@
 init python:
     import os 
     def after_load():
+        session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
+        persistent.czasGry += session_time
         persistent.session_start_time = renpy.get_game_runtime()
 
     def save_playtime():
@@ -214,8 +216,13 @@ label start:
     play music "Bongo_Madness.mp3" volume 0.2
     $ baba_name = "Babka from żabka"
     $ HP = MaxHP
+    if nua > 9:
+        $ edki = 500
+
     if nua > 19:
         $ znajOkol = 1
+    
+    if nua > 29:
         $ Cap = 5
 
     while helper == 1:
@@ -1512,7 +1519,7 @@ label frogszop:
         jump frogsimp
 
     scene frogszop
-    if stan["Kasia"] == 2 and dzien % 2 == 0:
+    if (stan["Kasia"] == 2 and dzien % 2 == 0) or stan["Kasia"] == 4:
         jump frogsimp
 
     if Frakcja == 6 or stan["Kasia"] > 0:
@@ -1622,6 +1629,12 @@ label frogszop:
                 if stan["Kasia"] == 0 and frogrel == 5:
                     $ stan["Kasia"] = 1
                 $ frogrel += 1
+
+            "Potrzebuję leczenia" if stan["Kasia"] > 4 and HP < MaxHP and frogsy > 224:
+                fse "Spoczko [old_pn], już podaję leki"
+                $ HP = MaxHP
+                $ frogsy -= 225
+                $ persistent.frgout += 225
                 
             "To tyle, dziękuję, dowidzenia":
                 fse "Dowidzenia, zapraszam ponownie"
@@ -1762,7 +1775,37 @@ label frogsimp:
         p "Ok, nie dopytuje. Muszę się już zbierać. Siemaneczko Kasia, do następnego"
         mg "(updata)"
         fse "Papatki [old_pn]"
+        $ frogrel += 1
         $ stan["Kasia"] = 4
+
+    elif stan["Kasia"] == 4:
+        scene frogszop
+        p "Hejo Kasia, jak tam dzionek mija?"
+        fse "Hejo [old_pn]! A bardzo spokojnie wszystko się dziś zaczęło."
+        mg ":trollface"
+        p "A mogę mieć do Ciebie takie dość personalne pytanie?"
+        fse "Pytaj śmiało, jak będzie zbyt osobiste, to po prostu nie odpowiem"
+        p "No i g. Więc, jak to się stało, że jesteś kotem? Biorzeźbiarstwo czy ksenogenetyka?"
+        fse "Pomidor"
+        p "Cholipka, to może powiesz mi, czemu kolor twoich uszu i ogona się zmienia?"
+        fse "Mój sprzęg neuralny jest za to odpowiedzialny. Zwykle dopasowywuje się do nastroju"
+        p "O! Ciekawe, nie wiedziałem, że to ma takie możliwości"
+        fse "No widzisz, człowiek uczy się całe życie"
+        p "A jak to zmienia z nastrojem tylko czasmi, to co się dzieje w reszcie przypadków?"
+        fse "Nie wiem w sumie, ten mój sprzęg jest uszkodzony i portafi szwankować"
+        p "Chcesz może kontakt do doktorka? Jak z nim pogadam, to może zrobi Ci go po kosztach"
+        fse "Dzięki za propozycje ale na ten moment nie mogę sobie pozwolić na większe wydatki"
+        fse "Ani w sumie na jakieś dni wolne, strasznie krucho z edkami"
+        p "Karamba, strasznie chujowa sytuacja"
+        "I w momencie jak to powiedziałeś, gówno uderzyło w wiatrak. Do sklepu wbił rozsierdzony gangus"
+        gg "Ręce do kurwa góry, to jest pierdolony napad."
+        "Widzisz, jak Kasia patrzy na Ciebie przerażona"
+        menu:
+            "Co zrobisz z napastnikiem?"
+            "Kontrolna kula w łep":
+
+            "Taktyczna spierdolka":
+
 
     show screen map_screen
     window hide
