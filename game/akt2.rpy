@@ -155,6 +155,9 @@ label jaxowo:
                 ja "Żaden problem mordeczko"
                 $ kompan = 0
                 "JAX wraca do swoich zajęć"
+
+            "Mam dla Ciebie przesyłkę" if stan2["BB"] == 6:
+                p "Cześć Jax, mam coś dla Ciebie"
             
             "Co powiesz na mały trening?" if exp > 9:
                 ja "Jasne mordeczko"
@@ -1253,7 +1256,8 @@ label nowedh:
         p "Dobrze Cypher"
         c "A! I jeszcze jedno, nie przychodź tu do mnie mapą, tylko przez Pierdex."
         p "Nie chce Ci się robić nowej ikony?"
-        c "Nie (Tak) debilu, to ma być tajna dostawa."
+        mg "Tak"
+        c "Nie debilu, to ma być tajna dostawa."
         p "Sranie w banie, a nie tajne dostawianie"
         $ czas = 0
         jump opor
@@ -1305,7 +1309,32 @@ label nowedh:
 
     if stan2["BB"] == 5:
         show cypher at left with moveinleft
-
+        c "Ah, uwielbiam chodzić na zakupy bez obstawy, najlepsze promocje mi się wtedy trafiają."
+        p "No to pochwal się, co takiego udało Ci się kupić"
+        c "Oj stary, nawet nie wiesz co można znaleźć w chińczykach"
+        p "W sensie, że w sklepach chińskich?"
+        c "To zostawię w twojej strefie domysłów"
+        p "Kurwa Cypher, czy ty napadłeś jakiś żółtków?"
+        c "Hi Hi Ha Ha"
+        p "Dobra chuj, wracając, co masz takiego niesamowitego"
+        $ inventory.add_item(Wytrych)
+        c "Niesamowite ustrojstwo, potrafiące otwierać wszystkie zamki w okręgu trzech stanów"
+        p "Cypher, zwykły wytrych możesz kupić w praktycznie każdym sklepie"
+        c "Po pierwsze, to nie zwykły, tylko przeklęty i nie jest wytrych, tylko ustrojstwo"
+        c "Przeklęty ustrojstwo"
+        p "Jak to jest niby przeklęte? Rzuciłeś na niego strefę dobrych rzutów?"
+        c "Nah, o klątwie mi powiedział taki dziwny cygan z cyckami"
+        c "Teraz jego magiczne przeklęte zdolności będzie musiał Jax przetestować"
+        p "I co takiego ma tym niby otworzyć?"
+        c "Spółkę z ograniczoną odpowiedzialnością w trzy dni"
+        p "Popierdoli mnie"
+        c "Jaxa pewnie też w czasie jego prób, zanieś mu to i zobacz co zrobi"
+        p "A on przynajmniej wie, że dostał takie zadanie bojowe?"
+        c "Ty na łep chyba upadłeś, jakby wiedział, to nie byłoby takie śmieszne wtedy"
+        p "Jeśli ten twój następny qłest będzie równie głupi, to nie wiem co zrobię"
+        c "Pewnie nic lol. Znikaj już, muszę go wymyśleć"
+        $ stan2["BB"] = 6
+        jump opor
 
     else:
         show cypher at left with moveinleft

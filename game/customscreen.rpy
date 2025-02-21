@@ -302,39 +302,6 @@ screen postac():
         unhovered SetVariable("screen_tooltip","")
         action Hide("postac"), Show("phone")
 
-screen kody():
-    modal True
-    add "tapety/bg1.png"
-    add "cyberfon_clear.png"
-
-    if kody < 5:
-        if nua > 4:
-            imagebutton auto "cyberfon_kody_hajs_%s":
-                focus_mask True
-                hovered SetVariable("screen_tooltip", "Return")
-                unhovered SetVariable("screen_tooltip","")
-                action IncrementVariable("edki",500), IncrementVariable("kody",1)
-
-        if nua > 9:
-            imagebutton auto "cyberfon_kody_spac_%s":
-                focus_mask True
-                hovered SetVariable("screen_tooltip", "Return")
-                unhovered SetVariable("screen_tooltip","")
-                action IncrementVariable("cap",1), IncrementVariable("kody",1)
-
-        if nua > 19 and akt > 1:
-            imagebutton auto "cyberfon_kody_exp_%s":
-                focus_mask True
-                hovered SetVariable("screen_tooltip", "Return")
-                unhovered SetVariable("screen_tooltip","")
-                action IncrementVariable("exp",10), IncrementVariable("kody",1)
-
-    imagebutton auto "cyberfon_won_%s":
-        focus_mask True
-        hovered SetVariable("screen_tooltip", "Return")
-        unhovered SetVariable("screen_tooltip","")
-        action Hide("kody"), Show("phone")
-
 screen map_screen():
     add "mapa.png"
     modal True
@@ -455,12 +422,3 @@ screen oportalk():
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("oportalk"), Call("oporslep")
-
-screen kodziska:
-    if kody < 6:
-        imagebutton auto "cyberfon_kody_%s":
-            focus_mask True
-            hovered SetVariable("screen_tooltip", "Return")
-            unhovered SetVariable("screen_tooltip","")
-            action Hide("phone"), Show("kody")
-    

@@ -1,6 +1,7 @@
 
 init python:
     import os 
+
     def after_load():
         session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
         persistent.czasGry += session_time
@@ -1630,11 +1631,11 @@ label frogszop:
                     $ stan["Kasia"] = 1
                 $ frogrel += 1
 
-            "Potrzebuję leczenia" if stan["Kasia"] > 4 and HP < MaxHP and frogsy > 224:
+            "Potrzebuję leczenia" if stan["Kasia"] > 4 and HP < MaxHP and frogsy > 499:
                 fse "Spoczko [old_pn], już podaję leki"
                 $ HP = MaxHP
-                $ frogsy -= 225
-                $ persistent.frgout += 225
+                $ frogsy -= 499
+                $ persistent.frgout += 499
                 
             "To tyle, dziękuję, dowidzenia":
                 fse "Dowidzenia, zapraszam ponownie"
@@ -1800,11 +1801,37 @@ label frogsimp:
         "I w momencie jak to powiedziałeś, gówno uderzyło w wiatrak. Do sklepu wbił rozsierdzony gangus"
         gg "Ręce do kurwa góry, to jest pierdolony napad."
         "Widzisz, jak Kasia patrzy na Ciebie przerażona"
-        menu:
-            "Co zrobisz z napastnikiem?"
-            "Kontrolna kula w łep":
-
-            "Taktyczna spierdolka":
+        p "Kolego, tak się nie zachowuje w sklepie"
+        gg "I co mi niby zrobisz kasztanie"
+        p "A mam pod ręką tajemniczy mysi sprzęt "
+        play sound "pif.wav"
+        "Nim zdążyłeś wyjąć broń, napastnik strzelił do Ciebie"
+        call checkHP(19)
+        gg "Trzebabyło dawać więcej reflekusu kurewko"
+        p "Dzięku bogu dałem sporo w wytrzymałość"
+        play sound "pif.wav"
+        "Trafiłeś gangusa prosto w cymbał"
+        p "Celność też nie jest najgorsza"
+        "Niestety rana jaką otrzymałeś jest dość poważna, przez co padasz na podłogę"
+        scene frogmercy
+        fse "Trzymaj się [old_pn], zaraz Ci pomogę"
+        "Kasia ostrożnie ustabilizowała twoje rany"
+        fse "Postaraj się nie ruszać teraz, wstrzyknę Ci nasz turbouzdrawiacz"
+        $ Hp = MaxHP
+        "Ten medykament niesamowicie Cie sieknął, pierwszy raz tak dziwnie się poczułeś"
+        scene frogszop
+        fse "Lepiej?"
+        p "Chyba nigdy w życiu nie czułem się lepiej, co to było?"
+        fse "Nasz nowy program usługowy, froghealing, specjalna możliwość dla posiadaczy frogsów"
+        p "Czemu mi tego wcześniej nie powiedziałaś? To jest lepsze od parów"
+        fse "Dopiero teraz to wprowadziliśmy, teoretycznie za kilka dni miało oficjalnie wchodzić"
+        p "To będę chyab częściej z tej możliwości korzystał"
+        fse "Dzięki za ochronę btw. Kacperek pewnie dopiero wstaje z krzesła"
+        p "Luzik, dla mnie takie strzelaniny to codzienność"
+        $ frogrel += 1
+        $ czas -= 7
+        p "Muszę już spadać, mam trochę roboty jeszcze"
+        fse "Spoczko, uważaj na siebie [old_pn]"
 
 
     show screen map_screen
