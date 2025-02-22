@@ -1,6 +1,7 @@
 label spacerek:
     scene spacer
     $ czas -= 5
+    $ persistent.wolki += 1
     $ cel = renpy.random.randint(1, 100)
     if stan["Kasia"] == 3:
         jump frogsimp

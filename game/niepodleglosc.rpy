@@ -27,6 +27,7 @@ define ha = Character(_("Halina"), color = "#423123")
 define bb = Character(_("Blink Blink"), color = "#3ef374")
 define wr = Character(_("Wróżbitka"), color = "#f04eda")
 define gg = Character(_("Gangus"), color = "#ec3434")
+define al = Character(_("Alfonso"), color="#ABACAD")
 
 # słowniki
 default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
@@ -71,6 +72,7 @@ default persistent.monsters = 0
 default persistent.skracz = 0
 default persistent.work = 0
 default persistent.frgout = 0
+default persistent.wolki = 0
 default edki = 0
 default vdolce = 0
 default frogsy = 0
@@ -80,7 +82,6 @@ default akt = 0
 default HP = 0
 default Frakcja = 0
 default oldFrakcja = 0
-default tapeta = 0
 # 0 = Niezrzeszony
 # 1 = DH
 # 2 = DN
@@ -88,6 +89,7 @@ default tapeta = 0
 # 4 = Uda
 # 5 = Wojsko
 # 6 = Żabka
+default tapeta = 0
 default Cap = 4
 default dzien = 1
 default armor = 0

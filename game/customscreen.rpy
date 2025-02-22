@@ -223,6 +223,12 @@ screen day():
                 if stan2["BB"] < 7:
                     text "{color=000} Dostarcz paczkę do Jax-a"
 
+                if stan2["BB"] < 8:
+                    text "{color=000} Wracaj do Cyphera"
+
+                if stan2["BB"] < 9:
+                    text "{color=000} Pogadaj z szefem"
+
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True

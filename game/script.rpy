@@ -315,13 +315,6 @@ label start:
         elif player_name == "Kris":
             cr "Kolego nie pomyliło Ci się coś?"
 
-        elif player_name == "Alfonso":
-            k "Siema byku"
-            $ postacie["Kalach"] += 5
-            $ Frakcja = 4
-            $ inventory.add_item(Flaszka)
-            $ helper = 0
-
         elif player_name == "Anon":
             achieve Owo
             fse "OMG, Anon-kun"
@@ -1832,6 +1825,7 @@ label frogsimp:
         $ czas -= 7
         p "Muszę już spadać, mam trochę roboty jeszcze"
         fse "Spoczko, uważaj na siebie [old_pn]"
+        $ stan["Kasia"] = 5
 
 
     show screen map_screen
@@ -1961,6 +1955,19 @@ label wojsko:
         $ bigquest = 5
         p "No to wracam do bazy"
         jump rozstaje
+
+    if Frakcja == 1 or Frakcja == 3 or Frakcja == 4:
+        gk "Dobra robota szczylu."
+        gk "Udało Ci się zdobyć przyjaźń z potężną frakcją"
+        menu:
+            gk "Jesteś gotowy na tajną misję?"
+            "Kurwa no pewex":
+                gk "Git"
+            
+            "Daj mi jeszcze trochę czasu":
+                gk "Spoczko"
+                jump rozstaje
+        jump wojowezadanie
 
     elif wojsko_stan > 0:
         "Opowiedziałeś Kenowi o swoim progresie"

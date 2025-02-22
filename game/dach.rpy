@@ -11,6 +11,7 @@ label dach:
             scene kuchnia
             show gun
             g "Lepiej nie zawieraj żadnych umów z Cypherem, to nigdy nie kończy się dobrze"
+            g "Pamiętaj też, jak raz dołączysz do DH to już nie ma wyjścia. Cypher nie może Cię z niego wyjebać"
             $ stan["Gun"] += 1
             $ stan["Cypher"] += 1
             jump rozstaje

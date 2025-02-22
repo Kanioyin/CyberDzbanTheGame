@@ -139,6 +139,7 @@ label jaxowo:
     scene opor
     show jax
     $ talkloop = 0
+    $ czas -= 1
     while talkloop == 0:
         menu:
             ja "Co tam chcesz [player_name]?"
@@ -156,8 +157,33 @@ label jaxowo:
                 $ kompan = 0
                 "JAX wraca do swoich zajęć"
 
-            "Mam dla Ciebie przesyłkę" if stan2["BB"] == 6:
+            "Mam dla Ciebie przesyłkę" if stan2["BB"] == 6 and inventory.has_item(Wytrych) == True:
+                $ czas -= 4
                 p "Cześć Jax, mam coś dla Ciebie"
+                ja "Co to takiego [player_name]?"
+                p "A taki fajny wytryszek znalazłem, uznałem, że może Ci się przydać"
+                ja "Kurde balans [player_name], w dobrym momencie z tym przyszedłeś."
+                p "Co ty dajesz"
+                ja "Serio, znalazłem jakąś dziwną skrzynkę z wojskowym znakiem. A wojsko to znak dobrego lootu"
+                p "No to co, otwieramy chyba"
+                ja "Proste że tak, zaraz ją przyniosę"
+                "Jax przeszedł się po czesta"
+                p "Spore to to. Ciekawe, co będzie w środku"
+                ja "Mam nadzieję, że wojskowe wszczepy, wtedy będziemy bogaci"
+                p "No to dobra, otwieram ją!"
+                $ inventory.remove_item(Wytrych)
+                p "Co to kurwa jest? Miałem nadzieję na wszczepy a nie na dokumenty"
+                ja "Może być jeszcze lepiej tak na prawdę, wojskowe tajne akta. Daj mi chwilę to je przeczytam"
+                "Dałeś mu chwilę"
+                ja "Ale jaja. Kennedy ma stanąć przed sądem wojennym"
+                p "Co do kurwy, jak on to niby zrobił?"
+                ja "Okazuje się, że umowy z nami były nielegalne i teraz jest ścigany po hawajach"
+                p "Niech zgadnę, podpisywał umowy o działo a nie o dzieło?"
+                ja "Nie napisali dokładnie ale bardziej mi to wygląda na nieautoryzowanie korzystanie z osób trzecich"
+                p "Czyli już nie będziemy mieli chyba umów z wojskiem"
+                ja "Nie powiedział bym, w wojsku jest teraz nowy szef, tylko nikt nie wie jak to u niego wygląda"
+                p "Zobaczymy później pewnie. Ja będę się już zbierał, trzymaj się Jax"
+                $ stan2["BB"] =7
             
             "Co powiesz na mały trening?" if exp > 9:
                 ja "Jasne mordeczko"
@@ -1213,12 +1239,26 @@ label pierdex:
             jump nowedh   
             jump opor
 
-        elif stan2["BB"] > 2:
+        elif stan2["BB"] > 2 and stan2["BB"] < 8:
             bb "Już Cie młody wysyłam do klienta"
             jump nowedh
 
+        elif stan2["BB"] == 8:
+            bb "Gładka robota młody, klient zadowolony, więc ja też jestem"
+            $ edki += 1000
+            bb "Masz tu wpłatę z bonusikiem za dobrą robotę"
+            p "Czeka mnie jeszcze jakieś tu zadanie?"
+            bb "Ostatnia przewidziana dla Ciebie dostawa. Jedziesz na badlandy z towarem"
+            p "Towarem towarem?"
+            bb "Bingo, jeden z lokalnych kucharzy to wysyła. Jedziesz, dajesz, uciekasz"
+            p "Jak duża jest szansa, że mnie po drodze ktoś zaatakuje?"
+            bb "50 procent, albo dostaniesz albo nie. Pure RNG"
+            jump tempend
+
+
 label nowedh:
     stop music
+    play music "a2amb.mp3"
     scene bazadh
     if stan2["BB"] == 2:
         p "Co to kurwa jest? Czemu ktoś tu zamówił paczkę?"
@@ -1288,7 +1328,7 @@ label nowedh:
             c "Spierdalaj"
             jump opor
 
-    if stan2["BB"] = 4:
+    elif stan2["BB"] == 4:
         show cypher at left with moveinleft
         c "Masz te 500 edków?"
         if edki > 499:
@@ -1307,7 +1347,7 @@ label nowedh:
             c "Spierdalaj"
             jump opor
 
-    if stan2["BB"] == 5:
+    elif stan2["BB"] == 5:
         show cypher at left with moveinleft
         c "Ah, uwielbiam chodzić na zakupy bez obstawy, najlepsze promocje mi się wtedy trafiają."
         p "No to pochwal się, co takiego udało Ci się kupić"
@@ -1335,6 +1375,40 @@ label nowedh:
         c "Pewnie nic lol. Znikaj już, muszę go wymyśleć"
         $ stan2["BB"] = 6
         jump opor
+
+    elif stan2["BB"] == 7:
+        c "I jak? Udało się wam otworzyć działalność?"
+        p "Nah, zamiast tego udało nam się otworyć skrzynkę"
+        call cipflash
+        c "CO! Dałem Ci jasne zadanie bojowe a ty je całkowicie olałeś?"
+        p "Bingo"
+        c "Niesubordynacja u pracownika"
+        c "jest"
+        c "absolutnie"
+        c "Dopuszczalna :), tego się po tobie spodziewałem [old_pn]. Dobra robota"
+        p "Czyli podoba Ci się to co zrobiłem"
+        call cipflash
+        c "Tak."
+        p "Wylkuczasz się z danymi w Hudzie"
+        c "Nie wiem co do mnie mówisz ale klepie w chuj"
+        p "Dobra klepaczu, ostatnie zadanie mi teraz dawaj"
+        c "Nie mam już więcej zadań, żartowałem z tym ostatnim"
+        p "To na chuj ja czas tracę!"
+        c "Chciałem tylko trochę pogadać z ludźmi, strasznie pusto jest w tej bazie"
+        menu:
+            "Twoja reakcja?"
+            "Niech stracę, pogadam z nim":
+                p "Niech stracę, co tam u ciebie Cypher"
+                $ czas = 0
+                "Pobombowałeś Chille wraz z Cypherem, może tylko Ci się wydaje ale jego uśmiech jest teraz szczery"
+                "Ostatecznie, wieczorem wróciłeś do bazy"
+
+            "Ja idę, mam świat do ratowania":
+                c "Szkoda"
+        
+        $ stan2["BB"] = 8
+        jump opor
+
 
     else:
         show cypher at left with moveinleft

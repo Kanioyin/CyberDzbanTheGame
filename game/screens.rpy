@@ -358,7 +358,8 @@ screen stats():
             text _("Wypite monstery: [persistent.monsters]") size 30
             text _("Zdrapane zdrapki: [persistent.skracz]") size 30
             text _("Godziny przepracowane: [persistent.work]") size 30
-            text _("Wydane frogsy: [persistent.frgout] size 30")
+            text _("Wydane frogsy: [persistent.frgout]") size 30
+            text _("Spacerki : [persistent.wolki]") size 30
 
             textbutton _("Back") action Return()
 
