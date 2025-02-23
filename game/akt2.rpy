@@ -409,7 +409,7 @@ label krzis:
             cr "Zuch chłopak! Kieruj się na Pierdex."
             $ stan2["BB"] = 1
 
-        elif stan2["BB"] == 6:
+        elif stan2["BB"] == 9:
             pass
 
     elif bigquest == 3:
@@ -1253,6 +1253,31 @@ label pierdex:
             bb "Bingo, jeden z lokalnych kucharzy to wysyła. Jedziesz, dajesz, uciekasz"
             p "Jak duża jest szansa, że mnie po drodze ktoś zaatakuje?"
             bb "50 procent, albo dostaniesz albo nie. Pure RNG"
+            p "Dobra, no to chuj, ruszam dzielnie"
+            play music "idrive.mp3"
+            scene dostawa
+            p "Dobra, ostatnia dostawa i będę miał wolne. Kurwa, oby to zadziałało"
+            p "Jak po tym wszystkim Kris da mi coś głupiego na next taska to chyba spierdalam"
+            p "Wydaje mi się, że to jest na tyle sus, że mu dam cynk po tym. Jeśli Blink nie napisał mu już"
+            "Wyjechałeś poza teren NC"
+            p "Popierdoli mnie, taka trasa do zrobienia. Dostawa po piasku powinna być nielegalna"
+            stop music
+            scene badchurch
+            p "Kurwa to jest tu? Kto zamawia dragi na środek pustyni?"
+            show alfonso at left 
+            al "To ty jesteś tym kurierem?"
+            p "Tajest, mam tu paczuszkę opłaconą z góry"
+            al "Postaw ją na ziemi i spierdalaj stąd"
+            p "Dobra szefie, bez takich newrów"
+            "Postawiłeś paczkę na ziemi, wskoczyłeś na skuter i zacząłeś uciekać"
+            play sound "BOOM.mp3"
+            p "Co tam się kurwa stało"
+            "Się okazało, to paczkę wyjebało"
+            p "Nie nie nie nie nie, ja się w to nie mieszam"
+            "I błyskawicznie wróciłeś prosto do szefa"
+            bb "Dobra robota młody, ostatnia paczka z głowy"
+            p "CO TO KURWA MIAŁO BYĆ? PO CHUJ JA MIAŁEM ZAWIEŹĆ BOMBĘ"
+            bb "" 
             jump tempend
 
 
