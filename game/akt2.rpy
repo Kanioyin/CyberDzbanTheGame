@@ -410,9 +410,21 @@ label krzis:
             $ stan2["BB"] = 1
 
         elif stan2["BB"] == 9:
-            pass
+            p "Skończyłem dostawy, prawie mnie rozerwało jak dowoziłem bombę na wypizdów"
+            cr "Oj, a pamiętasz komu to może przewoziłeś?"
+            p "Taki czarnuch z afro, Astolfo chyba"
+            cr "Rozumiem, zostałeś pewnego rodzaju wysłannikiem do wojny narkotykowej"
+            p "Co ty w ogóle pierdolisz, jakich wojen?"
+            cr "W Glenn był wcześniej potężny kucharz towaru, nazywał się pan Biały. Niestety umarł"
+            cr "Teraz, każdy głodny pies walczy o swój kawałek terenu i wpływów"
+            p "Czy to może jakkolwiek pomóc w naszej sprawie?"
+            cr "Oczywiście, opowiem Ci o tym jutro, idź się przespać."
+            p "Kurwa, sranie w banie, tylko przedłuża mi tę grę, kutasiarz jebany"
+            $ bigquest = 3
+            $ czas = 0
 
     elif bigquest == 3:
+        jump tempend
         pass
 
     jump opor
@@ -1277,8 +1289,15 @@ label pierdex:
             "I błyskawicznie wróciłeś prosto do szefa"
             bb "Dobra robota młody, ostatnia paczka z głowy"
             p "CO TO KURWA MIAŁO BYĆ? PO CHUJ JA MIAŁEM ZAWIEŹĆ BOMBĘ"
-            bb "" 
-            jump tempend
+            bb "Takie delikatne wyrównanie rachunków, nie musisz wiedzieć więcej"
+            p "Mogłeś mi przynajmniej powiedzieć, jakbym się wjebał w tira, to z trzy bloki bym rozjebał"
+            bb "Niestety, tak tu u nas wyglądają sprawy. Nie musisz się martwić, to było tylko jeden raz"
+            p "Czy masz jeszcze jakieś paczki do transportu, czy mogę już iść w diabły"
+            bb "Masz pełne prawo iść do diabła, możesz go ode mnie pozdrowić"
+            p "To spierdalam, sajonara"
+            $ stan2["BB"] = 9
+            $ czas = 1
+            jump opor
 
 
 label nowedh:
