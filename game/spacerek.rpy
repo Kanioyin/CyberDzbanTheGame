@@ -5,6 +5,9 @@ label spacerek:
     $ cel = renpy.random.randint(1, 100)
     if stan["Kasia"] == 3:
         jump frogsimp
+
+    if stan["Kasia"] == 5:
+        jump frogsimp
         
     if cel > 0 and cel < 11:
         if akt == 1:

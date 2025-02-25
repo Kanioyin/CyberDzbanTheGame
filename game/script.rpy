@@ -1827,6 +1827,10 @@ label frogsimp:
         fse "Spoczko, uważaj na siebie [old_pn]"
         $ stan["Kasia"] = 5
 
+    elif stan["Kasia"] == 5:
+        scene cafe
+        show kasia_kofi
+
 
     show screen map_screen
     window hide
