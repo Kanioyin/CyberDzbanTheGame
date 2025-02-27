@@ -1829,7 +1829,7 @@ label frogsimp:
 
     elif stan["Kasia"] == 5:
         scene cafe
-        show kasia_kofi
+        show kasia_kofi at right
 
 
     show screen map_screen
