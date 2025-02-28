@@ -1723,7 +1723,7 @@ label frogsimp:
     elif stan["Kasia"] == 3:
         "Wędrując sobie po mieście, udało Ci się znaleźć Kasię, stojącą w kolejce pod kinem"
         scene kino
-        p "OMG, to Kasia, chyba podejdę ją napastować poza miejscem pracy"
+        p "OMG, to Kasia, >_< chyba podejdę ją napastować poza miejscem pracy"
         p "Pierwszy raz ją widzę gdziekolwiek poza Frogiem, chyba ma wolne"
         p "Pora podejść i zagadać"
         p "Hai Hai!"
@@ -1828,8 +1828,58 @@ label frogsimp:
         $ stan["Kasia"] = 5
 
     elif stan["Kasia"] == 5:
+        "Jak sobie spacerowałeś, zobaczyłeś Kasię w kawiarni"
+        "Jako totalny creep, postanowiłeś iść zakłócać jej spokój"
         scene cafe
+        p "Hajo Kasia"
         show kasia_kofi at right
+        fse "O [old_pn], na kawę przyszedłeś?"
+        p "Nom, trochę mi się przepiły te całe potworki"
+        fse "To co teraz popijasz?"
+        p "Ta kawka bez wody, africano chyba to się nazywa"
+        fse "Przerażasz mnie czasami"
+        p "Nie raz już mówiłem, ja jestem zbudowany inaczej"
+        $ edki -= 25
+        "Zapłaciłeś za kawę i przysiadłeś się do Kasi"
+        p "Jak tam Ci dzionek mija?"
+        fse "A powoli dość, spokojny weekend się trafił"
+        p "Trochę sus, amogus. Cały weekend masz wolny?"
+        fse "Nom, jeszcze nikt nie napisał, że potrzebuje opiekunki"
+        p "A masz jakieś plany?"
+        fse "No wiesz, typowe takie babskie zajęcia. Cybflix, starsaks i lumpexy"
+        p "Jasny Gun, to brzmi jak cały dzień roboty"
+        fse "Bo to jest cały dzień roboty. Przynajmniej jest jakkolwiek zająć głowę"
+        p "Ja jak nie mam co robić, to strzelam se w łe.."
+        fse "._."
+        p "Sorka, mówiłem, jestem zbudowany ina"
+        fse "Trzeci raz mi to mówisz"
+        p "A ty chyba wiesz nawet dlaczego"
+        fse "To jest jakiś twój catchfrase?"
+        p "Nie, jestem jasnowidzem i widzę kraweńdziobiegaczy. Tam to jest główne lore"
+        fse "Nie pytam i nie chcę odpowiedzi"
+        p "Szybko się uczysz"
+        fse "Tego wymaga ode mnie aktualny rynek pracy"
+        p "Dlatego, ja się cieszę, że moja praca nie wymaga specjalnych skili"
+        menu:
+            fse "To co ty takiego robisz na utrzymanie?"
+
+            "Jestem kraweńdziażem":
+                "Opowiedziałeś trochę Kasi o swojej pracy"
+                $ kasiaknow += 1
+                fse "Jak wy robicie takie nie do końca legalne sprawki"
+                fse "To nie powinienieś tego trzymać jako sekret?"
+                p "Oni opowiadali o największej swojej broni, swoim największym przeciwnikom"
+                p "My nie mamy sekretów, tylko ciekawostki do opowiadania"
+
+            "Pomidor":
+                fse "Pomidor"
+
+        $ czas -= 10
+        fse "Robi się już późno, pora się zbierać"
+        p "Trzymaj się Kasia"
+        hide kasia_kofi
+        p "Kolejny raz przeszkadzałem jej w aktywnościach. Jestem sigma, patryk batman"
+        $ stan["Kasia"] = 6
 
 
     show screen map_screen
