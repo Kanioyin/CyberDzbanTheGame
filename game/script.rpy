@@ -15,9 +15,11 @@ init python:
         if item in inventory.items:
             inventory.remove_item(item)
             if item == Klapek:
-                renpy.call("Mad_dog")
+                bobcachievement_grant("DHW")
+                postacie['Cypher'] = -9999
+                renpy.notify("Cypher to zapomni")
             renpy.notify(f"Wyrzucono {item.name}")
-            renpy.call("Eko")
+            bobcachievement_grant("Eko")
         else:
             renpy.notify("Nie masz tego przedmiotu!")
     
@@ -39,6 +41,7 @@ init python:
             renpy.notify(f"Dostałem {item.name}")
 
         def remove_item(self, item):
+            renpy.notify(f"Straciłem {item.name}")
             self.items.remove(item)
             self.quantity -= 1
 
@@ -53,20 +56,6 @@ init python:
             self.name = name
             self.desc = desc
             self.image = image
-
-
-label Eko:
-    achieve Eko
-    return
-
-
-label Mad_dog:
-    achieve DHW
-    c "Co ty kurwa najlepszego zrobiłeś kretynie? Pozbyłeś się właśnie unikatowego klapka z merchu DH"
-    c "Po pierwsze, wypierdalasz z DH"
-    c "Po drugie, mam focha"
-    $ postacie['Cypher'] = -9999
-    return
 
 
 label updict(Who,dict):
@@ -366,7 +355,7 @@ label start:
     show gun at right
     show cypher at left
     g "Spokojnie kasztanie"
-    call cipflash
+    call cipflash from _call_cipflash_4
     "Gun katyńskim kopem wysłał Cyphera na dach"
     c "DiamandHunde znowu błysnęło"
     play sound "CARTOON RICOCHET #2.mp3"
@@ -476,7 +465,7 @@ label kibel:
                 menu:
                     "Mam jednego w kieszeni"
                     "Wracaj do rodziny słoneczko":
-                        call cipflash
+                        call cipflash from _call_cipflash_5
                         "Zostawiłeś szczura w kiblu"
                         $ inventory.remove_item(Rat)
                         show grat at left
@@ -593,7 +582,7 @@ label warsztat:
                         jump rozstaje
 
                     "Opowiem Ci kawał, Vista gówno spawał":
-                        call cipflash
+                        call cipflash from _call_cipflash_6
                         h "KURWA WIEDZIAŁEM"
                         h "MUSZĘ GO ZDOBYĆ"
                         h "WYRUSZAM BEZZWŁOCZNIE"
@@ -653,7 +642,7 @@ label warsztat:
                         jump rozstaje
 
                     "Znajdę Ci tę spawarkę":
-                        call cipflash
+                        call cipflash from _call_cipflash_7
                         h "Idziemy teraz na market i Ci powiem jaką chcę"
                         scene nocny
                         show hartmann
@@ -767,7 +756,7 @@ label klinika:
                 $ config.rollback_enabled = False
                 menu:
                     "Mam nadzieję, że w naturze ( ͡° ͜ʖ ͡°)":
-                        call cipflash
+                        call cipflash from _call_cipflash_8
                         pl "Kto wie kotku."
                     
                     "Mam nadzieję, że w edkach":
@@ -822,7 +811,7 @@ label klinika:
                 "I pojawił się sprzedawca sieciowy"
                 pl "Szanowny panie, 5 koła za to!? Literalnie cie popierdoliło"
                 if edki > 4999:
-                    call cipflash
+                    call cipflash from _call_cipflash_9
                     p "Spokojnie Łaskawca, mnie na to stać"
                     $ edki -= 5000
                     pl "Jesteś pojebany! Gigantyczne czołgi człowieku"
@@ -835,7 +824,7 @@ label klinika:
                     jump rozstaje
 
                 p "No plus jeden, to pewnie nawet tetrisa nie uciągnie"
-                call cipflash
+                call cipflash from _call_cipflash_10
                 "Ale wasze gadanie nic nie dało"
                 pl "Dobra, chuj z tym, wracamy do bazy"
                 scene klinika
@@ -891,7 +880,7 @@ label jhinownia:
             $ config.rollback_enabled = False
             menu:
                 "Zdecydowanie pączkowanie":
-                    call cipflash
+                    call cipflash from _call_cipflash_11
                     j "O cholibka, wiedziałem"
                     $ postacie["Jhin"] += 1
                     j "To oznacza że trzeba zabić każdego piekarza w mieście! Wyruszam natychmiast!"
@@ -1130,7 +1119,7 @@ label bruhzylia:
                 kr "Koło chuja mi to lata, idziemy do domu"
 
             else:
-                call cipflash
+                call cipflash from _call_cipflash_12
                 p "No nie mam nic przy sobie"
                 kr "No ja też"
                 p "To po 10"
@@ -1341,7 +1330,7 @@ label akt1:
     menu:
         "Piszę się?"
         "Kurwa no pewex":
-            call cipflash
+            call cipflash from _call_cipflash_13
             $ postacie["Gun"] += 1
             g "To mi się podoba"
             $ wojownik = True
@@ -1419,7 +1408,7 @@ label akcja:
             $ edki += 50
             call checkHP(5) from _call_checkHP_3
         "Czekam aż reszta nabije sobie fragi":
-            call cipflash
+            call cipflash from _call_cipflash_14
             "Kitrałeś się do końca"
 
     show gun
@@ -1610,7 +1599,7 @@ label frogszop:
             "Ja do roboty przyszedłem" if Frakcja == 6 and czas > 0:
                 fse "To dawaj za kasę"
                 $ edki += czas * 8
-                $ persistent.work = czas
+                $ persistent.work += czas
                 $ czas = 0
                 "Przepracowałeś cały dzień"
                 $ helper = 0
@@ -1732,7 +1721,7 @@ label frogsimp:
         p "Raz na ruski rok trzeba zaznać trochę cooltury"
         fse "A na co idziesz?"
         p "Dobre pytanie"
-        call cipflash
+        call cipflash from _call_cipflash_15
         fse "To może ta nowa komedyjka fantasy?"
         p "Jak to się nazywa?"
         fse "Łan men, Łan czar. Film o czarodzieju co zna tylko gobelin blast"
@@ -1799,7 +1788,7 @@ label frogsimp:
         p "A mam pod ręką tajemniczy mysi sprzęt "
         play sound "pif.wav"
         "Nim zdążyłeś wyjąć broń, napastnik strzelił do Ciebie"
-        call checkHP(19)
+        call checkHP(19) from _call_checkHP_36
         gg "Trzebabyło dawać więcej reflekusu kurewko"
         p "Dzięku bogu dałem sporo w wytrzymałość"
         play sound "pif.wav"
@@ -2534,7 +2523,7 @@ label wojowezadanie:
                         $ helper -= 25
                     
                     "Ocet jest smaczny, wypiję":
-                        call cipflash
+                        call cipflash from _call_cipflash_16
                         mg "Obrzydzasz mnie"
                         "Wypiłeś cały ocet jaki mieli"
                         "Dzięki twojej brawurze visty poniosły straty finansowe"
@@ -2862,7 +2851,7 @@ label wojowezadanie:
         show cypher
         $ postacie["Cypher"] += 3
         p "Wracajmy już do domu"
-        call cipflash
+        call cipflash from _call_cipflash_17
         c "Tak wcześnie?"
         p "No zrobiliśmy to co mieliśmy"
         c "Nudziaż! Jednak mi się nie podobasz"
@@ -3530,7 +3519,7 @@ label vlepa:
     "Zobaczmy jak Ci poszło"
     if vron == 1 and vrrr < 4:
         "Jesteś popierdolony, że przyszedłeś z vronią na arenę"
-        "Vygrałeś, reszta się Vstraszyła"
+        "Vygrałeś, reszta się Vystraszyła"
         $ valki = 0
         $ vdolce += 5
         $ vrrr += 1

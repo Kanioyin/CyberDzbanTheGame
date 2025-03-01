@@ -1,62 +1,82 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 113, in script
-    $ renpy.pause()
-  File "game/script.rpy", line 113, in <module>
-    $ renpy.pause()
-  File "game/script.rpy", line 27, in render
-    mask = renpy.display.im.Surface(self.scratch_surface, self.width, self.height)
-AttributeError: module 'renpy.display.im' has no attribute 'Surface'
+  File "game/script.rpy", line 400, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 401, in script
+    menu:
+  File "renpy/common/00action_other.rpy", line 582, in __call__
+    rv = self.callable(*self.args, **self.kwargs)
+  File "game/script.rpy", line 20, in drop_item
+    renpy.say("c", f"Co ty kurwa najlepszego zrobiłeś kretynie? Pozbyłeś się właśnie unikatowego klapka z merchu DH")
+  File "renpy/common/00library.rpy", line 324, in say
+    who(what, interact=interact, *args, **kwargs)
+Exception: Cannot start an interaction in the middle of an interaction, without creating a new context.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 113, in script
-    $ renpy.pause()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 827, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1178, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "game/script.rpy", line 113, in <module>
-    $ renpy.pause()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\statementexports.py", line 194, in pause
-    rv = renpy.ui.interact(mouse='pause', type='pause', roll_forward=roll_forward, pause=delay, pause_modal=modal)
+  File "game/script.rpy", line 400, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 401, in script
+    menu:
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1625, in execute
+    choice = renpy.exports.menu(choices, self.set, args, kwargs, item_arguments)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\menuexports.py", line 134, in menu
+    rv = renpy.store.menu(new_items)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\menuexports.py", line 424, in display_menu
+    rv = renpy.ui.interact(mouse='menu', type=type, roll_forward=roll_forward)
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 301, in interact
     rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2215, in interact
     repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2879, in interact_core
-    self.draw_screen(root_widget, fullscreen_video, (not fullscreen_video) or video_frame_drawn)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 1381, in draw_screen
-    surftree = renpy.display.render.render_screen(
-  File "render.pyx", line 486, in renpy.display.render.render_screen
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 900, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 900, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 900, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 752, in render
-    child = renpy.display.render.render(self.child, w, h, st, at)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 900, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 260, in renpy.display.render.render
-  File "game/script.rpy", line 27, in render
-    mask = renpy.display.im.Surface(self.scratch_surface, self.width, self.height)
-AttributeError: module 'renpy.display.im' has no attribute 'Surface'
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 3286, in interact_core
+    rv = root_widget.event(ev, x, y, 0)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 791, in event
+    rv = self.child.event(ev, x, y, st)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1526, in event
+    rv = super(Window, self).event(ev, x, y, st)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 285, in event
+    rv = d.event(ev, x - xo, y - yo, st)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 1182, in event
+    return handle_click(self.clicked)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 1103, in handle_click
+    rv = run(action)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 394, in run
+    new_rv = run(i, *args, **kwargs)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 401, in run
+    return action(*args, **kwargs)
+  File "renpy/common/00action_other.rpy", line 582, in __call__
+    rv = self.callable(*self.args, **self.kwargs)
+  File "game/script.rpy", line 20, in drop_item
+    renpy.say("c", f"Co ty kurwa najlepszego zrobiłeś kretynie? Pozbyłeś się właśnie unikatowego klapka z merchu DH")
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\sayexports.py", line 130, in say
+    renpy.store.say(who, what, *args, **kwargs)
+  File "renpy/common/00library.rpy", line 324, in say
+    who(what, interact=interact, *args, **kwargs)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1455, in __call__
+    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1106, in do_display
+    display_say(who,
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 803, in display_say
+    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2184, in interact
+    raise Exception("Cannot start an interaction in the middle of an interaction, without creating a new context.")
+Exception: Cannot start an interaction in the middle of an interaction, without creating a new context.
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.4.24120703
 CyberDzban 0.00000005
-Thu Feb 20 14:56:23 2025
+Sat Mar  1 12:09:42 2025

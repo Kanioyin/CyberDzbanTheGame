@@ -30,7 +30,7 @@ label spacerek:
         elif Frakcja == 1:
             "Wędrując znalazłeś skrzynkę z symbolem DH"
             p "Ciperowe śmieci, wezmę sobie"
-            call cipflash from _call_cipflash_18
+            call cipflash
             $ helper = renpy.random.randint(1,200)
             "Znalazłeś [helper] edków"
             $ edki += helper

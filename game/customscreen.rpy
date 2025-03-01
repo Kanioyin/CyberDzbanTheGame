@@ -54,7 +54,7 @@ screen item_details(item):
             image item.image
             text "[item.name]" size 40
             text "[item.desc]" size 30
-            textbutton "Wyrzuć" action Function(drop_item, item), Hide("item_details")
+            textbutton "Wyrzuć" action Hide("item_details"), Function(drop_item, item)
             textbutton _("Zamknij") action Hide("item_details")
 
 

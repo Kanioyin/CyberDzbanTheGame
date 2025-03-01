@@ -422,9 +422,20 @@ label krzis:
             p "Kurwa, sranie w banie, tylko przedłuża mi tę grę, kutasiarz jebany"
             $ bigquest = 3
             $ czas = 0
+            $ stan2["Kris"] = 0
 
     elif bigquest == 3:
-        jump tempend
+        if stan2["Kris"] == 0:
+            cr "Dobra, teraz czeka Ciebie takie powaga2 zadanie. Musisz zrobić inwigilację kasyna Benka"
+            p "Ty kurwa nie przesadzasz z poziomem trudności?"
+            cr "To nie jest aż takie trudne jak myślisz, wpierw zrobisz zwiad, potem akcję"
+            p "A dasz mi jakieś dodatkowe instrukcje?"
+            cr "Wszystko po koleji młody. Przygotuj się i wróć jak będziesz gotowy"
+            $ stan2["Kris"] = 1
+
+        elif stan2["Kris"] == 1:    
+            jump tempend
+
         pass
 
     jump opor
@@ -942,7 +953,7 @@ label chipnik:
         "Wchodzisz do środka"
         scene black
         p "Kurwa, ciemno tu jak w dupie u Cyphera"
-        call cipflash
+        call cipflash from _call_cipflash
         p "Szkoda, że nie mam latatki"
         p "Mam nadzieję, że nie stanie mi się nic złego"
         "I kurwa deklu wykrakałeś"
@@ -1316,7 +1327,7 @@ label nowedh:
         p "Gdzie ty niby znalazłeś maszynę klonującą?"
         c "W magazynie wojskowym stała niepilnowana, tylko głupi by nie zabrał"
         p "A potem się dziwisz, że armia nie chce Ci dawać zadań"
-        call cipflash
+        call cipflash from _call_cipflash_1
         c "Gnoju, nie pyskuj tu do mnie. Teraz będę twoim szefem!"
         p "Jak kurwa niby?"
         c "Pewnie BB nic Ci nie powiedział ale będziesz miał dla mnie kilka bojowych zadań do wypełnienia."
@@ -1423,7 +1434,7 @@ label nowedh:
     elif stan2["BB"] == 7:
         c "I jak? Udało się wam otworzyć działalność?"
         p "Nah, zamiast tego udało nam się otworyć skrzynkę"
-        call cipflash
+        call cipflash from _call_cipflash_2
         c "CO! Dałem Ci jasne zadanie bojowe a ty je całkowicie olałeś?"
         p "Bingo"
         c "Niesubordynacja u pracownika"
@@ -1431,7 +1442,7 @@ label nowedh:
         c "absolutnie"
         c "Dopuszczalna :), tego się po tobie spodziewałem [old_pn]. Dobra robota"
         p "Czyli podoba Ci się to co zrobiłem"
-        call cipflash
+        call cipflash from _call_cipflash_3
         c "Tak."
         p "Wylkuczasz się z danymi w Hudzie"
         c "Nie wiem co do mnie mówisz ale klepie w chuj"
@@ -1547,5 +1558,6 @@ label tempend:
     mg "Wielkie dzięki za granie"
     mg "Pamiętaj poszukać nagród w galeri"
     mg "Papatki"
-    $ persistent.czasGry = int(renpy.get_game_runtime()/60)
+    $ session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
+    $ persistent.czasGry += session_time
     $ MainMenu(confirm=False)()

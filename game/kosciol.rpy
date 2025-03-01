@@ -103,33 +103,38 @@ label kosciol:
                     jump rozstaje
 
         elif bigquest == 5:
-            if stan["Kalach"] == 9:
+            if stan["Kalach"] != 5:
+                k "No witam witam. Przyszedłeś po przebaczenie grzechów?"
+                p "Nie Kałachu, muszę zostać twoim przyjacielem"
+                k "Co kurwa?"
+                p "Kennedy szuka ludzi na misję a ja muszę się z wami zakumplować"
+                if [player_name] == "Hubert":
+                    k "Kurwa Hubert, spierdalaj"
+                    $ stan["Kalach"] = 9
+                    jump rozstaje
+
+                k "Łe dobra, nie strasz mnie kurwa. Już myślałem że Hubert gra"
+                k "A wiesz, on jest fanem Yaoj a to nie jest dating sim tylko CPTG"
+                k "Ale no dobra, nie chce mi się z tobą gadać"
+                k "Powiedzmy, że jak będziemy musieli się napierdalać to masz mój karabin"
+                achieve Kalpp
+                if Frakcja == 1:
+                    show cypher with moveinright
+                    c "Ale on już ma twój sprzęt"
+                    k "Spierdalaj"
+                    hide cypher with moveoutright
+
+                $ postacie["Kalach"] += 1
+                $ czas -= 2
+                $ stan["Kalach"] = 5
+
+            elif stan["Kalach"] == 5:
+                k "No czekam kurwa na questa"
+                jump rozstaje
+
+            elif stan["Kalach"] == 9:
                 k "Hubert spierdalaj"
                 jump rozstaje
-
-            k "No witam witam. Przyszedłeś po przebaczenie grzechów?"
-            p "Nie Kałachu, muszę zostać twoim przyjacielem"
-            k "Co kurwa?"
-            p "Kennedy szuka ludzi na misję a ja muszę się z wami zakumplować"
-            if [player_name] == "Hubert":
-                k "Kurwa Hubert, spierdalaj"
-                $ stan["Kalach"] = 9
-                jump rozstaje
-
-            k "Łe dobra, nie strasz mnie kurwa. Już myślałem że Hubert gra"
-            k "A wiesz, on jest fanem Yaoj a to nie jest dating sim tylko CPTG"
-            k "Ale no dobra, nie chce mi się z tobą gadać"
-            k "Powiedzmy, że jak będziemy musieli się napierdalać to masz mój karabin"
-            achieve Kalpp
-            if Frakcja == 1:
-                show cypher with moveinright
-                c "Ale on już ma twój sprzęt"
-                k "Spierdalaj"
-                hide cypher with moveoutright
-
-            $ postacie["Kalach"] += 1
-            $ czas -= 2
-            $ stan["Kalach"] = 5
 
         else:
             k "Czego ty kurwa chcesz? Nie mam teraz czasu na gadanie"

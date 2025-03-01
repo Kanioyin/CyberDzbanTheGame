@@ -1,31 +1,26 @@
 
-define c = Character(_("Cypher"), color="#00FFF7")
-define g = Character(_("Gun"), color = "#3f4140")
-define h = Character(_("Hartmann"), color = "#1945FF")
-define pl = Character(_("Łaskawca"), color = "#696969")
-define k = Character(_("Kałach"),color="#FF00FF")
-define p = Character(_("[player_name]"))
-define r = Character(_("Szczur"),color="#123456")
-define j = Character(_("Jhin"),color = "#444444")
-define v = Character(_("Vista"), color = "#213769")
-define t = Character(_("Toro"), color = "#6969EE")
-define gk = Character(_("Gen. Kennedy"), color = "#098703")
-define kr = Character(_("Krateus"), color = "#023a10")
-define mg = Character(_("Wielki Dzik"), color = "#482809")
-define fse = Character(_("Babka from żabka"), color = "#006600")
-define sb = Character(_("Ktoś"), color = "#77036d")
-define gr = Character(_("Grupa"), color = "#324511")
-define cr = Character(_("Kris"), color = "#EE0000")
-define ja = Character(_("Jax"), color = "#e4adf1")
-define vi = Character(_("VIO"), color = "#ffbcbc")
-define ec = Character(_("Evil Cypher"), color = "#FF0009")
-define gkp = Character(_("Gatekeeper"), color = "#213213")
-define be = Character(_("Szybki Ben"), color = "#ed4040")
-define au = Character(_("Automatoniks"), color = "#383303")
-define bo = Character(_("Borubabor"), color = "#abba69")
-
 init python:
     import os 
+
+    def after_load():
+        session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
+        persistent.czasGry += session_time
+        persistent.session_start_time = renpy.get_game_runtime()
+
+    def save_playtime():
+        session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
+        persistent.czasGry += session_time
+
+    def drop_item(item):
+        if item in inventory.items:
+            inventory.remove_item(item)
+            if item == Klapek:
+                renpy.call("Mad_dog")
+            renpy.notify(f"Wyrzucono {item.name}")
+            renpy.call("Eko")
+        else:
+            renpy.notify("Nie masz tego przedmiotu!")
+    
     class Inventory():
         def __init__(self, items, quantity):
             self.items = items
@@ -41,21 +36,11 @@ init python:
         def add_item(self,item):
             self.items.append(item)
             self.quantity += 1
-            p(f"Dostałem {item.name}")
+            renpy.notify(f"Dostałem {item.name}")
 
         def remove_item(self, item):
             self.items.remove(item)
             self.quantity -= 1
-            p(f"Straciłem {item.name}")
-
-        def list_items(self):
-            if self.quantity <= 0:
-                p("Nie mam nic przy sobie")
-
-            else:
-                p("Mam w plecaku:")
-                for item in self.items:
-                    p(f"{item.name}, {item.desc}")
 
         def has_item(self, item):
             if item in self.items:
@@ -63,57 +48,25 @@ init python:
             else:
                 return False
 
-
     class InventoryItem():
-        def __init__(self, name, desc):
+        def __init__(self, name, desc, image):
             self.name = name
             self.desc = desc
+            self.image = image
 
 
-label yeet:
-    scene black
-    $ odp = renpy.input("Co chcesz wyjebać?")
-    if (odp == "AR" or odp == "Ar" or odp == "ar") and inventory.has_item(AR) == True:
-        achieve Eko
-        $ inventory.remove_item(AR)
-        window hide
+label Eko:
+    achieve Eko
+    return
 
-    elif (odp == "Szczur" or odp == "Rat") and inventory.has_item(Rat) == True:
-        achieve Eko
-        $ postacie["Gun"] -= 1
-        $ inventory.remove_item(Rat) 
 
-    elif (odp == "Flaszka" or odp == "Flacha") and inventory.has_item(Flaszka) == True:
-        achieve Eko
-        $ postacie["Kalach"] -= 1
-        $ inventory.remove_item(Flaszka)
-
-    elif (odp == "Kokos" or odp == "Koks") and inventory.has_item(Kokos) == True:
-        achieve Eko
-        $ inventory.remove_item(Kokos)
-        $ postacie["Laskawca"] -= 1
-
-    elif (odp == "Pistolet" or odp == "Pistol" or odp == "Pistolecik") and inventory.has_item(Pistolecik) == True:
-        achieve Eko
-        $ inventory.remove_item(Pistolecik)
-
-    elif (odp == "Granat") and inventory.has_item(Granat) == True:
-        achieve Eko
-        $ inventory.remove_item(Granat)
-
-    elif (odp == "Wytrych") and inventory.has_item(Wytrych) == True:
-        achieve Eko
-        $ inventory.remove_item(Wytrych)
-
-    else:
-        "Nie masz tego"
-        window hide
-        
-    if akt == 1:
-        jump sypialnia
-    
-    elif akt == 2:
-        jump oporslep
+label Mad_dog:
+    achieve DHW
+    c "Co ty kurwa najlepszego zrobiłeś kretynie? Pozbyłeś się właśnie unikatowego klapka z merchu DH"
+    c "Po pierwsze, wypierdalasz z DH"
+    c "Po drugie, mam focha"
+    $ postacie['Cypher'] = -9999
+    return
 
 
 label updict(Who,dict):
@@ -138,7 +91,7 @@ label checktime:
         return
 
 
-# input call testSkili("Cecha", PT), nie fogoruj ""
+# input call testSkili("Skil","Cecha", PT), nie fogoruj ""
 label testSkili(skil,cecha, PT):
     if skil == "Bron":
         if inventory.has_item(AR):
@@ -153,7 +106,7 @@ label testSkili(skil,cecha, PT):
         else:
             pass
 
-    $ exp += 1
+    $ exp += 2
     $ wynik = 0
     $ d10 = renpy.random.randint(1,10)
     if d10 == 1:
@@ -171,8 +124,8 @@ label testSkili(skil,cecha, PT):
         return
 
 
-
 label checkHP(dmg):
+    $ wybrany_dzwiek = renpy.random.choice(buul)
     if inventory.has_item(Kokos):
         $ inventory.remove_item(Kokos)
         p "Pa ten unik szmato, Koks+L+Ratio"
@@ -191,12 +144,12 @@ label checkHP(dmg):
     
     elif armor == 0:
         $ HP -= dmg
-        play sound "hit.mp3"
+        play sound (wybrany_dzwiek)
 
     else:
         $ HP -= (dmg - armor)
         $ armor -= 1
-        play sound "hit.mp3"
+        play sound (wybrany_dzwiek)
 
     if armor < 0:
         $ armor = 0
@@ -253,96 +206,28 @@ transform bounce:
     linear 3.0 xalign 0.0
     repeat 2
 
+label cipflash:
+    show ciphate with dissolve
+    hide ciphate with dissolve
+    return
+
 
 label start:
-    default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
-    default cechy = {"INT":2, "ZW":2, "CHAR":2,"BC":2}
-    default skile = {"Atletyka": 2, "Bron": 2, "Gadanie": 2, "Myslenie": 2}
-    default stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
-    #deklaracja inventory
-    default inventory = Inventory([],0)
-
-    #deklaracja przedmiotów
-    default AR = InventoryItem("AR", "Fajny karabin")
-    default Rat = InventoryItem("Szczur", "Grube bydle")
-    default Flaszka = InventoryItem("Flacha", "Najlepszy przyjaciel Kałacha")
-    default Kokos = InventoryItem("Kokos","Tak na prawdę to kokaina")
-    default Pistolecik = InventoryItem("Pistolet","Prosta tania broń")
-    default Granat = InventoryItem("Granat","Mały gadżet, robiący bum")
-    default Klapek = InventoryItem("Klapek","Klapek z twarzą Cyphera. Nie dotykałbym tego")
-    default MalyArmor = InventoryItem("Pancerz","Standardowy cyberowy armor")
-    default Vron = InventoryItem("Vroń","Współczuję zakupu")
-    default Wytrych = InventoryItem("Wytrych","Cudowny sprzęt do otwierania drzwi i nie tylko")
-    default Vomba = InventoryItem("Bomba","Bomba, tylko produkcji Vist")
-    default Vranat = InventoryItem("Vranat","Wabajack tego uniwersum")
-    default Ser = InventoryItem("Ser","Strasznie cheesy, Gun musi go lubić")
-    default THeal = InventoryItem("Turbouzdrawiacz","Turbo uzdrawia")
-    default NRG = InventoryItem("Energol","Waluta permium")
-    default HuMeat = InventoryItem("Ludzkie mięso","VIO chętnie to schrupie")
-    default Smoke = InventoryItem("Bomba dymna", "Taki szlug, tylko nie psuje płuc")
-    default RadArm = InventoryItem("Hazmat", "Pancerz przeciw radjacji")
-
-    #Stany postaci
-    default kibel_stan = 0
-    default wojsko_stan = 0
-
-    #deklaracja reszty
-    default edki = 0
-    default vdolce = 0
-    default frogsy = 0
-    default MaxHP = 20
-    default Fragi = 0
-    default akt = 0
-    default HP = 0
-    $ HP = MaxHP
-    default Frakcja = 0
-    # 0 = Niezrzeszony
-    # 1 = DH
-    # 2 = DN
-    # 3 = Visty
-    # 4 = Uda
-    # 5 = Wojsko
-    # 6 = Żabka
-    default Cap = 4
-    default dzien = 1
-    default armor = 0
-    default ammo = 0
-    default umieram = 0
-    default maxarmor = 0
-    default czas = 20
-    default veq = 0
-    default znajOkol = 0
-    # 1 = sklep
-    # 2 = żabka
-    # 3 = worek
-    # 4 = jaja
-    default lilquest = 0
-    default vrrr = 0
-    default bigquest = 0
-    default vron = 0
-    default helper = 1
-    default helper2 = 0
-    default part = 0
-    default testPass = 0
-    default kody = 0
-    default kompan = 0
-    # 0 = Nikt
-    # 1 = VIO
-    # 2 = JAX
-    # 3 = Borabor
-    default talkloop = 0
-    default chipy = 0
-    default chiplok = 0
-    default exp = 0
-    default wynik = 0
-    default odp = " "
-    default anom = 0
-    default frogrel = 0
-
+    $ start_time = renpy.get_game_runtime()
     play music "Bongo_Madness.mp3" volume 0.2
+    $ baba_name = "Babka from żabka"
+    $ HP = MaxHP
+    if nua > 9:
+        $ edki = 500
+
+    if nua > 19:
+        $ znajOkol = 1
+    
+    if nua > 29:
+        $ Cap = 5
 
     while helper == 1:
-        $ player_name = renpy.input("Nazywasz się:")
+        $ player_name = old_pn = renpy.input("Nazywasz się:")
         if player_name == "Gun":
             g "Prawa autorskie kurwa"
 
@@ -418,6 +303,7 @@ label start:
 
         elif player_name == "Czajnik":
             "A ty nie widziałeś już wszystkiego?"
+            ha "Czekam słoneczko"
             $ helper = 0
 
         elif player_name == "Jax":
@@ -429,11 +315,17 @@ label start:
         elif player_name == "Kris":
             cr "Kolego nie pomyliło Ci się coś?"
 
-        elif player_name == "Alfonso":
-            k "Siema byku"
-            $ postacie["Kalach"] += 5
-            $ Frakcja = 4
-            $ inventory.add_item(Flacha)
+        elif player_name == "Anon":
+            achieve Owo
+            fse "OMG, Anon-kun"
+            fse "Nawet nie wiesz jak tęskniłam"
+            fse "Pora wracać do roboty"
+            $ Frakcja == 6
+            $ helper = 0
+
+        elif player_name == "Anton":
+            mg "OMG, Anton-kun"
+            mg "Hai Hai"
             $ helper = 0
 
         elif player_name == "XD2":
@@ -444,6 +336,9 @@ label start:
             jump a2intro
             $ chipy = 5
 
+        elif player_name == "Kasia":
+            mg "Nie pozwalaj sobie kurwa"
+
         else:
             $ helper = 0
 
@@ -452,7 +347,6 @@ label start:
     call bigunl from _call_bigunl
     "Sensu życia"
     "Ani nawet broni"
-
     menu:
         "Więc postanowiłeś..."
 
@@ -466,50 +360,42 @@ label start:
             return
 
     show cypher with dissolve
-
     c "Witamy w bazie młody."
     c "Pa ten trick!"
-
     "Zaczyna morbować"
-
     show gun at right
     show cypher at left
-
     g "Spokojnie kasztanie"
-    show ciphate with dissolve
+    call cipflash
     "Gun katyńskim kopem wysłał Cyphera na dach"
-    hide ciphate with dissolve
     c "DiamandHunde znowu błysnęło"
     play sound "CARTOON RICOCHET #2.mp3"
     hide cypher with fade
-
     g "Łap rata"
     play sound "THROWING.mp3"
     $ inventory.add_item(Rat)
     show grab
-
     g "Oto symbol twojej przynależności do Draco Nero"
-    g "Znaczy, jeszcze nie jesteś jego członkiem"
-    g "Ale na start masz rata. Ten chuj srał mi w kieszeni"
+    g "Znaczy, jeszcze nie jesteś jego członkiem ale na start masz rata. Ten chuj srał mi w kieszeni"
     g "Dawaj do środka"
     jump intro
 
 # intro
-
 label intro:
     $ helper = 1
     achieve Poczatek
     scene kuchnia
     show gun at right
-    g "Więc nowy, witamy w bazie"
-    g "Jak ty się w ogóle nazywasz?"
+    g "Więc nowy, witamy w bazie! Jak ty się w ogóle nazywasz?"
     p "[player_name]"
     g "Brzmi jak debil"
-    g "Idź się przejdź, pogadaj z innymi"
-    g "Przywitaj się jak człowiek"
+    g "Idź się przejdź, pogadaj z innymi, przywitaj się jak człowiek"
     jump rozstaje
 
 label gameover:
+    scene gameover
+    $ session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
+    $ persistent.czasGry += session_time
     achieve GitGud
     "Przegrałeś lol"
     $ MainMenu(confirm=False)()
@@ -573,729 +459,6 @@ label rozstaje:
             jump rozstaje
 
 
-label kuchnia:
-    scene kuchnia
-    show gun
-    if akt == 0:
-        g "Szybko Ci poszło"
-        if stan["Gun"] < 4:
-            if inventory.has_item(Flaszka) == True:
-                g "To pomoże Ci z kałachem"
-                g "Daj mu tę flachę"
-                jump rozstaje
-
-            elif postacie["Kalach"] == 0:
-                g "Masz, to Ci pomoże zdobyć zaufanie księdza"
-                play sound "THROWING.mp3"
-                $ inventory.add_item(Flaszka)
-                g "Daj mu to, powinien Cię polubić"
-                jump rozstaje
-
-        elif stan["Gun"] > 2:
-            g "Skończyłeś już pogaduszki?"
-            menu:
-                "Skończyłem?"
-
-                "Ta, lecimy dalej":
-                    stop music fadeout 1.0
-                    jump akt1
-
-                "Jeszcze chwilka":
-                    jump rozstaje
-
-                "Po gadaniu z takimi deklami, jednak spierdalam":
-                    "Good Ending"
-                    $ MainMenu(confirm=False)()
-
-    elif akt == 1:
-        if bigquest == 0:
-            $ czas -= 1
-            g "Ser dobry, [player_name]"
-            if dzien < 3:
-                g "Daj mi trochę czasu roboty szukam"
-
-            if inventory.has_item(Klapek) == True:
-                p "Mam przesyłkę od Cyphera"
-                g "Co on znowu chce?"
-                p "Mam dla Ciebie... klapka?"
-                achieve Fedex
-                $ inventory.remove_item(Klapek)
-                $ postacie["Gun"] -= 2
-                $ postacie["Cypher"] += 1
-                g "Obawiam się, że to jest wypowiedzenie wojny"
-                g "Albo gorzej"
-                g "Zaczął produkcję merchu z DH"
-                g "Tak czy siak, nic dobrego to nie oznacza"
-                g "Zdupcaj, muszę pomyśleć"
-                jump rozstaje
-
-            else:
-                pass
-
-            if dzien > 3:
-                g "Robota się znalazła"
-                show jhin at right 
-                with moveinright
-                j "Zostaniesz naszym tajnym agentem"
-                j "Będziesz inwigilował wrogie społeczeństwo"
-                j "Niczym Dżejms Bond"
-                g "Nie zesraj się ten taki"
-                g "Ale wracając do roboty, od dzisiaj nazywasz się Vładek"
-                g "Zostaniesz szpiegiem, może nie z krainy deszczowców"
-                g "Tylko z bazy, wślizgniesz się w szeregi Vistów"
-                g "Wyciągniesz tyle informacji ile się da i spierdolisz"
-                g "Zadanie analnie proste"
-                g "Zaczynasz bezzwłocznie"
-                jump amongthev
-
-        elif bigquest == 3:
-            if dzien < 10:
-                g "Daj mi trochę czasu, vista ma chujowy charakter pisma."
-                g "Tak jeszcze z [10-dzien] dni"
-            
-            else:
-                g "Dobra [player_name], powiem Ci, że jesteśmy w piździe."
-                g "Jeśli dobrze rozumiem te papiery."
-                g "To Visty wypuszczają jakąś nową broń."
-                g "Polecisz teraz do naszego kontaktu, generała Kennedy'ego"
-                g "On da Ci broń do walki z Vinfekcją"
-                $ bigquest = 4
-                jump rozstaje
-
-        elif bigquest == 5:
-            if inventory.has_item(Rat) == True:
-                menu:
-                    "Mam w eq szczura, dać go Gunowi?"
-                    "Ta":
-                        p "Te Gun, chcesz może szczura?"
-                        g "Pewnie"
-                        $ inventory.remove_item(Rat)
-                        g "Dzięki"
-
-                    "Nah":
-                        "Niech posra jeszcze w kieszeni"
-                        
-            if stan["Cypher"] == 3:
-                show cypher at left with moveinleft
-                c "Dzień dobry [player_name]!"
-                p "Co ty tu kurwa robisz? Guna ja tu szukam."
-                c "Przykra sprawa ale mnie to nie obchodzi"
-                c "Trzeba przeprowadzić Anschluss tej kuchni"
-                p "Co to kurwa znaczy?"
-                c "No patrz. Tu się zrobi dziurę"
-                c "Tam się pierdolnie bunkier i okopy"
-                c "Nad wejściem działka, może nawet z ammunicją"
-                p "I co? Mam Ci pomóc to przynieść?"
-                c "Nie rozpędzaj się kasztanie"
-                c "Musiałem z kimś pogadać, wiesz, oczyszczenie umysłu itp"
-                p "Fantastycznie, mogę już iść?"
-                show gun at right with moveinright
-                g "A co wy tu kurwa robicie?"
-                c "O karamba, on wrócił!"
-                menu:
-                    c "[player_name]! Co robimy?"
-                    "Spierdalamy":
-                        "Z Cypherem wybiegliście z kuchni"
-                        scene rozstaje
-                        "Biegniecie przez bazę"
-                        g "Skurwysyny"
-                        show laskawca at right with moveinright
-                        pl "A co tu się dzieje?"
-                        p "O fak"
-                        p "Szybki dodge"
-                        "Ale ten dodge zabrał Ci cenne sekundy"
-                        g "Jestem bliżej"
-                        "Wbiegacie na dach"
-                        scene dach
-                        show gun at left
-                        show cypher at right
-                        g "No dobra gagatki, co macie na swoją obronę?"
-                        if inventory.has_item(Ser) == True:
-                            p "Ser"
-                            g "Akceptuję"
-                            $ inventory.remove_item(Ser)
-                            hide gun with moveoutleft
-                            c "Łał, to było szybkie"
-                            p "Aż za szybkie"
-                            "Gun to zje"
-                            $ stan["Cypher"] = 4
-                            jump rozstaje
-                        
-                        p "No my tylko chcieliśmy zobaczyć co jest w lodówce"
-                        g "I co znaleźliście?"
-                        p "Szczury"
-                        g "Dokładnie"
-                        g "Jeśli jeszcze raz zobaczę że myszkujecie mi w kuchni"
-                        g "Urwę jaja z kutasami"
-                        hide gun with moveoutleft
-                        $ postacie["Gun"] -= 2
-                        p "Chyba się zdenerwował"
-                        c "Chuj z nim"
-                        $ stan["Cypher"] = 4
-                        jump rozstaje
-
-                    "Przyjmuję konsekwencje":
-                        p "Przyszliśmy pooglądać kuchnie"
-                        g "Po chuj"
-                        c "A bo ja chcę zrobić mały Re."
-                        g "NIE MÓW TEGO SŁOWA"
-                        c "A, faktycznie"
-                        g "A teraz wypierdalać mi stąd"
-                        g "Zamierzam gorgonzolić Mączysława"
-                        c "Fuj"
-                        c "[player_name], wychodzimy"
-                        "I wyszliście"
-                        $ stan["Cypher"] = 4
-                        jump rozstaje
-
-            if stan["Gun"] == 0:
-                g "No to mów, co Ci ten Kennedy powiedział ciekawego"
-                p "Musimy zostać przyjaciółmi"
-                g "Ja pierdole"
-                g "Ale my że my, czy my że ty i inni?"
-                p "Ja i inni"
-                g "Ser z serca. No to do roboty żołnierzu"
-                g "Mocą przyjaźni zdobądź serca innych dzbanów"
-                $ stan["Gun"] = 1
-                jump rozstaje 
-
-            elif stan["Gun"] == 1:
-                g "Czyli ze mną chcesz zacząć randkować?"
-                g "Daniel Krej z!"
-                g "No to zacznijmy rozmowę kwalifikacyjną"
-                g "Pytanie pierwsze"
-                $ config.rollback_enabled = False
-                $ opd = renpy.input("Jaki jest twój ulubiony kolor?")
-                if odp == "Szczurzy":
-                    g "I to mi się podoba"
-                    $ postacie["Gun"] += 1
-
-                else:
-                    g "Chuja się znasz"
-
-                g "Pytanie numero dos"
-                $ odp = renpy.input("Lubisz bigos?")
-                if odp == "Tak":
-                    g "To chujowo"
-                    $ postacie["Gun"] -= 1
-
-                elif odp == "Nie":
-                    show ciphate with dissolve
-                    g "To dobrze"
-                    $ postacie["Gun"] += 1
-                    hide ciphate with dissolve
-
-                else:
-                    g "Chyba źle zrozumiałeś pytanie"
-
-                g "Pytanie trzecie"
-                $ odp = renpy.input("Jaka jest prędkość lotu nieobciążonej jaskółki w metrach na sekundę?")
-                if odp == "10":
-                    g "Tak, takiej europejskiej"
-
-                elif odp == "14":
-                    g "Tak, takiej z afryki"
-
-                else:
-                    "Tak to lata twój stary"
-
-                g "Pytanie czwarte"
-                $ odp = renpy.input("Jaki rodzaj sera jest najlepszy?")
-                if odp == "Prawdziwy":
-                    g "Bardzo dobrze"
-                    $ postacie["Gun"] += 1
-                
-                else:
-                    g "Ten też dobry ale nie top"
-
-                g "Pytanie piąte"
-                $ odp = renpy.input("Gdzie leży prawo według BB?")
-                if odp == "Na południe":
-                    g "DOBRZE!"
-
-                else:
-                    g "Źle"
-
-                $ renpy.block_rollback()
-                $ config.rollback_enabled = True
-                g "To chyba tyle z pytań"
-                p "I co to kurwa niby znaczy?"
-                g "Dowiesz się w swoim czasie"
-                $ stan["Gun"] = 2
-                $ czas -= 2
-                jump rozstaje
-
-            elif stan["Gun"] == 2:
-                g "No to witam ponownie, dziś zobaczysz Mączysława w akcji"
-                p "Kim jest kurwa Mączysław?"
-                g "To najlepszy telefon EUNE"
-                g "Polecany przez instytut RATki z dzieckiem"
-                p "No dobra ale co to za tricki?"
-                g "Zaraz zobaczysz młody, ruszamy dzielnie"
-                scene black
-                "Gun zabrał cię do nowego miejsca"
-                "Zaskoczyło Cię to że pojechaliście tam autem"
-                scene idrive
-                play music "idrive.mp3" volume 0.2
-                p "JA PIERDOLĘ, KTO CI DAŁ PRAWO JAZDY?"
-                g "Paczka cheetosów serowych"
-                p "Mogłem się tego spodziewać"
-                g "Skończ pierdolić i powiedz mi gdzie jechać"
-                p "ALE TO TY KURWA MIAŁEŚ WIEDZIEĆ"
-                g "Zapomłem"
-                show laskawca
-                pl "Jeden token mniej (4)"
-                hide laskawca with dissolve
-                g "Popierdoli mnie z tym pedantem, każdego trolla mi liczy"
-                p "O chuj chodzi w tej waszej relacji"
-                g "Nie mam zielonego pojęcia"
-                p "KURWA uważaj, baba na pasach"
-                g "Którym się hamuje"
-                play sound "hit.mp3"
-                "Baba poleciała"
-                g "Będzie padać, nisko latają"
-                p "Nawet kurwa nie pytam"
-                g "To dobrze, bo i tak bym nie odpowiedział"
-                p "Pewnie dlatego że nie wiesz co ty pierdolisz"
-                g "Nie. Dlatego że jesteśmy na miejscu"
-                stop music
-                play music "Monkeys Spinning Monkeys.mp3" volume 0.2
-                scene badblok
-                p "O cholera"
-                g "Dokładnie, Fredi Fazber"
-                p "Co?"
-                g "Zobaczysz w środku"
-                g "Ale najpierw. Raty aktywacja!"
-                "Gun wyjął worek z plecaka i wypuścił 83 szczury."
-                show gun at left
-                g "W tym miejscu mieszkał jeden z większych zbrodniarzy"
-                p "Hitler?"
-                g "Pojebało Cię, Cypher"
-                p "To po chuj tu przyjechaliśmy?"
-                p "Wyprowadza się od nas?"
-                g "Nie, zostawił tu swoje spodnie"
-                p "I to jest ten cały bojowy kłest"
-                g "Tak"
-                p "Dobra, chuj, miejmy to za sobą"
-                scene black
-                stop music
-                play music "spook.ogg"
-                "Weszliście do środka"
-                p "Kurwa jak tu ciemno"
-                g "A to była jego matka"
-                p "Co?"
-                g "No bo było ciemno"
-                play sound "FrediFnaf.mp3"
-                p "CO TO KURWA BYŁO"
-                g "To jest właśnie niebezpieczeństwo"
-                g "Ten słynny Fryderyk FazNiedźwiedź"
-                p "I ON CHRONI SPODNI?"
-                g "Jak się nie będziesz darł to nas nie znajdzie"
-                p "Sorka"
-                g "Luz marki arbuz, rozdzielamy się, nie daj się zabić"
-                "I poszedł w pizdu"
-                p "Panie Ganie, jak pan mógł"
-                p "I znowu całe gówno na mojej głowie"
-                p "Jak znajdę pokój Cyphera"
-                p "Ten budynek ma kilkanaście pięter"
-                "Podszedłeś do pierwszych drzwi"
-                "Widzisz pierdalny napis Cypher"
-                p "No dobra, to nie było trudne"
-                "Drzwi nie były nawet zakluczone"
-                p "Zbyt łatwo"
-                play sound "Dzwi.wav"
-                "Wszedłeś do środka"
-                p "Chuja widzę"
-                p "Gdzie Cypher schowałby spodnie"
-                show cypher
-                c "W szafie"
-                hide cypher with dissolve  
-                p "No co ty kurwa nie powiesz"
-                "Sprawdziłeś pierwszą szafę"
-                "I były w niej spodnie"
-                p "Kurwa jackpot"
-                p "Zdecydowanie zbyt prosto to idzie"
-                "I nagle coś cię ugryzło"
-                achieve Aboes
-                play sound "EAT OR MUNCH.mp3"
-                call checkHP(15) from _call_checkHP_10
-                p "AŁA KURWA"
-                p "SPIERDALANDO"
-                "Zacząłeś uciekać ale Fryderyk stanął Ci na drodze"
-                p "JA PIERDOLĘ"
-                "W tak zwanym międzyczasie"
-                scene badblok
-                show gun at left
-                g "Stawiam 10 że zdechnie"
-                show kalach at right
-                k "Stawiam flachę że ucieknie"
-                g "Stoi"
-                k "Stanął"
-                scene black
-                "Wracając"
-                "Walczyłeś dzielnie ale Fryderyk był zbyt silny"
-                "Nagle, jak Filip z konopi wyskoczył goblin z pościeli"
-                "Usłyszałeś głośne GOBELIN BLAST"
-                play sound "blast.wav"
-                "I straciłeś przytomność"
-                scene badblok
-                show gun at left
-                g "Coś długo go nie ma"
-                show kalach at right
-                k "To go poszukaj lol"
-                g "Nie chce mi się"
-                k "To ja idę"
-                g "Nie spodziewałem się tego po Tobie"
-                k "Chcę sprawdzić, czy Fredi wypił flaszkę"
-                scene black
-                k "Kurwa, jak tu ciemno"
-                k "Zaraz kurwa, czy on zdechł?"
-                k "Nie, ciężko ranny ale żywy"
-                k "O! Jest i moja flaszka"
-                k "He, to zaraz będzie jeszcze jedna"
-                "Kałach wyciągnął twoje ciało z bloku"
-                k "Znalazłem go"
-                g "Czyli wygrałem"
-                k "Chuja prawda bananowcu, on żyje"
-                g "Pierdolisz"
-                k "No sprawdź se puls"
-                g "Kurwa, masz rację"
-                g "Ale pa ten trick"
-                "Gun przystawił topór to twojej głowy"
-                g "Ja to wygram, raz już przegrałem zakład"
-                "A ty odzyskałeś przytomność"   
-                scene badblok
-                show gun at left
-                show kalach at right
-                p "POJEBAŁO CIĘ"
-                g "No i dupa"
-                "Gun schował broń"
-                g "Masz te gacie?"
-                "Sprawdziłeś po kieszeniach"
-                p "Kurwa, miałem je, przysięgam"
-                g "Spokojnie szczylu, to jest zaklęty obiekt"
-                g "Nie możesz sobie tak po prostu go zabrać"
-                p "Ale skam"
-                g "To to prawda ale zadanie wykonałeś"
-                g "Wskakuj do auta, wracamy"
-                k "Ale ja prowadzę"
-                p "Popierdoli mnie"
-                "I w rodzinnej atmosferze wróciliście do domu"
-                $ postacie["Gun"] += 1
-                $ postacie["Kalach"] += 1
-                $ stan["Gun"] = 3
-                $ czas = 0
-                jump rozstaje
-            
-            if stan["Gun"] == 3:
-                if stan["Jhin"] == 9:
-                    g "Chciałem pojechać z Jhinem na zadanie bojowe ale mu się zdechło"
-                    g "Więc to mamy już z głowy"
-                    $ stan["Gun"] = 4
-                    "Wychodzisz z kuchni"
-                    jump rozstaje
-                
-                elif stan["Jhin"] < 4:
-                    g "Pogadaj z Jhinem, jak zrobisz z nim trochę roboty to zapraszam"
-                    jump rozstaje
-
-                else:
-                    show jhin at left
-                    g "Dzień dobry [player_name]"
-                    j "Siemaneczko"
-                    p "Czołem, co to za zebranie?"
-                    g "Wyruszamy na wycieczkę tosteroznawczą"
-                    p "Co kurwa?"
-                    g "Zaraz zobaczysz"
-                    scene idrive
-                    play music "idrive.mp3" volume 0.2
-                    p "Nie rozjedź żadnej baby tym razem"
-                    j "Jak to tym razem?"
-                    j "Czy ja o czymś nie wiem?"
-                    g "O wielu sprawach ken taki"
-                    "Ale tym razem szybka podróż była bezpieczna"
-                    stop music
-                    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
-                    scene tostblok
-                    show gun at left
-                    show jhin at right
-                    g "Panowie, tu macie papiery, wchodzicie do środka i wyłudzacie hajs"
-                    j "Gunie, to chyba nie jest legalne"
-                    p "Kurwa, jesteśmy w Night City"
-                    j "Co fakt, to fakt"
-                    g "To do pracy rodacy"
-                    scene klatka
-                    show jhin at right
-                    j "Dziwna robota się trafiła"
-                    p "Chłopie, ja to robię tylko dla main questa"
-                    j "Czyli?"
-                    p "Potem Ci opowiem"
-                    "Zapukaliście do pierwszych drzwi"
-                    "Okazało się że na pierwszym piętrze mieszkają sebixy"
-                    "W taki sposób rozpoczął się kombat"
-                    play sound "hit.mp3"
-                    call checkHP(10) from _call_checkHP_11
-                    "Dostałeś potężnego luja ale oddałeś pięknym za nadobne"
-                    "Odwróciłeś się aby sprawdzić co z Jhinem"
-                    "A Jhin leży na ziemi nieprzytomny"
-                    p "O MÓJ BOŻE JHIN"
-                    g "Co się tak tam prujesz"
-                    p "Chodź tu szybko Gun, Jhin dostał w cymbał"
-                    g "Szczur zjadł mojego agenta, zrób mu zdjęcie"
-                    p "Pomóż mi przenieść go do auta"
-                    g "No dobra"
-                    "Przenieśliście nieprzytomnego Jhina do kara i ruszyliście do bazy"
-                    scene idrive
-                    play music "idrive.mp3" volume 0.2
-                    g "Co tam się w ogóle stało?"
-                    p "Sebixy wyklęte"
-                    g "O w mordę strzelił"
-                    p "A to było potem"
-                    g "To było bardzo niemiłe z ich strony, powinniśmy ich wysadzić"
-                    p "No to jest dobry plan ale gdzie dostanę bombę?"
-                    g "Pozwól mi gotować"
-                    "I w atmosferze skandalu wróciliście do bazy"
-                    $ stan["Gun"] = 4
-                    $ postacie["Gun"] += 1
-                    $ postacie["Jhin"] += 1
-                    $ czas = 0
-                    jump rozstaje
-
-            if stan["Gun"] == 4:
-                if stan["Krateus"] < 3:
-                    g "Brazylijczyk coś od Ciebie chce, idź do niego"
-                    jump rozstaje
-
-                else:
-                    g "No to lecimy, zadanie ostateczne"
-                    show krateus at left
-                    kr "Dokładnie kurwa"
-                    kr "Pora rozpierdolić sebixów"
-                    g "Ta, dokładnie. Kretynus znalazł bombę"
-                    g "Ja ją podstawie i spierdalamy"
-                    g "Twoim zadaniem będzie stanie na czatach"
-                    p "Powinienem dać sobie radę"
-                    g "No to w drogę"
-                    scene idrivewk
-                    play music "idrive.mp3" volume 0.2
-                    kr "Powiedz Gun, kiedy nauczyłeś się prowadzić?"
-                    g "Nigdy"
-                    play sound "hit.mp3"
-                    "I w tym momencie uderzyliście w lampę"
-                    call checkHP(5) from _call_checkHP_12
-                    stop music
-                    play music "Monkeys Spinning Monkeys.mp3" volume 0.2
-                    kr "Ała"
-                    g "A mówiłem, nie kraczemy jak prowadzę"
-                    kr "Spoko, w Brazyli było gorzej"
-                    p "A mnie siur boli"
-                    g "Spokojnie, od bólu się powiększa"
-                    kr "To dlatego walisz non stop ball breakerem?"
-                    g "Pojebało cię?"
-                    p "Panowie, co to tak pika?"
-                    g "NA RATY CHRYSTUSA"
-                    kr "Pierdolisz"
-                    g "Bomba się uzbroiła"
-                    "Otworzyliście bagaja i faktycznie bomba pika"
-                    g "Wypierdol to z auta"
-                    kr "Się robi"
-                    play sound "THROWING.mp3"
-                    "Krateus yeetnął bombę"
-                    g "Będzie padać, nisko latają"
-                    "Ładunek trafił do sklepu z narzędziami"
-                    kr "To za brak promocji Kurwo"
-                    play sound "BOOM.mp3" volume 0.2
-                    "I pierdolło"
-                    g "No to ponowie, chyba po robocie"
-                    kr "Kurwa serio, ja chciałem bijatykę"
-                    kr "No i ta bomba była na wynajem"
-                    p "To ty miałeś to oddać"
-                    kr "No, teraz będę miał problem"
-                    g "Straszna chujnia, anyway"
-                    g "Panowie wracamy, do Gunmobilu"
-                    "I po niesamowicie sukcesywnym queście wróciliście do bazy"
-                    g "To chyba tyle z syzyfowych prac"
-                    g "Możemy się zając zadaniem Kennedy'ego"
-                    p "Kurwa w końcu"
-                    achieve Gunpp
-                    $ stan["Gun"] = 5
-                    "Zadowolony wyszedłeś"
-                    $ czas = 0
-                    jump rozstaje
-
-            if stan["Gun"] == 5:
-                g "Idź do tego Kena"
-                jump rozstaje
-
-            if stan["Gun"] == 6:
-                g "To czekam aż dasz znać i idziemy na kłest"
-                jump rozstaje            
-
-    if inventory.has_item(Ser) == True:
-        p "Mam coś dla Ciebie gun"
-        $ inventory.remove_item(Ser)
-        achieve Smrut
-        g "Hmmm, tajemniczy mysi sprzęt."
-        g "To mi się przyda."
-        g "Dzięki"
-        $ postacie["Gun"] += 1
-        jump rozstaje
-
-    else:
-        jump rozstaje
-
-label kosciol:
-    scene kosciul
-    show kalach at right
-    if akt == 0:
-        if inventory.has_item(Flaszka) == True:
-            k "Wyczuwam flachę"
-            k "Wezmę sobie"
-            $ postacie["Kalach"] += 1
-            $ inventory.remove_item(Flaszka)
-            $ stan["Gun"] += 1
-            jump rozstaje
-
-        if postacie["Kalach"] == 0:
-            k "Kim ty kurwa jesteś?"
-            k "Wypierdalaj"
-            $ stan["Gun"] += 1
-            jump rozstaje
-
-        else:
-            play sound "BURP.mp3"
-            k "Pijesz?"
-            jump rozstaje
-
-    if akt == 1:
-        if bigquest == 0:
-            $ czas -= 1
-            if stan["Kalach"] == 0:
-                k "Jak tam poszło?"
-                k "Postrzelałeś?"
-                k "Poruchałeś?"
-                k "Może coś popiłeś?"
-                if wojownik == True:
-                    p "Było Pif Paf robione"
-                    k "Czyli coś postrzelałeś, milutko"
-                    $ postacie["Kalach"] += 1
-
-                else:
-                    k "Jedyne co strzeliłeś to foch, Ciper moment"
-                    show cypher with moveinleft
-                    c "Falsch"
-                    hide cypher with moveoutright
-                    k "Spierdalaj syfer"
-                    $ postacie["Kalach"] -= 1
-
-                $ stan["Kalach"] = 1
-                k "Zdupcaj, wracam do picia"
-                jump rozstaje
-
-            if stan["Kalach"] == 1:
-                "Kałach alkoholizuje się, lepiej mu nie przeszkadzaj"
-                jump rozstaje
-
-        elif bigquest == 3:
-            if stan["Kalach"] == 1:
-                k "Niech mnie uda i zimna wóda"
-                k "Wróciłeś żywy z siedliska Vist"
-                $ postacie["Kalach"] += 1
-                k "Masz nagrodę"
-                if inventory.has_space(Cap) == True:
-                    play sound "THROWING.mp3"
-                    $ inventory.add_item(Flaszka)
-                    k "Zachowaj na specjalną okazję, albo chlej teraz"
-                
-                else:
-                    k "Albo jednak nie"
-                $ stan["Kalach"] = 2
-                jump rozstaje
-
-            else:
-                "Kałach alkoholizuje się, lepiej mu nie przeszkadzaj"
-
-        elif bigquest == 4:
-            if stan["Kalach"] != 3:
-                if dzien < 10:
-                    "Kościół jest zamknięty, wróć później"
-                    jump rozstaje
-
-                elif dzien > 9:
-                    $ stan["Kalach"] = 3
-                    k "Wróciłem z krucjaty."
-                    k "I niech mnie dunder świśnie, tak mnie w krzyżu napierdala."
-                    k "Jeśli kiedykolwiek dołączysz do fanów stópek."
-                    k "To zostaniesz zgilotynowany."
-                    k "I granie Briar też się liczy."
-                    if Frakcja == 0:
-                        k "Może chcesz dołączyć do kościoła?"
-                        k "Dostaniesz błogosławienie i coś jeszcze"
-                        k "Co konkretnie, to jeszcze nie wiem"
-                        k "Ale na 69 procent coś będzie."
-                        $ config.rollback_enabled = False
-                        menu:
-                            k "To co, piszesz się?"
-
-                            "Proste że tak, Umen":
-                                $ Frakcja = 4
-                                $ postacie["Kalach"] += 4
-                                achieve Holy
-                                k "Niech wszystko Ci się teraz UDA!"
-                                jump rozstaje
-
-                            "Sorry Kałach, jestem ateistą":
-                                k "Dobrze więc."
-                                k "Ale pamiętaj, nigdy stopy."
-                                jump rozstaje
-
-                        $ renpy.block_rollback()
-                        $ config.rollback_enabled = True
-                    jump rozstaje
-
-        elif bigquest == 5:
-            if stan["Kalach"] == 9:
-                k "Hubert spierdalaj"
-                jump rozstaje
-
-            k "No witam witam"
-            k "Przyszedłeś po przebaczenie grzechów?"
-            p "Nie Kałachu, muszę zostać twoim przyjacielem"
-            k "Co kurwa?"
-            p "Kennedy szuka ludzi na misję"
-            p "A ja muszę się z wami zakumplować"
-            if [player_name] == "Hubert":
-                k "Kurwa Hubert, spierdalaj"
-                $ stan["Kalach"] = 9
-                jump rozstaje
-
-            k "Łe dobra, nie strasz mnie kurwa"
-            k "Już myślałem że Hubert gra"
-            k "A wiesz, on jest fanem Yaoj"
-            k "A to nie jest dating sim"
-            k "Tylko CPTG"
-            k "Ale no dobra, nie chce mi się z tobą gadać"
-            k "Powiedzmy, że jak będziemy musieli się napierdalać"
-            k "To masz mój karabin"
-            achieve Kalpp
-            if Frakcja == 1:
-                show cypher with moveinright
-                c "Ale on już ma twój sprzęt"
-                k "Spierdalaj"
-                hide cypher with moveoutright
-
-            $ postacie["Kalach"] += 1
-            $ czas -= 2
-            $ stan["Kalach"] = 5
-
-        else:
-            k "Czego ty kurwa chcesz?"
-            k "Nie mam teraz czasu na gadanie"
-            k "Spierdalaj"
-            jump rozstaje
-
-    jump rozstaje
-
 label kibel:
     scene kibel
     if akt == 0:
@@ -1313,9 +476,8 @@ label kibel:
                 menu:
                     "Mam jednego w kieszeni"
                     "Wracaj do rodziny słoneczko":
-                        show ciphate with dissolve
+                        call cipflash
                         "Zostawiłeś szczura w kiblu"
-                        hide ciphate with dissolve
                         $ inventory.remove_item(Rat)
                         show grat at left
                         r "Dziękuje, dobry człowieku"
@@ -1333,8 +495,7 @@ label kibel:
             r "Witaj dobry człowieku"
             r "Pozwól mi egzystować w tym niebezpiecznym środowisku samotnie"
             show gun at right
-            g "Kurwa, gadasz ze szczurami"
-            g "Będą z Ciebie ludzie"
+            g "Kurwa, gadasz ze szczurami! Będą z Ciebie ludzie"
             achieve Shizo
             $ postacie["Gun"] += 1
             $ kibel_stan += 1
@@ -1351,427 +512,7 @@ label kibel:
 
     else:
         jump rozstaje
-
-label dach:
-    scene dach
-    show cypher
-    if akt == 0:
-        if stan["Cypher"] == 0:
-            "Cypher skończył morbowanie"
-            c "Chcesz zostać najemnikiem?"
-            c "A może wolisz wynająć najemników?"
-            c "Wykonujemy każde zadanie, nawet niemożliwe damy radę zrobić"
-            c "Za odpowiednią opłatę oczywiście"
-            g "Te młody, dawaj na dół"
-            hide cypher
-            scene kuchnia
-            show gun
-            g "Lepiej nie zawieraj żadnych umów z Cypherem, to nigdy nie kończy się dobrze"
-            $ stan["Gun"] += 1
-            $ stan["Cypher"] += 1
-            jump rozstaje
-
-        elif stan["Cypher"] == 1:
-            "Widzisz że Cypher nad czymś pracuje"
-            c "Nie przeszkadzaj mi, przygotowuję coś niesamowitego"
-            c "Jeśli dołączysz do DH, to dostaniesz bojowe zadanie"
-            $ stan["Cypher"] += 1
-            jump rozstaje
-
-        elif stan["Cypher"] == 2:
-            c "Czy ty chcesz usłyszeć każdy dialog z mną?"
-            c "Czy może stwierdziłeś że chcesz truć mi dupę"
-            c "Powiedz mi kasztanie, wierzysz w kobiety?"
-            c "Zastanów się nad odpowiedzią"
-            $ stan["Cypher"] += 1
-            jump rozstaje
-
-        elif stan["Cypher"] == 3:
-            c "No pierdolne Ci"
-            c "Literalnie Ci pierdolnę"
-            c "Jeszcze raz tu kurwa przyjdź a poszczuję Cię Młynarczykiem"
-            $ stan["Cypher"] += 1
-            jump rozstaje
-
-        elif stan["Cypher"] == 4:
-            show ciphate with dissolve
-            c "No to masz przepierdolone"
-            c "Młynarczyk! Bierz go!"
-            play sound "Bestia.mp3" 
-            "I coolawy mściciel postanowił pozbyć się szkodnika"
-            hide ciphate with dissolve
-            achieve Mill
-            "Git Gud"
-            jump gameover
-
-    elif akt == 1:
-        if bigquest == 0:
-            $ czas -= 1
-            c "Co tam [player_name]?"
-            if Frakcja == 1 and postacie["Cypher"] == 4 and inventory.has_item(Klapek) == False:
-                c "Dobra, robotę masz"
-                play sound "THROWING.mp3"
-                $ inventory.add_item(Klapek)
-                c "Zanieś to Gunowi, jako symbol naszej przyjaźni"
-                jump rozstaje
-
-            elif postacie["Cypher"] == 5:
-                c "Witaj mój najodważniejszy wojowniku"
-                c "Nie mam teraz dla ciebie nowego zadania"
-                c "Ale nie martw się, DH jeszcze zabłyśnie"
-                jump rozstaje
-
-            elif Frakcja != 1:
-                c "Jakbyś dołączył do DH to miałbyś teraz niesamowicie ciekawego kłesta"
-                c "Tak to możesz spierdalać"
-                jump rozstaje
-
-            if dzien > 4:
-                c "Dzielny wojowniku, idź do guna robotę ma"
-                c "Wróć potem do mnie, opowiem Ci więcej"
-
-        elif bigquest == 3 and stan["Cypher"] == 0:
-            $ czas -= 1
-            c "Czekaj, wróciłeś właśnie od Vistów co nie?"
-            c "Jak tam było? Dobrze się bawiłeś?"
-            c "Powiem Ci w sekrecie, który jednak każdy zna"
-            c "Kiedyś, za czasów swojej światłości, polowałem na Visty"
-            c "Ale moja umowa z wojskiem poszła się jebać gdy ten chuj Kennedy nie dał mi wsparcia"
-            c "Jakby ta Av-ka wleciała do metra, byłbym niepokonany"
-            c "A tak to Jhin prawie się zabił tnąc kable"
-            c "Mówiłem mu, trakcja to śmierć. Tory! To jest przyszłość"
-            c "To tyle z mojej audiencji teraz idź w chuj."
-            $ stan["Cypher"] = 1
-            jump rozstaje
-
-        elif bigquest == 3 and stan["Cypher"] == 1:
-            $ czas -= 3
-            c "No co ty kurwa ode mnie chcesz?"
-            c "Nie chce mi się z tobą gadać"
-            c "Spierdalaj"
-            jump rozstaje
-
-        if bigquest == 5:
-            if stan["Cypher"] < 1:
-                if Frakcja == 1:
-                    p "Dzień dobry szefie"
-                    c "Witaj mój ulubiony najemniku"
-                    c "Czego ode mnie potrzebujesz"
-                    p "Kennedy dał mi misję"
-                    c "Oho, to będą jaja"
-                    c "Mam do niego zadzwonić?"
-                    p "Muszę być twoim przyjacielem"
-                    c "To tyle?"
-                    p "Tak"
-                    c "No to kurwa, zrobione"
-                    p "Tak po prostu?"
-                    c "Zawszę pomogę swoim pracownikom"
-                    p "Cholibka milutko"
-                    c "RICHTIG"
-                    achieve Cippp
-                    $ stan["Cypher"] = 5
-                    jump rozstaje
-                
-                else:
-                    c "Czego chcesz?"
-                    p "Mam misję od Kennedy'ego"
-                    c "Zaciekawiłeś mnie, mów dalej"
-                    p "No to musimy zostać przyjaciółmi"
-                    c "Oj, nie wiesz na co się piszesz"
-                    p "To prawda, nie mam zielonego pojęcia"
-                    c "A więc, dostaniesz doomstack bojowych zadań"
-                    c "Będę je wymyślał bardzo wolno, chyba"
-                    c "I wtedy dostaniesz fragment mojej afekcji"
-                    c "Możemy uznać że pierwsze zadanie już wykonałeś"
-                    p "No, to było szybkie"
-                    c "Nie ciesz się zbyt szybko, następne będą trudniejsze"
-                    c "Będą wymagały od Ciebie masy sprzętu"
-                    c "I trochę umysłu"
-                    c "Dobra, spierdalaj. Wyruszam myśleć"
-                    $ stan["Cypher"] = 1
-                    jump rozstaje
-
-            if stan["Cypher"] == 1:
-                c "No dobra mam pomysł, przelećmy się"
-                p "Kurwa cypher, popierdoliło Cie?"
-                p "Dlaczego ty taki rogaty jesteś?"
-                c "Źle mnie zrozumiałeś [player_name]"
-                c "Widzisz ten helikopter? Lecimy na zadanie"
-                p "Jakie zadanie?"
-                c "Bojowe"
-                c "Czeczeni się buntują i musimy ich zbombardować"
-                p "No dobra, to lecimy"
-                scene cypherkopter
-                play sound "heli.mp3"
-                "W czasie lotu Cypher spał jak zabity"
-                "Strasznie Cię korciło by tak został"
-                "Ale ostatecznie dolecieliście na miejsce"
-                "I to było 10 metrów od waszej bazy"
-                show cypher
-                c "Ale się wyspałem"
-                p "Czemu my pół dnia lecieliśmy 10 metrów"
-                c "Droga w remoncie, trzeba było lecieć na około"
-                p "Pojebie mnie"
-                c "Najpierw bierz się za robotę"
-                p "Dobrze szefie"
-                c "I to mi się podoba"
-                p "Czemu Ci czeczeni wyglądają jak Gun i Łaskawca?"
-                c "Kamuflaż. Przestań myśleć i ciąg"
-                $ config.rollback_enabled = False
-                menu:
-                    "Ciągniesz za wajchę?"
-                    "Cypher kazał ja robię":
-                        "Zkronkowałeś wajchę i napalm spadł"
-                        show ciphate with dissolve
-                        $ postacie["Cypher"] += 2
-                        hide ciphate with dissolve
-                        achieve Pyro
-                        "Okazało się, że to nie był kamuflaż"
-                        play sound "3yell1.wav"
-                        g "Ty debilu jebany"
-                        pl "ALE SIĘ PODJARAŁEM"
-                        $ postacie["Gun"] -= 1
-                        $ postacie["Laskawca"] -= 1
-                        c "HI HI HA HA"
-                        c "Zadanie wykonane, możemy wracać"
-                    
-                    "Nie zranię ziomków":
-                        p "Pierdol się Cypher, nie zrobię tego"
-                        show ciphate with dissolve
-                        c "Pizda jesteś nie wojownik"
-                        hide ciphate with dissolve
-                        $ postacie["Cypher"] -= 2
-                        c "Dobra wracamy, nie ma z tobą zabawy"
-                
-                $ renpy.block_rollback()
-                $ config.rollback_enabled = True
-                "I kolejne pół dnia wracaliście"
-                $ czas = 0
-                $ stan["Cypher"] = 2
-                jump rozstaje
-
-            if stan["Cypher"] == 2:
-                $ config.rollback_enabled = False
-                c "Tym razem zadanie będzie dość proste"
-                c "Musimy odwiedzić fantastyczną fabrykę"
-                p "Jaką kurwa fabrykę?"
-                c "Zaraz zobaczysz"
-                scene dhfak
-                show cypher at left
-                p "DH ma swoją własną fabrykę w NC"
-                c "To prawda, zajebista co?"
-                p "No troszeczkę"
-                c "A zaraz zobaczysz co jest w środku"
-                scene fakins
-                show cypher at left
-                c "Tada!"
-                show gun
-                g "Nienawidzę chuja"
-                hide gun
-                p "I co ty tu niby produkujesz?"
-                c "Klapki"
-                p "Serio?"
-                c "A czego ty się spodziewałeś?"
-                c "Merch DH musi zalać zachodnitajwański rynek"
-                p "Ale to jest wszystko?"
-                c "Nie no co ty. Drukuję tu jeszcze broń"
-                p "I też to idzie na handel"
-                c "W taki sposób finansuję swoje bizzarne przygody"
-                c "Młynarczyk siedzi i opycha to za gruby pitos"
-                c "Ale trzeba teraz przejść do głównego dania"
-                c "Kierunek piwnica"
-                scene dhpiw
-                show cypher at left
-                c "I tu się drukują pistoleciki"
-                c "Średnio po dwóch strzałach się rozpierdala"
-                c "Czasami potrafi działać do twojej śmierci"
-                c "Czyli do trzeciego strzału"
-                p "Sprowadziłeś mnie tu tylko by mi to pokazać?"
-                c "Nie, to by było zbyt proste"
-                c "Jedna z drukarek przestała działać"
-                c "Napraw mi to"
-                p "O ja pierdolę"
-                menu:
-                    "Jak to naprawić"
-                    "Może walne w to hita?":
-                        "Jebłeś w drukarkę, niestety przebiłeś się przez obudowę"
-                        show ciphate
-                        c "NIEEEE! GŁUPCZE!"
-                        hide ciphate
-                        $ postacie["Cypher"] -= 2
-                        c "To kosztowało z 200 edków"
-                        c "Nigdy się z tego nie pozbieram"
-                        c "Chujowy z ciebie fixer, zupełnie jak Gun"
-
-                    "Dodam kokainy do filamentu" if inventory.has_item(Kokos):
-                        $ inventory.remove_item(Kokos)
-                        "Wcierasz koks w filament"
-                        "Nagle drukarka zaczęła działać"
-                        c "Jesteś pierdolonym geniuszem"
-                        $ postacie["Cypher"] += 1
-                        c "Aż bym Cie znowu zaprosił do DH"
-                        c "Ale niestety komuś nie chce się tego kodować"
-                        c "Więc takzwany chuj, możemy wracać"
-                        "I z Cypherem wróciliście do bazy"
-                        $ stan["Cypher"] = 3
-                        jump rozstaje
-
-                    "Nie wiem":
-                        c "No to szkoda"
-
-                c "Giga sadge, chyba będę musiał kupić nową"
-                c "Chuj pora wracać"
-                "I z Cypherem wróciliście do bazy"
-                $ stan["Cypher"] = 3
-                jump rozstaje
-
-            if stan["Cypher"] == 3:
-                "Cyphera tu nie ma, powinien być gdzieś w bazie"
-                jump rozstaje
-            
-            if stan["Cypher"] == 4:
-                c "Dobra, lecimy z kolejnym bojowym zadaniem"
-                c "W dzisiejszym odcinku wysokiego trybu"
-                c "Wyruszymy do sklepu po zakupy"
-                scene owocniak
-                show cypher
-                c "Ah, uwielbiam plastikowe truskawki"
-                play sound "EAT OR MUNCH.mp3"
-                c "Przepyszne"
-                c "Ale jesteśmy tu w innym celu niż zdrowe jedzenie"
-                c "Jesteśmy tu na przesłuchanie"
-                p "Kogo?"
-                c "Ciebie"
-                c "Pytanie pierwsze"
-                $ config.rollback_enabled = False
-                menu:
-                    c "Ile chlebów w życiu zjadłeś?"
-                    "Kurwa, nie liczę tego":
-                        show ciphate with dissolve
-                        c "I to był błąd"
-                        hide ciphate with dissolve
-                        show krateus at right
-                        kr "To prawda, liczenie makro oddaje"
-                        kr "Wiesz, że jeden bochenek ma 2001 kalorii"
-                        kr "363 węgli, 66 białka i 24 fatu"
-                        kr "Warto kontrolować te wartości"
-                        hide krateus
-                        c "No właśnie"
-                        $ postacie["Cypher"] -= 1
-
-                    "Biedny jestem, z trzy":
-                        c "Oj rozumiem twój ból"
-                        c "Jak byłem małym szczylem"
-                        c "To my na platformie jedliśmy plastik z solą"
-                        c "A na pierwszej wojnie korporacyjnej jedzono zieloną sałatę"
-                        p "A ona nie zawsze była zielona?"
-                        c "No od wojny jest"
-                        $ postacie["Cypher"] += 1
-
-                    "Nienawidzę chleba":
-                        c "W sensie że bochenków?"
-                        p "Kromek też"
-                        c "A, bo już myślałem, że twardego nie lubisz"
-                        p "No też, kto kurwa lubi twardy chleb"
-                        c "Oj i teraz mnie wkurwiłeś"
-                        $ postacie["Cypher"] -= 1
-
-                c "Kwestię gastro mamy za sobą, teraz kolejne pytanie"
-                menu:
-                    c "Widziałeś gdzieś moje spodnie?"
-                    "Fredi ich pilnuje" if stan["Gun"] > 2:
-                        c "Karamba, myślałem że zostały już uratowane"
-                        p "A ty nie masz innych spodni?"
-                        c "Mam ale w tamtych jest coś ważnego"
-                        p "OK"
-                        $ postacie["Cypher"] += 1
-
-                    "Na dupie je masz":
-                        c "Się kurwa dowcipniś znalazł"
-                        c "Jak taki jesteś śmieszny to co byś powiedział na granat w odbycie?"
-                        p ":czacha"
-                        c "HiHiHaHa"
-
-                    "Nie wiem Cypher":
-                        c "Same"
-
-                c "No i ostatnie pytanie"
-                menu:
-                    c "Ufasz mi?"
-                    "Tak":
-                        c "Więc udawaj, że gadamy i idź za mną"
-                        p "Ok"
-                        "Spacerkiem szliście dalej, aż do ślepego zaułka"
-                        c "No, czego od nas chcecie"
-                        "Para zbirów wyłoniła się zza rogu"
-                        "Guten Morgen, Großer Manager"
-                        c "Guten Morgen"
-                        "Wir haben eine wichtige Frage an Sie"
-                        c "Komm schon"
-                        "Wir können Autogramme bekommen, wir sind große Fans"
-                        c "Natürlich"
-                        "Widzisz jak Cypher podchodzi do tej pary i pisze im coś na kartkach"
-                        "Następnie parka odchodzi"
-                        p "Cypher, co to było?"
-                        c "Fałszywy alarm młody, wracamy do domu"
-                        p "Ile masz jeszcze dla mnie zadań?"
-                        c "Wiesz co? Jak mi ufasz, to ja zaufam tobie"
-                        c "Możesz mnie liczyć jako sojusznika"
-                        p "Klawo"
-                        achieve Cippp
-                        $ stan["Cypher"] = 5
-                        $ postacie["Cypher"] += 2
-                        $ renpy.block_rollback()
-                        $ config.rollback_enabled = True
-                        jump rozstaje
-
-
-                    "Nie":
-                        c "To spierdalaj"
-                        achieve Foch
-                        "I bez słowa zaczął uciekać"
-                        $ postacie["Cypher"] -= 9999
-                        $ stan["Cypher"] = 9
-                        $ renpy.block_rollback()
-                        $ config.rollback_enabled = True
-                        jump rozstaje
-
-            if stan["Cypher"] == 5 or stan["Cypher"] == 6:
-                scene disko
-                show cypher at left
-                stop music
-                play music "inba.mp3"
-                p "Co tu się kurwa dzieje?"
-                c "Witam na imperzie"
-                p "Ale czemu? Zrobiłem z tobą kłesty!"
-                c "To jest bonus!"
-                c "Całkiem za friko!"
-                p "Serio?!"
-                c "No ta, nie wiem po chuj tu wchodziłeś"
-                p "Gra mi pozwoliła"
-                c "Tu powinni być tylko ludzie z DH"
-                c "Ale chuj, niech zyskam"
-                p "To co, będzie jeszcze jakiś bonus?"
-                c "Będzie tylko dla posiadaczy Cibuch Premium Premium"
-                p "Co to znaczy?"
-                c "Nie mogę Ci powiedzieć, to załamie kontinuum czasoprzestrzenne, a to będę mógł robić dopiero w następnym arku"
-                p "To może dasz mi jakieś zadanie specjalne?"
-                c "A spierdalaj, tańcz kurwa"
-                "I zacząłeś tańczyć z Cypherem"
-                $ stan["Cypher"] = 7
-                achieve Fri
-                jump rozstaje
-
-            if stan["Cypher"] == 7:
-                c "Ja tu czekam na zadanie"
-                c "Przybędę jak zawołasz na nie"
-                jump rozstaje
-
-            if stan["Cypher"] == 9:
-                c "Spierdalaj"
-                jump rozstaje 
-
-    jump rozstaje            
+  
 
 label warsztat:
     scene warsztat
@@ -1781,8 +522,7 @@ label warsztat:
         play sound ["Budowa.wav","Pila.wav"]
         $ stan["Gun"] += 1
         "Wchodząc do pokoju słyszysz agresywne napierdalanie młotkiem, a w tle leci niemiecki metal"
-        h "Kim ty kurwa jesteś?"
-        h "Dlaczego mi kurwa przeszkadzasz w robocie?"
+        h "Kim ty kurwa jesteś? Dlaczego mi kurwa przeszkadzasz w robocie?"
         h "Spierdalaj, albo Ci migomatem przypierdolę"
         stop sound
         jump rozstaje
@@ -1790,8 +530,7 @@ label warsztat:
     elif akt == 1:
         if inventory.has_item(MalyArmor) == False and stan["Hartmann"] != 1:
             h "Co tam [player_name]?"
-            h "Chcesz kupić jakiś pancerz? Tylko 100 edków"
-            h "Nie padniesz na pierda"
+            h "Chcesz kupić jakiś pancerz? Tylko 100 edków i nie padniesz na pierda"
             menu:
                 "Czy potrzebny mi jest pancerz?"
 
@@ -1810,8 +549,7 @@ label warsztat:
 
         elif armor < 11 and stan["Hartmann"] != 1:
             h "Już ci się armor rozjebał?"
-            h "Co jak co ale do wpierdolu to jesteś pierwszy"
-            h "Zespawać Ci to, 10 za punkcik"
+            h "Co jak co ale do wpierdolu to jesteś pierwszy. Zespawać Ci to, 10 za punkcik"
             menu:
                 "Naprawiać mam: [armor]/11 pancerza"
                 "Spawaj" if edki > (11-armor)*10:
@@ -1825,8 +563,7 @@ label warsztat:
         if bigquest > 2:
             if stan["Hartmann"] == 0:
                 $ stan["Hartmann"] = 1
-                h "Powiedz mi przetrwańcze"
-                h "Czy Visty mają migomat na stanie?"
+                h "Powiedz mi przetrwańcze czy Visty mają migomat na stanie?"
                 h "Bo słyszałem że vigomat podobno spawa tylko gówno"
                 menu:
                     "Czym jest kurwa migomat?":
@@ -1856,6 +593,7 @@ label warsztat:
                         jump rozstaje
 
                     "Opowiem Ci kawał, Vista gówno spawał":
+                        call cipflash
                         h "KURWA WIEDZIAŁEM"
                         h "MUSZĘ GO ZDOBYĆ"
                         h "WYRUSZAM BEZZWŁOCZNIE"
@@ -1864,28 +602,20 @@ label warsztat:
             elif stan["Hartmann"] == 1 and dzien > 10:
                 h "Pyk Pyk, jako tako i do Cyphera"
                 p "Cześć Hartmann!"
-                h "O Gluten morgen [player_name]!"
-                h "Potrzebujesz czegoś, jestem trochę zajęty"
+                h "O Gluten morgen [player_name]! Potrzebujesz czegoś, jestem trochę zajęty"
                 p "A przyszedłem pogadać trochę"
                 p "Ale jak pracujesz to nie przeszkadzam"
-                h "Typie, robię brońkę dla Cyphera"
-                h "To nie jest jakkolwiek ważne"
+                h "Typie, robię brońkę dla Cyphera. To nie jest jakkolwiek ważne"
                 show cypher with moveinleft
                 c "Wrrrr"
                 hide cypher with moveoutright
-                h "No widzisz, nic istotnego"
-                h "O czym chcesz pogadać?"
+                h "No widzisz, nic istotnego. O czym chcesz pogadać?"
                 p "A tak, po prostu. Lubię znać swoich współpracowników"
-                h "No to siadaj, opowiem Ci zwykłą historię"
-                h "Byłem szczylem, spawałem złom"
-                h "Romansowałem sobie trochę"
-                h "Ale baby nie były gotowe na potężnego prawicowca"
-                h "Później pewna zajebana korporacja się pojawiła"
-                h "Rozstrzelała mój gang"
-                h "I w taki sposób trafiłem tu"
+                h "No to siadaj, opowiem Ci zwykłą historię. Byłem szczylem, spawałem złom"
+                h "Romansowałem sobie trochę ale baby nie były gotowe na potężnego prawicowca"
+                h "Później pewna zajebana korporacja się pojawiła. Rozstrzelała mój gang i w taki sposób trafiłem tu"
                 p "No to było szybkie"
-                h "A co ja mam Ci opowiadać historię mojego życia?"
-                h "Biografię chcesz mi pisać?"
+                h "A co ja mam Ci opowiadać historię mojego życia? Biografię chcesz mi pisać?"
                 p "No nie no, tyle mi wystarczy"
                 h "No i dobra, get pogadaned"
                 p "Tja, to ja spierdalam"
@@ -1906,16 +636,13 @@ label warsztat:
                 p "AHA ):"
                 h "Wypłata jak wysoka?"
                 p "Nie wiem ):"
-                h "No to z czym do ludzi panie"
-                h "Jak mi powiesz ile zarobię to może się zastanowię"
-                h "Możesz też mi kupić nową spawarkę"
-                h "Wyjebane, muszę coś dostać"
+                h "No to z czym do ludzi panie. Jak mi powiesz ile zarobię to może się zastanowię"
+                h "Możesz też mi kupić nową spawarkę. Wyjebane, muszę coś dostać"
                 $ config.rollback_enabled = False
                 menu:
                     "Co robisz?"
                     "(Kłamstwo) Żartowałem, dostaniemy 3k na głowę":
-                        h "No i to jest zysk"
-                        h "Wchodzę w to jak w albatrosa"
+                        h "No i to jest zysk. Wchodzę w to jak w albatrosa"
                         p "No to witamy na pokładzie"
                         $ helper2 = 1
                         $ stan["Hartmann"] = 5
@@ -1926,9 +653,7 @@ label warsztat:
                         jump rozstaje
 
                     "Znajdę Ci tę spawarkę":
-                        show ciphate with dissolve
-                        h "Nie, Nie, Nie kochanieńki"
-                        hide ciphate with dissolve
+                        call cipflash
                         h "Idziemy teraz na market i Ci powiem jaką chcę"
                         scene nocny
                         show hartmann
@@ -1990,8 +715,7 @@ label klinika:
         $ czas -= 1
         pl "Co tam [player_name]?"
         if HP != MaxHP and edki > 49:
-            pl "Może Cię uleczyć?"
-            pl "Tylko 50 edków"
+            pl "Może Cię uleczyć? Tylko 50 edków"
             menu:
                 "Potrzebuje leczenia? [HP]/[MaxHP]"
                 "Lecz mnie" if edki > 49:
@@ -2021,8 +745,7 @@ label klinika:
                     pass
 
         if inventory.has_item(THeal) == False and edki > 199:
-            pl "Może chcesz zakupić turbouzdrawiacz?"
-            pl "Uratuje cię przed dedem"
+            pl "Może chcesz zakupić turbouzdrawiacz? Uratuje cię przed dedem"
             menu:
                 "Bardzo chętnie" if edki > 199 and inventory.has_space(Cap) == True:
                     play sound "THROWING.mp3"
@@ -2035,23 +758,17 @@ label klinika:
     if akt == 1:
         if bigquest < 5:
             if stan["Laskawca"] == 0:
-                pl "No to opowiadaj, jak Ci życie mija"
-                pl "Powiem Ci, u mnie jest dość ciężko. Szukam serwera dla baby"
-                pl "Kiedyś w bazie mieliśmy cały czas jakiegoś netrunnera"
-                pl "Ale przez cały ten konflikt z Vistami"
-                pl "To mało kto chce się pojawić"
-                pl "Raz mieliśmy taki zajebisty serwer"
-                pl "To się okazało że pali ludzi, jak się do niego wpięli"
-                pl "Przez trzy tygodnie się kłócili co z nim zrobić"
-                pl "I kurwa nawet nie pamiętam co się z nim stało"
-                pl "Jakbyś znalazł jakiś fajny serwerek"
+                pl "No to opowiadaj, jak Ci życie mija. Powiem Ci, u mnie jest dość ciężko. Szukam serwera dla baby"
+                pl "Kiedyś w bazie mieliśmy cały czas jakiegoś netrunnera ale przez cały ten konflikt z Vistami"
+                pl "To mało kto chce się pojawić. Raz mieliśmy taki zajebisty serwer"
+                pl "To się okazało że pali ludzi, jak się do niego wpięli. Przez trzy tygodnie się kłócili co z nim zrobić"
+                pl "I kurwa nawet nie pamiętam co się z nim stało. Jakbyś znalazł jakiś fajny serwerek"
                 pl "To daj mi cynk, wynagrodzę cię"
                 $ config.rollback_enabled = False
                 menu:
                     "Mam nadzieję, że w naturze ( ͡° ͜ʖ ͡°)":
-                        show ciphate with dissolve
+                        call cipflash
                         pl "Kto wie kotku."
-                        hide ciphate with dissolve
                     
                     "Mam nadzieję, że w edkach":
                         pl "Pitos się znajdos"
@@ -2099,18 +816,16 @@ label klinika:
                 p "Wy zawsze się tak gryziecie?"
                 pl "Co jak co ale Gunowi nie ufam"
                 p "Dlaczego?"
-                pl "Nie wiem w sumie, tak dla jajec"
-                pl "Bardzo chętnie bym go zabił"
+                pl "Nie wiem w sumie, tak dla jajec, bardzo chętnie bym go zabił"
                 p "Ok, zostawmy ten temat"
                 "Sprawdziliście kilka straganów"
                 "I pojawił się sprzedawca sieciowy"
-                pl "Szanowny panie, 5 koła za to!?"
-                pl "Literalnie cie popierdoliło"
+                pl "Szanowny panie, 5 koła za to!? Literalnie cie popierdoliło"
                 if edki > 4999:
+                    call cipflash
                     p "Spokojnie Łaskawca, mnie na to stać"
                     $ edki -= 5000
-                    pl "Jesteś pojebany"
-                    pl "Gigantyczne czołgi człowieku"
+                    pl "Jesteś pojebany! Gigantyczne czołgi człowieku"
                     pl "Masz mój miecz, pistolet i co tylko zapragniesz"
                     achieve Laspp
                     achieve Bogol
@@ -2120,9 +835,8 @@ label klinika:
                     jump rozstaje
 
                 p "No plus jeden, to pewnie nawet tetrisa nie uciągnie"
-                show ciphate with dissolve
+                call cipflash
                 "Ale wasze gadanie nic nie dało"
-                hide ciphate with dissolve
                 pl "Dobra, chuj z tym, wracamy do bazy"
                 scene klinika
                 show laskawca at right
@@ -2132,11 +846,9 @@ label klinika:
                 p "Kennedy ma robotę dla nas"
                 pl "Ile płaci?"
                 p "Dobre pytanie"
-                pl "Popierdoli mnie"
-                pl "Jakieś wymagania ma do roboty?"
+                pl "Popierdoli mnie. Jakieś wymagania ma do roboty?"
                 p "Musimy zostać przyjaciółmi"
-                pl "Ja pierdolę"
-                pl "Dobra, możemy być?"
+                pl "Ja pierdolę. Dobra, możemy być?"
                 pl "To musimy iść na jakąś randkę?"
                 p "Pomińmy to, powiedzmy, że my ziomki"
                 pl "No i dobra, fren"
@@ -2164,38 +876,31 @@ label jhinownia:
     $ czas -= 1
     scene takiten
     if stan["Jhin"] == 9:
-        "Chłop nie żyje"
-        "Spoczywaj w tym pokoju"
+        "Chłop nie żyje. Spoczywaj w tym pokoju"
         jump rozstaje
         
 
     if akt == 1:
         if stan["Jhin"] == 0:
             show jhin
-            j "Hejka naklejka jestem Jhin Taki-Ten"
-            j "To nazwisko zawdzięczam swoim rodzicom"
-            j "Czyli udało Ci się nakraść w gnieździe Vist"
-            j "Powiem Ci, jestem pod wrażeniem"
+            j "Hejka naklejka jestem Jhin Taki-Ten. To nazwisko zawdzięczam swoim rodzicom"
+            j "Czyli udało Ci się nakraść w gnieździe Vist. Powiem Ci, jestem pod wrażeniem"
             $ postacie["Jhin"] += 1
-            j "Powiedz mi jak tam było?"
-            j "Czy to prawda że Visty rozmnażają się przez pączkowanie?"
+            j "Powiedz mi jak tam było?. Czy to prawda że Visty rozmnażają się przez pączkowanie?"
             j "Czy może po śmierci dzielą się na pół?"
             $ config.rollback_enabled = False
             menu:
                 "Zdecydowanie pączkowanie":
-                    show ciphate with dissolve
+                    call cipflash
                     j "O cholibka, wiedziałem"
-                    hide ciphate with dissolve
                     $ postacie["Jhin"] += 1
-                    j "To oznacza że trzeba zabić każdego piekarza w mieście"
-                    j "Wyruszam natychmiast"
+                    j "To oznacza że trzeba zabić każdego piekarza w mieście! Wyruszam natychmiast!"
                     "I se poszedł"
                     $ stan["Jhin"] = 1
                     jump rozstaje
 
                 "Dzielą się na pół":
-                    j "A niech to dunder świśnie"
-                    j "To oznacza że przegrałem zakład z Cypherem"
+                    j "A niech to dunder świśnie! To oznacza że przegrałem zakład z Cypherem"
                     show cypher with moveinleft
                     c "RICHTIG"
                     hide cypher with moveoutright
@@ -2205,10 +910,8 @@ label jhinownia:
                     jump rozstaje
 
                 "Co ty pierdolisz Ken-Taki?":
-                    j "Ej to nie było miłe"
-                    j "Staram się napisać książkę o Vistach"
-                    j "I mam teraz rozdział o rozmnażaniu"
-                    j "3.14rdol się chamie"
+                    j "Ej to nie było miłe! Staram się napisać książkę o Vistach"
+                    j "I mam teraz rozdział o rozmnażaniu. 3.14rdol się chamie"
                     $ postacie["Jhin"] -= 1
                     $ stan["Jhin"] = 1
                     jump rozstaje
@@ -2222,11 +925,9 @@ label jhinownia:
 
         if stan["Jhin"] == 2:
             show jhin
-            j "No hejka, dokonałem badań do mnożenia Vist"
-            j "Źródłem jest strona internetowa"
+            j "No hejka, dokonałem badań do mnożenia Vist. Źródłem jest strona internetowa"
             j "Krejzi.braindance.cum"
-            j "Niestety nie mam pozwolenia od rodziców"
-            j "Więc nie mogłem sprawdzić"
+            j "Niestety nie mam pozwolenia od rodziców. Więc nie mogłem sprawdzić"
             $ config.rollback_enabled = False
             menu:
                 j "Może ty jesteś na tyle odważny żeby to zrobić?"
@@ -2234,22 +935,19 @@ label jhinownia:
                 "Aż taki głupi nie jestem":
                     j "Bardzo dobrze, to był tylko test"
                     $ postacie["Jhin"] += 1
-                    j "Jednak jesteś mądrzejszy od ośmioklasisty"
-                    j "A to nie jest typowa sytuacja w tej bazie"
+                    j "Jednak jesteś mądrzejszy od ośmioklasisty a to nie jest typowa sytuacja w tej bazie"
                     j "To dobry znak, nie będzie jeszcze z Ciebie insygni"
                     $ stan["Jhin"] = 3
 
                     j "Przyjdź później, będę miał kolejne pytania"
                 
                 "Sprawdzę":
-                    j "Jesteś głupi, nie rób tego"
-                    j "Powiem Gunowi i zapierdolą Cię"
+                    j "Jesteś głupi, nie rób tego! Powiem Gunowi i zapierdolą Cię"
                     j "Skończysz w sarnie"
                     show gun at left
                     g "SKOŃCZYSZ MARNIE DEBILU"
                     hide gun
-                    j "Ano tak, skończysz marnie"
-                    j "Weź się prześpij i przemyśl swoje zachowanie"
+                    j "Ano tak, skończysz marnie. Weź się prześpij i przemyśl swoje zachowanie"
                     $ stan["Jhin"] = 3
 
                 "Ja już jestem jednym z nich" if Frakcja == 3:
@@ -2261,8 +959,7 @@ label jhinownia:
                         "Aloha Jhinocha":
                             p "Słodkich snów, Ten Taki"
                             j "Pls no kill"
-                            p "Za późno Jhin, Vózg rozkazuje"
-                            p "Ja pociągam za spust"
+                            p "Za późno Jhin, Vózg rozkazuje. Ja pociągam za spust"
                             "Wystrzał z broni, sprzątnął tentakiego"
                             achieve Impostor
                             $ postacie["Jhin"] = -9999
@@ -2274,14 +971,11 @@ label jhinownia:
                             p "Bór Ci tu nie pomorze"
                             j "No dobra, to dlaczego jesteś przyjazny"
                             p "Integer overflow, słyszałeś o Gandhim w Civ?"
-                            j "A dobra, teraz to ma sens"
-                            j "No to dobra, zrobię potem z tobą wywiad"
+                            j "A dobra, teraz to ma sens. No to dobra, zrobię potem z tobą wywiad"
                             j "Pomożesz mi się stać głównym charakterem"
-                            p "No ok? Czytałem twoje backstory"
-                            p "To przypadkiem nie jesteś nim już?"
+                            p "No ok? Czytałem twoje backstory. To przypadkiem nie jesteś nim już?"
                             j "No niestety nie, trochę fantazja mnie poniosła"
-                            p "No dobra, to ma sans"
-                            p "Odwiedzę cię potem, bywaj Vhin"
+                            p "No dobra, to ma sans. Odwiedzę cię potem, bywaj Vhin"
                             j "Bywaj [player_name]!"
                             $ postacie["Jhin"] += 1
                             $ stan["Jhin"] = 3
@@ -2294,8 +988,7 @@ label jhinownia:
             j "Siemaneczko [player_name], co tam chcesz?"
             p "Jest robota od Kennedy'ego"
             j "O cholibka, pewnie coś niebezpiecznego"
-            p "Masz rację"
-            p "Musimy się zaprzyjaźnić"
+            p "Masz rację. Musimy się zaprzyjaźnić"
             j "I co w tym jest takiego niebezpiecznego?"
             p 'To że muszę to zrobić z całym teamem'
             j "W sensie że przyjaźń tak?"
@@ -2304,8 +997,7 @@ label jhinownia:
             p "Tak po prostu?"
             j "A czego ja mogę więcej wymagać?"
             p "No nie wiem, reszta ma doomstack bojowych zadań"
-            j "Rozmawiałeś już ze mną przynajmniej dwa razy"
-            j "W tej bazie czasem szybko można znaleźć cumpla"
+            j "Rozmawiałeś już ze mną przynajmniej dwa razy. W tej bazie czasem szybko można znaleźć cumpla"
             p "Pewnie zależy to od osoby"
             j "No ta"
             p "No to bywaj Jhin, ruszam siać przyjaźń z innymi"
@@ -2331,11 +1023,9 @@ label bruhzylia:
     show krateus at right
     if akt == 1:
         if stan["Krateus"] == 0:
-            kr "Czyli to ty jesteś nowy."
-            kr "Witaj, jestem Krateus, a ty?"
+            kr "Czyli to ty jesteś nowy. Witaj, jestem Krateus, a ty?"
             p "Jestem [player_name]."
-            kr "No to zajebiście, formalności za nami"
-            kr "Teraz tylko jedna drobnostka została"
+            kr "No to zajebiście, formalności za nami. Teraz tylko jedna drobnostka została"
             kr "Uściśnij mi dłoń"
             $ config.rollback_enabled = False
             menu:
@@ -2352,33 +1042,28 @@ label bruhzylia:
                     "Krateus wyjął strzelbę"
                     kr "Może teraz zmienisz zdanie"
                     p "Na chuj chcesz uścisnąć mi dłoń?"
-                    kr "Tak mnie nauczyli w KGB"
-                    kr "Ale i tak"
+                    kr "Tak mnie nauczyli w KGB ale i tak"
                     
             kr "W Brazyli było gorzej"
             p "A czy tu będzie gorzej?"
             kr "Proste, że tak"
             "Nagle usłyszeliście krzyk dziecka"
-            kr "Jebane mutanty"
-            kr "Dobra, bywaj [player_name]. Idę polować"
+            kr "Jebane mutanty! Dobra, bywaj [player_name]. Idę polować"
             $ stan["Krateus"] = 1
+            jump rozstaje
 
         if stan["Krateus"] == 1:
-            if dzien < 14:
+            if dzien < 10:
                 "No chłop poluje"
                 "Daj mu trochę czasu"
 
-            elif dzien > 14:
-                kr "Kałabanga"
-                kr "Wróciłem z polowania"
+            elif dzien > 9:
+                kr "Kałabanga! Wróciłem z polowania"
                 p "Ta, to zajebiście"
                 kr "Co nie? Chcesz iść następnym razem ze mną?"
                 p "Mogę ale jeśli mi potem pomożesz"
-                kr "Pojebało cię chyba"
-                kr "Ja ci oferuję rozrywkę"
-                kr "A ty chcesz żebym Ci coś jeszcze zrobił"
-                kr "Wkurwiasz mnie"
-                kr "Zaraz Ci pokaże Brazylijskie sztuki walki"
+                kr "Pojebało cię chyba! Ja ci oferuję rozrywkę a ty chcesz żebym Ci coś jeszcze zrobił"
+                kr "Wkurwiasz mnie! Zaraz Ci pokaże Brazylijskie sztuki walki!"
                 p "CZEKAJ KURWA"
                 kr "TO MNIE ZATRZYMAJ"
                 p "ARMIA MA ROBOTĘ"
@@ -2396,13 +1081,10 @@ label bruhzylia:
             "Wraz z Kreteusem wyruszyliście do miejskiej dżungli"
             kr "Nasze polowania zaczniemy od tamtego burdelu"
             p "A na co my będziemy w ogóle polować?"
-            kr "Głupie pytanie. Na ludzi oczywiście"
-            kr "Mam marzenie, które mnie napędza do działania"
-            kr "Gdyby mnie przyjęli do ASP to nie byłoby problemu"
-            kr "A tak to będą jaja jak sam skurwysyn"
+            kr "Głupie pytanie. Na ludzi oczywiście. Mam marzenie, które mnie napędza do działania"
+            kr "Gdyby mnie przyjęli do ASP to nie byłoby problemu a tak to będą jaja jak sam skurwysyn"
             p "Dlaczego akurat na ludzi chcesz polować?"
-            kr "Potrzebuję pracowników do nowego interesu"
-            kr "Ale o tym opowiem Ci później"
+            kr "Potrzebuję pracowników do nowego interesu ale o tym opowiem Ci później"
             p "Pewnie w następnym..."
             kr "Sklej, cele idą"
             "Zatkaliście obaj mordy i przygotowaliście broń"
@@ -2430,8 +1112,7 @@ label bruhzylia:
             p "Pierdolisz"
             kr "Tylko twoją matkę"
             p "Czyli ta cała akcja była po to żeby zamknąć ludzi w sklepie?"
-            kr "No ta, teraz ich uwolnimy i będą robić co im powiemy"
-            kr "Tak to działa w brazylii więc tu też powinno"
+            kr "No ta, teraz ich uwolnimy i będą robić co im powiemy. Tak to działa w brazylii więc tu też powinno"
             p "To jak tam się dostaniemy?"
             if inventory.has_item(Wytrych) == True:
                 p "Może tam się włamię wytrychem?"
@@ -2449,9 +1130,8 @@ label bruhzylia:
                 kr "Koło chuja mi to lata, idziemy do domu"
 
             else:
-                show ciphate with dissolve
+                call cipflash
                 p "No nie mam nic przy sobie"
-                hide ciphate with dissolve
                 kr "No ja też"
                 p "To po 10"
                 kr "Co?"
@@ -2467,11 +1147,10 @@ label bruhzylia:
             jump rozstaje
 
         elif stan["Krateus"] == 3:
-            if dzien > 19:
+            if dzien > 15:
                 kr "Dobra, chyba tyle czasu wystarczy"
                 p "No, trochę ich tam trzymaliśmy, myślisz że jeszcze żyją?"
-                kr "Jeśli silni zjedli słabych, to raczej tak"
-                kr "Jeśli mają moralność to będzie doomstack trupów"
+                kr "Jeśli silni zjedli słabych, to raczej tak. Jeśli mają moralność to będzie doomstack trupów"
                 p "No to lećmy sprawdzić"
                 scene fiszop
                 show krateus
@@ -2481,8 +1160,7 @@ label bruhzylia:
                 kr "Na trzy otwieram drzwi, gotowy?"
                 p "Tajest"
                 kr "Trzy"
-                "Kreteus szybkim ruchem otworzył drzwi"
-                "I w środku widzicie trzy osoby"
+                "Kreteus szybkim ruchem otworzył drzwi i w środku widzicie trzy osoby"
                 kr "FBI NC! Na ziemię skurwysyny"
                 "Trzy osoby rzuciły się na was z prowizoryczną bronią"
                 if inventory.has_item("AR"):
@@ -2498,8 +1176,7 @@ label bruhzylia:
                     call checkHP(16) from _call_checkHP_14
 
                 "Widzisz jak Krateus zajmuje się resztą"
-                kr "Waleczne skurwiele"
-                kr "Kurwa szkoda, byliby dobrymi wojownikami"
+                kr "Waleczne skurwiele. Kurwa szkoda, byliby dobrymi wojownikami"
                 kr "Chuj tam, za dwa dziki pewnie znajdę nowych"
                 p "Co?"
                 kr "Co?"
@@ -2516,8 +1193,7 @@ label bruhzylia:
 
         elif stan["Krateus"] == 4:
             if stan["Laskawca"] < 2:
-                kr "Pogadaj z Łaskawcą"
-                kr "Jak zrobisz co on chce to wróć"
+                kr "Pogadaj z Łaskawcą. Jak zrobisz co on chce to wróć"
                 jump rozstaje
 
             else:
@@ -2525,8 +1201,7 @@ label bruhzylia:
                 show laskawca at left
                 pl "Siemaneczko"
                 p "Ale bojowa ekipa się zebrała"
-                kr "Plan mamy prosty, obecny tu Łaskawca robi Call of Bitches"
-                kr "Następnie usypia to co dopadnie, a my skalpujemy"
+                kr "Plan mamy prosty, obecny tu Łaskawca robi Call of Bitches, następnie usypia to co dopadnie, a my skalpujemy"
                 pl "Nom, plan w teorii prosty"
                 p "To zabieramy się za robotę?"
                 kr "Poczekaj chwilę"
@@ -2560,8 +1235,7 @@ label bruhzylia:
                     $ postacie["Krateus"] -= 2
                     $ postacie["Laskawca"] -= 2
                     $ stan["Krateus"] = 5
-                    kr "Chuja dało radę zrobić"
-                    kr "Dawaj na Kennedy'ego, może się odkujemy"
+                    kr "Chuja dało radę zrobić! Dawaj na Kennedy'ego, może się odkujemy"
                 
                 else:
                     kr "Dobra, trochę się ostało"
@@ -2583,8 +1257,7 @@ label bruhzylia:
                     kr "Mam swoje źródła"
                     kr "Spokojna twoja rozczochrana"
                     p "To jesteś gotowy na zadanie Kenowe"
-                    kr "Kurwa brachu, pewex"
-                    kr "Daj tylko znać i się pojawię"
+                    kr "Kurwa brachu, pewex! Daj tylko znać i się pojawię"
                     achieve Krapp
                     $ stan["Krateus"] = 5
                     $ postacie["Krateus"] += 2
@@ -2625,9 +1298,6 @@ label sypialnia:
 
             jump rozstaje
 
-        "Wyjebie gówno przez okno":
-            jump yeet
-
         "Czy ja przypadkiem nie dostałem?":
             if HP < MaxHP:
                 p "Faktycznie mam tylko [HP] na [MaxHP]."
@@ -2645,13 +1315,11 @@ label sypialnia:
 label akt1:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
     scene akt1
-    $ stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
+    $ stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0, "Kasia":0}
     $ akt = 1
     $ wojownik = False
-    "A więc zostałeś w tej bazie pełnej degeneratów"
-    "Wybrałeś życie śmiecia za marne pieniądze"
-    "Chujowy wybór, jak mam być szczery, no ale niech zyskam"
-    "Miałeś może z pięć minut spokoju, aż Gun nie znalazł roboty"
+    "A więc zostałeś w tej bazie pełnej degeneratów. Wybrałeś życie śmiecia za marne pieniądze"
+    "Chujowy wybór, jak mam być szczery, no ale niech zyskam. Miałeś może z pięć minut spokoju, aż Gun nie znalazł roboty"
     scene kuchnia
     show gun
     g "Panowie, robota jest"
@@ -2673,9 +1341,8 @@ label akt1:
     menu:
         "Piszę się?"
         "Kurwa no pewex":
-            show ciphate with dissolve
+            call cipflash
             $ postacie["Gun"] += 1
-            hide ciphate with dissolve
             g "To mi się podoba"
             $ wojownik = True
             jump akcja
@@ -2687,8 +1354,7 @@ label akt1:
             $ wojownik = False
             scene dach
             show cypher
-            c "Cenisz sobie zysk?"
-            c "Może chcesz dołączyć do Diamandhunde?"
+            c "Cenisz sobie zysk? Może chcesz dołączyć do Diamandhunde?"
             c "Oferujemy sporo korzyści, na twoim miejscu bym dołączył"
             menu:
                 "Czy chcesz dołączyć do DH?"
@@ -2697,8 +1363,10 @@ label akt1:
                     $ Frakcja = 1
                     $ czlonekFrakcji = True
                     $ postacie["Cypher"] += 3
-                    c "Witamy w szeregach, później powiem Ci więcej. Muszę iść trollować Ciper."
+                    c "Witamy w szeregach, później powiem Ci więcej. Muszę iść trollować."
+                    $ inventory.add_item(Odznaka)
                     jump podsumowanie1
+
                 "Podziękuje":
                     c "Pamiętaj, oferta jest ważna do śmierci"
                     jump podsumowanie1
@@ -2751,9 +1419,8 @@ label akcja:
             $ edki += 50
             call checkHP(5) from _call_checkHP_3
         "Czekam aż reszta nabije sobie fragi":
-            show ciphate with dissolve
+            call cipflash
             "Kitrałeś się do końca"
-            hide ciphate with dissolve
 
     show gun
     g "Dobra robota panowie"
@@ -2773,296 +1440,14 @@ label podsumowanie1:
         "Dostałeś 200 edków"
 
     else:
-        g "Szkoda że Cię nie było, zarobiłbyś coś"
-        g "Mówiłem, nie gadaj z Cypherem"
+        g "Szkoda że Cię nie było, zarobiłbyś coś. Mówiłem, nie gadaj z Cypherem"
         g "Następnym razem postaraj się bardziej"
         $ postacie["Gun"] -= 2
 
     "Nadszedł czas chwilowego odpoczynku"
-    g "Daj mi kilka dni to może znajdę jakąś robotę"
-    g "Na piętrze masz pokój, czuj się jak w gościach"
+    g "Daj mi kilka dni to może znajdę jakąś robotę. Na piętrze masz pokój, czuj się jak w gościach"
     $ czas = 0
     jump rozstaje
-
-
-label spacerek:
-    scene black
-    $ czas -= 5
-    $ cel = renpy.random.randint(1, 99)
-    if cel > 0 and cel < 11:
-        if akt == 1:
-            "Znalazłeś jakieś drobniaki"
-            $ zysk = renpy.random.randint(1, 50)
-            $ edki += zysk
-            p "Znalazłem [zysk] edków"
-
-        else:
-            "Znalazłeś jakieś drobniaki"
-            $ zysk = renpy.random.randint(20, 90)
-            $ edki += zysk
-            p "Znalazłem [zysk] edków"
-
-    elif cel > 10 and cel < 21:
-        "Ni chuja, same nudy"
-
-    elif cel > 20 and cel < 31:
-        if akt == 1:
-            "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-            $ wpierdol = renpy.random.randint(4, 18)
-            call checkHP(wpierdol) from _call_checkHP_4
-
-        elif akt == 2:
-            "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-            "Ale teraz nadszedł czas działać"
-            menu:
-                "Co robisz?"
-                "Atak na suki":
-                    call testSkili("Bron","ZW",7) from _call_testSkili_5
-                    if wynik == 1:
-                        "Demony zostały pokonane, natenczas"
-                        p "Szach mat frajery"
-                        $ edki += 250
-                        p "Wszystkie wasze portfele są teraz moje"
-                        if inventory.has_item(HuMeat) == False and inventory.has_space(Cap) == True:
-                            $ inventory.add_item(HuMeat)
-                            p "Wezmę trochę boczku dla VIO"
-                    
-                    else:
-                        p "Ło nie, są silniejsi"
-                        call checkHP(renpy.random.randint(4, 18)) from _call_checkHP_28
-
-                "Ted Talk":
-                    call testSkili("Gadanie","CHAR",7) from _call_testSkili_6
-                    "Powiedziałeś demonom żeby spierdalali"
-                    if wynik == 1:
-                        "I nawet Ci się udało"
-                        p "Krowy doić! He he"
-                        "Kolejny sukces Night Citiowskich punków"
-
-                    else:
-                        "Niestety, nikt Cie nie zrozumiał"
-                        call checkHP(renpy.random.randint(4, 18)) from _call_checkHP_29
-
-                "Ucieczka":
-                    call testSkili("Atletyka","ZW",7) from _call_testSkili_7
-                    "Gdy tylko ich zobaczyłeś zacząłeś uciekać"
-                    "Te pojeby otworzyły ogień"
-                    if wynik == 1:
-                        "Uniknąłeś części pocisków"
-                        call checkHP(renpy.random.randint(1, 10)) from _call_checkHP_30
-
-                    else:
-                        "Skurwysyny chyba mają snipera"
-                        call checkHP(renpy.random.randint(4, 18)) from _call_checkHP_31
-
-
-        else:
-            "Coś się zjebało"
-
-    elif cel > 30 and cel < 47:
-        if znajOkol == 0:
-            "Udało Ci się odkryć fajny osiedlowy sklepik"
-            $ znajOkol = 1
-
-        elif znajOkol == 1:
-            p "Ty kurwa, żabka jest obok, zapamiętam to sobie"
-            $ znajOkol = 2
-
-        elif znajOkol == 2:
-            p "Ten ziomek przypadkiem nie powiększa wora?"
-            p "Muszę to sprawdzić"
-            $ znajOkol = 3
-
-        else:
-            p "Jaki fajny plasterek"
-            if HP < MaxHP:
-                p "A se przykleję"
-                $ HP += 1
-            else:
-                p "Ta? To zajebiście."
-                "Plasterek trafił do kosza."
-
-    elif cel > 46 and cel < 57:
-        "Wszedłeś do bloku furrasów"
-        if dzien % 7 == 4:
-            "Futrzana domina Cię dopadła"
-            achieve Futa
-            $ HP = 1
-            $ czas = 0
-        else:
-            "Masz farta, był zamknięty"
-
-    elif cel > 56 and cel < 66:
-        "Chodząc widzisz fagasa którego możesz obrabować"
-        menu:
-            "Co robisz?"
-            "Napadańsko":
-                if akt == 1:
-                    "Atakujesz kasztana"
-                    call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
-                    $ zysk = renpy.random.randint(50, 150)
-                    $ edki += zysk
-                    p "Trochę dostałem ale udało mi się zarobić [zysk] edków!"
-
-                elif akt == 2:
-                    call testSkili("Bron","ZW",renpy.random.randint(8, 12)) from _call_testSkili_8
-                    if wynik == 1:
-                        "Ziomo dostał wpierdol"
-                        p "A ja wypłatę"
-                        $ zysk = renpy.random.randint(100, 300)
-                        $ edki += zysk
-                        p "Trochę dostałem ale udało mi się zarobić [zysk] edków!"
-
-                    else:
-                        p "Oj kurwa, typ jest silny"
-                        call checkHP(20)
-                        p "Następnym razem muszę się lepiej uzbroić"
-
-            "Lepiej nie":
-                pass
-
-    elif cel == 66:
-        show evilc
-        achieve Zns
-        ec "Witaj [player_name]!"
-        p "O kierwa! To zły Cypher"
-        ec "Tak, to ja"
-        p "Proszę, nie rób mi krzywdy!"
-        ec "Nawet nie chcę"
-        $ HP = MaxHP
-        "Magiczna moc złego Cyphera cię uleczyła"
-        p "Cholera Cypher, dzięki"
-        hide evilc with dissolve
-        ec "Hi Hi Ha Ha..."
-
-
-    elif cel > 66 and cel < 78:
-        if inventory.has_item(Kokos) == True:
-            "Znalazły Cię ćpuny"
-            "Niestety mięli przewagę liczebną (było ich 3)"
-            $ inventory.remove_item(Kokos)
-
-        elif inventory.has_item(AR) == True:
-            "Chodząc po ulicy czujesz, że jest Ci jakoś lekko"
-            "Obracasz się za siebię i widzisz że czegoś brakuje"
-            p "Kurwa"
-            $ inventory.remove_item(AR)
-
-        elif inventory.has_item(Ser) == True:
-            "W twoim kierunku leci chmara (5) szczurów"
-            p "Na chuja mego wuja, tylko nie to"
-            $ invenotry.remove_item(Ser)
-            "Po chwili pojawia się też Gun"
-            show gun at left
-            g "Serson [player_name], nie mogę ich złapać"
-            if akt == 2:
-                p "Ty nie powinieneś być w pierdlu?"
-                g "Faktycznie, to ja znikam"
-                hide gun with dissolve
-        
-        else:
-            p "Dziwne, nic się nie stało"
-            
-    elif cel > 77 and cel < 81:
-        p "Na chuja mego wuja, ktoś tu zostawił skrzynkę!"
-        p "Ciekawe czy mam jak ją otworzyć?"
-        if inventory.has_item(Wytrych) == True:
-            p "Jest i wytryszek, pogczamp"
-            p "Opening time!"
-            $ helper = renpy.random.randint(1, 4)
-            if renpy.random.randint(1, 5) == 5:
-                $ inventory.remove_item(Wytrych)
-
-            if helper == 1:
-                p "O proszę! Hajsiwo"
-                $ edki += renpy.random.randint(50, 300)
-
-            elif helper == 2 and inventory.has_space(Cap) == True:
-                p "Ktoś tu kurwa wsadził szczura!"
-                $ inventory.add_item(Rat)
-                p "Może mi się do czegoś przyda"
-
-            elif helper == 3:
-                p "Kurwa! TU JEST BOMBA!"
-                call checkHP(10) from _call_checkHP_23
-                p "Jebać trapy"
-            
-            elif helper == 4:
-                p "O proszę, powiększenie ekwipunku"
-                $ Cap += 1
-                p "Zawsze jeden przedmio więcej"
-
-        elif akt == 2:
-            call testSkili("Myslenie","INT",10) from _call_testSkili_9
-            if wynik == 1:
-                p "Mój giga mózg pomógł mi to otworzyć"
-                $ helper = renpy.random.randint(1, 4)
-                if helper == 1:
-                    p "O proszę! Hajsiwo"
-                    $ edki += renpy.random.randint(50, 300)
-
-                elif helper == 2 and inventory.has_space(Cap) == True:
-                    p "Ktoś tu kurwa wsadził szczura!"
-                    $ inventory.add_item(Rat)
-                    p "Może mi się do czegoś przyda"
-
-                elif helper == 3:
-                    p "Kurwa! TU JEST BOMBA!"
-                    call checkHP(10) from _call_checkHP_32
-                    p "Jebać trapy"
-                
-                elif helper == 4:
-                    p "O proszę, powiększenie ekwipunku"
-                    $ Cap += 1
-                    p "Zawsze jeden przedmio więcej"
-
-        else:
-            p "Kurwa nie, przydał by się wytrych"
-
-    elif cel > 80 and cel < 99:
-        if akt == 1:
-            p "Nic tu nie ma"
-
-        elif akt == 2:
-            if bigquest == 0:
-                if chipy == 0:
-                    p "Pierdolnik drży, to miejsce cipa"
-                    $ chiplok = 1
-
-                elif chipy == 1:
-                    p "Pierdolnik drży, to miejsce cipa"
-                    $ chiplok = 2
-
-                elif chipy == 2:
-                    p "Pierdolnik drży, to miejsce cipa"
-                    $ chiplok = 3
-
-                elif chipy == 3:
-                    p "Pierdolnik drży, to miejsce cipa"
-                    $ chiplok = 4
-
-                elif chipy == 4:
-                    p "Pierdolnik drży, to miejsce cipa"
-                    $ chiplok = 5   
-
-                else:
-                    p "Znalazłem chyba wszystko" 
-
-            else:
-                "Nic ciekawego tym razem"
-
-    else:
-        "Print dupa, nie powinno Cię tu być."
-
-    show screen map_screen
-    window hide
-    pause 1
-    pause 1
-    pause 1
-    pause 1
-    pause 1
-    pause 1
-    return
 
 
 label trader:
@@ -3088,7 +1473,7 @@ label trader:
                 $ inventory.add_item(AR)
                 $ edki -= 600
 
-            "Bomba dymna" if edki > 199 and invenotry.has_item(Smoke) == False and inventory.has_space(Cap) == True and akt > 1:
+            "Bomba dymna" if edki > 199 and inventory.has_item(Smoke) == False and inventory.has_space(Cap) == True and akt > 1:
                 $ inventory.add_item(Smoke)
                 $ edki -= 200
 
@@ -3099,6 +1484,10 @@ label trader:
             "Kurwa ser?" if edki >= 50 and inventory.has_space(Cap) == True:
                 $ inventory.add_item(Ser)
                 $ edki -= 50
+
+            "Sztuczne kwiaty" if edki >= 20 and inventory.has_space(Cap) == True:
+                $ inventory.add_item(Kwiat)
+                $ edki -= 20
 
             "Na nic więcej mnie nie stać":
                 p "Get zakuped"  
@@ -3120,8 +1509,19 @@ label frogszop:
     stop music
     play music "szop.mp3" volume 0.2
     $ czas -= 1
+    if stan["Kasia"] == 1:
+        jump frogsimp
+
     scene frogszop
-    fse "Dzień dobry"
+    if (stan["Kasia"] == 2 and dzien % 2 == 0) or stan["Kasia"] == 4:
+        jump frogsimp
+
+    if Frakcja == 6 or stan["Kasia"] > 0:
+        fse "Cześć [old_pn]"
+    
+    else:
+        fse "Dzień dobry"
+
     $ helper = 1
     while helper == 1:
         menu:
@@ -3132,6 +1532,7 @@ label frogszop:
                     achieve Frg
                     p "Zapłacę frogsami"
                     $ frogsy -= 90
+                    $ persistent.frgout += 90
 
                 else:
                     p "Proszę"
@@ -3151,6 +1552,7 @@ label frogszop:
                     achieve Frg
                     p "Zapłace frogsami"
                     $ frogsy -= 225
+                    $ persistent.frgout += 225
 
                 else:
                     p "Proszę"
@@ -3159,12 +1561,20 @@ label frogszop:
                 
                 "Wypiłeś potwora"
                 p "Czuję, że mogę dziś zrobić więcej"
+                $ zawal += 1
+                $ persistent.monsters += 1
+                if zawal >= renpy.random.randint(0,99):
+                    p "A niech to, chyba mam zawał"
+                    $ HP = 0
+                    $ zawal = 0
+
                 $ czas += 10
 
 
             "Zdrapeczka" if edki > 24:
                 $ edki -= 25
                 $ frogsy += 100
+                $ persistent.skracz += 1
                 fse "25 edków"
                 p "Proszę"
                 p "Dobra, zobaczymy czy wygrałem"
@@ -3173,7 +1583,7 @@ label frogszop:
                     $ edki += 1000
                     p "Prosze pani, chciałbym tę zdrapkę wymienić"
                     fse "Gratulacje"
-                    fse "Proszę pańskie 1000 edków"
+                    fse "Proszę, pańskie 1000 edków"
 
                 else:
                     p "Kurwa, nie siadło"
@@ -3184,24 +1594,41 @@ label frogszop:
                 $ vdolce = 0
                 p "Dziękuję"
 
-            "Szukacie może pracowników?" if Frakcja == 0:
-                fse "Mamy jeszcze wolny wakat"
-                fse "Byłby pan zainteresowany pracą?"
+            "Szukacie może pracowników?" if Frakcja == 0 and dzien > 9:
+                fse "Mamy jeszcze wolny wakat. Byłby pan zainteresowany pracą?"
                 menu:
                     "Dołączam do żabki?"
                     "PEWEX":
                         $ Frakcja = 6
                         fse "Witamy na pokładzie"
+                        fse "Jestem Kasia btw"
+                        $ baba_name = "Kasia"
 
                     "Podziękuję":
-                        fse "Wakat nie będzie wiecznie wolny! (Będzie)"
+                        fse "Wakat nie będzie wiecznie wolny!"
 
             "Ja do roboty przyszedłem" if Frakcja == 6 and czas > 0:
                 fse "To dawaj za kasę"
                 $ edki += czas * 8
+                $ persistent.work = czas
                 $ czas = 0
                 "Przepracowałeś cały dzień"
                 $ helper = 0
+
+            "Mam kwiateczki dla ładnej babeczki" if inventory.has_item(Kwiat) == True and frogrel < 6:
+                achieve Gtm
+                $ inventory.remove_item(Kwiat)
+                fse ":fluszed"
+                fse "To bardzo miłe z twojej strony, dziękuję"
+                if stan["Kasia"] == 0 and frogrel == 5:
+                    $ stan["Kasia"] = 1
+                $ frogrel += 1
+
+            "Potrzebuję leczenia" if stan["Kasia"] > 4 and HP < MaxHP and frogsy > 499:
+                fse "Spoczko [old_pn], już podaję leki"
+                $ HP = MaxHP
+                $ frogsy -= 499
+                $ persistent.frgout += 499
                 
             "To tyle, dziękuję, dowidzenia":
                 fse "Dowidzenia, zapraszam ponownie"
@@ -3217,6 +1644,253 @@ label frogszop:
     pause 1
     jump frogszop
 
+label frogsimp:
+    $ czas -= 1
+    if stan["Kasia"] == 1:
+        scene frogsimp
+        show kasia_dym at right
+        if Frakcja == 6:
+            p "O cześć Kasia, przerwa?"
+            fse "Tak, szef wpadł na nowy pomysł i sie szykuję na jajca"
+            p "Co mu znowu do łba wpadło?"
+            fse "W zdrapkach mają być jakieś specjalne nagrody"
+            p "O kurwica"
+            fse "Robert taki. Ale muszę się zgodzić, to będzie jeszcze więcej roboty."
+            p "Wiadomo jakie to mają być nagrody?"
+            fse "Coś gadał o mieczach, tarczach i kuponach na zakupy"
+            p "Ej kurwa! To brzmi worth. Chyba zaczne kupować więcej zdrapek"
+            fse ":czacha"
+            p "A! Fakt. To będzie jeszcze więcej roboty."
+            fse "No, najgorzej będzie z wydawaniem tych wielkich itemów, wyobraź sobie mnie podnoszącą miecz"
+            p "Oj tam, dasz radę. Opcjonalnie szybki przeszczep i będzie ez"
+            fse "Jakbym miała pieniądze na przeszczep, to bym nie pracowała we frogu"
+            p "Fair point."
+            fse "Dobra, pora kończyć tę przerwę. Trzymaj się [player_name]"
+            p "Baj baj"
+            $ stan["Kasia"] = 2
+
+        else:
+            p "Dzień dobry, masz może szlugiem poratować?"
+            fse "Dzień dobry, proszę, jeszcze mi zostało kilka"
+            p "Dziękuje, ciężki dzień? Pierwszy raz Cie widzę przed sklepem"
+            fse "Trochę luzu jest teraz ale za jakiś czas wchodzą ulepszenia do zdrapek"
+            p "Jakie ulepszenia?"
+            fse "Będą do wygrania jakieś fizyczne nagrody"
+            p "Jakie?"
+            fse "Miecz, tarcza, kupon na zakupy i jakieś jeszcze inne itemki"
+            p "Brzmi jak więcej robory"
+            fse "Dokładnie tym to jest"
+            p "Kurde balans, współczuje ale dobra, pora kończyć. Btw [player_name] jestem."
+            fse "Kasia"
+            $ baba_name = "Kasia"
+            $ stan["Kasia"] = 2
+
+    elif stan["Kasia"] == 2:
+        scene frogszop
+        p "Cześć Kasia, pytanko mam"
+        fse "Co tam [old_pn]?"
+        p "Masz jakieś plany po robocie?"
+        fse "Niestety, sama praca tutaj mi nie pozwala na opłacanie wszystkiego i robię jeszcze dorywczo"
+        p "Kurwa, na śmierć się tak zarobisz"
+        fse "To nie jest nic ciężkiego, zajmuję się dziećmi korposów. Ci zawsze w pracy, nie oszczędzają na opiekunkach"
+        p "Masz aż tak dobrą renomę, że tyle Ci płacą?"
+        fse "Czasmi trafi się klient, co płaci mi więcej niż dniówka tutaj"
+        if Frakcja == 6:
+            p "No nam płaci gówno"
+        
+        else:
+            p "Aż tak słabo płaci wielki Frog"
+        
+        fse "Może jakby dał jakąś podwyżkę to byłoby lepiej ale nie ma na co liczyć"
+        p "OOF. Hebrajski szef, podobno w bazie mioch znajomych był taki kiedyś"
+        fse "Gdzie pracują Ci twoi znajomi?"
+        p "Krawędziują"
+        fse "Zadajesz się z bardzo niebezpiecznym towarzystwem, pracujesz z nimi?"
+        if akt == 1:
+            p "Tak"
+
+        else:
+            p "Wcześniej z nimi pracowałem"
+
+        fse "Nie wyglądasz na takiego typowego krawędziowca"
+        p "Jestem zbudowany inaczej"
+        fse "Widać"
+        p "Co?"
+        fse "Klient przyszedł, muszę spadać"
+        p "Papatki"
+        $ stan["Kasia"] = 3
+
+    elif stan["Kasia"] == 3:
+        "Wędrując sobie po mieście, udało Ci się znaleźć Kasię, stojącą w kolejce pod kinem"
+        scene kino
+        p "OMG, to Kasia, >_< chyba podejdę ją napastować poza miejscem pracy"
+        p "Pierwszy raz ją widzę gdziekolwiek poza Frogiem, chyba ma wolne"
+        p "Pora podejść i zagadać"
+        p "Hai Hai!"
+        show kasia_basic at right with moveinright
+        fse "O! Cześć [old_pn]! Do kina przyszedłeś?"
+        p "Raz na ruski rok trzeba zaznać trochę cooltury"
+        fse "A na co idziesz?"
+        p "Dobre pytanie"
+        call cipflash
+        fse "To może ta nowa komedyjka fantasy?"
+        p "Jak to się nazywa?"
+        fse "Łan men, Łan czar. Film o czarodzieju co zna tylko gobelin blast"
+        p "Brzmi tak głupio, że aż pójdę."
+        "Poszliście do kasy i kupiliście bilety"
+        $ edki -= 15
+        scene absolutnekino
+        p "Pusto tu dość"
+        fse "Nic dziwnego, mało ludzi teraz chodzi do kina. Lepszą rozrywkę zwykle mają na ulicy"
+        p "Popierdoleńcy, tylko latać z gnatem i strzelać do każdego. Chyba tylko Łaskawca czerpie z tego fun"
+        fse "Nie znam gościa, ktoś z twoich znajomych?"
+        menu:
+            "Opowiadać o dzbanach?"
+            "Wysprzęgl się":
+                $ kasiaknow += 1
+                p "Nom, Łaskawca jest medykiem, trochę pierdolnientym ale dobrym"
+                p "I przy okazji jeszcze nam towar produkuje"
+                p "I to jest chyba jeden z normalniejszych w naszym składzie"
+
+            "Jebać 60":
+                p "Nom, taki kumpel z roboty"
+                p "Dużoby gadać"
+
+        fse "Cii, film się zaczyna"
+        "Film został oglądnięty"
+        $ czas -= 2
+        scene kino
+        show kasia_basic at right
+        p "Kurwa ale to było głupie"
+        achieve Abs
+        fse "Ale fajne efekty zrobili, postarali się tym razem"
+        p "Bywało gorzej?"
+        fse "Nah, czasami chodzę na te bolywoodzkie filmidła, straszna głupota ale mnie bawi"
+        p "Ok, nie dopytuje. Muszę się już zbierać. Siemaneczko Kasia, do następnego"
+        mg "(updata)"
+        fse "Papatki [old_pn]"
+        $ frogrel += 1
+        $ stan["Kasia"] = 4
+
+    elif stan["Kasia"] == 4:
+        scene frogszop
+        p "Hejo Kasia, jak tam dzionek mija?"
+        fse "Hejo [old_pn]! A bardzo spokojnie wszystko się dziś zaczęło."
+        mg ":trollface"
+        p "A mogę mieć do Ciebie takie dość personalne pytanie?"
+        fse "Pytaj śmiało, jak będzie zbyt osobiste, to po prostu nie odpowiem"
+        p "No i g. Więc, jak to się stało, że jesteś kotem? Biorzeźbiarstwo czy ksenogenetyka?"
+        fse "Pomidor"
+        p "Cholipka, to może powiesz mi, czemu kolor twoich uszu i ogona się zmienia?"
+        fse "Mój sprzęg neuralny jest za to odpowiedzialny. Zwykle dopasowywuje się do nastroju"
+        p "O! Ciekawe, nie wiedziałem, że to ma takie możliwości"
+        fse "No widzisz, człowiek uczy się całe życie"
+        p "A jak to zmienia z nastrojem tylko czasmi, to co się dzieje w reszcie przypadków?"
+        fse "Nie wiem w sumie, ten mój sprzęg jest uszkodzony i portafi szwankować"
+        p "Chcesz może kontakt do doktorka? Jak z nim pogadam, to może zrobi Ci go po kosztach"
+        fse "Dzięki za propozycje ale na ten moment nie mogę sobie pozwolić na większe wydatki"
+        fse "Ani w sumie na jakieś dni wolne, strasznie krucho z edkami"
+        p "Karamba, strasznie chujowa sytuacja"
+        "I w momencie jak to powiedziałeś, gówno uderzyło w wiatrak. Do sklepu wbił rozsierdzony gangus"
+        gg "Ręce do kurwa góry, to jest pierdolony napad."
+        "Widzisz, jak Kasia patrzy na Ciebie przerażona"
+        p "Kolego, tak się nie zachowuje w sklepie"
+        gg "I co mi niby zrobisz kasztanie"
+        p "A mam pod ręką tajemniczy mysi sprzęt "
+        play sound "pif.wav"
+        "Nim zdążyłeś wyjąć broń, napastnik strzelił do Ciebie"
+        call checkHP(19)
+        gg "Trzebabyło dawać więcej reflekusu kurewko"
+        p "Dzięku bogu dałem sporo w wytrzymałość"
+        play sound "pif.wav"
+        "Trafiłeś gangusa prosto w cymbał"
+        p "Celność też nie jest najgorsza"
+        "Niestety rana jaką otrzymałeś jest dość poważna, przez co padasz na podłogę"
+        scene frogmercy
+        fse "Trzymaj się [old_pn], zaraz Ci pomogę"
+        "Kasia ostrożnie ustabilizowała twoje rany"
+        fse "Postaraj się nie ruszać teraz, wstrzyknę Ci nasz turbouzdrawiacz"
+        $ Hp = MaxHP
+        "Ten medykament niesamowicie Cie sieknął, pierwszy raz tak dziwnie się poczułeś"
+        scene frogszop
+        fse "Lepiej?"
+        p "Chyba nigdy w życiu nie czułem się lepiej, co to było?"
+        fse "Nasz nowy program usługowy, froghealing, specjalna możliwość dla posiadaczy frogsów"
+        p "Czemu mi tego wcześniej nie powiedziałaś? To jest lepsze od parów"
+        fse "Dopiero teraz to wprowadziliśmy, teoretycznie za kilka dni miało oficjalnie wchodzić"
+        p "To będę chyab częściej z tej możliwości korzystał"
+        fse "Dzięki za ochronę btw. Kacperek pewnie dopiero wstaje z krzesła"
+        p "Luzik, dla mnie takie strzelaniny to codzienność"
+        $ frogrel += 1
+        $ czas -= 7
+        p "Muszę już spadać, mam trochę roboty jeszcze"
+        fse "Spoczko, uważaj na siebie [old_pn]"
+        $ stan["Kasia"] = 5
+
+    elif stan["Kasia"] == 5:
+        "Jak sobie spacerowałeś, zobaczyłeś Kasię w kawiarni"
+        "Jako totalny creep, postanowiłeś iść zakłócać jej spokój"
+        scene cafe
+        p "Hajo Kasia"
+        show kasia_kofi at right
+        fse "O [old_pn], na kawę przyszedłeś?"
+        p "Nom, trochę mi się przepiły te całe potworki"
+        fse "To co teraz popijasz?"
+        p "Ta kawka bez wody, africano chyba to się nazywa"
+        fse "Przerażasz mnie czasami"
+        p "Nie raz już mówiłem, ja jestem zbudowany inaczej"
+        $ edki -= 25
+        "Zapłaciłeś za kawę i przysiadłeś się do Kasi"
+        p "Jak tam Ci dzionek mija?"
+        fse "A powoli dość, spokojny weekend się trafił"
+        p "Trochę sus, amogus. Cały weekend masz wolny?"
+        fse "Nom, jeszcze nikt nie napisał, że potrzebuje opiekunki"
+        p "A masz jakieś plany?"
+        fse "No wiesz, typowe takie babskie zajęcia. Cybflix, starsaks i lumpexy"
+        p "Jasny Gun, to brzmi jak cały dzień roboty"
+        fse "Bo to jest cały dzień roboty. Przynajmniej jest jakkolwiek zająć głowę"
+        p "Ja jak nie mam co robić, to strzelam se w łe.."
+        fse "._."
+        p "Sorka, mówiłem, jestem zbudowany ina"
+        fse "Trzeci raz mi to mówisz"
+        p "A ty chyba wiesz nawet dlaczego"
+        fse "To jest jakiś twój catchfrase?"
+        p "Nie, jestem jasnowidzem i widzę kraweńdziobiegaczy. Tam to jest główne lore"
+        fse "Nie pytam i nie chcę odpowiedzi"
+        p "Szybko się uczysz"
+        fse "Tego wymaga ode mnie aktualny rynek pracy"
+        p "Dlatego, ja się cieszę, że moja praca nie wymaga specjalnych skili"
+        menu:
+            fse "To co ty takiego robisz na utrzymanie?"
+
+            "Jestem kraweńdziażem":
+                "Opowiedziałeś trochę Kasi o swojej pracy"
+                $ kasiaknow += 1
+                fse "Jak wy robicie takie nie do końca legalne sprawki"
+                fse "To nie powinienieś tego trzymać jako sekret?"
+                p "Oni opowiadali o największej swojej broni, swoim największym przeciwnikom"
+                p "My nie mamy sekretów, tylko ciekawostki do opowiadania"
+
+            "Pomidor":
+                fse "Pomidor"
+
+        $ czas -= 10
+        fse "Robi się już późno, pora się zbierać"
+        p "Trzymaj się Kasia"
+        hide kasia_kofi
+        p "Kolejny raz przeszkadzałem jej w aktywnościach. Jestem sigma, patryk batman"
+        $ stan["Kasia"] = 6
+
+
+    show screen map_screen
+    window hide
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    pause 1
+    jump frogszop
 
 label vradeZewn:
     $ czas -= 3
@@ -3276,6 +1950,7 @@ label workowiec:
     menu:
         p "Czy chcę powiększyć wora?"
         "Pewex" if edki > (Cap+1)*100:
+            $ edki -= (Cap) * 100
             achieve Mocz
             p "Zwiększaj"
             $ Cap += 1
@@ -3309,81 +1984,78 @@ label wojsko:
         elif Frakcja == 1:
             gk "Jasna cholera, jesteś od Cyphera"
 
-        gk "To co masz ogarnąć to destrukcja Vist"
-        gk "Jakaś kurwa z Arasaki chce przejąć nad nimi kontrolę"
+        gk "To co masz ogarnąć to destrukcja Vist. Jakaś kurwa z Arasaki chce przejąć nad nimi kontrolę"
         p "Ależ to skurwysyn musi być"
-        gk "To prawda, każdy pracownik korpo to skurwysyn"
-        gk "Ale ten skurwysyn, to taki super skurwysyn"
-        gk "Będziesz musiał zebrać drużynę"
-        gk "I razem wyruszycie pozbyć się kutasa"
-        p "Ja pierdolę"
-        p "Ty na prawdę wymagasz ode mnie, żebym się dogadał z tymi debilami"
+        gk "To prawda, każdy pracownik korpo to skurwysyn ale ten skurwysyn, to taki super skurwysyn"
+        gk "Będziesz musiał zebrać drużynę i razem wyruszycie pozbyć się kutasa"
+        p "Ja pierdolę! Ty na prawdę wymagasz ode mnie, żebym się dogadał z tymi debilami"
         p "Przecież to jest kurwa niewykonalne"
-        gk "Dlatego to zadanie będzie dla ciebie wyzwaniem"
-        gk "Jeśli je wykonasz, to dostaniesz potężną wypłatę"
-        p "Już trzeci raz słyszę o ogromnej wypłacie"
-        p "Opowiedz mi dokładnie, co JA KURWA DOSTANĘ"
+        gk "Dlatego to zadanie będzie dla ciebie wyzwaniem. Jeśli je wykonasz, to dostaniesz potężną wypłatę"
+        p "Już trzeci raz słyszę o ogromnej wypłacie! Opowiedz mi dokładnie, co JA KURWA DOSTANĘ"
         gk "Wypłatę"
         show cypher with moveinleft
         c "Hi Hi ha ha"
         hide cypher with moveoutright
-        gk "O nie, ta kreatura się tu materializuje"
-        gk "Potem Ci wyjaśnię, teraz muszę się ukryć"
+        gk "O nie, ta kreatura się tu materializuje. Potem Ci wyjaśnię, teraz muszę się ukryć"
         gk "Pamiętaj, musisz się zaprzyjaźnić z CyberDzbanami"
         show cypher with moveinleft
         c "The Game ©"
         hide cypher with moveoutright
-        gk "To jest coraz mocniejsze"
-        gk "Znikam"
+        gk "To jest coraz mocniejsze! Znikam"
         hide genken with dissolve
-        p "No i zniknął"
-        p "Jak zwykle kurwa"
-        p "I wyjdzie, że dostanę 7,50 edka"
+        p "No i zniknął, jak zwykle kurwa. I wyjdzie, że dostanę 7,50 edka"
         p "Nienawidzę NC, Nienawidzę NC"
         $ wojsko_stan = 1
         $ bigquest = 5
         p "No to wracam do bazy"
         jump rozstaje
 
+    if Frakcja == 1 or Frakcja == 3 or Frakcja == 4:
+        gk "Dobra robota szczylu."
+        gk "Udało Ci się zdobyć przyjaźń z potężną frakcją"
+        menu:
+            gk "Jesteś gotowy na tajną misję?"
+            "Kurwa no pewex":
+                gk "Git"
+            
+            "Daj mi jeszcze trochę czasu":
+                gk "Spoczko"
+                jump rozstaje
+        jump wojowezadanie
+
     elif wojsko_stan > 0:
         "Opowiedziałeś Kenowi o swoim progresie"
         if stan["Laskawca"] == 2:
             "Pochwaliłeś się przyjaźnią z Łaskawcą"
-            gk "Czyli Łaskawca jest gotowy Ci pomóc"
-            gk "Healer zawsze się przyda"
+            gk "Czyli Łaskawca jest gotowy Ci pomóc? Healer zawsze się przyda"
             $ wojsko_stan += 1
             $ stan["Laskawca"] = 6
 
         if stan["Gun"] == 5:
             "Pochwaliłeś się przyjaźnią z Gunem"
-            gk "Gun chce wykonać zadanie dla mnie"
-            gk "Nie wiem czy to dobry znak"
+            gk "Gun chce wykonać zadanie dla mnie? Nie wiem czy to dobry znak"
             gk "Kiedyś jak dostał zadanie, to do teraz go nie skończył"
-            gk "Na szczęście kapitan Sójeczka był w okolicy"
-            gk "Tak im namieszał w papierach, że sami nam pojazd oddali"
+            gk "Na szczęście kapitan Sójeczka był w okolicy. Tak im namieszał w papierach, że sami nam pojazd oddali"
             $ wojsko_stan += 1
             $ stan["Gun"] = 6
 
         if stan["Kalach"] == 5:
             "Pochwaliłeś się przyjaźnią z Kałachem"
-            gk "Jeśli Kałach leci z tobą, musisz go pilnować"
-            gk "Jeśli znajdę jakiegokolwiek dildosa na terenie akcji"
+            gk "Jeśli Kałach leci z tobą, musisz go pilnować. Jeśli znajdę jakiegokolwiek dildosa na terenie akcji"
             gk "To Ciebie złapią konsekwencje"
             $ wojsko_stan += 1
             $ stan["Kalach"] = 6
 
         if stan["Hartmann"] == 5:
             "Pochwalileś się przyjaźnią z Hatrmannem"
-            gk "Twardy zawodnik dołączył do Ciebie?"
-            gk "Tylko musisz uważać, jak Gun dostanie auto w ręce"
+            gk "Twardy zawodnik dołączył do Ciebie? Tylko musisz uważać, jak Gun dostanie auto w ręce"
             gk "Mogą być straty w cywilach"
             $ wojsko_stan += 1
             $ stan["Hartmann"] = 6
 
         if stan["Jhin"] == 4:
             "Pochwalileś się przyjaźnią z Jhinem"
-            gk "Ten Taki idzie z Tobą?"
-            gk "Szalone jak sam skurwysyn ale to jego decyzja"
+            gk "Ten Taki idzie z Tobą? Szalone jak sam skurwysyn ale to jego decyzja"
             $ wojsko_stan += 1
             $ stan["Jhin"] = 6
 
@@ -3395,8 +2067,7 @@ label wojsko:
 
         if stan["Krateus"] == 5:
             "Pochwaliłeś się przyjaźnią z Krateusem"
-            gk "Krateus też tam jest?"
-            gk "Powinien wykonywać zadanie bojowe"
+            gk "Krateus też tam jest? Powinien wykonywać zadanie bojowe"
             gk "Oj, będę musiał z nim pogadać"
             $ wojsko_stan += 1
             $ stan["Krateus"] += 1
@@ -3405,8 +2076,7 @@ label wojsko:
     if wojsko_stan > 4: 
         if wojsko_stan > 7:
             achieve Full
-            mg "Gratulacje, zebrałeś całą drużynę"
-            mg "Wasze szanse na przetrwanie są zwiększone"
+            mg "Gratulacje, zebrałeś całą drużynę! Wasze szanse na przetrwanie są zwiększone"
 
         gk "Dobra robota szczylu."
         gk "Udało Ci się zdobyć przyjaźń z innymi dzbanami"
@@ -3419,10 +2089,8 @@ label wojsko:
                 gk "Spoczko"
                 jump rozstaje
 
-        gk "Więc lecicie na super tajną misję"
-        gk "Siłą przyjaźni musicie wysadzić jedno z vniazd"
-        gk "Prowadzą tam badania nad ściśle tajnym projektem Vezuwiusz"
-        gk "Niech bóg was przyjmie"
+        gk "Więc lecicie na super tajną misję. Siłą przyjaźni musicie wysadzić jedno z vniazd"
+        gk "Prowadzą tam badania nad ściśle tajnym projektem Vezuwiusz. Niech bóg was przyjmie"
         if inventory.has_item(Pistolecik) == False and  inventory.has_space(Cap) == True:
             gk "Masz przyda Ci się"
             $ inventory.add_item(Pistolecik)
@@ -3437,25 +2105,20 @@ label wojowezadanie:
     $ helper == 100
     $ config.rollback_enabled = False
     if Frakcja == 0:
+        $ oldFrakcja = 0
         scene vniazdo
         "Poprowadziłeś punków prosto w vniazdo"
         p "Panowie, Kennedy wybrał mnie jako szefa tej operacji, więc proszę słuchajcie się mnie"
         "O dziwo nikt nie miał z tym problemu"
-        "Teraz jako szef, czeka Cię wyzwanie kierowania swoją ekipą"
-        "Wskaźnik zagrożenia jest na poziomie 100"
-        "Jeśli spadnie do 0 to osiągniesz giga sukces"
-        "Nie spodziewaj się tego wyniku"
-        "To jakie masz możliwości zależy od ludzi w ekipie"
-        "I od tego jaki masz sprzęt"
-        "Wracając do wyroku śmierci"
-        "Macie kilka opcji na wykonanie tej roboty"
+        "Teraz jako szef, czeka Cię wyzwanie kierowania swoją ekipą. Wskaźnik zagrożenia jest na poziomie 100"
+        "Jeśli spadnie do 0 to osiągniesz giga sukces. Nie spodziewaj się tego wyniku"
+        "To jakie masz możliwości zależy od ludzi w ekipie i od tego jaki masz sprzęt"
+        "Wracając do wyroku śmierci. Macie kilka opcji na wykonanie tej roboty"
         menu:
             "Po Cichu":
                 "Brak w tobie cyberowego ducha walki"
-                p "Panowie, robimy to tak Cicho jak się tylko da"
-                p "I to będzie bardzo trudne"
-                p "Trzeba teraz dostać się do środka"
-                p "Co my mamy do wyboru"
+                p "Panowie, robimy to tak Cicho jak się tylko da i to będzie bardzo trudne"
+                p "Trzeba teraz dostać się do środka. Co my mamy do wyboru"
                 menu:
                     "Jak wchodzisz?"
                     "Drzwi główne":
@@ -3465,9 +2128,7 @@ label wojowezadanie:
 
                     "Okno" if stan["Krateus"] > 5:
                         p "Krateus, wskakuj oknem i nam pomożesz"
-                        kr "Tajest kierowniku"
-                        kr "Chopaky, to jest schowek na miotły"
-                        kr "Wskakujcie, macie tu linę"
+                        kr "Tajest kierowniku! Chopaky, to jest schowek na miotły! Wskakujcie, macie tu linę"
                         $ helper -= 15
                         hide krateus
                         "A po nim wskoczyła cała reszta"
@@ -3484,17 +2145,14 @@ label wojowezadanie:
                         p "Gun, możesz wentować?"
                         show gun
                         g "Dlaczego ja?"
-                        p "W kombosach do KTG jesteś w spiskowcach"
-                        p "A to jednak jest trochę sus"
+                        p "W kombosach do KTG jesteś w spiskowcach a to jednak jest trochę sus"
                         g "To ma sers"
                         $ helper -= 25
                         hide gun
                         scene agunus
-                        g "Kurwa, ciemno tu"
-                        g "O, jest chyba wyjście"
+                        g "Kurwa, ciemno tu! O! Jest chyba wyjście"
                         "Gun skończył wentować"
-                        g "Przycisk z napisem tajne vejście"
-                        g "A se kliknę"
+                        g "Przycisk z napisem tajne vejście a se kliknę"
                         "I dzięki temu, reszta drużyny dostała się do środka"
 
                 scene vards
@@ -3504,8 +2162,7 @@ label wojowezadanie:
                 v "Vejm"
                 v "Vo voviesz na vot-voga?"
                 v "Vybornie"
-                p "Trzeba się ich pozbyć"
-                p "Tylko jak to zrobię?"
+                p "Trzeba się ich pozbyć. Tylko jak to zrobię?"
                 menu:
                     "Atak frontalny":
                         p "Za hordę"
@@ -3530,12 +2187,10 @@ label wojowezadanie:
                         $ inventory.remove_item(Granat)
                         $ helper -= 15
                         "Poturlałeś granat w kierunku Vist"
-                        v "Vo Volera!"
-                        v "Darmowy granat"
+                        v "Vo Volera! Darmowy granat"
                         v "Jest mój"
                         v "Nie jest mój"
-                        "Dzika bijatyka się zaczęła"
-                        "I Visty wybiły się ze sceny"
+                        "Dzika bijatyka się zaczęła i Visty wybiły się ze sceny"
 
 
                     "Kałach, dywersja" if stan["Kalach"] > 5:
@@ -3543,8 +2198,7 @@ label wojowezadanie:
                         k "Hej seksiaki"
                         v "O, siemka Kałach, co tam"
                         k "A vista z hot-dogami przyjechał"
-                        v "VO VOLERA"
-                        v "VUSZAMY VIELNIE"
+                        v "VO VOLERA! VUSZAMY VIELNIE"
                         "I dzielnie vybiegli"
                         $ helper -= 25
                         p "Dobra robota Kałach"
@@ -3552,11 +2206,8 @@ label wojowezadanie:
                         hide kalach
 
                 scene vezuwiusz
-                "Przeszliście przez straż"
-                "Idziecie dalej przez gniazdo"
-                "Dzielnie dostrzegasz znak vaboratorium"
-                p "Chopaky, jesteśmy na miejscu"
-                p "Pora zrobić rozpierdol"
+                "Przeszliście przez straż. Idziecie dalej przez gniazdo i dzielnie dostrzegasz znak vaboratorium"
+                p "Chopaky, jesteśmy na miejscu! Pora zrobić rozpierdol"
                 menu:
                     "Jak spacyfikuję laba"
                     "Atak frontalny":
@@ -3573,7 +2224,7 @@ label wojowezadanie:
                         "Schował kanatę i wyjął broń z ręki"
                         p "NIEEEEEE"
                         "Jhin przeciął kable ostrzem z dłoni"
-                        "I tak jak przwidywałeś, jebnął go prąd"
+                        "I tak jak przewidywałeś, jebnął go prąd"
                         j "Oj karamba"
                         p "Jhin, jesteś cały?"
                         j "Powiedz mojej żonie, że jej nie mam"
@@ -3590,9 +2241,7 @@ label wojowezadanie:
 
                     "Brazylijska sztuka walki" if stan["Krateus"] > 5:
                         show krateus
-                        kr "Ni Chu Ja"
-                        kr "Hadong"
-                        kr "Boom szakalaka"
+                        kr "Ni Chu Ja! Hadong! Boom szakalaka!"
                         kr "Walę Vistę prosto w ptaka"
                         play sound "hit1.ogg"
                         "Brazylijska sztuka walki rozgromiła Visty"
@@ -3604,25 +2253,20 @@ label wojowezadanie:
                         show laskawca
                         pl "Się robi"
                         "Łaskawca podszedł pod szyb i dał trochę gazu"
-                        v "Vopaki, vide vpać"
-                        v "Vamimir"
+                        v "Vopaki, vide vpać. Vamimir"
                         pl "Słodkich snów chuje"
                         p "Jeszcze cukrzycy dostaną"
                         pl "Jakieś minusy?"
                         $ helper -= 25
                         hide laskawca
 
-                "Laboratorium jest wasze"
-                "Badając dokumenty odkryłeś vistowy plan"
-                p "Oni są tak głupi że ja pierdolę"
-                p "Próbowali wrzucić Guna do wulkanu"
-                p "I tak chcieli przywołać boga gniewu"
-                p "No debile"
+                "Laboratorium jest wasze. Badając dokumenty odkryłeś vistowy plan"
+                p "Oni są tak głupi że ja pierdolę. Próbowali wrzucić Guna do wulkanu"
+                p "I tak chcieli przywołać boga gniewu. No debile"
                 "Po przeszukiwaniu postanowiliście wysadzić laba"
                 "Szybki trik i cały lab się wyjebie za pięć minut"
                 p "Spierdalamy"
-                "Zaczęliście biec do wyjścia"
-                "Ale na waszej drodze stanął VPrime"
+                "Zaczęliście biec do wyjścia ale na waszej drodze stanął VPrime"
                 scene vinalvoss
                 stop music
                 play music "bossa.mp3"
@@ -3649,7 +2293,7 @@ label wojowezadanie:
                         call checkHP(20) from _call_checkHP_15
                         v "To jeszcze nie jest koniec"
                         p "Panowie wychodzimy"
-                        " I w taki sposób wyszliście z vazy"
+                        "I w taki sposób wyszliście z vazy"
                         $ helper -= 10
                         jump akt1pods
                     
@@ -3672,12 +2316,9 @@ label wojowezadanie:
                         show hellciper
                         p "Cypher, pora na nalot"
                         c "Cypher łan w drodze"
-                        v "Co kurwa?"
-                        v "Jak ty niby chcesz zrzucić bombę w budynku?"
-                        v "Jakby, tu nie ma jak wlecieć"
-                        v "A jak spadnie na dach to chuja mi zrobić"
-                        v "Kurwa, przecież Cypher stoi obok"
-                        v "To nie ma prawa działać"
+                        v "Co kurwa? Jak ty niby chcesz zrzucić bombę w budynku?"
+                        v "Jakby, tu nie ma jak wlecieć a jak spadnie na dach to chuja mi zrobić"
+                        v "Kurwa, przecież Cypher stoi obok. To nie ma prawa działać"
                         c "To pa ten trick"
                         "Cypher wziął potężnego bucha i nad v prime pojawiła się chmura"
                         v "I to wszystko?"
@@ -3702,8 +2343,7 @@ label wojowezadanie:
                         play sound "BOOM.mp3"
                         "No i Vista zrobił boom"
                         p "Jak ty to zrobiłeś? "
-                        g "Kupiłem szczurom RC autko"
-                        g "I Hartmann podczepił minę p.piech"
+                        g "Kupiłem szczurom RC autko i Hartmann podczepił minę p.piech"
                         p "Sprytne"
                         stop music
                         play music "CMS.mp3" volume 0.2
@@ -3711,8 +2351,7 @@ label wojowezadanie:
                         jump akt1pods
 
             "Na głośno":
-                p "Kurwa chłopaki, nie pierdolimy się w tańcu"
-                p "Zapierdalamy na nich"
+                p "Kurwa chłopaki, nie pierdolimy się w tańcu! Zapierdalamy na nich"
                 "Dzielenie ruszacie szturmować vazę"
                 menu:
                     "Jak się teraz dostaniecie do środka?"
@@ -3730,10 +2369,8 @@ label wojowezadanie:
 
                     "Kałach bazooka" if stan["Kalach"] > 5:
                         show kalach at left
-                        k "Boom, boom, boom, boom"
-                        k "I'm going to Coom"
-                        "I Kałach wystrzelił"
-                        "Ale rakieta wybuchła fajerwerkami"
+                        k "Boom, boom, boom, boom I'm going to Coom"
+                        "I Kałach wystrzelił ale rakieta wybuchła fajerwerkami"
                         k "Co jest kurwa"
                         show cypher
                         c "Hi Hi Ha Ha"
@@ -3747,10 +2384,8 @@ label wojowezadanie:
 
                     "Krateus, Los pollos hermanos" if stan["Krateus"] > 5:
                         show krateus at left
-                        kr "Los españoles necesitan ayuda"
-                        kr "Cavador, tienes que cavar"
-                        kr "Artillero, nos están cubriendo"
-                        kr "I teraz atak ostateczny"
+                        kr "Los españoles necesitan ayuda! Cavador, tienes que cavar"
+                        kr "Artillero, nos están cubriendo i teraz atak ostateczny"
                         kr "Ekspansja domeny: KRATA DZIKA"
                         mg "Przyjmuję twoją ofertę"
                         kr "Otwarte"
@@ -3761,8 +2396,7 @@ label wojowezadanie:
 
                     "Gun, miej fun" if stan["Gun"] > 5:
                         show gun at left
-                        g "Tajest"
-                        g "Ale zaskoczę was wszystkich, tym razem nie prowadzę"
+                        g "Tajest ale zaskoczę was wszystkich, tym razem nie prowadzę"
                         p "Faktycznie plottwist"
                         g "Spokojnie [player_name], Mączysław prowadzi"
                         p "Co kurwa?"
@@ -3776,8 +2410,7 @@ label wojowezadanie:
                         p "Nie martw się Gun, pewnie trafił do ratowego nieba"
                         g "Gówno, on był diabłem wcielonym"
                         r "Skłik Skłik!"
-                        g "O CHOLERA, ON ŻYJE"
-                        g "RATTER POTTER"
+                        g "O CHOLERA, ON ŻYJE! RATTER POTTER"
                         "Ominąłeś chwilę czułości i poszedłeś dalej"
                         $ helper -= 20 
 
@@ -3790,8 +2423,7 @@ label wojowezadanie:
                         "Rozpocząłęś strzelanie, a drużyna strzelała wraz z tobą."
                         call checkHP(15) from _call_checkHP_22
                         "Troszeczkę oberwałeś ale udało Ci się zostać bogiem gniewu i wojny"
-                        "Możesz dzielnie iść dalej"
-                        "Ale nie możesz zapomnieć o lootowaniu"
+                        "Możesz dzielnie iść dalej ale nie możesz zapomnieć o lootowaniu"
                         $ edki += 150
                         "Trochę mamony się znalazło"
                         $ inventory.add_item(AR)
@@ -3802,10 +2434,8 @@ label wojowezadanie:
                     "Pora Geentować" if stan["Laskawca"] > 5:
                         show laskawca at left
                         pl "Się robi"
-                        "Łaskawca zaczął strzelać na oślep"
-                        "Trafił wszystkie 11 strzałów"
-                        "Spytasz się, jak 11 strzałów na 10 vist"
-                        "Odpowiedź jest bardzo prosta"
+                        "Łaskawca zaczął strzelać na oślep. Trafił wszystkie 11 strzałów"
+                        "Spytasz się, jak 11 strzałów na 10 vist. Odpowiedź jest bardzo prosta"
                         "Jeśli kiedykolwiek będzie kombat w którym Gun nie dostanie rykoszetu"
                         "To się chyba posram."
                         g "Aua ):"
@@ -3813,11 +2443,8 @@ label wojowezadanie:
 
                     "Hartmann! Spaw bojowy" if stan["Hartmann"] > 5:
                         show hartmann at left
-                        h "No to spawamy"
-                        h "Ja nie wiem co to jest rzecz niemożliwa"
-                        h "Fach w ręku, tak bywa"
-                        h "Czasem beton, cementem się spawa"
-                        h "Czasem, Visty się doprawia"
+                        h "No to spawamy! Ja nie wiem co to jest rzecz niemożliwa. Fach w ręku, tak bywa"
+                        h "Czasem beton, cementem się spawa, Czasem, Visty się doprawia"
                         "Vięso Vist topiło się pod wpływem spawarki do ludzi"
                         "Czujesz się strasznie,jesteś niczym więcej niżeli potworem"
                         "Kreatura twojego rodzaju nie powinna mieć kontaktu z ludźmi"
@@ -3832,6 +2459,8 @@ label wojowezadanie:
                             
                             "Fałsz":
                                 "Ty chory pojebie"
+                                $ session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
+                                $ persistent.czasGry += session_time
                                 $ renpy.quit()
 
                     "Czy moc pay to play też na mnie działa?" if edki > 199:
@@ -3844,8 +2473,8 @@ label wojowezadanie:
                         menu:
                             "Ilę chcę dać?"
                             "Może dziczeg?" if inventory.has_item(NRG) == True:
-                                mg "Oj kolego, kupiłeś mnie tym jak paczkę żelków"
-                                mg "Oto moje błogosławieństwo"
+                                $ inventory.remove_item(NRG)
+                                mg "Oj kolego, kupiłeś mnie tym jak paczkę żelków. Oto moje błogosławieństwo"
                                 p "Dziękuję wielki dziku"
                                 $ helper -= 25
 
@@ -3860,8 +2489,7 @@ label wojowezadanie:
                                 $ helper -= 25
 
                             "Dusza Kałacha":
-                                mg "Ambitnie"
-                                mg "Przyjmuję tę ofertę"
+                                mg "Ambitnie. Przyjmuję tę ofertę"
                                 show kalach at right
                                 k "Co kurwa?"
                                 mg "bywaj Kałachu"
@@ -3888,8 +2516,7 @@ label wojowezadanie:
                 scene vab
                 "Visty planują zbudować wielki wulkan"
                 "Masz rację, pojebało ich"
-                "Ich głównymi składnikami są ocet i soda kuchenna"
-                "Oznacza to zagrożenie poziomu Demon"
+                "Ich głównymi składnikami są ocet i soda kuchenna. Oznacza to zagrożenie poziomu Demon"
                 "Całe NC może zostać zalane wulkanową wydzieliną"
                 p "Pora ich powstrzymać"
                 p "Hujsaria"
@@ -3907,16 +2534,13 @@ label wojowezadanie:
                         $ helper -= 25
                     
                     "Ocet jest smaczny, wypiję":
-                        show ciphate with dissolve
+                        call cipflash
                         mg "Obrzydzasz mnie"
-                        hide ciphate with dissolve
                         "Wypiłeś cały ocet jaki mieli"
                         "Dzięki twojej brawurze visty poniosły straty finansowe"
                         "Całe 4,50 w plecy"
                         play sound "BURP.mp3"
-                        p "To chyba tyle"
-                        p "Misja wykonana"
-                        p "Możemy wychodzić"
+                        p "To chyba tyle. Misja wykonana. Możemy wychodzić"
                         "I spokojnym krokiem wyszliście z pomieszczenia"
                         achieve Dis
                         $ helper -= 10
@@ -3928,8 +2552,7 @@ label wojowezadanie:
                         pl "No normalnie"
                         p "A wulkan nie powinien działać z sodą?"
                         pl "Powinien ale to jest Vista dynamicks"
-                        p "No dobra, punkt dla Ciebie"
-                        p "To wychodzi na to, że żadnego zagrożenia nie ma"
+                        p "No dobra, punkt dla Ciebie. To wychodzi na to, że żadnego zagrożenia nie ma"
                         p "Spermastycznie. Wychodzimy!"
                         "I spokojnym krokiem wyszliście z pomieszczenia"
                         $ helper -= 15
@@ -3937,25 +2560,22 @@ label wojowezadanie:
                     "Zrobię delikatny trolaż" if inventory.has_item(Kokos):
                         p "Mam taki śmieszny pomysł"
                         "Podszedłeś do stołu i zamieniłeś sodę na koks"
-                        p "Co prawda wychodzę przez to na minus"
-                        p "Ale będzie śmiesznie jak im to nie zadziała"
+                        p "Co prawda wychodzę przez to na minus ale będzie śmiesznie jak im to nie zadziała"
                         "Po delikatnym sabotażu wyszliście z vazy"
                         $ helper -= 20
 
                 p "Kurwa panowie, to było zajebiście łatwe"
-                v "Vie Vwal vnia vprzed vachodem vłońca"
+                v "Vie Vwal vnia vrzed vachodem vłońca"
                 p "Co kurwa"
                 scene vinalvoss
                 stop music
                 play music "bossa.mp3"
-                v "Vestem V-Max"
-                v "Vopowa vakość V"
+                v "Vestem V-Max. Vopowa vakość V"
                 p "Oj nie zesraj się"
                 v "Va vóźno"
                 "Widzisz jak V-Max się powiększa"
                 p "No tak, chuj mi w dupę"
-                v "Va Va Va"
-                v "Vykuj vię va vmierć"
+                v "Va Va Va! Vykuj vię va vmierć"
                 p "No to pvp"
                 menu:
                     "No to jak cię zabiję?"
@@ -3989,8 +2609,7 @@ label wojowezadanie:
                         kr "No bo chodzi o to, że w brazyli jest dużo eunuchów"
                         kr "Bo tam terroryści strzelali w jaja"
                         p "To dobrego cela mają"
-                        kr "Właśnie nie, oni celują w głowę"
-                        kr "Ale tam jest ciężka amunicja"
+                        kr "Właśnie nie, oni celują w głowę ale tam jest ciężka amunicja"
                         p "Ale głupota"
                         kr "No. Dlatego ja polegam na pięściach"
                         v "Vo vo vo ven ved-valk?"
@@ -3999,8 +2618,7 @@ label wojowezadanie:
                         "Przez całą pogadankę Kreteus zbliżał się do V-Maxa"
                         kr "Egg stiler"
                         v "Vvaaaaaaaaaa"
-                        kr "Turbo kręcenie wora!"
-                        kr "I teraz finiszer, cios prosto w prostatę"
+                        kr "Turbo kręcenie wora! I teraz finiszer, cios prosto w prostatę"
                         play sound "Bonk.mp3"
                         scene black
                         "Ze względu na brutalną naturę tej sceny zastąpiłem ją opisem jajec"
@@ -4016,20 +2634,15 @@ label wojowezadanie:
                         jump akt1pods
 
                     "Volololo" if stan["Kalach"] > 5:
-                        k "Niech będą pochwalone uda."
-                        k "I jak powiedział kiedyś prorok:"
-                        k "„Błogosławione uda, które nie postępują w radzie bezbożnych, ani nie stoją na drodze bonera,"
-                        k "ani nie siedzą na tronie simpów. Ale jego upodobanie jest w prawie THICC Ud!"
+                        k "Niech będą pochwalone uda. I jak powiedział kiedyś prorok:"
+                        k "„Błogosławione uda, które nie postępują w radzie bezbożnych, ani nie stoją na drodze bonera, ani nie siedzą na tronie simpów. Ale jego upodobanie jest w prawie THICC Ud!"
                         v "Vo vy vierdolisz?"
                         k "Twoją matkę"
-                        v "Vooooo"
-                        v "Vylko vie voją vamusie"
-                        v "Varża"
+                        v "Vooooo! Vylko vie voją vamusie! Varża"
                         k "Vistolo volololo"
                         v "Vo vaj vad"
                         "Takim dziwnym sposobem V-Max dołączył do drużyny"
-                        v "Vitam vanowie"
-                        v "Vychodzimy?"
+                        v "Vitam vanowie. Vychodzimy?"
                         p "Wychodzimy"
                         "Wychodzicie z vazy"
                         v "Vo vo vak vikło?"
@@ -4042,22 +2655,21 @@ label wojowezadanie:
 
 
     elif Frakcja == 1:
+        $ oldFrakcja = 1
         show cypher
         c "Hihi ha ha"
         c "Pozwól młody że ja zajmę się dowodzeniem"
         p "No spoko, szefie"
-        c "Szybko się uczysz, będą z Ciebie psy"
-        c "Diamentowe takie"
+        c "Szybko się uczysz, będą z Ciebie psy. Diamentowe takie"
         scene cypherkopter
         play sound "heli.mp3"
         "Pyr pyr pyr"
         p "Gdzie my lecimy?"
-        c "To jest ważna misja"
-        c "Lecimy do żabki"
+        c "To jest ważna misja! Lecimy do żabki!"
         stop sound
         scene frogszop
         stop music
-        play music "chill.mp3"
+        play music "szop.mp3"
         show cypher at right
         c "Dzień dobry szanowny pracowniku tego sklepi"
         fse "Dzień dobry? Pomóc w czymś?"
@@ -4071,15 +2683,12 @@ label wojowezadanie:
         fse "To i tak nie jest najdziwniejszy klient"
         p "Bywali gorsi?"
         fse "Bywali tacy co chcieli hot-doga dwie minuty przed zamknięciem"
-        fse "Są mochery płacące rachunki"
-        fse "Są żule i w ogóle"
+        fse "Są mochery płacące rachunki są żule i w ogóle"
         fse "Dramat wielki"
         p "Faktycznie brzmi strasznie"
-        fse "No. Cieszę się że mam tu ochronę"
-        fse "Jest dzielny Kacperek, siedzi tam z tyłu"
+        fse "No. Cieszę się że mam tu ochronę. Jest dzielny Kacperek, siedzi tam z tyłu"
         fse "Cały dzień obstawia mecze ale jak jest potrzeba to przychodzi"
-        c "Szajse ale tu jest duży wybór"
-        c "Ponętne towary, chciałbym nabyć je wszystkie" 
+        c "Szajse ale tu jest duży wybór! Ponętne towary, chciałbym nabyć je wszystkie" 
         fse "Tylko proszę tam nic nie rozwalić!"
         c "Spokojnie młody, jestem ostrożny"
         p "Nie, on nie jest ostrożny"
@@ -4096,7 +2705,7 @@ label wojowezadanie:
         fse "OCHRONA"
         p "Nie będzie potrzebna, ja zapłacę"
         $ edki -= 40
-        fse "Macie kurwa szczęście, grubcio zaczął już wstawać"
+        fse "Macie kurcze szczęście, grubcio zaczął już wstawać"
         p "Przepraszam za kłopot"
         "Wróciłeś do DH koptera"
         stop music
@@ -4144,21 +2753,16 @@ label wojowezadanie:
         c "Kolejne udane lądowanie (2 martwych, 14 rannych)"
         scene wonsuwiusz
         show cypher
-        c "Proszę proszę, tożto laboratorium"
-        c "Sprawdźmy to"
+        c "Proszę proszę, tożto laboratorium! Sprawdźmy to"
         p "Dobrze Cypher"
-        c "Kurwa, oczekiwałem jakiegoś entuzjazmu"
-        c "Dobra jebać. Dawaj do środka"
+        c "Kurwa, oczekiwałem jakiegoś entuzjazmu! Dobra jebać. Dawaj do środka"
         "Weszliście do środka"
         c "CO TO KURWA JEST"
         p "W sensie?"
-        c "CZY TY TEGO KURWA NIE WIDZISZ?"
-        c "TE SKURWYSYNY DOMALOWAŁY MI WĄSY"
+        c "CZY TY TEGO KURWA NIE WIDZISZ? TE SKURWYSYNY DOMALOWAŁY MI WĄSY"
         p "Zabawne"
-        c "A CI PIERDOLNE"
-        c "TO JEST ATAK NA MÓJ WIZERUNEK"
-        c "PRZYSTOJNEGO PATRIOTY"
-        c "I WYCHODZI JAKIŚ CHUJ Z WĄSEM"
+        c "A CI PIERDOLNE! TO JEST ATAK NA MÓJ WIZERUNEK"
+        c "PRZYSTOJNEGO PATRIOTY I WYCHODZI JAKIŚ CHUJ Z WĄSEM"
         c "ABSOLUTNIE NIEWYBACZALNE"
         p "Spokojnie"
         c "JAK JA MAM BYĆ KURWA SPOKOJNY?"
@@ -4168,8 +2772,7 @@ label wojowezadanie:
         show cypher
         c "No dobra, uspokoiłem się"
         p "Serio?"
-        c "NIE KURWA. JEDYNYM WEZUWIUSZEM TU JESTEM JA"
-        c "ROZPIERDOLĘ ICH"
+        c "NIE KURWA. JEDYNYM WEZUWIUSZEM TU JESTEM JA! ROZPIERDOLĘ ICH"
         hide cypher
         "Rozsierdzony wyszedł z labu"
         "I po chwili zawył alarm"
@@ -4182,8 +2785,7 @@ label wojowezadanie:
             p "A ja spierdalam"
 
         elif inventory.has_item(Vomba):
-            p "Ty kurwa, ja mam Vombe"
-            p "Rozpierdolę ich ich własną bronią"
+            p "Ty kurwa, ja mam Vombe! Rozpierdolę ich ich własną bronią"
             "Bomb has been planted"
             p "Pora wiać"
 
@@ -4227,7 +2829,7 @@ label wojowezadanie:
         c "Koniec smęcenia, wychodzimy"
         p "I teraz nagle chcesz wychodzić?"
         c "Nom, nowy helikopter jest"
-        p "Jak to? Przecież zawsze miałęś tylko jeden"
+        p "Jak to? Przecież zawsze miałeś tylko jeden"
         c "Magia dzika młody"
         p "Nic już nie rozumiem"
         c "Same"
@@ -4238,10 +2840,8 @@ label wojowezadanie:
         play music "bossa.mp3"
         v "Vrrr"
         c "Spierdalaj ziomo, śpieszy nam się"
-        v "Vozjebaliście vi vazę"
-        v "Vniszczyliście vasze vadania"
-        v "Vrujnowaliście vój vom"
-        v "V vabiliście voich vrzyjaciół"
+        v "Vozjebaliście vi vazę, vniszczyliście vasze vadania"
+        v "Vrujnowaliście vój vom v vabiliście voich vrzyjaciół"
         v "Vlaczego viałbym Vię vie vabić v vej vwili?"
         c "Bo ja będę pierwszy"
         hide cypher
@@ -4256,42 +2856,34 @@ label wojowezadanie:
         c "Nie byłoby takich emocji"
         c "Mogliśmy sobie jak rodzinka postrzelać"
         p "Ja prawie umarłem"
-        c "Ale nie umarłeś"
-        c "I to się liczy"
+        c "Ale nie umarłeś i to się liczy"
         c "Zaczynam cię lubić [player_name]"
         hide hellciper
         show cypher
         $ postacie["Cypher"] += 3
         p "Wracajmy już do domu"
-        show ciphate
+        call cipflash
         c "Tak wcześnie?"
-        hide ciphate
         p "No zrobiliśmy to co mieliśmy"
-        c "Nudziaż"
-        c "Jednak mi się nie podobasz"
-        c "Wracasz z buta"
-        c "Ja lecę do żabki"
+        c "Nudziaż! Jednak mi się nie podobasz"
+        c "Wracasz z buta ja lecę do żabki"
         c "Jak to mówimy w niemczech, Adios"
         "I Cypher odleciał"
         p "Adios jest po Hiszpańsku"
         jump akt1pods
 
     elif Frakcja == 3:
+        $ oldFrakcja = 3
         p "Dobra kurwa, jestem Vista"
-        p "Nie mogę pozwolić aby nasze tajne projekty zostały zniszczone"
-        p "Ale z drugiej strony"
-        p "Nikt mi za obronę nie płaci"
-        p "Co powinienem zrobić?"
+        p "Nie mogę pozwolić aby nasze tajne projekty zostały zniszczone ale z drugiej strony"
+        p "Nikt mi za obronę nie płaci. Co powinienem zrobić?"
         menu:
             "Pozostań V":
-                p "Dobra kurwa, co ja teraz zrobię"
-                p "Zawsze jest opcja kulki w łep"
+                p "Dobra kurwa, co ja teraz zrobię. Zawsze jest opcja kulki w łep"
                 p "Ale to zostawię sobię na potem"
                 p "Wiem kurwa!"
-                p "Zadzwonię do Vistów i powiem im żeby spierdalali"
-                p "Następnie ściągniemy tam VMaxów"
-                p "Jak oni tam wejdom to sie zestają"
-                p "Hihihaha"
+                p "Zadzwonię do Vistów i powiem im żeby spierdalali. Następnie ściągniemy tam VMaxów"
+                p "Jak oni tam wejdom to sie zesrają! Hihihaha"
                 "Dzwonisz do Vist"
                 v "Halo"
                 p "Za halo w morde walo"
@@ -4308,8 +2900,7 @@ label wojowezadanie:
                 show laskawca at left
                 pl "Kurde blaszka masz rację"
                 k "Ja zawsze mam rację"
-                pl "Dobra spokojnie, wchodzimy"
-                pl "Ciekawe czemu [player_name] nie jest z nami"
+                pl "Dobra spokojnie, wchodzimy. Ciekawe czemu [player_name] nie jest z nami"
                 p "Oj zaraz się dowiesz"
                 scene vaxy
                 v "Viespovianka"
@@ -4325,8 +2916,7 @@ label wojowezadanie:
                 p "Vo? Va vigdy!"
                 pl "Słyszymy jak mówisz, sorki stary"
                 p "Vie, vanowie, va vie vhciałem"
-                k "Koło chuja mi to lata"
-                k "Wypierdalasz na tamagoczi"
+                k "Koło chuja mi to lata! Wypierdalasz na tamagoczi"
                 "Dostałeś taktycznym paralizatorem"
                 k "Idziemy do bazy, czeka Ciebie przesłuchanie"
                 scene bev
@@ -4343,6 +2933,7 @@ label wojowezadanie:
 
 
     elif Frakcja == 4:
+        $ oldFrakcja = 4
         scene vniazdo
         show kalach
         k "Dobra, ja szefuje"
@@ -4358,21 +2949,16 @@ label wojowezadanie:
         p "Czemu nie znasz kroku trzeciego?"
         k "Ja wtedy chleję"
         p "I to jest cały twój plan, wezwać ludzi niech to zrobią za Ciebie?"
-        k "Ta, to tylko Visty, nie chce mi się marnować ammo"
-        k "Plus, Vista jest śmieszny"
+        k "Ta, to tylko Visty, nie chce mi się marnować ammo plus, Vista jest śmieszny"
         p "Jakim cudem ty jesteś jeszcze głową tego kościoła?"
-        k "Niebotyczna charyzma"
-        k "Inteligencja Ejnsztajna"
-        k "I wątroba z tytanu"
+        k "Niebotyczna charyzma, inteligencja Ejnsztajna i wątroba z tytanu"
         p "Tylko tyle wystarczy?"
-        k "Jakie kurwa tylko tyle? Chopie, to jest w chuj pracy"
-        k "Raz na dwa dni muszę wrzucać zdjęcie na stronę"
+        k "Jakie kurwa tylko tyle? Chopie, to jest w chuj pracy. Raz na dwa dni muszę wrzucać zdjęcie na stronę"
         k "Skurwysyńsko męcząca praca"
         p "Się znalazł influenser po chuju"
         k "TO PATRZ I SIĘ KURWA UCZ"
         "Kałach sam poszedł prosto do gniazda"
-        p "Popierdoliło go"
-        p "Albo promile nie są już procentami"
+        p "Popierdoliło go albo promile nie są już procentami"
         "Słyszysz tonę strzałów z vniazda"
         p "Zobaczę jak mu idzie, jeśli zdechł to free itemy"
         scene vniazdo
@@ -4395,11 +2981,9 @@ label wojowezadanie:
         p "Popierdoliło Cię, jak ja mam chujowe staty"
         k "No to patrz na to"
         scene stand
-        k "W imię ojca, i syna i uda wielkiego"
-        k "Niech wpierdol dosięgnie jego"
+        k "W imię ojca, i syna i uda wielkiego! Niech wpierdol dosięgnie jego"
         v "Vo Vhuj Vi vodzi?"
-        k "Specjalny atak Alfonsowy"
-        k "Pora na udowy atak krzyżowy"
+        k "Specjalny atak Alfonsowy! Pora na udowy atak krzyżowy"
         v "Vo vie"
         "I VMax dostał wpierdol"
         p "Cholipka Kałach"
@@ -4427,9 +3011,18 @@ label wojowezadanie:
                 $ Frakcja = 0
                 jump wojowezadanie
 
+            "Zapłacę mu za czas mojej nieobacności" if edki > 1999:
+                fse "Bardzo to ambitne z twojej strony, raczej to mu się spodoba"
+                $ edki -= 2000
+                p "Oto moje pieniądze, bywaj natenczas"
+                fse "Żegnaj, adios"
+                $ Frakcja = 0
+                $ oldFrakcja = 6
+                jump wojowezadanie
+
             "Może uciekniemy stąd razem?":
-                fse "OMG anon, myślałam o tym odkąd Cię zobaczyłam"
-                p "No to klawo, spierdalaj"
+                fse "OMG Anon, myślałam o tym odkąd Cię zobaczyłam"
+                p "No to klawo, spierdalajmy"
                 scene bew
                 achieve Crg
                 "CRINGE DETEKTED"
@@ -4450,15 +3043,11 @@ label akt1pods:
     mg "Drużyna zrobiła to czego też się spodziewałeś"
     mg "Zostawili Cię"
     mg "Powoli się wykrwawiałeś na pustyni"
-    p "Kurwa, chyba tu umrę"
-    p "Powiedz mojej żonie, że jej nie mam"
-    p "Karamba, całe życie przeleciało mi przed oczami"
-    p "Chyba za dużo grałem na kompie"
+    p "Kurwa, chyba tu umrę. Powiedz mojej żonie, że jej nie mam"
+    p "Karamba, całe życie przeleciało mi przed oczami. Chyba za dużo grałem na kompie"
     "Podszedł do Ciebie jakiś mężczyzna ubrany na czarno"
-    sb "A kogo my tu mamy"
-    sb "[player_name] jak na talerzu"
-    sb "To nie jest pora jeszcze umierać"
-    sb "Mam co do Ciebie plany"
+    sb "A kogo my tu mamy [player_name] jak na talerzu"
+    sb "To nie jest pora jeszcze umierać mam co do Ciebie plany"
     achieve GG1
     jump a2intro
 
@@ -4466,25 +3055,17 @@ label amongthev:
     stop music fadeout 1.0
     scene black
     if Frakcja != 1:
-        p "Wysłali mnie prosto do wypizdowa"
-        p "Nie dali jakichkolwiek wytycznych"
-        p "Wiem że mam wykraść coś z archiw"
-        p "Przyjaciele po chuju"
-        p "Ale chuj, podobno dostanę 2k edków"
+        p "Wysłali mnie prosto do wypizdowa. Nie dali jakichkolwiek wytycznych"
+        p "Wiem że mam wykraść coś z archiw. Przyjaciele po chuju ale chuj, podobno dostanę 2k edków"
     
     elif Frakcja == 1:
         scene dach
         show cypher
-        c "No to młody, robota jest"
-        c "Fun pewnie Ci już powiedział"
-        c "Ale tak dla przypomnienia"
-        c "Visty to debile"
-        c "Cienkie pizdeczki"
-        c "Musisz zabrać im dokumenty z archiw"
-        c "Dasz sobie radę ale dla pewności"
+        c "No to młody, robota jest Fun pewnie Ci już powiedział ale tak dla przypomnienia"
+        c "Visty to debile cienkie pizdeczki"
+        c "Musisz zabrać im dokumenty z archiw, dasz sobie radę ale dla pewności"
         if inventory.has_item(AR) == True and inventory.has_space(Cap) == True:
-            c "Widzę że jakąś broń już masz"
-            c "To masz ode mnie inny gadżet"
+            c "Widzę że jakąś broń już masz, to masz ode mnie inny gadżet"
             play sound "THROWING.mp3"
             $ inventory.add_item(THeal)
             c "Zajebałem Łaskawcy"
@@ -4496,21 +3077,16 @@ label amongthev:
             $ inventory.add_item(AR)
             c "Zajebałem Kałachowi"
             c "W sensie"
-            c "Wyrzucał go do śmieci"
-            c "A 500 edków piechotą nie chodzi"
+            c "Wyrzucał go do śmieci a 500 edków piechotą nie chodzi"
 
     scene vland
     play music "dickdisco.mp3" volume 0.1
     show vista
     $ config.rollback_enabled = False
-    v "Vitam v vlubie"
-    v "Vestem Viesiek"
-    v "Vędę vwoim vrzewodnikiem"
+    v "Vitam v vlubie! Vestem Viesiek vędę vwoim vrzewodnikiem"
     v "Vprowadzę Vię vo vokolicy"
     show vechnik
-    v "Vutaj vamy vechnika"
-    v "Vie vrzeszkadzaj vu vepiej"
-    v "Jak go wkurwisz, to Ci jeszcze Vpierdoli"
+    v "Vutaj vamy vechnika vie vrzeszkadzaj vu vepiej. Vak vo vkurwisz, vo Vi veszcze Vpierdoli"
     hide vechnik
     v "Vobra, przejdź się po okolicy, poszukaj dla siebie roboty"
     v "Vajo"
@@ -4518,12 +3094,6 @@ label amongthev:
     hide vista
     jump vtimefri
 
-# VISTY
-# deklaracje co do V
-default vechnik_stage = 0
-default voktor_stage = 0
-default varchiva_stage = 0
-default valki = 5
 
 label vtimefri:
 scene vland
@@ -4567,8 +3137,7 @@ menu:
 label vechnik_wst:
     scene vechnik
     if vechnik_stage == 0:
-        v "Vitam, jestem vechnikiem."
-        v "Vogę Ci zaoferować potężne vposażenie."
+        v "Vitam, jestem vechnikiem. Vogę Ci zaoferować potężne vposażenie."
         v "Ale oczyViście, jeśli vasz odpowiednią ilość Vdolców."
         $ vechnik_stage = 1
         menu:
@@ -4624,15 +3193,13 @@ label vechnik_wst:
                     p "Te panie vechnik, mam dla ciebie rozrywkę"
                     v "O vuj Ci chodzi?"
                     p "Bo voktor kazał mi cię vysadzić"
-                    v "Voo ma ga, ale z niego vjut"
-                    v "Ale kalmuj koka i wysadź tego fjuta"
+                    v "Voo ma ga, ale z niego vjut ale kalmuj koka i wysadź tego fjuta"
                     v "Vostaniesz vifta"
                     $ lilquest = 3
                     jump vtimefri
 
         if lilquest == 4:
-            v "Vobra robota"
-            v "Masz tu dwa vidolce"
+            v "Vobra robota! Masz tu dwa vidolce"
             $ vdolce += 2
             v "Tylko nie przepierdol na głupoty"
             $ lilquest = 5
@@ -4647,10 +3214,8 @@ label vechnik_wst:
 label voktor_wst:
     scene voktor
     if voktor_stage == 0:
-        v "Viema variacie!"
-        v "Chcesz vokosa kurde ten?"
-        v "Nie no, yaycuję. W tym obozie nic nie ma za darmo."
-        v "Możesz wykonać dla mnie bojowe zadanie"
+        v "Viema variacie! Chcesz vokosa kurde ten?"
+        v "Nie no, yaycuję. W tym obozie nic nie ma za darmo ale możesz wykonać dla mnie bojowe zadanie"
         if lilquest == 0:
             menu:
                 "Chcesz kolejne bojowe zadanie?"
@@ -4689,8 +3254,7 @@ label voktor_wst:
             $ HP = MaxHP
             "Zostałeś uleczony"
             p "I co? To tyle?"
-            v "A czego się vpodziewałeś? Miliarda edków i miliona avałek?"
-            v "Lmao"
+            v "A czego się vpodziewałeś? Miliarda edków i miliona avałek? Lmao"
             $ voktor_stage = 2
             $ lilquest = 7
 
@@ -4762,9 +3326,7 @@ label varchiwa:
         scene vard
         "Dostałeś się do środka"
         "Ale na twojej drodze staje vrażnik"
-        v "vrrrr"
-        v "vpierdalaj stond"
-        v "albo ci vpierdole"
+        v "Vrrrr Vpierdalaj stond albo ci vpierdole"
         menu:
             "Co zrobić?"
             "Rozpoczynam pvp!":
@@ -4788,7 +3350,7 @@ label varchiwa:
                 p "Vusze vać vokumenty vo varchiv"
                 v "Vo va vens, vapraszam"
                 p "Vięki"
-                $ varchiwa_stago = 2
+                $ varchiwa_stage = 2
                 jump varchiwa
                 
             "Vpierdalam":
@@ -4796,15 +3358,12 @@ label varchiwa:
 
     elif varchiva_stage == 2:
         scene varch
-        "Varchiva stoją przed tobą otworem"
-        "Nie będę mówił którym"
+        "Varchiva stoją przed tobą otworem (Nie będę mówił którym)"
         "Pozostaje Ci spędzić resztę swych dni szukając dokumentu"
         "Zobaczyłeś że w rogu pomieszczenia stoi automat"
         "Gdy zbliżyłeś się do niego widzisz, że ma nawet nagrody"
         "Rozglądasz się dalej po pomieszczeniu"
-        "Na ścianie visi plakat vupermena"
-        "Na podłodze jest dyvan"
-        "I jest nawet 1 (słownie jedno) pudełko"
+        "Na ścianie visi plakat vupermena, na podłodze jest dyvan i jest nawet 1 (słownie jedno) pudełko"
         $ helper = 2
         $ varchiva_stage = 3
         jump varchiwa
@@ -4843,15 +3402,15 @@ label varchiwa:
                             jump varchiwa
 
                 "Dyvan?":
-                    "Podchodzisz do dyvanu"
-                    "Vygląda dość normalnie na pierwszy rzut voka"
-                    "Po kolejnym rzucie vokiem, skończyły Ci się voczy"
-                    "Ale jest to najzwyklejszy dyvan"
+                    "Podchodzisz do dyvanu. Vygląda dość normalnie na pierwszy rzut voka"
+                    "Po kolejnym rzucie vokiem, skończyły Ci się voczy ale jest to najzwyklejszy dyvan"
+                    $ persistent.dywanomierz += 1
+                    "Kliknąłeś już ten jebany dyvan [persistent.dywanomierz] razy"
                     jump varchiwa
 
                 "Pudełeczko" if helper == 2:
                     "Normalnie jedno pudełeczko"
-                    "Po chuj ktoś je tu zostawił"
+                    "Po chuj ktoś je tu zostawił?"
                     menu:
                         "Otwierasz?"
                         "Kurwa no pewex":
@@ -5008,23 +3567,16 @@ label vokum:
     "Czytasz pierwszą kartkę"
     "Raport V nr 45672"
     v "Vedykamenty są napravde pomocne, moje umiejętności umysłowe zwiększyły się."
-    v "Vózg v vłynie jest skuteczny, muszę vodziękować Vanowi"
-    v "Vestem viekav, co jeszcze ugotuje"
-    p "Kinda sus, ngl"
-    p "Co oni tu jeszcze mają?"
+    v "Vózg v vłynie jest skuteczny, muszę vodziękować Vanowi. Vestem viekav, co jeszcze ugotuje"
+    p "Kinda sus, ngl. Co oni tu jeszcze mają?"
     "Kolejny dokument"
-    v "Vroń testowa jest strasznie vujowa"
-    v "Vechnikowi powinienem urwać yaya i yondra!"
-    v "Vstrzeliłem i nic się nie stało."
-    v "Vkurwiam się, vopierdoli mnie"
+    v "Vroń testowa jest strasznie vujowa. Vechnikowi powinienem urwać yaya i yondra!"
+    v "Vstrzeliłem i nic się nie stało. Vkurwiam się, vopierdoli mnie"
     p "Lmao rip"
     p "O coś jeszcze ciekawego"
-    v "Populacja V vnosi około 20 tysięcy"
-    v "Mnożymy się jak świeże bułeczki"
-    v "Jeszcze pół roku i Arasaka straci nad nami vładzę"
-    v "Ale my musimy jeszcze czekać jak karaczany"
-    v "Va szczęście dołączenie do naszej społeczności nie jest trudne"
-    v "Vstarczy vpisać vardcorevorn.vom"
+    v "Populacja V vnosi około 20 tysięcy. Mnożymy się jak świeże bułeczki"
+    v "Jeszcze pół roku i Arasaka straci nad nami vładzę ale my musimy jeszcze czekać jak karaczany"
+    v "Va szczęście dołączenie do naszej społeczności nie jest trudne. Vstarczy vpisać vardcorevorn.vom"
     p "O kurde balans, to jest aż tak proste?"
     menu:
         "Czy mam psychę sprawdzić tę stronę?"
@@ -5056,19 +3608,16 @@ label amongthevpods:
                     "Delikatnie pozmieniałeś papiery, raczej Gun się nie połapie"
                     "Wszedłeś do kuchni"
                     show gun
-                    g "Na raty chrystusa, ty żyjesz!"
-                    g "Znaczy ten, gRATulacje, udało Ci się"
+                    g "Na raty chrystusa, ty żyjesz! Znaczy ten, gRATulacje, udało Ci się"
                     g "Zobaczmy co tam przyniosłeś ciekawego"
                     "Oddałeś podrobione papiery"
-                    g "Oj karamba, grube dowody"
-                    g  "Prawie zapomłem, oto twoja nagroda"
+                    g "Oj karamba, grube dowody. Prawie zapomłem, oto twoja nagroda"
                     $ helper = 2 * renpy.random.randint(1,10)
                     $ edki += helper
                     "Dostałeś [helper] edków"
                     $ helper = 0
                     p "Miało być 2K"
-                    g "No i masz"
-                    g "2K10"
+                    g "No i masz 2K10"
                     p "Ale skam"
                     g "Dobra, nie pierdol"
                     g "Od teraz jesteś prawdziwym bazownikiem"
@@ -5084,24 +3633,21 @@ label amongthevpods:
 
         "Wszedłeś do kuchni"
         show gun
-        g "Na raty chrystusa, ty żyjesz!"
-        g "Znaczy ten, gRATulacje, udało Ci się"
+        g "Na raty chrystusa, ty żyjesz! Znaczy ten, gRATulacje, udało Ci się"
         g "Zobaczmy co tam przyniosłeś ciekawego"
         "Oddałeś znaleziska"
         $ postacie["Gun"] += vron
         $ vron = 0
         g "Oj karamba, grube dowody"
-        g  "Prawie zapomłem, oto twoja nagroda"
+        g "Prawie zapomłem, oto twoja nagroda"
         $ helper = 2 * renpy.random.randint(1,10)
         $ edki += helper
         "Dostałeś [helper] edków"
         $ helper = 0
         p "Miało być 2K"
-        g "No i masz"
-        g "2K10"
+        g "No i masz 2K10"
         p "Ale skam"
-        g "Dobra, nie pierdol"
-        g "Od teraz jesteś prawdziwym bazownikiem"
+        g "Dobra, nie pierdol. Od teraz jesteś prawdziwym bazownikiem"
         show cypher with moveinleft
         c "RICHTIG (:"
         hide cypher with moveoutright
@@ -5112,29 +3658,17 @@ label amongthevpods:
     if Frakcja == 1:
         scene dach
         show cypher
-        c "Dzień dobry, mój ulubiony kurierze"
-        c "Pokazuj co tam zajebałeś Vistom"
+        c "Dzień dobry, mój ulubiony kurierze! Pokazuj co tam zajebałeś Vistom"
         c "Scheiße, ciekawe dokumenty"
-        c "Chuja rozumiem"
-        c "Ale na spokojnie, zrobię sobie kopie a Gun dostanie resztę"
+        c "Chuja rozumiem ale na spokojnie, zrobię sobie kopie a Gun dostanie resztę"
         c "Masz, trochę drobniaków"
         $ edki += 400
         p "Nie spodziewałem się, że dasz mi pieniądze Cypher"
-        c "Masz mnie za żyda, proszę Cię, ja nie Gajda"
-        c "Doceniam swoich oddanych pracowników"
+        c "Masz mnie za żyda, proszę Cię, ja nie Gajda, doceniam swoich oddanych pracowników"
         c "Zmykaj do siebie, należy Ci się odpoczynek"
         "Zacząłeś iść do siebie"
-        c "Jednak czekaj"
-        c "Mam już kopie, zanieś je Gunowi"
+        c "Jednak czekaj, mam już kopie, zanieś je Gunowi"
         p "A nie możesz ty ich odnieść?"
-        c "Pojebało się"
+        c "Pojebało Cię"
         hide cypher with dissolve
         jump kuchnia
-
-
-label gatekeeper:
-    return
-
-
-label podpowiedz:
-    return
