@@ -233,7 +233,7 @@ label dach:
                         c "Jesteś pierdolonym geniuszem"
                         $ postacie["Cypher"] += 1
                         c "Aż bym Cie znowu zaprosił do DH ale niestety komuś nie chce się tego kodować"
-                        c "Więc takzwany chuj, możemy wracać"
+                        c "Więc tak zwany chuj, możemy wracać"
                         "I z Cypherem wróciliście do bazy"
                         $ stan["Cypher"] = 3
                         jump rozstaje

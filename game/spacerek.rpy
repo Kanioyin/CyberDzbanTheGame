@@ -44,7 +44,7 @@ label spacerek:
 
         elif Frakcja == 4:
             "Na mieście spotkałeś Kałacha. Dostałeś od niego flachę"
-            $ inventory.add_item(Flacha)
+            $ inventory.add_item(Flaszka)
 
         elif Frakcja == 6:
             "Na mieście znalazłeś kupon na darmowego monsterka (frogsy)"

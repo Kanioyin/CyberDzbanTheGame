@@ -1,47 +1,33 @@
-2025-03-01 12:01:09 UTC
+2025-03-01 19:15:51 UTC
 Windows-10-10.0.19045
 Ren'Py 8.3.4.24120703
 
-Early init took 0.20s
-Loading error handling took 0.10s
-Loading script took 1.42s
-Loading save slot metadata took 0.14s
+Early init took 0.17s
+Loading error handling took 0.32s
+Loading script took 5.84s
+Loading save slot metadata took 0.13s
 Loading persistent took 0.00s
-Running init code took 0.15s
-Loading analysis data took 0.04s
+ - Init at renpy/common/00library.rpy:450 took 0.25223 s.
+Running init code took 0.41s
+Loading analysis data took 0.00s
 Analyze and compile ATL took 0.01s
-Reloading save slot metadata took 0.10s
+Reloading save slot metadata took 0.08s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\kamil\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
 Dump and make backups took 0.12s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
-Initial gc took 0.10s
+Initial gc took 0.08s
 DPI scale factor: 1.000000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: Disabled thread optimizations.
-Creating interface object took 0.61s
+Creating interface object took 0.49s
 Cleaning stores took 0.00s
-Init translation took 0.08s
+Init translation took 0.07s
 Build styles took 0.01s
 Load screen analysis took 0.00s
-Analyze screens took 0.03s
-Save screen analysis took 0.04s
-Prepare screens took 0.17s
-Save pyanalysis. took 0.00s
-Save bytecode. took 0.06s
-Running _start took 0.00s
-Interface start took 0.11s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1920, 1080)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'NVIDIA Corporation'"
-Renderer: b'NVIDIA GeForce GTX 1660/PCIe/SSE2'
-Version: b'4.6.0 NVIDIA 565.90'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
-Maximum texture size: 4096x4096
+Analyze screens took 0.07s
+Save screen analysis took 0.06s
+Prepare screens took 0.38s
+Save pyanalysis. took 0.03s
+Save bytecode. took 0.07s

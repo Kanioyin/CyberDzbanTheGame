@@ -157,9 +157,10 @@ label checkHP(dmg):
         if inventory.has_item(THeal) == True:
             achieve Clos
             $ inventory.remove_item(THeal)
-            $ HP =  ["BC"] * 2
+            $ HP = cechy["BC"] * 2
             $ umieram = 0
             p "Dobrze że miałem Turbo Uzrawiacz"
+
         else:
             jump gameover
 
@@ -1502,7 +1503,10 @@ label frogszop:
         jump frogsimp
 
     scene frogszop
-    if (stan["Kasia"] == 2 and dzien % 2 == 0) or stan["Kasia"] == 4:
+    if stan["Kasia"] == 2 and dzien % 2 == 0:
+        jump frogsimp
+
+    if stan["Kasia"] == 4:
         jump frogsimp
 
     if Frakcja == 6 or stan["Kasia"] > 0:
@@ -1556,6 +1560,7 @@ label frogszop:
                     p "A niech to, chyba mam zawał"
                     $ HP = 0
                     $ zawal = 0
+                    $ umieram = 1
 
                 $ czas += 10
 
@@ -1789,8 +1794,8 @@ label frogsimp:
         play sound "pif.wav"
         "Nim zdążyłeś wyjąć broń, napastnik strzelił do Ciebie"
         call checkHP(19) from _call_checkHP_36
-        gg "Trzebabyło dawać więcej reflekusu kurewko"
-        p "Dzięku bogu dałem sporo w wytrzymałość"
+        gg "Trzebabyło dawać więcej refleksu kurewko"
+        p "Dzięki bogu dałem sporo w wytrzymałość"
         play sound "pif.wav"
         "Trafiłeś gangusa prosto w cymbał"
         p "Celność też nie jest najgorsza"
@@ -1807,7 +1812,7 @@ label frogsimp:
         fse "Nasz nowy program usługowy, froghealing, specjalna możliwość dla posiadaczy frogsów"
         p "Czemu mi tego wcześniej nie powiedziałaś? To jest lepsze od parów"
         fse "Dopiero teraz to wprowadziliśmy, teoretycznie za kilka dni miało oficjalnie wchodzić"
-        p "To będę chyab częściej z tej możliwości korzystał"
+        p "To będę chyba częściej z tej możliwości korzystał"
         fse "Dzięki za ochronę btw. Kacperek pewnie dopiero wstaje z krzesła"
         p "Luzik, dla mnie takie strzelaniny to codzienność"
         $ frogrel += 1

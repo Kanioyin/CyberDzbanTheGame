@@ -232,7 +232,7 @@ label kuchnia:
                 jump rozstaje
 
             elif stan["Gun"] == 2:
-                g "No to witam ponownie, dziś zobaczysz Mączysława w akcji"
+                g "No to witam panownie, dziś zobaczysz Mączysława w akcji"
                 p "Kim jest kurwa Mączysław?"
                 g "To najlepszy telefon EUNE polecany przez instytut RATki z dzieckiem"
                 p "No dobra ale co to za tricki?"

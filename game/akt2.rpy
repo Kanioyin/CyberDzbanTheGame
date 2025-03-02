@@ -179,7 +179,7 @@ label jaxowo:
                 p "Co do kurwy, jak on to niby zrobił?"
                 ja "Okazuje się, że umowy z nami były nielegalne i teraz jest ścigany po hawajach"
                 p "Niech zgadnę, podpisywał umowy o działo a nie o dzieło?"
-                ja "Nie napisali dokładnie ale bardziej mi to wygląda na nieautoryzowanie korzystanie z osób trzecich"
+                ja "Nie napisali dokładnie ale bardziej mi to wygląda na nieautoryzowane korzystanie z osób trzecich"
                 p "Czyli już nie będziemy mieli chyba umów z wojskiem"
                 ja "Nie powiedział bym, w wojsku jest teraz nowy szef, tylko nikt nie wie jak to u niego wygląda"
                 p "Zobaczymy później pewnie. Ja będę się już zbierał, trzymaj się Jax"
@@ -1291,13 +1291,14 @@ label pierdex:
             al "To ty jesteś tym kurierem?"
             p "Tajest, mam tu paczuszkę opłaconą z góry"
             al "Postaw ją na ziemi i spierdalaj stąd"
-            p "Dobra szefie, bez takich newrów"
+            p "Dobra szefie, bez takich nerwów"
             "Postawiłeś paczkę na ziemi, wskoczyłeś na skuter i zacząłeś uciekać"
             play sound "BOOM.mp3"
             p "Co tam się kurwa stało"
             "Się okazało, to paczkę wyjebało"
             p "Nie nie nie nie nie, ja się w to nie mieszam"
             "I błyskawicznie wróciłeś prosto do szefa"
+            scene pierdex
             bb "Dobra robota młody, ostatnia paczka z głowy"
             p "CO TO KURWA MIAŁO BYĆ? PO CHUJ JA MIAŁEM ZAWIEŹĆ BOMBĘ"
             bb "Takie delikatne wyrównanie rachunków, nie musisz wiedzieć więcej"
@@ -1340,7 +1341,7 @@ label nowedh:
         $ stan2["BB"] = 3
         c "Przywiezienie mi soczystego kawałka sera"
         c "Następnie, będę potrzebował 500 edków"
-        c "Później, jak wydam te pieniądze, to się wyboirę na zakupy"
+        c "Później, jak wydam te pieniądze, to się wybiorę na zakupy"
         c "To co tam kupię, będziesz musiał dać Jaxowi, on powie Ci dalej co będziesz miał zrobić"
         c "Po tym wszystkim, będzie ciebie czekać zadanie ostateczne ale o nim opowiem Ci później"
         p "I jak ja mam to niby wszystko zapamiętać?"
@@ -1360,7 +1361,7 @@ label nowedh:
     if stan2["BB"] == 3 and inventory.has_item(Ser) == True:
         show cypher at left with moveinleft
         c "Jeśli mój węch mnie nie myli, to chyba przyniosłeś ser. Wezmę go sobie."
-        $ inventory.remowe_item(Ser)
+        $ inventory.remove_item(Ser)
         $ stan2["BB"] = 4
         p "Powiesz mi po co Ci ten ser?"
         c "Znalazłem starą książkę kucharską jakiegoś anarchisty. Teraz będę robił sernik"
