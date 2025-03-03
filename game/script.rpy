@@ -1866,6 +1866,7 @@ label frogsimp:
                 p "My nie mamy sekretów, tylko ciekawostki do opowiadania"
 
             "Pomidor":
+                p "Pomidor"
                 fse "Pomidor"
 
         $ czas -= 10
@@ -1874,6 +1875,9 @@ label frogsimp:
         hide kasia_kofi
         p "Kolejny raz przeszkadzałem jej w aktywnościach. Jestem sigma, patryk batman"
         $ stan["Kasia"] = 6
+
+    elif stan["Kasia"] == 6:
+        scene frogszop
 
 
     show screen map_screen
