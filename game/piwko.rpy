@@ -52,7 +52,14 @@ label piwko:
             "Na ten moment Jax nie chce więcej gadać"
 
     elif kompan == 1:
-        vi "Pije solo"
+        if postacie2["VIO"] == 0:
+            vi "Pije solo"
+        
+        elif postacie2["VIO"] == 1:
+            vi "Zaczynamy"
+
+        elif postacie2["VIO"] == 2:
+            vi "Jestem z VIO"
 
     else:
         "Wyjebali Cię z baru"

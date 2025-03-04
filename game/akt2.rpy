@@ -1551,7 +1551,7 @@ label artcrack:
 label tempend:
     scene black
     mg "Gratulacje, skończyłeś aktualny progress 2 aktu cptg"
-    mg "Kiedy następne updaty będą to studia ocenią"
+    mg "Kiedy następne updaty będą to zobaczę po robocie"
     mg "Jeśli udało Ci się skończyć ten moment historii, wyślij mi screena następnej wiadomości"
     mg "Jax i VIO mnie bijo"
     mg "Obfita nagroda Cię czeka"

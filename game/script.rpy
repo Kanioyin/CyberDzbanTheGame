@@ -1878,6 +1878,8 @@ label frogsimp:
 
     elif stan["Kasia"] == 6:
         scene frogszop
+        p "To pora na kolejne udane zakupy"
+        p "Zostanę posiadaczem wielu frogowych itemków"
 
 
     show screen map_screen
