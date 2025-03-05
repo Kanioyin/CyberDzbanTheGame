@@ -1880,6 +1880,32 @@ label frogsimp:
         scene frogszop
         p "To pora na kolejne udane zakupy"
         p "Zostanę posiadaczem wielu frogowych itemków"
+        show jax at left
+        p "O rety naplety, co ty tu robisz JAX?"
+        ja "Na zakupy przyszedłem, co się tak pytasz?"
+        p "No wiesz, pierwszy raz widzę jakiegoś NPC-a we frogu"
+        ja "Co ty pierdolisz [player_name]?"
+        p "Jestem główną postacią w tej gierce, ja mam swoją gwarę"
+        ja "Nie mam pojęcia co to jest, masz może jakieś punkty w gwarze ulicy?"
+        fse "Przyzwyczaisz się, on tak zawsze gada."
+        p "Ej no, nie mam aż tak wielkiego mózgozgnicia"
+        ja "Masz"
+        fse "Masz"
+        p "Takie same, to po 5"
+        fse "Właśnie o tym mówię"
+        ja "Dobra, ja będę spadał, mam jeszcze obowiązki, standard o 19?"
+        fse "Spoczko"
+        hide jax
+        p "Standard o 19? Co to jest standard o 19?"
+        fse "Nie interesuj się tak [old_pn]. A właśnie! Czemu Jax do ciebie mówił [player_name]?"
+        p "Bo ja jestem teraz tajnym agentem, a to jest mój kryptonim"
+        fse "Też mam do Ciebie mówić [player_name]?"
+        p "Nah, ty jesteś przecież zwykłym cywilem, po kiego miałabyś trzymać się naszego kodenamu?"
+        fse "Tja, jestem tylko zwykłym, niewinnym cywilem"
+        p "Tak jak mówię. Dobra, pora kończyć te pogadanki, pora na zakupy"
+        $ stan["Kasia"] = 7
+
+    elif stan["Kasia"] == 7
 
 
     show screen map_screen
