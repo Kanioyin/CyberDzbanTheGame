@@ -3,6 +3,7 @@ label a2intro:
     play music "a2amb.mp3"
     $ akt = 2
     $ bigquest = 0
+    $ Frakcja = oldFrakcja
     if helper < 0:
         $ helper = 0
         
@@ -1303,7 +1304,7 @@ label pierdex:
             p "CO TO KURWA MIAŁO BYĆ? PO CHUJ JA MIAŁEM ZAWIEŹĆ BOMBĘ"
             bb "Takie delikatne wyrównanie rachunków, nie musisz wiedzieć więcej"
             p "Mogłeś mi przynajmniej powiedzieć, jakbym się wjebał w tira, to z trzy bloki bym rozjebał"
-            bb "Niestety, tak tu u nas wyglądają sprawy. Nie musisz się martwić, to było tylko jeden raz"
+            bb "Niestety, tak tu u nas wyglądają sprawy. Nie musisz się martwić, to było tylko ten jeden raz"
             p "Czy masz jeszcze jakieś paczki do transportu, czy mogę już iść w diabły"
             bb "Masz pełne prawo iść do diabła, możesz go ode mnie pozdrowić"
             p "To spierdalam, sajonara"
@@ -1456,6 +1457,7 @@ label nowedh:
             "Niech stracę, pogadam z nim":
                 p "Niech stracę, co tam u ciebie Cypher"
                 $ czas = 0
+                $ renpy.notify("Cypher to zapamięta")
                 "Pobombowałeś Chille wraz z Cypherem, może tylko Ci się wydaje ale jego uśmiech jest teraz szczery"
                 "Ostatecznie, wieczorem wróciłeś do bazy"
 

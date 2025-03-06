@@ -1,4 +1,5 @@
 label piwko:
+    $ czas -= 5
     if kompan == 2:
         scene japiwko
         if postacie2["Jax"] == 0:
@@ -48,8 +49,33 @@ label piwko:
             achieve Bir
             $ postacie2["Jax"] = 1
 
-        elif postacie2["Jax"] == 1:
-            "Na ten moment Jax nie chce więcej gadać"
+        elif postacie2["Jax"] == 1 and bigquest > 1:
+            p "Kurwa, jak mnie ta dziura wymęczyła"
+            ja "Nie tylko Ciebie [old_pn], nim się pojawiłeś, to wielu ludzi przez nią straciliśmy"
+            p "Jak to wyglądało wcześniej?"
+            ja "Jak tylko pojawiał się jakiś świerzak, to tam leciał. Zbierał się cały pluton egzekucyjny i tam go wrzucaliśmy"
+            ja "A w tle leciał motyw spadającego Kratosa. Kurwa, to były czasy"
+            p "Tęsknisz za tym wszystkim?"
+            ja "I tak i nie. Ta ekipa jest strasznie spokojna, a to bardzo ułatwia nie umieranie"
+            ja "Tamci, byli dla mnie jak rodzina i to taka, która walczy dla Ciebie do samego końca"
+            p "Ta, chyba tylko w twoim przypadku, mnie chuje zostawiły"
+            ja "Może to był fragment ich planu? Wiesz, i tak szli do pierdla."
+            p "Jestem na 16 procent pewny, że nie. Po prostu mili wyjebane"
+            ja "Straszny z Ciebie doomer, uśmiechnij się czasami, to nie boli"
+            p "Się znalazł kołcz kurwa, ja jestem MC w bezbekowej gierce. Nie mam niczego, z czego byłbym szczęśliwy"
+            ja "Przesadzasz z tym piwem chyba"
+            p "Nie kurwa, mówię serio serio powaga2"
+            ja "Zdecydowanie za dużo wypiłeś"
+            p "Obiecuję Ci Jax, jeśli będziesz żywy w ostatnim akcie, to uciekniesz ze mną"
+            ja "Pewnie"
+            "W schizowej atmoswerze, przepiliście browarki"
+            $ postacie2["Jax"] = 2
+
+        elif postacie2["Jax"] == 2 and stan["Kasia"] > 6:
+            ja "Ty"
+
+        else:
+            pass
 
     elif kompan == 1:
         if postacie2["VIO"] == 0:

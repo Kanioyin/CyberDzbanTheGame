@@ -25,7 +25,7 @@ label spacerek:
 
     elif cel > 10 and cel < 21:
         if Frakcja == 0:
-            "Ni chuja, same nudy"
+            p "Ni chuja, same nudy. Jakbym był w jakieś frakcji, to pewnie bym coś znalazł"
 
         elif Frakcja == 1:
             "Wędrując znalazłeś skrzynkę z symbolem DH"
@@ -151,13 +151,13 @@ label spacerek:
             "Napadańsko":
                 if akt == 1:
                     "Atakujesz kasztana"
-                    call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
+                    call checkHP(renpy.random.randint(8, 12)) from _call_checkHP_21
                     $ zysk = renpy.random.randint(50, 150)
                     $ edki += zysk
                     p "Trochę dostałem ale udało mi się zarobić [zysk] edków!"
 
                 elif akt == 2:
-                    call testSkili("Bron","ZW",renpy.random.randint(8, 12)) from _call_testSkili_8
+                    call testSkili("Bron","ZW",renpy.random.randint(8, 18)) from _call_testSkili_8
                     if wynik == 1:
                         "Ziomo dostał wpierdol"
                         p "A ja wypłatę"
@@ -182,6 +182,7 @@ label spacerek:
         p "Proszę, nie rób mi krzywdy!"
         ec "Nawet nie chcę"
         $ HP = MaxHP
+        $ umieram = 0
         "Magiczna moc złego Cyphera cię uleczyła"
         p "Cholera Cypher, dzięki"
         hide evilc with dissolve
@@ -224,6 +225,7 @@ label spacerek:
             p "Opening time!"
             $ helper = renpy.random.randint(1, 4)
             if renpy.random.randint(1, 5) == 5:
+                p "Karamba! Złamałem wytrych"
                 $ inventory.remove_item(Wytrych)
 
             if helper == 1:
