@@ -381,7 +381,7 @@ screen map_screen():
             unhovered SetVariable("screen_tooltip","")
             action Hide("map_screen"), Jump("pierdex")
 
-    if chipy == 0 and chiplok == 1 or chipy == 1 and chiplok == 2 or chipy == 2 and chiplok == 3 or chipy == 3 and chiplok == 4 or chipy == 4 and chiplok == 5:
+    if chipy < chiplok:
         imagebutton auto "city_chip_%s":
             focus_mask True
             hovered SetVariable("screen_tooltip", "Return")
