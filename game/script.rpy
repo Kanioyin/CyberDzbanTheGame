@@ -1871,6 +1871,7 @@ label wojowezadanie:
                     "Drzwi główne":
                         "Dostaliście się do środka głównymi drzwiami"
                         "Najgorsze możliwe wejście ale okazało się niestrzeżone"
+                        $ helper -= 10
 
                     "Okno" if stan["Krateus"] > 5:
                         p "Krateus, wskakuj oknem i nam pomożesz"
@@ -1918,6 +1919,7 @@ label wojowezadanie:
                         "Niestety jeden z vist miał przy sobie terminal"
                         $ edki = 0
                         "I w taki sposób zabrał Ci wszystkie pieniądze"
+                        $ helper -= 5
                         
                     "Chessy akcja" if inventory.has_item(Ser) == True:
                         p "Żryjcie to kutafony"
@@ -1959,6 +1961,7 @@ label wojowezadanie:
                     "Atak frontalny":
                         call checkHP(5) from _call_checkHP_19
                         "Wbiegliście do środka atakując każdego Vistę w okolicy"
+                        $ helper -= 10
 
                     "Pora na blackout" if stan["Jhin"] > 5:
                         p "Ten taki, odetnij im kable"
@@ -2115,6 +2118,7 @@ label wojowezadanie:
                         "I zastrzeliłeś Vistę"
                         p "Hasta la vista, vista"
                         "Dostaliście się do środka"
+                        $ helper -= 15
 
                     "Kałach bazooka" if stan["Kalach"] > 5:
                         show kalach at left
@@ -2179,6 +2183,7 @@ label wojowezadanie:
                         $ inventory.add_item(Vron)
                         $ vdolce += 3
                         "I trochę Vidolcy"
+                        $ helper -= 20
 
                     "Pora Geentować" if stan["Laskawca"] > 5:
                         show laskawca at left
@@ -2376,7 +2381,7 @@ label wojowezadanie:
                         show krateus
                         kr "Kurwa, chyba przesadziłem"
                         p "Chłopie, tortury Trewora były bardziej ludzkie"
-                        kr "Serio"
+                        kr "Serio?"
                         p "No, chodźmy stąd, muszę chyba iść na terapię"
                         kr "No sorson, ale jak to pisze jest miesiąc geja, przez to nie mam hamulców"
                         $ helper -= 10
