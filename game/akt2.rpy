@@ -149,7 +149,7 @@ label jaxowo:
                 $ kompan = 2
                 "JAX dołącza jako kompan"
 
-            "Wyskakujesz może na piwko?" if kompan == 2:
+            "Wyskakujesz może na piwko?" if kompan == 2 and postacie2["Jax"] < 3:
                 ja "Spoczko, da się zrobić"
                 jump piwko
 

@@ -72,7 +72,20 @@ label piwko:
             $ postacie2["Jax"] = 2
 
         elif postacie2["Jax"] == 2 and stan["Kasia"] > 6:
-            ja "Ty"
+            p "Dobra Jax, opowiadaj, co ty za interesy robisz z Kasią?"
+            ja "Co ty się tak interesujesz [old_pn]?"
+            p "Wiesz, ciekawi mnie to strasznie. Jak jest kilka NPC w jednym mieście i to w moim wątku frogowym"
+            ja "Czy ty się zainteresowałeś Kasią?"
+            p "Kurwa, to ja tu zadaję pytania ale nie jest to wykluczone"
+            ja "Oj stary, ty nie wiesz na co się nawet piszesz"
+            p "Jax, opowiadaj mi wszystkie informacje jakie o niej wiesz"
+            ja "Nie mogę Ci tak dużo dać, powiem Ci tylko kilka drobnych informacji"
+            p "Czemu ty tak ją chronisz? Jax, czy ty masz romans na boku?"
+            ja "Na łep upadłeś, na mnie żonka z dzieckiem czeka. Nie chcę zdradzać info, bo pracujemy razem."
+            p "Side biznez z Frogiem?"
+            ja "Nah, nie interesuj się aż tak. Kasia ma dostęp do wielu ciekawych informacji"
+            
+            $ postacie2["Jax"] = 3
 
         else:
             pass
