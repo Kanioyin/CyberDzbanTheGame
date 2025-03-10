@@ -82,9 +82,19 @@ label piwko:
             ja "Nie mogę Ci tak dużo dać, powiem Ci tylko kilka drobnych informacji"
             p "Czemu ty tak ją chronisz? Jax, czy ty masz romans na boku?"
             ja "Na łep upadłeś, na mnie żonka z dzieckiem czeka. Nie chcę zdradzać info, bo pracujemy razem."
-            p "Side biznez z Frogiem?"
+            p "Side biznes z Frogiem?"
             ja "Nah, nie interesuj się aż tak. Kasia ma dostęp do wielu ciekawych informacji"
-            
+            p "Nie mów mi, że ona jest jakimś turbo fixerem"
+            ja "Nah, praca we frogu daje sporo informacji o ludziach. Jakby, wyobraź sobie, że nasz team idzie do froga"
+            ja "Wystarczy siedem sekund i wszystkie informacje będą publiczne"
+            p "Masz trochę racji Jax. I twierdzisz, że ona handluje takimi informacjami?"
+            ja "I to nie tylko ze mną, wielu brokerów przychodzi do niej po info"
+            p "Czyli wszystko co ja powiem, ona może sprzedać komuś innemu?"
+            ja "Nom, jeśli nie lubi Cię zbyt bardzo, to info zostanie sprzedane"
+            p "Czyli powinienem podbijać swoją relecję z Kasią, wtedy informacje będą bezpieczne"
+            ja "Tak to działa. Dlatego, ja mam dobre stosunki z Kasią"
+            p "Dobra, to mi wystarczy. Teraz ja mam jakiegoś haka na Kasię, mam nadzieję, że nigdy nie będę musiał go użyć ale chuj wie"
+            ja "Święte słowa młody, święte słowa"
             $ postacie2["Jax"] = 3
 
         else:
