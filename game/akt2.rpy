@@ -249,6 +249,10 @@ label viocha:
                 $ kompan = 0
                 "VIO vraca do swoich zajęć"
 
+            "Idziesz na vrowara?":
+                vi "Vevnie"
+                jump piwko
+
             "Możesz mnie uleczyć?" if HP < MaxHP:
                 if inventory.has_item(HuMeat) == True:
                     $ inventory.remove_item(HuMeat)
@@ -270,6 +274,7 @@ label viocha:
             "To chyba na tyle":
                 vi "Vuz"
                 $ talkloop = 1
+
     jump opor
 
 label krzis:
@@ -314,10 +319,8 @@ label krzis:
             p "Ale co w sumie z tego, jak na tych cipach gówno jest o Benku"
             cr "To dobry omen"
             p "Ale jak kurwa"
-            cr "To znaczy, że nasi informatorzy to gówno ale na spokojnie"
-            cr "Zaraz ruszysz na misje, która nam wszystko wyjaśni"
-            cr "Ten ostatni chip jaki znalazłeś będzie naszym kluczem"
-            cr "Idziesz teraz do kowala, on może coś ci wyjaśni"
+            cr "To znaczy, że nasi informatorzy to gówno ale na spokojnie, zaraz ruszysz na misje, która nam wszystko wyjaśni"
+            cr "Ten ostatni chip jaki znalazłeś będzie naszym kluczem, idziesz teraz do kowala, on może coś ci wyjaśni"
             cr "No, to lecisz! Powodzenia"
             jump cipfin
 

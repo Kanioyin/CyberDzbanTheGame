@@ -103,6 +103,7 @@ label piwko:
     elif kompan == 1:
         if postacie2["VIO"] == 0:
             vi "Pije solo"
+            achieve Bir
         
         elif postacie2["VIO"] == 1:
             vi "Zaczynamy"

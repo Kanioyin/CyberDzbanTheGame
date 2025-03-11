@@ -111,7 +111,12 @@ label frogsimp:
                 p "Dużoby gadać"
 
         fse "Cii, film się zaczyna"
-        "Film został oglądnięty"
+        "Średnio co pięć minut leciała reklama"
+        p "Pojebie mnie z tymi reklamami, po chuj to dają tak często?"
+        fse "No wiesz, trzeba zarabiać na każdym miejscu"
+        p "Ciekawe co jeszcze wpadnie im do głowy, reklamy na cyberoczach?"
+        fse "Może lepiej przestań krakać"
+        "Oglądaliście dalej i film został oglądnięty"
         $ czas -= 2
         scene kino
         show kasia_basic at right
@@ -255,17 +260,22 @@ label frogsimp:
         fse "Właśnie o tym mówię"
         ja "Dobra, ja będę spadał, mam jeszcze obowiązki, standard o 19?"
         fse "Spoczko"
-        hide jax
+        hide jax with moveoutleft
         p "Standard o 19? Co to jest standard o 19?"
         fse "Nie interesuj się tak [old_pn]. A właśnie! Czemu Jax do ciebie mówił [player_name]?"
         p "Bo ja jestem teraz tajnym agentem, a to jest mój kryptonim"
         fse "Też mam do Ciebie mówić [player_name]?"
         p "Nah, ty jesteś przecież zwykłym cywilem, po kiego miałabyś trzymać się naszego kodenamu?"
         fse "Tja, jestem tylko zwykłym, niewinnym cywilem"
-        p "Tak jak mówię. Dobra, pora kończyć te pogadanki, pora na zakupy"
+        p "To dobrze, jakbyś była na przykład tajnym agentem, to byłoby nieciekawie"
+        fse "Gdzie, ja? Tajną agentką? [old_pn] nie przesadzaj"
+        p "I dzięki bogu."
+        fse "Nom, siedzę tutaj, dorabiam gdzie indziej i jakoś żyje się dalej"
+        p "Dobra, pora kończyć te pogadanki, pora na zakupy"
         $ stan["Kasia"] = 7
 
     elif stan["Kasia"] == 7:
+        scene kasia_con_chico
         fse "Yo"
 
 
