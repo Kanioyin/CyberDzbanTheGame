@@ -1311,6 +1311,7 @@ label pierdex:
             p "Czy masz jeszcze jakieś paczki do transportu, czy mogę już iść w diabły"
             bb "Masz pełne prawo iść do diabła, możesz go ode mnie pozdrowić"
             p "To spierdalam, sajonara"
+            achieve DTH
             $ stan2["BB"] = 9
             $ czas = 1
             jump opor

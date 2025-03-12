@@ -275,8 +275,13 @@ label frogsimp:
         $ stan["Kasia"] = 7
 
     elif stan["Kasia"] == 7:
+        scene spacer
+        "Wędrując sobie po mieście, znowu znalazłeś Kasię. Tym razem szła ona z jakimś dzieckiem"
+        p "Jasna dupa, to jest Kasia w swojej kolejnej pracy, powinienem ją śledzić"
+        "Niestety, nie jesteś dobrym skradaczem"
         scene kasia_con_chico
-        fse "Yo"
+        fse "[old_pn]! Co ty robisz?"
+        p "Pomidor"
 
 
     show screen map_screen

@@ -561,8 +561,7 @@ label warsztat:
                         h "Migomat to popularna nazwa spawarki, służącej do spawania metodą MIG-MAG."
                         h "Technologia MIG umożliwia spawanie w osłonie gazów obojętnych (argon lub hel), natomiast technologia MAG w osłonie gazów aktywnych (dwutlenek węgla)."
                         h "Spawanie migomatem jest efektywne, wydajne i precyzyjne."
-                        h "Uzyskanie spoiny charakteryzują się wysoką jakością wykonania."
-                        h "A teraz powiem Ci jak to działa"
+                        h "Uzyskanie spoiny charakteryzują się wysoką jakością wykonania. A teraz powiem Ci jak to działa"
                         h "Spawanie MIG (Metal Inert Gas) to metoda 131, natomiast spawanie MAG (Metal Active Gas) to metoda 135. "
                         h "Migomaty to urządzenia półautomatyczne. Najważniejsze elementy układu to źródło prądu, połączone z układem sterującym;"
                         h "podajnik drutu (jeżeli umieszczony jest na zewnątrz, to łączy się go ze źródłem prądu za pomocą przewodu zespolonego); przewód masowy, łączący przedmiot spawany ze źródłem prądu"
@@ -571,21 +570,18 @@ label warsztat:
                         h "Należy określić prędkość wysuwania się drutu. Wysuwający się drut ulega stopieniu w łuku elektrycznym."
                         h "Tworzy się on pomiędzy drutem (elektrodą topliwą), a materiałem spawanym. Długość łuku utrzymywana jest na stałym poziomie."
                         h "Łuk elektryczny i stopiony metal (jeziorko) ochraniane są przez gaz osłonowy przed oddziaływaniem atmosfery. Krzepnące jeziorko spawalnicze tworzy trwałe złącze."
-                        h "I to chyba tyle"
-                        h "Teraz ić se w chuj, muszę ochłonąć"
+                        h "I to chyba tyle. Teraz ić se w chuj, muszę ochłonąć"
                         $ czas -= 1
                         jump rozstaje
 
                     "Nie widziałem żadnego Vigomatu":
-                        h "Scheise"
-                        h "Albo jesteś ślepy, albo to vigomat jest mitem"
+                        h "Scheise albo jesteś ślepy, albo to vigomat jest mitem"
                         h "Tak czy siak, daj mi trochę czasu, muszę to przemyśleć"
                         jump rozstaje
 
                     "Opowiem Ci kawał, Vista gówno spawał":
                         call cipflash from _call_cipflash_6
-                        h "KURWA WIEDZIAŁEM"
-                        h "MUSZĘ GO ZDOBYĆ"
+                        h "KURWA WIEDZIAŁEM MUSZĘ GO ZDOBYĆ"
                         h "WYRUSZAM BEZZWŁOCZNIE"
                         jump rozstaje
 

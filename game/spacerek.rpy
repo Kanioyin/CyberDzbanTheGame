@@ -9,6 +9,9 @@ label spacerek:
     if akt > 1:
         if stan["Kasia"] == 5 and (dzien % 7 == 0 or dzien % 7 == 6):
             jump frogsimp
+
+        elif stan["Kasia"] == 7:
+            jump frogsimp
         
     if cel > 0 and cel < 11:
         if akt == 1:
