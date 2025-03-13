@@ -1,82 +1,37 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 400, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 401, in script
-    menu:
-  File "renpy/common/00action_other.rpy", line 582, in __call__
-    rv = self.callable(*self.args, **self.kwargs)
-  File "game/script.rpy", line 20, in drop_item
-    renpy.say("c", f"Co ty kurwa najlepszego zrobiłeś kretynie? Pozbyłeś się właśnie unikatowego klapka z merchu DH")
-  File "renpy/common/00library.rpy", line 324, in say
-    who(what, interact=interact, *args, **kwargs)
-Exception: Cannot start an interaction in the middle of an interaction, without creating a new context.
+  File "game/0bobcachievements.rpy", line 22, in script
+    define BOBCACHIEVEMENT_LIST = (
+  File "game/0bobcachievements.rpy", line 22, in script
+    define BOBCACHIEVEMENT_LIST = (
+  File "game/0bobcachievements.rpy", line 82, in <module>
+    ("DTH", -("Ded Streding") ("Kurwa, ty to kurier master jesteś")),
+TypeError: 'str' object is not callable
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 400, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 401, in script
-    menu:
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 1625, in execute
-    choice = renpy.exports.menu(choices, self.set, args, kwargs, item_arguments)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\menuexports.py", line 134, in menu
-    rv = renpy.store.menu(new_items)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\menuexports.py", line 424, in display_menu
-    rv = renpy.ui.interact(mouse='menu', type=type, roll_forward=roll_forward)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2215, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 3286, in interact_core
-    rv = root_widget.event(ev, x, y, 0)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\screen.py", line 791, in event
-    rv = self.child.event(ev, x, y, st)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1526, in event
-    rv = super(Window, self).event(ev, x, y, st)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 285, in event
-    rv = d.event(ev, x - xo, y - yo, st)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\layout.py", line 1297, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 1182, in event
-    return handle_click(self.clicked)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 1103, in handle_click
-    rv = run(action)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 394, in run
-    new_rv = run(i, *args, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\behavior.py", line 401, in run
-    return action(*args, **kwargs)
-  File "renpy/common/00action_other.rpy", line 582, in __call__
-    rv = self.callable(*self.args, **self.kwargs)
-  File "game/script.rpy", line 20, in drop_item
-    renpy.say("c", f"Co ty kurwa najlepszego zrobiłeś kretynie? Pozbyłeś się właśnie unikatowego klapka z merchu DH")
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\sayexports.py", line 130, in say
-    renpy.store.say(who, what, *args, **kwargs)
-  File "renpy/common/00library.rpy", line 324, in say
-    who(what, interact=interact, *args, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1455, in __call__
-    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 1106, in do_display
-    display_say(who,
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\character.py", line 803, in display_say
-    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\display\core.py", line 2184, in interact
-    raise Exception("Cannot start an interaction in the middle of an interaction, without creating a new context.")
-Exception: Cannot start an interaction in the middle of an interaction, without creating a new context.
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\bootstrap.py", line 359, in bootstrap
+    renpy.main.main()
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\main.py", line 541, in main
+    renpy.game.context().run(node)
+  File "game/0bobcachievements.rpy", line 22, in script
+    define BOBCACHIEVEMENT_LIST = (
+  File "lib/python3.9/future/utils/__init__.py", line 444, in raise_
+  File "game/0bobcachievements.rpy", line 22, in script
+    define BOBCACHIEVEMENT_LIST = (
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2241, in execute
+    self.set()
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2255, in set
+    value = renpy.python.py_eval_bytecode(self.code.bytecode)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1202, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/0bobcachievements.rpy", line 82, in <module>
+    ("DTH", -("Ded Streding") ("Kurwa, ty to kurier master jesteś")),
+TypeError: 'str' object is not callable
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.4.24120703
 CyberDzban 0.00000005
-Sat Mar  1 12:09:42 2025
+Wed Mar 12 17:30:37 2025
