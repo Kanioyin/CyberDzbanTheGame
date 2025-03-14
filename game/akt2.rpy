@@ -438,6 +438,17 @@ label krzis:
             $ stan2["Kris"] = 1
 
         elif stan2["Kris"] == 1:    
+            cr "No dobra, jak jesteś gotowy, to ruszysz sobie do kasynka"
+            p "Tak po prostu?"
+            cr "No tak, idziesz sobie do kasynka, troszeczke gamblniesz, pooglądasz sobie ludzi i wrócisz"
+            p "Kurde balans, to jest życie. A dostanę jakiś hajs na gambe?"
+            cr "Ty chyba na łep updałeś, tracisz tylko swoje środki"
+            p "Wiedziałem, że to nie będzie tak kolorowo. Chuj, raczej mam pieniądze na hazard"
+            cr "No widzisz, zdolniacha z Ciebie, teraz ruszaj na gambling"
+            p "ZAPIERDALAM"
+            "I w cztery minuty dotarłeś do świątyni hazardu"
+            scene kasyno
+            
             jump tempend
 
         pass
