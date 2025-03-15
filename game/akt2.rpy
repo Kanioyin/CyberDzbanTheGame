@@ -448,6 +448,12 @@ label krzis:
             p "ZAPIERDALAM"
             "I w cztery minuty dotarłeś do świątyni hazardu"
             scene kasyno
+            p "O JA PIERDOLE! Dlaczego ja tu nie mogłem przyjść wcześniej"
+            p "To jest o niebo lepsza wersja farmienia mamony niż zdrapeczki"
+            p "Skoro moim aktualnym celem jest badanie gruntu"
+            p "To pora iść zacząć gamblować, najpierw zdobędę miliony edków. Potem zdobędę info"
+            $ edki = edki/2
+            "I w taki sposób, straciłeś połowę majątku"
             
             jump tempend
 
