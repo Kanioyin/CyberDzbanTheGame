@@ -27,6 +27,7 @@ define ha = Character(_("Halina"), color = "#423123")
 define bb = Character(_("Blink Blink"), color = "#3ef374")
 define wr = Character(_("Wróżbitka"), color = "#f04eda")
 define gg = Character(_("Gangus"), color = "#ec3434")
+define ko = Character(_("Korpos"), color = "#444444")
 define al = Character(_("Alfonso"), color="#ABACAD")
 
 # słowniki

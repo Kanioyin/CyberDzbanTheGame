@@ -454,7 +454,18 @@ label krzis:
             p "To pora iść zacząć gamblować, najpierw zdobędę miliony edków. Potem zdobędę info"
             $ edki = edki/2
             "I w taki sposób, straciłeś połowę majątku"
-            
+            p "Chuj, dupa, cyce. Teraz zostaje mi tylko przepytanie ludzi na sali"
+            "Więc ruszyłeś przypytaywać każdego, kto był w okolicy"
+            gg "Nie no, Benek to taki sztywny gicior jest. Robotę ogarnia, płaci całkiem dobrze."
+            gg "Jak coś od niego chcesz, to idź na piętro do jego pokoju"
+            p "Poleciałeś do następnego gagatka."
+            ko "Ben jest ważnym beneficjentem w naszej firmie, często robimy z nim interesy"
+            ko "Jestem dumny, z całego systemu bezpieczeństwa w tym budynku"
+            ko "Dostanie się nieproszonym w nieodpowiednie miejsca jest niemożliwe"
+            ko "A w razie większego problemu, cały budynek się izoluje i traci powietrze"
+            p "Cholipka, robi się grubo, ciekawe co mi powie następny typek"
+            show cypher at left with moveinleft
+            c "Wiele ciekawostek panie kolego"
             jump tempend
 
         pass
