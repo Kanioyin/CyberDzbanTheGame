@@ -466,6 +466,31 @@ label krzis:
             p "Cholipka, robi się grubo, ciekawe co mi powie następny typek"
             show cypher at left with moveinleft
             c "Wiele ciekawostek panie kolego"
+            p "Czy ty możesz się odpierdolić w końcu?"
+            c "Nie, polubiłem cie, dostaniesz ode mnie wiele przydatnych wskazówek do swojej misji"
+            p "Ta, pewnie, co niby takiego możesz mi powiedzieć?"
+            c "Szybki Ben nie lubi ananasa"
+            p "Moje życie zmieniło się o 360 stopni w tym momencie"
+            c "To nie dobrze, będzie Ci się kręcić w głowie od tego"
+            c "Teraz ciekawostka nr 2. Oczkiem w głowie Benka, jest ta jego baba w słoiku"
+            p "Czekaj kurwa, jaka baba w słoiku?"
+            c "To ty nie wiesz? Jena sie ona chyba nazywa. Wszczepy drugiej ręki to jej zrobiły"
+            c "I teraz Benek lata w poszukiwaniu tych gówien w poszukiwaniu jakiegoś lekarstwa"
+            p "Dobra kurwa, tym razem zmiotłeś mnie z planszy"
+            c "Widzisz Stefan, ja mam wiele asów w rękawie"
+            "W tym momencie pojawiło się kilku ochroniarzy"
+            gu "Dlatego musi pan opuścić teren kasyna"
+            c "Ciemny chuj, dorwali mnie, spierdalam Stefan"
+            hide cypher
+            p "Ale ja nie jestem Stefan"
+            gu "Przepraszam pana, ten klient zawsze do nas wraca i przeszkadza. Proszę przyjąć te edwardy jako rekompensatę"
+            $ edki = edki * 2
+            p "Dziękuję"
+            "Ochrona poszła w pizdu"
+            p "Dobra kurwa, jestem na zero z hajsem, mam trochę info i małego bruda. Teraz mogę wracać"
+            $ stan2["Kris"] = 2
+
+        elif stan2["Kris"] == 2:
             jump tempend
 
         pass
