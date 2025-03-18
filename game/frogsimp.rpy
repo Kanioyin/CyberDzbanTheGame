@@ -282,6 +282,17 @@ label frogsimp:
         scene kasia_con_chico
         fse "[old_pn]! Co ty robisz?"
         p "Pomidor"
+        fse "O nie nie nie, tak łatwo nie uciekniesz od tej odpowiedzi. Co ty tu robisz?"
+        p "Ja tu tylko spaceruję, nie robię żadnych cienistych sprawek, frfr"
+        fse "I ja mam Ci w to uwierzyć?"
+        p "Tak. Mówię absolutnie szczerze"
+        fse "Masz szczęście, że jestem w pracy teraz, inaczej byśmy poważniej porozmawiali"
+        p "Dobra, dobra, sorki"
+        "I kasia poszła sobie dalej"
+        scene spacer
+        p "Kurde balans, nie spodziewałem się, że tak ostro zareaguje"
+        "Więc chodzisz sobie dalej po mieście w spokoju"
+        $ czas -= 4
 
 
     show screen map_screen
