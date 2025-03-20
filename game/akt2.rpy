@@ -1512,11 +1512,34 @@ label nowedh:
         menu:
             "Twoja reakcja?"
             "Niech stracę, pogadam z nim":
+                stop music
+                $ renpy.notify("Cypher to zapamięta")
                 p "Niech stracę, co tam u ciebie Cypher"
                 $ czas = 0
-                $ renpy.notify("Cypher to zapamięta")
-                "Pobombowałeś Chille wraz z Cypherem, może tylko Ci się wydaje ale jego uśmiech jest teraz szczery"
+                c "A dziwnie dość, siedzę tu sobie praktycznie sam, całe DH lata teraz po Czyśćcu i szuka magicznego kamienia"
+                p "Tak Ci brakowało kontaktu z ludźmi?"
+                c "Oj [old_pn] żebyś wiedział, pusto tu jest strasznie, czasami gadam sam do siebie by jakoś wypełnić tę pustkę"
+                p "Kurwa, to brzmi poważnie, nie chcesz może iść z tym do jakiegoś doktorka?"
+                c "Na łep chyba upadłeś, da mi tylko jakieś proszki i każe spierdalać"
+                p "Zawsze możesz spróbować, jest szansa, że to coś pomoże"
+                c "Sztuczne ogłupianie siebie nie zabierze całego tego bólu ode mnie"
+                p "A wiesz czemu cały czas odczuwasz cierpienie?"
+                c "Izolacja mnie tak dobija, nienawidzę być sam ale boję się zbliżyć do kogoś. Sam dobrze wiesz jak to boli, gdy ktoś, do kogo się przywiązałeś nagle znika"
+                p "Można powiedzieć że wiem"
+                c "No właśnie, myślałem, że się do tego przyzwyczaiłem ale tylko oszukuję siebie. Cały czas chodzę uśmiechnięty, ukrywając ból"
+                p "Mówiłeś może o tym kiedyś komuś wcześniej?"
+                c "Raz się zdarzyło, zaczęło boleć tylko jeszcze bardziej. Ja nie potrafię tak zrzucić z siebie wszystkiego na kogoś"
+                p "Kurwa, Cypher, od tego masz nas w końcu, tak długo jak się trzymamy jako drużyna, tak długo będziemy sobie pomagać"
+                c "Łatwo Ci mówić, jak Ci coś nie wyjdzie, to wczytasz sobie zapis i lecisz dalej. Ja tak nie mogę"
+                p "Nie do końca rozumiem o co Ci chodzi"
+                c "Klasyk, coraz częściej tak się dzieje, mówię coś, co siedzi we mnie i nikt nie jest w stanie tego zrozumieć, latam tylko, by sprawiać pozory"
+                p "Oj Cypher, tylko proszę, nie rób nic głupiego"
+                c "Luzy rajtuzy [old_pn], jeszcze we mnie płynie diamentowa krew, będę walczył do samego końca"
+                p "Cieszę się, bez Ciebie, byłoby tu bardzo pusto"
+                $ renpy.notify("Cypher to docenia")
+                c "Dzięki"
                 "Ostatecznie, wieczorem wróciłeś do bazy"
+
 
             "Ja idę, mam świat do ratowania":
                 c "Szkoda"
