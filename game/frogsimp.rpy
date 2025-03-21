@@ -327,6 +327,18 @@ label frogsimp:
         fse "..."
         p "Dobra chuj, dawaj idzeimy"
         "Wziąłeś Kasię pod ramię i pomogłeś jej wrócić do domu"
+        $ czas -= 6
+        scene kasiadom
+        p "Holipka, ładne masz mieszkanko"
+        fse "A dziękuję, staram się je utrzymać w porządku. Idź do łazienki i weź zestaw do pierwszej pomocy"
+        p "Się robi"
+        "Do łazienki skoczyłeś i z apteczką wróciłeś"
+        fse "Dobra, teraz muszę sie skupić i przypomnieć sobie jak to się wszystko robi"
+        "Widzisz jak kasia zaczyna zdejmować garnitur"
+        p "Ehm, ja pójdę i poczekam przed drzwiami, może jakieś gangusy będą coś chciały"
+        fse "Dobry pomysł"
+        "Wychodzisz czatować przed drzwiami i dajesz w taki sposób Kasi trochę prywatności"
+        p "Kurde balans, w co się ona wpakowała, to nie wygląda na przypadkowy strzał"
 
 
     show screen map_screen
