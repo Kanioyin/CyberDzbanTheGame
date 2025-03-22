@@ -338,7 +338,27 @@ label frogsimp:
         p "Ehm, ja pójdę i poczekam przed drzwiami, może jakieś gangusy będą coś chciały"
         fse "Dobry pomysł"
         "Wychodzisz czatować przed drzwiami i dajesz w taki sposób Kasi trochę prywatności"
+        scene klatka
         p "Kurde balans, w co się ona wpakowała, to nie wygląda na przypadkowy strzał"
+        "Poczekałeś sobie chwilę i zobaczyłeś sus duet wchodzący po schodach"
+        gg "Kolego"
+        gg "Masz może petem poratować?"
+        p "Pewnie, łap"
+        "Dałeś gangusowi jednego ze znaleźnych szlugów"
+        gg "Dzięki. Widziałeś tu może taką babeczkę z różowymi włosami i kocimi uszkami?"
+        p "Z tego co mi się wydaje, to wchodziła tam do bloku obok"
+        gg "Kurwa wiedziałem, dzięki za info stary"
+        "I gangusy sobie poszły, poczekałeś chwilę i dałeś Kasi znak"
+        fse "Na pewno już sobie poszli?"
+        p "Tak, co jak co ale wyglądali niebezpiecznie"
+        fse "Wskakuj tutaj"
+        scene kasiadom
+        p "Dobra, to już nie jest śmieszne. Powiedz mi w końcu co się dzieje"
+        fse "Nie dam rady [old_pn]. Jest za wcześnie na to, jestem Ci wdzięczna za pomoc ale nie mogę Ci jeszcze o wszystkim powiedzieć"
+        p "No dobra, niech będzie. Ja się będę musiał w sumie zbierać. Poradzisz sobie dalej sama?"
+        fse "Tak mi się wydaje, dzięki jeszcze raz"
+        p "Nie ma za co"
+        $ stan["Kasia"] = 8
 
 
     show screen map_screen
