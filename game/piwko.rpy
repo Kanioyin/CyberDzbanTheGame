@@ -102,7 +102,32 @@ label piwko:
 
     elif kompan == 1:
         if postacie2["VIO"] == 0:
-            vi "Pije solo"
+            p "No to opowiadaj Vio, jak Ci życie mijo"
+            vi "Va vobrze vobrze, vziękować"
+            p "A jak tam żona? Zdrowa?"
+            vi "Va vdrowa vdrowa, vziękować"
+            p "A jak tam Visty? Zdrowe?"
+            vi "Vo vo vest vurwa vroblem, veszcze vie"
+            p "Jak Ci w ogóle idzie praca nad szczepionką?"
+            vi "Vowoli, vbyt vovoli. Vowinienem vieć viększe vaboratorium, v vięcej vbiektów vestowych"
+            p "Porwać Ci może jakiś? Sam wiesz, że Visty kręcą się po ulicy, jak muchy po gównie"
+            vi "Vo vie vak vowinno vyglądać, va vusze vajpierw vieć vobrą versję, vopiero votem vogę vestować valej"
+            p "No ma to trochę sensu, jak się Visty uodporną na szczepionkę, to będzie totalne gówno"
+            vi "Vrawda, va veszcze vie viem vak vygląda vroces veczenia"
+            p "Jak stworzysz tą ostateczną wersję, to planujesz zaaplikować ją sobie?"
+            vi "Vo vie vest vakie vroste [old_pn], va vam vpecjalną versję vutacji"
+            p "Rety naplety, myślisz, że to będzie się dało uleczyć?"
+            vi "Vleczyć vo vątpię, vle voże vuda vi vię vo vłagodzić"
+            p "I tak do końca życia będziesz gadał z v na początku słowa?"
+            vi "Vam vadzieję ve vie"
+            mg "Nie będzie tak gadał, pojabie mnie inaczej"
+            p "No dobra, całkiem zrozumiałe, w ogóle, zauwazyłem, że nie ciągnie Cie już aż tak do mięsa"
+            vi "Vo vrawda, vgólnie vgraniczam vrzemoc, viem ve vej vie vniknę vle varto vrubować"
+            p "Fair point, będę Ci musiał dalej przynosić mięsko w zamian za leczenie?"
+            vi "Vak, va vie vhce vię vić, vięc vy vusisz vi vrzynosić vięcej varcia"
+            p "No ok"
+            p "Dobra VIO, fajnie się pijo ale ja muszę już spadać, narka"
+            vi "Vajo"
             achieve Bir
         
         elif postacie2["VIO"] == 1:
