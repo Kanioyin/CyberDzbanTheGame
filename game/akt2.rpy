@@ -1538,6 +1538,7 @@ label nowedh:
                 p "Cieszę się, bez Ciebie, byłoby tu bardzo pusto"
                 $ renpy.notify("Cypher to docenia")
                 c "Dzięki"
+                achieve Dep
                 "Ostatecznie, wieczorem wróciłeś do bazy"
 
 

@@ -79,6 +79,7 @@ define BOBCACHIEVEMENT_LIST = (
     ("Bir", _("Dobre piwko"), _("Dobry browarek nie jest zły")),
     ("Wow", _("Poszukiwacz"), _("Szukałeś złota, znalazłeś futro")),
     ("GOO", _("Gooner"), ("Ty tu serio walić konia przyszedłeś?")),
+    ("Dep", _("Głębia"), _("Czasami, warto wyrzucić wszystko z siebie")),
     ("DTH", _("Ded Streding"), ("Kurwa, ty to kurier master jesteś")),
     )
     
