@@ -60,7 +60,7 @@ label piwko:
             ja "Tamci, byli dla mnie jak rodzina i to taka, która walczy dla Ciebie do samego końca"
             p "Ta, chyba tylko w twoim przypadku, mnie chuje zostawiły"
             ja "Może to był fragment ich planu? Wiesz, i tak szli do pierdla."
-            p "Jestem na 16 procent pewny, że nie. Po prostu mili wyjebane"
+            p "Jestem na 16 procent pewny, że nie. Po prostu mieli wyjebane"
             ja "Straszny z Ciebie doomer, uśmiechnij się czasami, to nie boli"
             p "Się znalazł kołcz kurwa, ja jestem MC w bezbekowej gierce. Nie mam niczego, z czego byłbym szczęśliwy"
             ja "Przesadzasz z tym piwem chyba"

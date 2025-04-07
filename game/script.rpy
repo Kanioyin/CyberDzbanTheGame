@@ -1502,7 +1502,7 @@ label frogszop:
     if stan["Kasia"] == 2 and dzien % 2 == 0:
         jump frogsimp
 
-    if stan["Kasia"] == 4:
+    if stan["Kasia"] == 4 or stan["Kasia"]:
         jump frogsimp
 
     if Frakcja == 6 or stan["Kasia"] > 0:

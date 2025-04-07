@@ -1342,7 +1342,7 @@ label pierdex:
             "Wyjechałeś poza teren NC"
             p "Popierdoli mnie, taka trasa do zrobienia. Dostawa po piasku powinna być nielegalna"
             stop music
-            scene badchurch
+            scene badchruch
             p "Kurwa to jest tu? Kto zamawia dragi na środek pustyni?"
             show alfonso at left 
             al "To ty jesteś tym kurierem?"
@@ -1405,7 +1405,7 @@ label nowedh:
         p "I jak ja mam to niby wszystko zapamiętać?"
         c "Widziałem jak to notujesz w telefonie, nie rób mnie w chuja"
         p "Sorson, sprawdzałem czy widzisz co ty pierdolisz. Ja tu robię ważne tajne zadania a ty marnujesz mój czas"
-        c "W NC żadnie zadanie nie jest ważne, przyzwyczaj się, a poza tym, ja zawszę muszę mieć coś do powiedzeia"
+        c "W NC żadne zadanie nie jest ważne, przyzwyczaj się, a poza tym, ja zawszę muszę mieć coś do powiedzeia"
         c "W porównaniu do Ciebie, więc kończ pierdolić i idź mi po ten ser. Tosty chcę sobie zjeść"
         p "Dobrze Cypher"
         c "A! I jeszcze jedno, nie przychodź tu do mnie mapą, tylko przez Pierdex."

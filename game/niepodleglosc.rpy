@@ -140,5 +140,5 @@ default valki = 5
 
 # akt 2
 default stan2 = {"Vio":0, "Jax":0, "Kris":0, "Bo":0, "Halina":0, "BB":0}
-default postacie2 = {"Jax":0}
+default postacie2 = {"Jax":0, "VIO":0}
 default atrefakty = {"Jaja":"szukane", "Kajdanki":"szukane"}
