@@ -76,6 +76,7 @@ default persistent.work = 0
 default persistent.frgout = 0
 default persistent.wolki = 0
 default edki = 0
+default fart = 0
 default vdolce = 0
 default frogsy = 0
 default MaxHP = 20

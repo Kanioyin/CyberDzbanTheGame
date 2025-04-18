@@ -44,6 +44,7 @@ define BOBCACHIEVEMENT_LIST = (
     ("Eko", _("Ekolog"), _("Po chuj ty to wyjebałeś")),
     ("Zns", _("Zło nie śpi"), _("A nawet czasami leczy.")),
     ("Frg", _("Żabiarz"), _("Pierwsze frogi w nogi")),
+    ("Mak", _("3 Cytryny"), _("I w taki sposób, tysiaczek wpada")),
     ("Gtm", _("Gentleman"), _("Miły z Ciebie człowiek")),
     ("Abs", _("Absolutne kino"), _("To był dobry film.")),
     ("Aboes", _("A bajt of 45?"), _("Fryderyk zasmakował twojej krwi.")),

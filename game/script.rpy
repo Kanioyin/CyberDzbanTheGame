@@ -1502,7 +1502,7 @@ label frogszop:
     if stan["Kasia"] == 2 and dzien % 2 == 0:
         jump frogsimp
 
-    if stan["Kasia"] == 4 or stan["Kasia"]:
+    if stan["Kasia"] == 4 or stan["Kasia"] == 6:
         jump frogsimp
 
     if Frakcja == 6 or stan["Kasia"] > 0:
@@ -1570,6 +1570,7 @@ label frogszop:
                 p "Dobra, zobaczymy czy wygrałem"
                 if renpy.random.randint(0, 100) == 0:
                     p "O CHUJ WYGRAŁEM"
+                    achieve Mak
                     $ edki += 1000
                     p "Prosze pani, chciałbym tę zdrapkę wymienić"
                     fse "Gratulacje"

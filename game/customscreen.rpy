@@ -285,6 +285,7 @@ screen postac():
     vbox:
         pos 0.4, 0.10
         text "{color=000}HP: [HP]/[MaxHP]"
+        text "{color=000}Fart: [fart]"
     if akt > 1:
         vbox:
             pos 0.4, 0.13

@@ -491,6 +491,59 @@ label krzis:
             $ stan2["Kris"] = 2
 
         elif stan2["Kris"] == 2:
+            cr "No, opowiadaj, czego ty się dowiedziałeś?"
+            p "Trochę info, trochę pierdół, mam kilka przydatnych newsów. Niestety, prawdopodobnie Cypher będzie potrzebny do akcji."
+            cr "Tak jak planowałem."
+            p "Co kurwa? Jak to? Od kiedy Cypher jest powiązany z całą akcją?"
+            cr "Specjalny kontrakt przewidział użycie niemieckich najemników w inwigilacyjnej misji ale dopiero w drugiej części"
+            p "To to jest podzielone na party?"
+            cr "Tak, część pierwsza, to inwigilacja, szukanie tropów i wyciąganie wniosków. Część druga, to pełnoprawne włamaie."
+            p "A czy przypadkiem sama inwigilacja nie jest już włamaniem?"
+            cr "Nie mędrkuj mi tutaj, szpiegostwo, to jest tylko włamanie pośrednie."
+            p "Zostawmy tę papierologię, powiedz mi co mam teraz zrobić"
+            cr "Musisz załatwić sobie odpowiedni ekwipunek. Potrzebujesz haka, liny, morfiny i ładunków wybuchowych"
+            p "I co, rozpiszesz mi to teraz w kajecie a ja będę tego szukał?"
+            cr "Nie. Pojedziesz do bazy wojskowej, zabierzesz część sprzętu i zajmiesz się szukaniem C4"
+            p "Tak po prostu wbiję na teren wojska i wezmę eq? To brzmi zbyt prosto"
+            cr "Zrobiłem Ci tymczasowe konto jako poborowy. Zabierzesz startówkę i będziesz mógł wyjść bez problemu"
+            p "Karwasz, nie wiedziałem, że masz takie pojebane wpływy"
+            cr "Jeszcze wielu faktów nie wiesz o mnie. W sumie, to lepiej dla Ciebie, łatwiej Ci zasnąć."
+            p "Dobra szefie, to ja lecę do armii"
+            cr "Ruszaj dzielnie"
+            scene black
+            "Dzielnie ruszyłeś, zabrałeś sprzęt i nawet wyszedłeś bez problemów"
+            p "Kurde balans, to jest życie. Darmowe itemki, salutujące kasztany, może powinienem iść do wojska"
+            p "Miałbym lepsze perspektywy, wypłatę i ogólnie jakość życia"
+            p "Nah. To nie byłoby cyberpunkowe. Wolę ogarniać chyba krzywe bomby"
+            p "Tylko gdzie ja mogę takową dostać? Poprzednio Krateus ją wynajął. Ty kurwa, pomysła mam"
+            p "Cypher pewnie ma takich na pęczki, pewnie się podzieli ze mną"
+            scene bazadh
+            show cypher at left
+            c "Proszę proszę, kogo tu nogi sprowadziły?"
+            p "Cześć Cypher, sprawę mam"
+            c "Opowiadaj, sam wiesz, że ja nigdzie się stąd nie ruszam"
+            p "Potrzebuję bomby, takiej co potrafi zrobić bum"
+            c "Przyszedłeś w idealnym momencie. Właśnie miałem wyrzucać jedną z takich"
+            p "Kurwa perfekcyjnie, oddałbyś mi ją?"
+            c "No chyba na łep upadłeś, 100 edków się należy"
+            p "Co kurwa? Przecież chciałeś ją wyrzucić. Czemu chcesz teraz za nią pieniądze?"
+            c "Czwarte prawo ekonomi wg mnie"
+            c "Jeśli coś może mieć wartość, sprzedaj to. Wcześniej chciałem to wyjebać, bo mi nie była potrzebna"
+            c "Teraz jak wytowrzyłeś popyt, to mogę na tym jeszcze zarobić."
+            p "A potem się dziwisz, że nikt nie chce się z tobą zadawać"
+            call cipflash
+            c "Wrrr. To i tak nie wpłynie na cenę"
+            p "Chuj, niech stracę"
+            $ edki -= 100
+            "Zapłaciłeś Cypherowi i dostałeś bombę"
+            c "Tylko sobie przypadkiem krzywty tym nie zrób."
+            p "Od kiedy się martwisz o kogokolwiek?"
+            c "Od momentu, w którym zostałeś moim klientem"
+            p "A spierdalaj"
+            "I wyszedłeś w pizdu"
+            $ stan2["Kris"] == 3
+        
+        elif stan2["Kris"] == 3:
             jump tempend
 
         pass

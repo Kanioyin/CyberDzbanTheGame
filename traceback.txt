@@ -5,9 +5,9 @@ While running game code:
     define BOBCACHIEVEMENT_LIST = (
   File "game/0bobcachievements.rpy", line 22, in script
     define BOBCACHIEVEMENT_LIST = (
-  File "game/0bobcachievements.rpy", line 82, in <module>
-    ("DTH", -("Ded Streding") ("Kurwa, ty to kurier master jesteś")),
-TypeError: 'str' object is not callable
+  File "game/0bobcachievements.rpy", line 47, in <module>
+    ("Mak", _("3 Cytryny"), _("I w taki sposób, tysiaczek wpada"))
+TypeError: 'tuple' object is not callable
 
 -- Full Traceback ------------------------------------------------------------
 
@@ -27,11 +27,11 @@ Full traceback:
     value = renpy.python.py_eval_bytecode(self.code.bytecode)
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1202, in py_eval_bytecode
     return eval(bytecode, globals, locals)
-  File "game/0bobcachievements.rpy", line 82, in <module>
-    ("DTH", -("Ded Streding") ("Kurwa, ty to kurier master jesteś")),
-TypeError: 'str' object is not callable
+  File "game/0bobcachievements.rpy", line 47, in <module>
+    ("Mak", _("3 Cytryny"), _("I w taki sposób, tysiaczek wpada"))
+TypeError: 'tuple' object is not callable
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.4.24120703
-CyberDzban 0.00000005
-Wed Mar 12 17:30:37 2025
+CyberDzban 0.00000006
+Fri Apr 18 08:46:56 2025
