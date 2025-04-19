@@ -11,7 +11,7 @@ label spacerek:
             jump frogsimp
 
         elif stan["Kasia"] == 7:
-            jump frogsimp
+            jump frogsimp         
         
     if cel > 0 and cel < 11:
         if akt == 1:
@@ -50,7 +50,7 @@ label spacerek:
             $ inventory.add_item(Flaszka)
 
         elif Frakcja == 6:
-            "Na mieście znalazłeś kupon na darmowego monsterka (frogsy)"
+            "Na mieście znalazłeś kupon na darmowego potworka (frogsy)"
             $ frogsy += 225
 
         else:
@@ -125,13 +125,13 @@ label spacerek:
             $ znajOkol = 3
 
         else:
-            p "Jaki fajny plasterek"
             if HP < MaxHP:
+                p "Jaki fajny plasterek"
                 p "A se przykleję"
                 $ HP += 1
             else:
-                p "Ta? To zajebiście."
-                "Plasterek trafił do kosza."
+                p "O kurde balans, cybernetyczna czterolistna koniczyna. Ja to mam farta"
+                $ fart += 10
 
     elif cel > 46 and cel < 57:
         "Wszedłeś do bloku furrasów"
@@ -142,7 +142,7 @@ label spacerek:
                 $ HP = 1
                 $ czas = 0
             else:
-                "Masz farta, był zamknięty"
+                "Dzięki bogu dziś nie jest środa i blok był zamknięty"
 
         elif stan2["Halina"] == 1:
             "Halina dotrzymała obietnicy, blok jest spokojny"
@@ -193,7 +193,11 @@ label spacerek:
 
 
     elif cel > 66 and cel < 78:
-        if inventory.has_item(Kokos) == True:
+        if fart > 49:
+            "Szczęśliwie uniknąłeś złodzieji, farcik"
+            $ fart -= 15
+
+        elif inventory.has_item(Kokos) == True:
             "Znalazły Cię ćpuny"
             "Niestety mięli przewagę liczebną (było ich 3)"
             $ inventory.remove_item(Kokos)

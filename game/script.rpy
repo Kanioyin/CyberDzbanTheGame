@@ -208,13 +208,16 @@ label start:
     $ baba_name = "Babka from żabka"
     $ HP = MaxHP
     if nua > 9:
-        $ edki = 500
+        $ edki += 500
 
     if nua > 19:
         $ znajOkol = 1
     
     if nua > 29:
         $ Cap = 5
+
+    if nua > 39:
+        $ znajOkol = 2
 
     while helper == 1:
         $ player_name = old_pn = renpy.input("Nazywasz się:")
@@ -1560,6 +1563,11 @@ label frogszop:
 
                 $ czas += 10
 
+            "Perła Import" if edki > 49:
+                fse "To będzie 50 edków"
+                p "Prosze"
+                $ edki -= 50
+                $ fart += 10
 
             "Zdrapeczka" if edki > 24:
                 $ edki -= 25
@@ -1568,7 +1576,8 @@ label frogszop:
                 fse "25 edków"
                 p "Proszę"
                 p "Dobra, zobaczymy czy wygrałem"
-                if renpy.random.randint(0, 100) == 0:
+                if renpy.random.randint(0, 100) < fart:
+                    $ fart = 1
                     p "O CHUJ WYGRAŁEM"
                     achieve Mak
                     $ edki += 1000
@@ -1578,6 +1587,7 @@ label frogszop:
 
                 else:
                     p "Kurwa, nie siadło"
+                    $ fart += 1
 
             "Przewalutowanie" if vdolce > 0:
                 fse "Już, oto normalne edki"
