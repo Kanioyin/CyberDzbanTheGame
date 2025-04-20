@@ -221,6 +221,7 @@ label start:
 
     while helper == 1:
         $ player_name = old_pn = renpy.input("Nazywasz się:")
+        $ player_name = player_name.capitalize()
         if player_name == "Gun":
             g "Prawa autorskie kurwa"
 

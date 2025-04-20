@@ -544,6 +544,56 @@ label krzis:
             $ stan2["Kris"] == 3
         
         elif stan2["Kris"] == 3:
+            cr "Dobra młody, masz już ekwipunek. Pora na trening szpiegowski"
+            p "Na czym to będzie polegało?"
+            cr "Po pierwsze, wentowanie. Jak dobrze wiesz, wentylacja w budynkach jest wielka. Zmieści się w niej typ o BC max 12"
+            p "Czyli ja nie powinienem mieć nawet z tym problemu"
+            cr "Dokładnie. Czołganie się, trwa sporo czasu ale pozwala się dostać w specjalne miejsca. Spróbuj się przecisnąć przez ten szyb"
+            p "Się zrobi szefie"
+            "Przeczołgałeś się przez dwumetrowy szyb testowy. Masz teraz na głowie trochę pajęczyn"
+            p "Nikt tego wcześniej nie używał ani nie czyścił?"
+            cr "A po co? To jest tylko do uczenia takich rodzynków jak ty"
+            p "Aha 66. Coś jeszcze muszę umieć przed akcją?"
+            cr "Umiesz podkładać bombę?"
+            p "Absolutnie nie!"
+            cr "No to dobrze, będziesz musiał tylko uważać by jej przypadkiem nie uruchomić."
+            P "To będę musiał ją komuś przekazać czy jak to robimy?"
+            cr "Jak będziesz w wencie, musisz ją zostawić w odpowiednim kącie."
+            p "I to będzie tajemniczy mysi sprzęt o którym zapomnimy na zawsze?"
+            cr "Tak. Cyberowe standardy tego od nas wymagają. Pamiętaj jednak, zawsze jest promil szans, że sobie o tym ktoś przypomni."
+            p "Ta pewnie, tylko Wielki Dzik nie będzie tego pamiętał i plan w pizdu"
+            mg "Spierdalaj"
+            cr "On zawsze słucha, on wszystko pamięta. Nie próbuj podważać jego autorytetu"
+            p "Wiem, potrafi zkraszować grę i usuwać zapisy."
+            cr "To prawda, jego moc rośnie z każdą aktualizacją."
+            p "Ale dobra, wracajmy do tematu? Coś jeszcze ze szkolenia?"
+            cr "Powiedz mi, jak twoja orientacja?"
+            menu:
+                "Homo":
+                    p "Jestem homo"
+                    $ relacja = 1
+
+                "Hetero":
+                    p "Jestem prosty"
+
+                "Dziura to dziura":
+                    p "Jestem Bi"
+                    $ relacja = 2
+
+            cr "W terenie orientacja! Nie seksualna"
+            p "AAAAA. Trzeba było tak od razu mówić. Dobra chyba"
+            cr "Oby tak było, inaczej zgubisz się w pizdu w wentylach. A tam jest cały, pokręcony system."
+            p "To gdzie będę musiał iść?"
+            cr "Odpowiednia trasa to: góra, góra, prawo, prawo, góra, góra, lewo, góra"
+            p "A dostanę jakąś mapę może?"
+            cr "Sam sobie powinieneś ją zrobić."
+            mg "Nie chce mi się tego rysować"
+            p "No dobra, raczej zapamiętałem"
+            cr "Miejmy nadzieję, to będzie kończyło twój trening. Poćwicz sobie torchę jeszcze przy wencie i będziesz mógł ruszać"
+            p "Jasna sprawa szefie"
+            $ stan2["Kris"] = 4
+
+        elif stan2["Kris"] == 4:
             jump tempend
 
         pass
