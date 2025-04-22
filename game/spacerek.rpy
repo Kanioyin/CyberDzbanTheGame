@@ -177,19 +177,27 @@ label spacerek:
                 pass
 
     elif cel == 66:
-        show evilc
-        achieve Zns
-        ec "Witaj [player_name]!"
-        p "O kierwa! To zły Cypher"
-        ec "Tak, to ja"
-        p "Proszę, nie rób mi krzywdy!"
-        ec "Nawet nie chcę"
-        $ HP = MaxHP
-        $ umieram = 0
-        "Magiczna moc złego Cyphera cię uleczyła"
-        p "Cholera Cypher, dzięki"
-        hide evilc with dissolve
-        ec "Hi Hi Ha Ha..."
+        if HP < MaxHP:
+            show evilc
+            achieve Zns
+            ec "Witaj [player_name]!"
+            p "O kierwa! To zły Cypher"
+            ec "Tak, to ja"
+            p "Proszę, nie rób mi krzywdy!"
+            ec "Nawet nie chcę"
+            $ HP = MaxHP
+            $ umieram = 0
+            "Magiczna moc złego Cyphera cię uleczyła"
+            p "Cholera Cypher, dzięki"
+            hide evilc with dissolve
+            ec "Hi Hi Ha Ha..."
+
+        else:
+            show aspiwko
+            "Spacerując, zauważyłeś przystojnego zimeczka, waloncego browareczka"
+            "Zaoferował Ci wspólne obalenie Mocnego Knura. Skorzystałeś z tej oferty"
+            $ fart += 20
+            "Czujesz się teraz szczęśliwszy"
 
 
     elif cel > 66 and cel < 78:
