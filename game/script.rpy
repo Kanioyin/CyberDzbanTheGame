@@ -198,6 +198,7 @@ transform bounce:
 
 label cipflash:
     show ciphate with dissolve
+    pause 1
     hide ciphate with dissolve
     return
 
@@ -218,6 +219,9 @@ label start:
 
     if nua > 39:
         $ znajOkol = 2
+
+    if nua > 49:
+        $ edki += 2000
 
     while helper == 1:
         $ player_name = old_pn = renpy.input("Nazywasz się:")
@@ -2414,7 +2418,6 @@ label wojowezadanie:
                         $ helper -= 15
                         jump akt1pods
                         
-
 
     elif Frakcja == 1:
         $ oldFrakcja = 1

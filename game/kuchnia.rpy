@@ -269,8 +269,7 @@ label kuchnia:
                 p "O cholera"
                 g "Dokładnie, Fredi Fazber"
                 p "Co?"
-                g "Zobaczysz w środku"
-                g "Ale najpierw. Raty aktywacja!"
+                g "Zobaczysz w środku ale najpierw. Raty aktywacja!"
                 "Gun wyjął worek z plecaka i wypuścił 83 szczury."
                 show gun at left
                 g "W tym miejscu mieszkał jeden z większych zbrodniarzy"
