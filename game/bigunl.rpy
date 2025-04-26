@@ -3,6 +3,9 @@ default nua = len(persistent._achievements)
 default cnt = 1
 
 label bigunl:
+    if persistent.czasGry > 300:
+        achieve Tim
+
     while cnt < foty + 1:
         if nua > 0 and cnt == 1:
             galleryunlock cg0

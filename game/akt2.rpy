@@ -1,3 +1,48 @@
+init python:
+    class VentGame:
+        def __init__(self):
+            self.size = 6
+            self.player_x = 0
+            self.player_y = 5
+            self.exit_x = 0
+            self.exit_y = 0
+
+            # " " = droga
+            # "#" = ściana
+            self.grid = [
+                ["#", " ", "#", "#", "#"]
+                ["#", " ", " ", "#", "#"],
+                ["#", "#", " ", "#", "#"],
+                [" ", " ", " ", "#", "#"],
+                [" ", "#", "#", "#", "#"],
+                [" ", "#", "#", "#", "#"]
+            ]
+
+        def can_move(self, x, y):
+            return 0 <= x < self.size and 0 <= y < self.size and self.grid[y][x] == " "
+
+        def move(self, direction):
+            new_x = self.player_x
+            new_y = self.player_y
+
+            if direction == "up":
+                new_y -= 1
+            elif direction == "down":
+                new_y += 1
+            elif direction == "left":
+                new_x -= 1
+            elif direction == "right":
+                new_x += 1
+
+            if self.can_move(new_x, new_y):
+                self.player_x = new_x
+                self.player_y = new_y
+
+        def at_exit(self):
+            return self.player_x == self.exit_x and self.player_y == self.exit_y
+
+default vent_game = VentGame()
+
 label a2intro:
     scene akt2
     play music "a2amb.mp3"
@@ -594,7 +639,7 @@ label krzis:
             $ stan2["Kris"] = 4
 
         elif stan2["Kris"] == 4:
-            jump tempend
+            jump start_vent
 
         pass
 
@@ -1732,6 +1777,14 @@ label artcrack:
             p "Wygląda na to, że teraz będę się szybciej regenerował"
 
     jump oporslep
+
+label start_vent:
+    $ vent_game = VentGame()
+    show screen vent_game
+    return
+
+label exit_found:
+    "Wyszedłeś"
 
 
 label tempend:

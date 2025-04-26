@@ -172,6 +172,7 @@ label kuchnia:
                 g "Pytanie pierwsze"
                 $ config.rollback_enabled = False
                 $ odp = renpy.input("Jaki jest twój ulubiony kolor?")
+                $ odp = odp.capitalize()
                 if odp == "Szczurzy":
                     g "I to mi się podoba"
                     $ postacie["Gun"] += 1
@@ -181,6 +182,7 @@ label kuchnia:
 
                 g "Pytanie numero dos"
                 $ odp = renpy.input("Lubisz bigos?")
+                $ odp = odp.capitalize()
                 if odp == "Tak":
                     g "To chujowo"
                     $ postacie["Gun"] -= 1
@@ -207,6 +209,7 @@ label kuchnia:
 
                 g "Pytanie czwarte"
                 $ odp = renpy.input("Jaki rodzaj sera jest najlepszy?")
+                $ odp = odp.capitalize()
                 if odp == "Prawdziwy":
                     g "Bardzo dobrze"
                     $ postacie["Gun"] += 1
@@ -216,6 +219,7 @@ label kuchnia:
 
                 g "Pytanie piąte"
                 $ odp = renpy.input("Gdzie leży prawo według BB?")
+                $ odp = odp.capitalize()
                 if odp == "Na południe":
                     g "DOBRZE!"
 

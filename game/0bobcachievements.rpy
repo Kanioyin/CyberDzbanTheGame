@@ -47,6 +47,7 @@ define BOBCACHIEVEMENT_LIST = (
     ("Mak", _("3 Cytryny"), _("I w taki sposób, tysiaczek wpada")),
     ("Gtm", _("Gentleman"), _("Miły z Ciebie człowiek")),
     ("Abs", _("Absolutne kino"), _("To był dobry film.")),
+    ("Tim", _("Czas, dobrze spędzony"), _("Masz rację")),
     ("Aboes", _("A bajt of 45?"), _("Fryderyk zasmakował twojej krwi.")),
     ("Gunpp", _("Gun++"), _("Gun dołączył do ataku.")),
     ("Kalpp", _("Kałach++"), _("Kałach dołączył do ataku.")),
