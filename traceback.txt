@@ -1,37 +1,57 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/0bobcachievements.rpy", line 22, in script
-    define BOBCACHIEVEMENT_LIST = (
-  File "game/0bobcachievements.rpy", line 22, in script
-    define BOBCACHIEVEMENT_LIST = (
-  File "game/0bobcachievements.rpy", line 47, in <module>
-    ("Mak", _("3 Cytryny"), _("I w taki sposób, tysiaczek wpada"))
-TypeError: 'tuple' object is not callable
+  File "renpy/common/00start.rpy", line 193, in script
+    python:
+  File "renpy/common/00start.rpy", line 193, in script
+    python:
+  File "renpy/common/00start.rpy", line 194, in <module>
+    renpy.execute_default_statement(True)
+  File "game/akt2.rpy", line 44, in execute_default
+    default vent_game = VentGame()
+  File "game/akt2.rpy", line 44, in <module>
+    default vent_game = VentGame()
+  File "game/akt2.rpy", line 13, in __init__
+    ["#", " ", "#", "#", "#"],
+TypeError: list indices must be integers or slices, not tuple
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\bootstrap.py", line 359, in bootstrap
     renpy.main.main()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\main.py", line 541, in main
-    renpy.game.context().run(node)
-  File "game/0bobcachievements.rpy", line 22, in script
-    define BOBCACHIEVEMENT_LIST = (
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\main.py", line 652, in main
+    run(restart)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\main.py", line 148, in run
+    renpy.execution.run_context(True)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\execution.py", line 958, in run_context
+    context.run()
+  File "renpy/common/00start.rpy", line 193, in script
+    python:
   File "lib/python3.9/future/utils/__init__.py", line 444, in raise_
-  File "game/0bobcachievements.rpy", line 22, in script
-    define BOBCACHIEVEMENT_LIST = (
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2241, in execute
-    self.set()
-  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 2255, in set
-    value = renpy.python.py_eval_bytecode(self.code.bytecode)
+  File "renpy/common/00start.rpy", line 193, in script
+    python:
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 827, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1178, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "renpy/common/00start.rpy", line 194, in <module>
+    renpy.execute_default_statement(True)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\exports\statementexports.py", line 372, in execute_default_statement
+    i.execute_default(start)
+  File "game/akt2.rpy", line 44, in execute_default
+    default vent_game = VentGame()
   File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1202, in py_eval_bytecode
     return eval(bytecode, globals, locals)
-  File "game/0bobcachievements.rpy", line 47, in <module>
-    ("Mak", _("3 Cytryny"), _("I w taki sposób, tysiaczek wpada"))
-TypeError: 'tuple' object is not callable
+  File "game/akt2.rpy", line 44, in <module>
+    default vent_game = VentGame()
+  File "game/akt2.rpy", line 13, in __init__
+    ["#", " ", "#", "#", "#"],
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\revertable.py", line 214, in __getitem__
+    rv = list.__getitem__(self, index)
+TypeError: list indices must be integers or slices, not tuple
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.3.4.24120703
 CyberDzban 0.00000006
-Fri Apr 18 08:46:56 2025
+Tue Apr 29 17:03:21 2025

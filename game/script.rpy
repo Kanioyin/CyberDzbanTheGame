@@ -331,7 +331,7 @@ label start:
             jump artcrack
 
         elif player_name == "Zium":
-            jump a2intro
+            jump start_vent
             $ chipy = 5
 
         elif player_name == "Kasia":
@@ -1473,6 +1473,10 @@ label trader:
 
             "Wytrych? " if edki >= 100 and inventory.has_space(Cap) == True:
                 $ inventory.add_item(Wytrych)
+                $ edki -= 100
+
+            "Śrubokręt" if edki >= 100 and inventory.has_space(Cap) == True:
+                $ inventory.add_item(Srubo)
                 $ edki -= 100
 
             "Kurwa ser?" if edki >= 50 and inventory.has_space(Cap) == True:

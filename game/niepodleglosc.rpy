@@ -61,6 +61,7 @@ default Smoke = InventoryItem("Bomba dymna", "Taki szlug, tylko nie psuje płuc"
 default RadArm = InventoryItem("Hazmat", "Pancerz przeciw radjacji","Itemy/Hazmat.png")
 default Kwiat = InventoryItem("Kwiatki", "Działają na kobiety jak dzik na MG","itemy/Kwiat.png")
 default Odznaka = InventoryItem("Odznaka Partioty", "Tylko dla ludzi z DH lub złodzieji","itemy/Dhbage.png")
+default Srubo = InventoryItem("Śrubokręt", "Kręci śruby","itemy/screw.png")
 
 #Stany postaci
 default kibel_stan = 0
