@@ -1475,7 +1475,7 @@ label trader:
                 $ inventory.add_item(Wytrych)
                 $ edki -= 100
 
-            "Śrubokręt" if edki >= 100 and inventory.has_space(Cap) == True:
+            "Śrubokręt" if edki >= 100 aand inventory.has_item(Srubo) == False and inventory.has_space(Cap) == True:
                 $ inventory.add_item(Srubo)
                 $ edki -= 100
 

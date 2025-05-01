@@ -591,12 +591,35 @@ label krzis:
             p "No dobra, raczej zapamiętałem"
             cr "Miejmy nadzieję, to będzie kończyło twój trening. Poćwicz sobie torchę jeszcze przy wencie i będziesz mógł ruszać"
             p "Jasna sprawa szefie"
+            cr "I pamiętaj o słuchawce do gadania. Lepiej być w kontakcie w czasie akcji"
             $ stan2["Kris"] = 4
 
         elif stan2["Kris"] == 4:
-            jump start_vent
-
-        pass
+            scene kasyno
+            p "Agent 69 na miejscu i gotowy do akcji"
+            cr "Zamknij się tam, przygotuj się do akcji lepiej. Na pewno masz wszystko ze sobą?"
+            p "No pewnie, przygotowywałem się do tego całe siedemnaście sekund"
+            cr "Jak na twoje standardy, to nawet sporo."
+            p "Ja jestem agent specjalny, zostajemy na łączach?"
+            cr "Ja jestem tutaj cały czas, ty, jak będziesz coś chciał, to dzwoń. Inaczej będą mogli nas wykryć"
+            p "Zrozumiano szefunciu, [player_name] bez odbioru."
+            p "Dobra, teraz muszę iść do kibla i wskoczyć do wenta"
+            show cypher at right
+            c "A skąd wiesz, że akurat musisz iść do kibla?"
+            p "Jak ty tu kurwa znowu wszedłeś?"
+            c "Drzwiami (:"
+            p "Mogłem się spodziewać. Wiem, że muszę iść do kibla, bo mi się chce lać"
+            c "A. Zrozumiałe, powodzenia w celnym szczaniu"
+            p "Dzieki Cypher"
+            hide cypher
+            p "To teraz szybki sik i do wenta"
+            play sound "zip.mp3"
+            scene pee
+            p "AH. Szybciutki sik i życie staje się piękniejsze"
+            p "Teraz, z pustym siurem, mogę ruszać do wentylacji"
+            scene vent
+            p "Dobra kurwa, gdzie ja mam teraz iść?"
+            jump tempend
 
     jump opor
 
@@ -1171,6 +1194,13 @@ label chipnik:
                 $ chipy = 2
                 p "Dzięki VIO"
 
+            "Rozkręcamy imprezę" if inventory.has_item(Srubo) == True:
+                $ inventory.remove_item(Srubo)
+                "Rozkręciłeś automat i wydobyłeś cip. Niestety, twój śrubokręt się rozwalił"
+                $ exp += 2
+                $ chipy = 2
+
+
             "Zacznę hackowanie":
                 call testSkili("Myslenie", "INT", 10) from _call_testSkili_3
                 if wynik == 1:
@@ -1224,6 +1254,7 @@ label chipnik:
                     $ czas -= 5
                     p "Dobra jest! Teraz trzeba spierdalać"
                     $ chipy = 3
+                    $ exp += 2
                     jump opor
 
                 "Spróbuje ją zagadać":

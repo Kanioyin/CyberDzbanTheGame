@@ -137,6 +137,8 @@ default frogrel = 0
 default kasiaknow = 0
 default jajca = 0
 default buul = ["bul1.mp3", "demon.mp3"]
+default sideseen = []
+default sidetosee = []
 
 # deklaracje co do V
 default vechnik_stage = 0
