@@ -229,6 +229,9 @@ screen day():
                 if stan2["BB"] < 9:
                     text "{color=000} Pogadaj z szefem"
 
+            elif bigquest == 3:
+                text "{color=000} Porozmawiaj z Krisem"
+
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -430,33 +433,3 @@ screen oportalk():
         unhovered SetVariable("screen_tooltip","")
         action Hide("oportalk"), Call("oporslep")
 
-screen vent_game():
-    modal True
-    tag menu
-
-    grid 5 5:
-        spacing 5
-        align (0.5, 0.4)
-
-        for y in range(5):
-            for x in range(5):
-                if vent_game.player_x == x and vent_game.player_y == y:
-                    add "vent_player.png"
-                elif vent_game.exit_x == x and vent_game.exit_y == y:
-                    add "vent_exit.png"
-                elif vent_game.grid[y][x] == " ":
-                    add "vent_tile.png"
-                else:
-                    add "vent_wall.png"
-
-    hbox:
-        spacing 20
-        align (0.5, 0.85)
-        
-        textbutton "Lewo" action Function(vent_game.move, "left")
-        textbutton "Góra" action Function(vent_game.move, "up")
-        textbutton "Dół" action Function(vent_game.move, "down")
-        textbutton "Prawo" action Function(vent_game.move, "right")
-
-    if vent_game.at_exit():
-        timer 0.5 action [Hide("vent_game"), Jump("exit_found")]

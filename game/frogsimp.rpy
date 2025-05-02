@@ -1,5 +1,6 @@
 label frogsimp:
     $ czas -= 1
+    $ baba_name = "Kasia"
     if stan["Kasia"] == 1:
         scene frogsimp
         show kasia_dym at right

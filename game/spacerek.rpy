@@ -1,8 +1,36 @@
+init python:
+    import random
+
+    def do_zobaczenia():
+        possible = [x for x in sidetosee if x not in sideseen]
+        if not possible:
+            return None
+
+        choice = random.choice(possible)
+        sideseen.append(choice)
+        return choice
+
 label spacerek:
     scene spacer
     $ czas -= 5
     $ persistent.wolki += 1
     $ cel = renpy.random.randint(1, 100)
+    if stan["Kasia"] == 666 and fart > 20:
+        $ los = draw_random_event()
+        if los is None:
+            pass
+        
+        if los == 1:
+            "Dupa"
+        elif los == 2:
+            "Dupa"
+        elif los == 3:
+            "Dupa"
+        elif los == 4:
+            "Dupa"
+        elif los == 5:
+            "Dupa"
+
     if stan["Kasia"] == 3:
         jump frogsimp
 
@@ -57,54 +85,60 @@ label spacerek:
             "Ni chuja, same nudy"
 
     elif cel > 20 and cel < 31:
-        if akt == 1:
-            "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-            $ wpierdol = renpy.random.randint(4, 16)
-            call checkHP(wpierdol) from _call_checkHP_4
+        if fart < 40:
+            if akt == 1:
+                "Przez przypadek wszedłeś do Bloku Władcy Demonów"
+                $ wpierdol = renpy.random.randint(4, 16)
+                call checkHP(wpierdol) from _call_checkHP_4
 
-        elif akt == 2:
-            "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-            "Ale teraz nadszedł czas działać"
-            menu:
-                "Co robisz?"
-                "Atak na suki":
-                    call testSkili("Bron","ZW",7) from _call_testSkili_5
-                    if wynik == 1:
-                        "Demony zostały pokonane, natenczas"
-                        p "Szach mat frajery"
-                        $ edki += 250
-                        p "Wszystkie wasze portfele są teraz moje"
-                        if inventory.has_item(HuMeat) == False and inventory.has_space(Cap) == True:
-                            $ inventory.add_item(HuMeat)
-                            p "Wezmę trochę boczku dla VIO"
-                    
-                    else:
-                        p "Ło nie, są silniejsi"
-                        call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_28
+            elif akt == 2:
+                "Przez przypadek wszedłeś do Bloku Władcy Demonów"
+                "Ale teraz nadszedł czas działać"
+                menu:
+                    "Co robisz?"
+                    "Atak na suki":
+                        call testSkili("Bron","ZW",7) from _call_testSkili_5
+                        if wynik == 1:
+                            "Demony zostały pokonane, natenczas"
+                            p "Szach mat frajery"
+                            $ edki += 250
+                            p "Wszystkie wasze portfele są teraz moje"
+                            if inventory.has_item(HuMeat) == False and inventory.has_space(Cap) == True:
+                                $ inventory.add_item(HuMeat)
+                                p "Wezmę trochę boczku dla VIO"
+                        
+                        else:
+                            p "Ło nie, są silniejsi"
+                            call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_28
 
-                "Ted Talk":
-                    call testSkili("Gadanie","CHAR",7) from _call_testSkili_6
-                    "Powiedziałeś demonom żeby spierdalali"
-                    if wynik == 1:
-                        "I nawet Ci się udało"
-                        p "Krowy doić! He he"
-                        "Kolejny sukces Night Citiowskich punków"
+                    "Ted Talk":
+                        call testSkili("Gadanie","CHAR",7) from _call_testSkili_6
+                        "Powiedziałeś demonom żeby spierdalali"
+                        if wynik == 1:
+                            "I nawet Ci się udało"
+                            p "Krowy doić! He he"
+                            "Kolejny sukces Night Citiowskich punków"
 
-                    else:
-                        "Niestety, nikt Cie nie zrozumiał"
-                        call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_29
+                        else:
+                            "Niestety, nikt Cie nie zrozumiał"
+                            call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_29
 
-                "Ucieczka":
-                    call testSkili("Atletyka","ZW",7) from _call_testSkili_7
-                    "Gdy tylko ich zobaczyłeś zacząłeś uciekać"
-                    "Te pojeby otworzyły ogień"
-                    if wynik == 1:
-                        "Uniknąłeś części pocisków"
-                        call checkHP(renpy.random.randint(1, 7)) from _call_checkHP_30
+                    "Ucieczka":
+                        call testSkili("Atletyka","ZW",7) from _call_testSkili_7
+                        "Gdy tylko ich zobaczyłeś zacząłeś uciekać"
+                        "Te pojeby otworzyły ogień"
+                        if wynik == 1:
+                            "Uniknąłeś części pocisków"
+                            call checkHP(renpy.random.randint(1, 7)) from _call_checkHP_30
 
-                    else:
-                        "Skurwysyny chyba mają snipera"
-                        call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_31
+                        else:
+                            "Skurwysyny chyba mają snipera"
+                            call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_31
+
+            else:
+                "Narciarz farciarz z ciebie, uniknąłeś diabłów"
+                $ fart -= 20
+                $ exp += 1
 
 
         else:
@@ -263,6 +297,7 @@ label spacerek:
                 p "Zawsze jeden przedmio więcej"
 
         elif akt == 2:
+            p "Dupa, nie mam go w eq. Może siłą umysłu uda mi się go otworzyć"
             call testSkili("Myslenie","INT",10) from _call_testSkili_9
             if wynik == 1:
                 p "Mój giga mózg pomógł mi to otworzyć"

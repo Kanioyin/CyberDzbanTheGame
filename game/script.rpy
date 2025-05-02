@@ -6,10 +6,14 @@ init python:
         session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
         persistent.czasGry += session_time
         persistent.session_start_time = renpy.get_game_runtime()
+        if persistent.czasGry > 300:
+            bobcachievement_grant(Tim) 
 
     def save_playtime():
         session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
         persistent.czasGry += session_time
+        if persistent.czasGry > 300:
+            bobcachievement_grant(Tim)
 
     def drop_item(item):
         if item in inventory.items:
@@ -331,7 +335,6 @@ label start:
             jump artcrack
 
         elif player_name == "Zium":
-            jump start_vent
             $ chipy = 5
 
         elif player_name == "Kasia":
@@ -1475,7 +1478,7 @@ label trader:
                 $ inventory.add_item(Wytrych)
                 $ edki -= 100
 
-            "Śrubokręt" if edki >= 100 aand inventory.has_item(Srubo) == False and inventory.has_space(Cap) == True:
+            "Śrubokręt" if edki >= 100 and inventory.has_item(Srubo) == False and inventory.has_space(Cap) == True:
                 $ inventory.add_item(Srubo)
                 $ edki -= 100
 
@@ -1506,11 +1509,19 @@ label trader:
 label frogszop:
     stop music
     play music "szop.mp3" volume 0.2
+    if stan["Kasia"] < 8:
+        scene frogszop
+    
+    else:
+        scene frogkacp
+        $ baba_name = "Kacperek"
+
     $ czas -= 1
+
     if stan["Kasia"] == 1:
         jump frogsimp
 
-    scene frogszop
+    
     if stan["Kasia"] == 2 and dzien % 2 == 0:
         jump frogsimp
 

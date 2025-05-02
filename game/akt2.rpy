@@ -531,7 +531,7 @@ label krzis:
             c "Jeśli coś może mieć wartość, sprzedaj to. Wcześniej chciałem to wyjebać, bo mi nie była potrzebna"
             c "Teraz jak wytowrzyłeś popyt, to mogę na tym jeszcze zarobić."
             p "A potem się dziwisz, że nikt nie chce się z tobą zadawać"
-            call cipflash
+            call cipflash from _call_cipflash_19
             c "Wrrr. To i tak nie wpłynie na cenę"
             p "Chuj, niech stracę"
             $ edki -= 100
@@ -557,7 +557,7 @@ label krzis:
             cr "Umiesz podkładać bombę?"
             p "Absolutnie nie!"
             cr "No to dobrze, będziesz musiał tylko uważać by jej przypadkiem nie uruchomić."
-            P "To będę musiał ją komuś przekazać czy jak to robimy?"
+            p "To będę musiał ją komuś przekazać czy jak to robimy?"
             cr "Jak będziesz w wencie, musisz ją zostawić w odpowiednim kącie."
             p "I to będzie tajemniczy mysi sprzęt o którym zapomnimy na zawsze?"
             cr "Tak. Cyberowe standardy tego od nas wymagają. Pamiętaj jednak, zawsze jest promil szans, że sobie o tym ktoś przypomni."
@@ -619,6 +619,56 @@ label krzis:
             p "Teraz, z pustym siurem, mogę ruszać do wentylacji"
             scene vent
             p "Dobra kurwa, gdzie ja mam teraz iść?"
+            p "Chuj, trasa srasa. Będę chodził po wentach aż znajdę jakieś wyjście"
+            "Jak ostatni debil, dreptałeś sobie po kasynowej wentylacji"
+            p "Hmmm, tu na ścianie widzę symbol bomby. Pewnie mój genialny, przystojnu i zajebiście skromny GM, daje mi wskazówkę"
+            p "Zignoruję ją w pełni"
+            "Pełzasz sobie dalej i docierasz do wyjścia z wenta"
+            scene black
+            p "Kurwa, jak tu jest ciemno. Kolejny event bez grafiki albo Benka nie stać na elektryczność"
+            p "Dobra, calluje do Krisa. Halo alo, czy mnie słychać?"
+            cr "Niestety, jaka jest twoja lokacja?"
+            p "Wyszedłem z wenta, jestem w czarnej dupie. Nic nie widzę ale jestem cały."
+            cr "Zrozumiałe. Poczekaj chwilę"
+            p "Na co?"
+            cr "Masz w słuchawce mały chip, pozwala mi on dostać się zdalnie do okolicznej sieci"
+            p "Ty potrafisz tobić takie tricki?"
+            cr "Nie. Ja mam od tego ludzi."
+            p "Faktycznie, zapomniałem, że wojsko ma bandę netrunnerów"
+            cr "Tylko zaufanych w tej akcji. Pamiętaj, jesteś tajnym agentem."
+            p "Tak, tak, tak. Wiem, podpisałem cyrograf"
+            cr "Ty głupi jesteś. Niczego nie podpisałeś. Nie ma żadnych dowodów."
+            cr "Hack skończony, możesz próbować wyjść"
+            p "To tylko po to ja się tutaj dostawałem?"
+            cr "Tak, więcej nie powinieneś próbować lepiej."
+            p "No dobra, to ja wracam do wenta. [player_name] bez odbioru"
+            cr "Tylko pamiętaj o.."
+            p "Nie słucham tego"
+            scene vent
+            p "Będzie mi tutaj pierdolił o jakiś głupotach. Ja wiem co mam robić"
+            p "Kurwa, znowu się zgubiłem. Ty, tu jest coś luźne"
+            play sound "fall.mp3"
+            scene kasyno
+            p "Kolejne udane lądowanie"
+            show cypher at left with moveinleft
+            c "Oj kolego, ty chyba coś tu szmęcisz"
+            p "Zamknij się Cypher, z misji wracam"
+            gu "Obawiam się, że będzie pan musiał iść z nami"
+            p "Jasna dupa, ochrona"
+            c "Spokojnie Eustachy, ja mam plan"
+            gu "Pójdzie pan pokojowo czy po mojemu?"
+            c "A co pan ochroniarz powie o dyrektywie 17, ustępie 4 z rozporządzenia burmistrza NC?"
+            gu "W sensie?"
+            c "Bazując na prawie do ochrony robotników fizycznych, ten oto ziutek, ma prawo do ucieczki, przez następne 7 sekund"
+            gu "Nie wiem czy to prawo obowiązuje w kasynie. To jest taka mała szara strefa"
+            scene black
+            "W czasie ich gadania, wyszedłeś z kasyna"
+            p "Cypher jednak potrafi zagadać człowieka, moc Janka na niego spłynęła."
+            p "Pora wracać do Krisa, hmmm. Chyba o czymś zapomłem, ale jeśli tego nie pamiętałem, to nie było ważne"
+            $ stan2["Kris"] == 5
+            
+
+        elif stan2["Kris"] == 5:
             jump tempend
 
     jump opor
@@ -1451,7 +1501,6 @@ label pierdex:
             p "Dzięki, to mnie uspokoiło"
             "Udało Ci się dojechać na miejsce"
             jump nowedh   
-            jump opor
 
         elif stan2["BB"] > 2 and stan2["BB"] < 8:
             bb "Już Cie młody wysyłam do klienta"

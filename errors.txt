@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 8: unexpected indent
-        class ScratchEffect(renpy.Displayable):
-        ^
+File "game/script.rpy", line 10: invalid syntax
+            achieve Tim
+                     ^
 
 Ren'Py Version: Ren'Py 8.3.4.24120703
-Thu Feb 20 14:49:36 2025
+Thu May  1 09:31:09 2025
