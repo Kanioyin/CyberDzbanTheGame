@@ -170,7 +170,7 @@ label spacerek:
     elif cel > 46 and cel < 57:
         "Wszedłeś do bloku furrasów"
         if stan2["Halina"] == 0:
-            if dzien % 7 == 4:
+            if dzien % 7 == 3:
                 "Futrzana domina Cię dopadła"
                 achieve Futa
                 $ HP = 1

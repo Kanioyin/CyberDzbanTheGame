@@ -7,13 +7,13 @@ init python:
         persistent.czasGry += session_time
         persistent.session_start_time = renpy.get_game_runtime()
         if persistent.czasGry > 300:
-            bobcachievement_grant(Tim) 
+            bobcachievement_grant("Tim") 
 
     def save_playtime():
         session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
         persistent.czasGry += session_time
         if persistent.czasGry > 300:
-            bobcachievement_grant(Tim)
+            bobcachievement_grant("Tim")
 
     def drop_item(item):
         if item in inventory.items:
@@ -3371,7 +3371,6 @@ label vokum:
 
 label amongthevpods:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
-    call updict("Laskawca",stan) from _call_updict
     $ kibel_stan = 0
     $ bigquest = 3
     achieve Iabk

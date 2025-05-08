@@ -112,7 +112,7 @@ label piwko:
             vi "Vowoli, vbyt vovoli. Vowinienem vieć viększe vaboratorium, v vięcej vbiektów vestowych"
             p "Porwać Ci może jakiś? Sam wiesz, że Visty kręcą się po ulicy, jak muchy po gównie"
             vi "Vo vie vak vowinno vyglądać, va vusze vajpierw vieć vobrą versję, vopiero votem vogę vestować valej"
-            p "No ma to trochę sensu, jak się Visty uodporną na szczepionkę, to będzie totalne gówno"
+            p "No ma to trochę sensu, jak się Visty uodpornią na szczepionkę, to będzie totalne gówno"
             vi "Vrawda, va veszcze vie viem vak vygląda vroces veczenia"
             p "Jak stworzysz tą ostateczną wersję, to planujesz zaaplikować ją sobie?"
             vi "Vo vie vest vakie vroste [old_pn], va vam vpecjalną versję vutacji"

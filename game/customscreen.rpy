@@ -291,7 +291,7 @@ screen postac():
         text "{color=000}Fart: [fart]"
     if akt > 1:
         vbox:
-            pos 0.4, 0.13
+            pos 0.5, 0.13
             text "{color=000} Twoje cechy"
             text "{color=000} Budowa ciała: [cechy['BC']]"
             text "{color=000} Zwinność: [cechy['ZW']]"

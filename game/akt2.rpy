@@ -536,7 +536,7 @@ label krzis:
             p "Chuj, niech stracę"
             $ edki -= 100
             "Zapłaciłeś Cypherowi i dostałeś bombę"
-            c "Tylko sobie przypadkiem krzywty tym nie zrób."
+            c "Tylko sobie przypadkiem krzywdy tym nie zrób."
             p "Od kiedy się martwisz o kogokolwiek?"
             c "Od momentu, w którym zostałeś moim klientem"
             p "A spierdalaj"
