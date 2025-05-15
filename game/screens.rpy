@@ -354,7 +354,7 @@ screen stats():
 
             text _("Staty") size 40
             text _("Kliknięty dywan: [persistent.dywanomierz] razy") size 30
-            text _("Czas grania: [persistent.czasGry] minut") size 30
+            text _("Czas grania: [persistent.godzinyGry] godzin i [persistent.czasGry] minut") size 30
             text _("Wypite monstery: [persistent.monsters]") size 30
             text _("Zdrapane zdrapki: [persistent.skracz]") size 30
             text _("Godziny przepracowane: [persistent.work]") size 30

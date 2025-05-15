@@ -357,7 +357,7 @@ label frogsimp:
         p "Dobra, to już nie jest śmieszne. Powiedz mi w końcu co się dzieje"
         fse "Nie dam rady [old_pn]. Jest za wcześnie na to, jestem Ci wdzięczna za pomoc ale nie mogę Ci jeszcze o wszystkim powiedzieć"
         p "No dobra, niech będzie. Ja się będę musiał w sumie zbierać. Poradzisz sobie dalej sama?"
-        fse "Tak mi się wydaje, dzięki jeszcze raz"
+        fse "Tak mi się wydaje, dzięki, jeszcze raz"
         p "Nie ma za co"
         $ stan["Kasia"] = 8
 

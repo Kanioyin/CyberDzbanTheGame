@@ -70,6 +70,7 @@ default persistent.dywanomierz = 0
 
 #deklaracja reszty
 default persistent.czasGry = 0
+default persistent.godzinyGry = 0
 default persistent.session_start_time = 0
 default persistent.monsters = 0
 default persistent.skracz = 0
@@ -100,6 +101,7 @@ default orientacja = 0
 default tapeta = 0
 default Cap = 4
 default dzien = 1
+default tydzien = 0
 default armor = 0
 default ammo = 0
 default umieram = 0

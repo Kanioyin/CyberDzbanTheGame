@@ -9,11 +9,19 @@ init python:
         if persistent.czasGry > 300:
             bobcachievement_grant("Tim") 
 
+        while persistent.czasGry > 60:
+            persistent.czasGry -= 60
+            persistent.godzinyGry += 1
+
     def save_playtime():
         session_time = int((renpy.get_game_runtime() - persistent.session_start_time) / 60)
         persistent.czasGry += session_time
         if persistent.czasGry > 300:
             bobcachievement_grant("Tim")
+
+        while persistent.czasGry > 60:
+            persistent.czasGry -= 60
+            persistent.godzinyGry += 1
 
     def drop_item(item):
         if item in inventory.items:
@@ -1274,6 +1282,10 @@ label sypialnia:
         "Idę spać":
             $ czas = 20
             $ dzien += 1
+            if dzien > 7:
+                $ dzien = 1
+                $ tydzien += 1
+            
             if HP < MaxHP:
                 if inventory.has_item(Flaszka) == True and MaxHP>HP+4:
                     p "Flaszka, moja żono"

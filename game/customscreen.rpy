@@ -124,20 +124,21 @@ screen day():
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
+        text "{color=000} Tydzień: [tydzien] \n"
         text "{color=000} Dzień: [dzien] \n"
-        if dzien % 7 == 0:
+        if dzien % 7 == 1:
             text "{color=000} Poniedziałek"
-        elif dzien % 7 == 1:
-            text "{color=000} Wtorek"
         elif dzien % 7 == 2:
-            text "{color=000} Środa"
+            text "{color=000} Wtorek"
         elif dzien % 7 == 3:
-            text "{color=000} Czwartek"
+            text "{color=000} Środa"
         elif dzien % 7 == 4:
-            text "{color=000} Piątek"
+            text "{color=000} Czwartek"
         elif dzien % 7 == 5:
-            text "{color=000} Sobota"
+            text "{color=000} Piątek"
         elif dzien % 7 == 6:
+            text "{color=000} Sobota"
+        elif dzien % 7 == 0:
             text "{color=000} Niedziela"
         if czas > 0:
             text "{color=000} Zostało mi jeszcze [czas] \n jednostek czasu"
