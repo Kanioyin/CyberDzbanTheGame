@@ -669,7 +669,38 @@ label krzis:
             
 
         elif stan2["Kris"] == 5:
-            jump tempend
+            cr "Gratulacje [player_name], udało Ci się przeprowadzić inwigilację kasyna Benka i wyjść z tego cało"
+            p "A dziękuję, jakaś nagroda mnie za to czeka?"
+            cr "Tak, za swoje wyczyny dostajesz dietę w postaci edwardów"
+            $ edki += 2000
+            $ renpy.notify("Dostałeś 2000 edków")
+            p "Jasna dupa ile pieniędzy! Wojskowe diety są aż tak duże?"
+            cr "Robisz tajną misję dla nas, tu tylko są takie wypłaty"
+            p "No to panie Krzysztofie, ja się piszę na kolejne zadanie"
+            cr "Niepotrzebnie, po zakończeniu jajec z kasynem przestajemy się znać"
+            p "AHA66"
+            cr "No tak wygląda tak u nas. Nie musisz się martwić, z tego ci wiem, twoji starzy znajomi niedługo wracają z pierdla"
+            p "Co ty pierdolisz? Wyrok im się już kończy?"
+            cr "Nie, oni po prostu spierdalają. I tak nie ma już sensu w trzymaniu ich tam"
+            p "A jaki był sens wcześniej?"
+            cr "Gonili ich najemnicy i musieliśmy ich gdzieś schować. Najemników już nie ma, więc mogą wracać"
+            p "I tak po prostu na to pozwalasz?"
+            cr "Tak. Ta banda jest przydatna do uspokajania miasta w nasz sposób"
+            p "Ta, pewnie, już w to wierzę"
+            cr "Nie obchodzi mnie to za bardzo. Oni robią to, co im zagramy i tak powoli ustawiamy misto pod siebie"
+            p "Jak niby? Oni robią to, co im głos w głowie (Robert) powie. Nie mają jakiś większych planów"
+            cr "Dobra młody, ty się ogarnij lepiej. Nie wyciągniesz ze mnie żadnych wrażliwych informacji"
+            p "Karwasz, miałem nadzieję, że mi się to uda"
+            cr "Powiedziałbym, że warto próbować ale nie w tym przydaku. To ostatnie ostrzeżenie"
+            p "Dobra szefunciu, kalmuj koka"
+            cr "Weź mi znikaj z oczu, wróć potem, to może powiem Ci co masz dalej robić"
+            p "TAJEST"
+            $ stan2["Kris"] = 0
+            
+
+    elif bigquest == 4:
+        if stan2["Kris"] == 0:
+
 
     jump opor
 

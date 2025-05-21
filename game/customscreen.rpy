@@ -290,9 +290,10 @@ screen postac():
         pos 0.4, 0.10
         text "{color=000}HP: [HP]/[MaxHP]"
         text "{color=000}Fart: [fart]"
+
     if akt > 1:
         vbox:
-            pos 0.5, 0.13
+            pos 0.4, 0.13
             text "{color=000} Twoje cechy"
             text "{color=000} Budowa ciała: [cechy['BC']]"
             text "{color=000} Zwinność: [cechy['ZW']]"
@@ -300,7 +301,7 @@ screen postac():
             text "{color=000} Umysł [cechy['INT']]"
 
         vbox:
-            pos 0.4, 0.32
+            pos 0.4, 0.33
             text "{color=000} Twoje umiejętności"
             text "{color=000} Strzelanie: [skile['Bron']]"
             text "{color=000} Gadanie: [skile['Gadanie']]"

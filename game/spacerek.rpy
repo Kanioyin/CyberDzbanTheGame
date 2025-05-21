@@ -102,6 +102,7 @@ label spacerek:
                             "Demony zostały pokonane, natenczas"
                             p "Szach mat frajery"
                             $ edki += 250
+                            $ renpy.notify("Zyskałem 250 edków")
                             p "Wszystkie wasze portfele są teraz moje"
                             if inventory.has_item(HuMeat) == False and inventory.has_space(Cap) == True:
                                 $ inventory.add_item(HuMeat)
@@ -163,6 +164,7 @@ label spacerek:
                 p "Jaki fajny plasterek"
                 p "A se przykleję"
                 $ HP += 1
+
             else:
                 p "O kurde balans, cybernetyczna czterolistna koniczyna. Ja to mam farta"
                 $ fart += 10
@@ -175,6 +177,7 @@ label spacerek:
                 achieve Futa
                 $ HP = 1
                 $ czas = 0
+
             else:
                 "Dzięki bogu dziś nie jest środa i blok był zamknięty"
 
@@ -294,7 +297,7 @@ label spacerek:
             elif helper == 4:
                 p "O proszę, powiększenie ekwipunku"
                 $ Cap += 1
-                p "Zawsze jeden przedmio więcej"
+                p "Zawsze jeden przedmiot więcej"
 
         elif akt == 2:
             p "Dupa, nie mam go w eq. Może siłą umysłu uda mi się go otworzyć"

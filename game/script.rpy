@@ -1599,7 +1599,7 @@ label frogszop:
                 fse "To będzie 50 edków"
                 p "Prosze"
                 $ edki -= 50
-                $ fart += 10
+                $ fart += 2
 
             "Zdrapeczka" if edki > 24:
                 $ edki -= 25
@@ -1608,7 +1608,7 @@ label frogszop:
                 fse "25 edków"
                 p "Proszę"
                 p "Dobra, zobaczymy czy wygrałem"
-                if renpy.random.randint(0, 100) < fart:
+                if renpy.random.randint(0, 200) < fart:
                     $ fart = 1
                     p "O CHUJ WYGRAŁEM"
                     achieve Mak
