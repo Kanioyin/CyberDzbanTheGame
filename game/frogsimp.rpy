@@ -1,6 +1,10 @@
 label frogsimp:
     $ czas -= 1
     $ baba_name = "Kasia"
+    if kompan > 0:
+        $ renpy.notify("Kompan Cię opuszcza")
+        $ kompan = 0
+
     if stan["Kasia"] == 1:
         scene frogsimp
         show kasia_dym at right
@@ -361,6 +365,67 @@ label frogsimp:
         p "Nie ma za co"
         $ stan["Kasia"] = 8
 
+    elif stan["Kasia"] == 8:
+        scene spacer
+        show kasiacall
+        fse "Hej [old_pn], masz może chwilkę?"
+        p "Pewnie, trzeba coś pomóc?"
+        fse "Nom, zamówiłam sobie zakupy ale kuriera ktoś napadł, przyniósłbyś mi je?"
+        p "Żaden problem, podaj mi tylko lokację"
+        fse "Musisz jechać w okolicę takiego baru, Srebrny Smok się nazywa"
+        p "A to chyba nawet wiem gdzie, kurier z jakiej firmy był?"
+        fse "Outpost, ci od tych śmiesznych automatów toaletowych"
+        p "Więcej informacji nie potrzebuję, ruszam na poszukiwania"
+        fse "Dziękuję"
+        scene miasto
+        p "Tup tup tup, zaraz skopię kilka dup"
+        "Wesoło sobie wędrujesz po mieście i znalazłeś płonący pojazd"
+        p "Jasna dupa, dobrze, że te płomienie są tylko w mojej głowie, inaczej byłby problem"
+        call testSkili("Atletyka", "ZW", 9)
+        if wynik == 1:
+            "Szczęśliwie, płomienie faktycznie były fantomowe"
+
+        else:
+            p "AŁA KURWA, TO PIECZE"
+            mg "Piekło tak!"
+            $ HP -= 15
+
+        "Wyciągnąłeś reklamówkę z zakupami"
+        p "Dobra, teraz mogę ruszać do Kasi"
+        gg "Nie tak szybko kolego"
+        "Odwracasz się i widzisz jakiegoś kasztana z Tiger Claws"
+        p "Czego chcesz? Zajęty jestem"
+        gg "Widzisz chyba jak skończył twój poprzednik, odstaw to lepiej i spieralaj"
+        p "Jaki kurwa poprzednik? Ja tu swoje przyszedłem odebrać"
+        gg "Aha, to przepraszam za najście, miłego dnia"
+        p "Bywaj"
+        "I żółtek sobie podzedł"
+        p "Delikatnie obsrałem zbroję"
+        "Umyłeś ją i poszedłeś do Kasi"
+        scene kasiadom
+        show kasia_basic
+        fse "Hai Hai!"
+        p "Hai Hai! Mam zakupki"
+        fse "Dzięki wielkie [old_pn]"
+        "Pomogłeś jeszcze Kasi rozpakować zakupy. Widzisz, że między basic jedzeniem, jest pistolet i paczka amunicji p.panc"
+        p "Powiedz mi Kasiu, jesteś tu zagrożona?"
+        fse "Delikatnie, głównie Ci łowcy głów mogą mi zniszczyć dzień"
+        p "W skali od rambar do dżambar, jak duże masz kłopoty?"
+        fse "Obawiam się, że to może być poziom dżambar. Strasznie się sprawy pokićkały"
+        p "I tym pistoletem chcesz się obronic?"
+        fse "Nie tylko, mam jeszcze kilka zapasowych źródeł ochrony i umiem całkiem dobrze unikać"
+        p "A co jeśli zaatakują z zaskoczenia? Jak sobie wtedy dasz radę?"
+        fse "Będę improwizować"
+        p "Kasiu, obawiam się że"
+        fse "[old_pn]. Nie wiesz do czego jestem zdolna. Nie wiesz ile syfu się za mną ciągnie. Nie wiesz ile ważą moje grzechy"
+        p "No nie wiem. Ja chciałbym tylko pomóc"
+        fse "Masz jakis syndrom głównego bohatera że tak wszystkim pomagasz?"
+        p "Kasieńko, ja jestem głównym bohaterem"
+        mg "Niestety"
+        fse "Nie mam już siły na dziś, chyba muszę się przespać"
+        p "Dobrze, to ja zmykam, papatki"
+        "I zostawiłeś Kasię samą z jej myślami"
+        $ stan2["Kasia"] = 9
 
     show screen map_screen
     window hide

@@ -1566,9 +1566,16 @@ label frogszop:
                 "Chwilę poczekałeś i jadło otrzymałeś"
                 fse "Smacznego"
                 play sound "EAT OR MUNCH.mp3"
+                $ hunger = 0
                 $ HP += 5
                 if HP > MaxHP:
                     $ HP = MaxHP
+
+            "Malborasek?" if frogsy > 999:
+                p "Daj mnie malboraska"
+                fse "Się robi"
+                $ frogsy -= 1000
+                $ fajki += 1
 
             "Dupnę sobie monsterka" if (edki > 24 or frogsy > 224) and czas < 30:
                 fse "To będzie 25 edków"

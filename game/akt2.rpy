@@ -696,10 +696,10 @@ label krzis:
             cr "Weź mi znikaj z oczu, wróć potem, to może powiem Ci co masz dalej robić"
             p "TAJEST"
             $ stan2["Kris"] = 0
-            
+            $ bigquest = 4
 
     elif bigquest == 4:
-        if stan2["Kris"] == 0:
+        if stan2["Kris"] == 1:
 
 
     jump opor
@@ -714,6 +714,16 @@ label oporslep:
         bo "Te kurwa, dawaj tu"
         p "Spoczko foczko, jak mi się zachce to ruszę"
         $ stan2["Bo"] = 3
+
+    if bigquest == 4 and stan2["Kris"] == 0:
+        p "Dobra kurwa, udało mi się zrobić inwigilację. Jeśli dobrze liczę, to teraz czeka mnie ostatnie zadanie"
+        p "Po tym, skończy się 2 akt i będzie coś nowego do roboty. Mam nadzieję na powrót do bazy"
+        p "Baza estate powinno być już zrobione i będę mógł poprawić swoje warunki mieszkalne"
+        p "Kurwa, mieć więcej możliwości spędzania czasu dnia, to jest cel życia"
+        p "Jeszcze znając tego kutasa, to będę musiał ulepszać pokój bo będzie więcej zadań w czasie dnia i może jeszcze da jakieś limity czasowe"
+        mg "Oj, nie mylisz się kolego"
+        p "No, kurwa, właśnie"
+        $ stan2["Kris"] = 1
         
     p "Pusto tu"
     menu:
@@ -727,7 +737,7 @@ label oporslep:
                     $ inventory.remove_item(Flaszka)
                     $ HP += 5
 
-                elif edki > 19:
+                elif edki > 19 and hunger == 1:
                     "Przed snem zjadłeś jeszcze coś z automatu"
                     $ edki -= 20
                     if atrefakty["Jaja"] == "Zbadane":
@@ -745,6 +755,7 @@ label oporslep:
             elif HP == MaxHP:
                 "Śpisz słodko, jak aniołek"
 
+            $ hunger = 1
             return
 
         "Czy ja przypadkiem nie dostałem?":

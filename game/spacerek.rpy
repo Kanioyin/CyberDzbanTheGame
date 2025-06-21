@@ -1,6 +1,5 @@
 init python:
     import random
-
     def do_zobaczenia():
         possible = [x for x in sidetosee if x not in sideseen]
         if not possible:
@@ -15,11 +14,12 @@ label spacerek:
     $ czas -= 5
     $ persistent.wolki += 1
     $ cel = renpy.random.randint(1, 100)
-    if stan["Kasia"] == 666 and fart > 20:
-        $ los = draw_random_event()
+    if stan["Kasia"] == 666 and fajki > 0:
+        $ los = do_zobaczenia()
         if los is None:
             pass
         
+        $ fajki -= 1
         if los == 1:
             "Dupa"
         elif los == 2:
@@ -38,7 +38,7 @@ label spacerek:
         if stan["Kasia"] == 5 and (dzien % 7 == 0 or dzien % 7 == 6):
             jump frogsimp
 
-        elif stan["Kasia"] == 7:
+        elif stan["Kasia"] in (7, 9):
             jump frogsimp         
         
     if cel > 0 and cel < 11:
