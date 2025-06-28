@@ -700,6 +700,7 @@ label krzis:
 
     elif bigquest == 4:
         if stan2["Kris"] == 1:
+            pass
 
 
     jump opor
@@ -723,6 +724,9 @@ label oporslep:
         p "Jeszcze znając tego kutasa, to będę musiał ulepszać pokój bo będzie więcej zadań w czasie dnia i może jeszcze da jakieś limity czasowe"
         mg "Oj, nie mylisz się kolego"
         p "No, kurwa, właśnie"
+        p "Pozostaje mi tylko trzymać kciuki, bym mógł w spokoju skończyć akt"
+        "Po tych słowach, usłyszałeś głośny, wkurwiony krzyk Krisa z pomieszczenia obok"
+        p "No tak, chuj mi w dupe"
         $ stan2["Kris"] = 1
         
     p "Pusto tu"
