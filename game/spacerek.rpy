@@ -21,7 +21,8 @@ label spacerek:
         
         $ fajki -= 1
         if los == 1:
-            "Dupa"
+            jump side_intro
+            
         elif los == 2:
             "Dupa"
         elif los == 3:
@@ -39,7 +40,7 @@ label spacerek:
             jump frogsimp
 
         elif stan["Kasia"] in (7, 9):
-            jump frogsimp         
+            jump frogsimp
         
     if cel > 0 and cel < 11:
         if akt == 1:

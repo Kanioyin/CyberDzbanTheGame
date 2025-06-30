@@ -700,8 +700,27 @@ label krzis:
 
     elif bigquest == 4:
         if stan2["Kris"] == 1:
-            pass
+            p "Co ty się tu tak prujesz?"
+            cr "Wyobraź sobie kurwa, że ta twoja banda parapetów zrobiła największą przysłguę Benkowi"
+            p "W sensie, że teraz?"
+            cr "Nie kurwa, jeszcze nim trafili do Czyśćca, dostarczyli Benkowi cyberpsychola"
+            cr "Ten psychol miał w sobie bardzo spocyficzny wszczep"
+            p "A jakoś mniej tajemniczo?"
+            cr "Zakładam, że wiesz jak działa sandevistan. Dodaj sobie do tego możliwość obsługi wielu kończyn"
+            cr "W taki sposób, powstaje ośmioręki strzelec, którego nie możesz nawet trafić"
+            cr "A znając Benka, to on to podłączy pod tą swoją babę i będzie napierdalał"
+            cr "A taka broń w rękach fixera nie jest niczym dobrym"
+            p "I co, będę musiał to teraz podpierdolić?"
+            cr "Nie. Dostaniesz się znowu do środka i wgrasz specjalnego wirusa na jego soft"
+            cr "Jeśli pójdzie dobrze, to część wszczepów zostanie uszkodzona"
+            p "Będzie to jakieś ciężkie zadanie?"
+            cr "W tą podróż ruszysz z kompanami, będziesz im dawał jeszcze dodatkowe taski"
+            cr "Zacznę tutaj obmyślanie wykonania tego zadania. Idź się przygotuj, to będzie ciężka sprawa"
+            p "Się zrobi szefie"
+            $ stan2["Kris"] = 2
 
+        if stan2["Kris"] == 2:
+            jump tempend
 
     jump opor
 

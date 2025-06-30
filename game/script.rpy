@@ -1571,7 +1571,7 @@ label frogszop:
                 if HP > MaxHP:
                     $ HP = MaxHP
 
-            "Malborasek?" if frogsy > 999:
+            "Malborasek?" if frogsy > 999 and fajki < 1:
                 p "Daj mnie malboraska"
                 fse "Się robi"
                 $ frogsy -= 1000
