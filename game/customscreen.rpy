@@ -124,8 +124,7 @@ screen day():
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
-        text "{color=000} Tydzień: [tydzien] \n"
-        text "{color=000} Dzień: [dzien] \n"
+        text "{color=000} Tydzień: [int(dzien/7)] Dzień: [dzien % 7] \n"
         if dzien % 7 == 1:
             text "{color=000} Poniedziałek"
         elif dzien % 7 == 2:

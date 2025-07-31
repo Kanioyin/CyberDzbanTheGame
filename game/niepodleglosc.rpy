@@ -103,7 +103,6 @@ default orientacja = 0
 default tapeta = 0
 default Cap = 4
 default dzien = 1
-default tydzien = 0
 default armor = 0
 default ammo = 0
 default umieram = 0

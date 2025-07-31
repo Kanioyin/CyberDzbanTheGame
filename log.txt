@@ -1,20 +1,263 @@
-2025-06-28 17:07:43 UTC
+2025-07-07 15:40:05 UTC
 Windows-10-10.0.19045
 Ren'Py 8.3.7.25031702
 
-Early init took 0.22s
+Early init took 0.16s
 Loading error handling took 0.10s
-Loading script took 2.01s
-Loading save slot metadata took 0.91s
+Loading script took 0.54s
+Loading save slot metadata took 0.13s
 Loading persistent took 0.00s
-
-File "game/akt2.rpy", line 702: if statement expects a non-empty block.
-    if stan2["Kris"] == 1:
-                          ^
+Running init code took 0.14s
+Loading analysis data took 0.03s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.09s
+Index archives took 0.00s
+Dump and make backups took 0.15s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.10s
 DPI scale factor: 1.000000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: b'DRS_SaveSettings() = -1.' (can be ignored)
-Interface start took 1.13s
+Creating interface object took 0.44s
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.00s
+Load screen analysis took 0.10s
+Analyze screens took 0.00s
+Save screen analysis took 0.00s
+Prepare screens took 0.22s
+Save pyanalysis. took 0.03s
+Save bytecode. took 0.06s
+Running _start took 0.00s
+Interface start took 0.70s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 565.90'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+20, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+Resetting cache.
+Early init took 53.69s
+Loading error handling took 0.07s
+Loading script took 0.62s
+Loading save slot metadata took 0.11s
+Loading persistent took 0.00s
+Running init code took 0.09s
+Loading analysis data took 0.03s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.09s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\kamil\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups took 0.14s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.13s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b'DRS_SaveSettings() = -1.' (can be ignored)
+Creating interface object took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.07s
+Save screen analysis took 0.04s
+Prepare screens took 0.15s
+Save pyanalysis. took 0.03s
+Save bytecode. took 0.04s
+Running _start took 0.00s
+Interface start took 0.65s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 565.90'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+Resetting cache.
+Early init took 87.00s
+Loading error handling took 0.05s
+Loading script took 0.53s
+Loading save slot metadata took 0.12s
+Loading persistent took 0.00s
+Running init code took 0.09s
+Loading analysis data took 0.03s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.11s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\kamil\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups took 0.19s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.15s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b'DRS_SaveSettings() = -1.' (can be ignored)
+Creating interface object took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.03s
+Save screen analysis took 0.05s
+Prepare screens took 0.18s
+Save pyanalysis. took 0.03s
+Save bytecode. took 0.04s
+Running _start took 0.00s
+Interface start took 0.68s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 565.90'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1879, 1057) drawable=(1879, 1057)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.01s
+Load screen analysis took 0.06s
+Analyze screens took 0.00s
+Prepare screens took 0.00s
+Running _start took 0.00s
+
+Full traceback:
+  File "game/script.rpy", line 419, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 462, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/script.rpy", line 419, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 462, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/script.rpy", line 419, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 462, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/script.rpy", line 462, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/script.rpy", line 419, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 1287, in script
+    $ tydzien += 1
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\ast.py", line 834, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\kamil\Desktop\renpy-8.1.1-sdk\renpy\python.py", line 1187, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 1287, in <module>
+    $ tydzien += 1
+NameError: name 'tydzien' is not defined
+
+While running game code:
+  File "game/script.rpy", line 419, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 462, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/script.rpy", line 419, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 462, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/script.rpy", line 419, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 462, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/script.rpy", line 462, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/spacerek.rpy", line 375, in script call
+    pause 1
+  File "game/script.rpy", line 419, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 1287, in script
+    $ tydzien += 1
+  File "game/script.rpy", line 1287, in <module>
+    $ tydzien += 1
+NameError: name 'tydzien' is not defined
+Resetting cache.
+Early init took 277.07s
+Loading error handling took 0.04s
+Loading script took 1.54s
+Loading save slot metadata took 0.12s
+Loading persistent took 0.00s
+Running init code took 0.11s
+Loading analysis data took 0.03s
+Analyze and compile ATL took 0.01s
+Reloading save slot metadata took 0.08s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\kamil\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups took 0.15s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.17s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b'DRS_SaveSettings() = -1.' (can be ignored)
+Creating interface object took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.03s
+Save screen analysis took 0.04s
+Prepare screens took 0.16s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.04s
+Running _start took 0.00s
+Interface start took 0.77s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1920, 1080)
@@ -29,21 +272,21 @@ Maximum texture size: 4096x4096
 Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
 Maximum texture size: 4096x4096
 Resetting cache.
-Early init took 25.79s
-Loading error handling took 0.09s
-Loading script took 2.16s
-Loading save slot metadata took 0.23s
+Early init took 308.04s
+Loading error handling took 0.06s
+Loading script took 1.44s
+Loading save slot metadata took 0.12s
 Loading persistent took 0.00s
-Running init code took 0.23s
+Running init code took 0.09s
 Loading analysis data took 0.03s
-Analyze and compile ATL took 0.01s
-Reloading save slot metadata took 0.67s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.10s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\kamil\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
-Dump and make backups took 0.30s
+Dump and make backups took 0.20s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
-Initial gc took 0.08s
+Initial gc took 0.11s
 DPI scale factor: 1.000000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: b'DRS_SaveSettings() = -1.' (can be ignored)
@@ -52,13 +295,13 @@ Cleaning stores took 0.00s
 Init translation took 0.00s
 Build styles took 0.00s
 Load screen analysis took 0.00s
-Analyze screens took 0.03s
+Analyze screens took 0.02s
 Save screen analysis took 0.04s
-Prepare screens took 0.19s
-Save pyanalysis. took 0.05s
-Save bytecode. took 0.05s
+Prepare screens took 0.15s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.04s
 Running _start took 0.00s
-Interface start took 0.69s
+Interface start took 0.72s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1920, 1080)
@@ -72,3 +315,98 @@ Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
 Maximum texture size: 4096x4096
 Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
 Maximum texture size: 4096x4096
+Resetting cache.
+Early init took 321.15s
+Loading error handling took 0.06s
+Loading script took 0.53s
+Loading save slot metadata took 0.13s
+Loading persistent took 0.00s
+Running init code took 0.09s
+Loading analysis data took 0.03s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.08s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\kamil\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups took 0.11s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.12s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b'DRS_SaveSettings() = -1.' (can be ignored)
+Creating interface object took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.04s
+Prepare screens took 0.17s
+Save pyanalysis. took 0.04s
+Save bytecode. took 0.04s
+Running _start took 0.00s
+Interface start took 0.70s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 565.90'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+Resetting cache.
+Early init took 326.85s
+Loading error handling took 0.04s
+Loading script took 0.56s
+Loading save slot metadata took 0.12s
+Loading persistent took 0.00s
+Running init code took 0.10s
+Loading analysis data took 0.03s
+Analyze and compile ATL took 0.01s
+Reloading save slot metadata took 0.08s
+Index archives took 0.00s
+Backing up script files to 'C:\\Users\\kamil\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups took 0.12s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.13s
+DPI scale factor: 1.000000
+nvdrs: Loaded, about to disable thread optimizations.
+nvdrs: b'DRS_SaveSettings() = -1.' (can be ignored)
+Creating interface object took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.03s
+Save screen analysis took 0.04s
+Prepare screens took 0.16s
+Save pyanalysis. took 0.03s
+Save bytecode. took 0.04s
+Running _start took 0.00s
+Interface start took 0.70s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 565.90'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
+Maximum texture size: 4096x4096
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.01s
+Load screen analysis took 0.09s
+Analyze screens took 0.00s
+Prepare screens took 0.00s
+Running _start took 0.01s

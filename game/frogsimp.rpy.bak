@@ -381,7 +381,7 @@ label frogsimp:
         p "Tup tup tup, zaraz skopię kilka dup"
         "Wesoło sobie wędrujesz po mieście i znalazłeś płonący pojazd"
         p "Jasna dupa, dobrze, że te płomienie są tylko w mojej głowie, inaczej byłby problem"
-        call testSkili("Atletyka", "ZW", 9) from _call_testSkili_13
+        call testSkili("Atletyka", "ZW", 9)
         if wynik == 1:
             "Szczęśliwie, płomienie faktycznie były fantomowe"
 

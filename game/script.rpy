@@ -1282,9 +1282,6 @@ label sypialnia:
         "Idę spać":
             $ czas = 20
             $ dzien += 1
-            if dzien > 7:
-                $ dzien = 1
-                $ tydzien += 1
             
             if HP < MaxHP:
                 if inventory.has_item(Flaszka) == True and MaxHP>HP+4:
