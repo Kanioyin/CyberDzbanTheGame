@@ -14,6 +14,10 @@ label spacerek:
     $ czas -= 5
     $ persistent.wolki += 1
     $ cel = renpy.random.randint(1, 100)
+    if "intro" not in sideseen:
+        $ sideseen.append("intro")
+        call side_intro
+
     if stan["Kasia"] == 666 and fajki > 0:
         $ los = do_zobaczenia()
         if los is None:
@@ -21,7 +25,7 @@ label spacerek:
         
         $ fajki -= 1
         if los == 1:
-            jump side_intro
+            call me
             
         elif los == 2:
             "Dupa"

@@ -3,7 +3,7 @@ default nua = len(persistent._achievements)
 default cnt = 1
 
 label bigunl:
-    if persistent.czasGry > 300:
+    if persistent.godzinyGry > 5:
         achieve Tim
 
     while cnt < foty + 1:
@@ -189,6 +189,9 @@ label bigunl:
         
         elif nua > 60 and cnt == 61:
             galleryunlock cg60
+
+        elif nua > 61 and cnt == 62:
+            galleryunlock cg61
             
         else:
             return
