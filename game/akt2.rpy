@@ -185,7 +185,23 @@ label jaxowo:
                 ja "Nie powiedział bym, w wojsku jest teraz nowy szef, tylko nikt nie wie jak to u niego wygląda"
                 p "Zobaczymy później pewnie. Ja będę się już zbierał, trzymaj się Jax"
                 $ stan2["BB"] =7
-            
+
+            "Musimy pogadać" if bigquest == 4 and stan2["Kris"] == 2:
+                ja "Co się dzieje mordeczko?"
+                p "Kris dał nam bojowe zadanie, musimy się dostać do dziupli do jego kasyna"
+                ja "Ty wiesz, że to będzie praktycznie misja samobójcza, nie?"
+                p "Wiem, kolejny raz już to słyszę w tej gierce typu komputer"
+                ja "I co będziemy musieli zrobić?"
+                p "Dostaniemy wirusa do wgrania, ja pewnie go tam wgram, wy wyglądacie na wojowników"
+                ja "Kolego, ja ostatnio zrobiłem przyśpieszony kurs excela, nie jest tak źle"
+                p "No dobrze, może Cię delikatnie niedoceniłem"
+                ja "No widzisz, VIO jest też całkiem dobry, jeśli chodzi o konkurty"
+                ja "Ale ja najlepiej sprawdzam się i tak przy walce na blisko"
+                ja "Mam też trochę metod do kontroli tłumu"
+                ja "I w akcjach na głośno mogę pokazać swój pełen potencjał"
+                p "No dobrze, teraz spytam się VIO, do czego on jest zdolny"
+                $ stan2["Kris"] = 3
+
             "Co powiesz na mały trening?" if exp > 9:
                 ja "Jasne mordeczko"
                 $ exp -= 10
@@ -252,6 +268,27 @@ label viocha:
             "Idziesz na vrowara?":
                 vi "Vevnie"
                 jump piwko
+
+            "Musimy porozmawiać" if bigquest == 4:
+                if stan2["Kris"] == 2:
+                    vi "Viałeś vorozmawiać vpierw v JAXEM"
+                    p "A może ja chcę z tobą pogadać"
+                    mg "Możesz się odpierdolić?"
+                    mg "Absolutnie nie chce mi się szykować specjalnych metod dla specialnych przypadków"
+                    mg "Won mi stont"
+
+                if stan2["Kris"] == 3:
+                    vi "Vo vam vię vieje vordziaty?"
+                    p "Dokładnie to samo, co powiedziałem JAXowi"
+                    vi "Vtraszny veń v Viebie viesz?"
+                    mg "Spierdalaj"
+                    p "Jakby, stoicie dosłownie 640 pikseli od siebie, raczej słyszałeś co mówiłem"
+                    vi "Vo vobra, vunkt vla Viebie, vo va vestem vekspertem v vywyadzie"
+                    vi "Vam vsypiający vas v vartko votrafię vykręcić viezły vumer"
+                    vi "Vojom vpecialnością vest vicha vkcja, volę vie vostać"
+                    vi "V viem vak vokonać vojedyńczych vrogów"
+                    p "Spoczko VIO, powiem Krisowi co i jak"
+                    $ stan2["Kris"] = 4
 
             "Możesz mnie uleczyć?" if HP < MaxHP:
                 if inventory.has_item(HuMeat) == True:
@@ -716,10 +753,24 @@ label krzis:
             p "Będzie to jakieś ciężkie zadanie?"
             cr "W tą podróż ruszysz z kompanami, będziesz im dawał jeszcze dodatkowe taski"
             cr "Zacznę tutaj obmyślanie wykonania tego zadania. Idź się przygotuj, to będzie ciężka sprawa"
+            cr "Pogadaj z Jaxem, potem leć do VIO. Jak wszystko ogarniesz, to możesz do mnie wrócić"
             p "Się zrobi szefie"
             $ stan2["Kris"] = 2
 
-        if stan2["Kris"] == 2:
+        if stan2["Kris"] == 4:
+            p "Porozmaiwałem z kompanami, wiem co i kto potrafi"
+            cr "Teraz masz jakikolwiek przegląd zdolności, to będzie ważne jak będziecie na misji"
+            cr "To będzie troszeczkę bardziej taktyczna klepa, niżeli w zakończeniu poprzedniego aktu"
+            cr "Upewnij się, że masz wszystko, co Ci jest potrzebne i wróć do mnie"
+            cr "Ostrzegam, to będzie punkt bez powrotu, jak pogadamy, to polecisz"
+            cr "Upewnij się też, że będziesz miał zkitrane troszeczkę pieniędzy na łapówki"
+            p "Bardzo ciekawa porada, kogo miałbym niby przekupić?"
+            cr "Kogokolwiek w sumie, zawsze lepiej coś mieć w kieszeni"
+            p "No dobra, to ja się idę OSTATECZNIE szykować"
+            cr "Powodzenia"
+            $ stan2["Kris"] = 5
+
+        if stan2["Kris"] == 5:
             jump tempend
 
     jump opor

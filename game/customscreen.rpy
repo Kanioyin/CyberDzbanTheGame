@@ -59,7 +59,7 @@ screen item_details(item):
 
 
 screen phone():
-    add "tapety/bg1.png"
+    add "tapety/[persistent.phone_bg].png"
     add "cyberfon_clear.png"
     modal True
     
@@ -93,15 +93,27 @@ screen phone():
         unhovered SetVariable("screen_tooltip","")
         action Hide("phone"), Show("postac")
 
+    imagebutton auto "cyberfon_stoc_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("phone"), Show("stoc")
+
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("phone"), Show("hud")
 
+    imagebutton auto "cyberfon_walp_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Function(change_wallpaper)
+
 screen znaj():
     modal True
-    add "tapety/bg1.png"
+    add "tapety/[persistent.phone_bg].png"
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
@@ -120,7 +132,7 @@ screen znaj():
 
 screen day():
     modal True
-    add "tapety/bg1.png"
+    add "tapety/[persistent.phone_bg].png"
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
@@ -241,7 +253,7 @@ screen day():
 
 screen bank():
     modal True
-    add "tapety/bg1.png"
+    add "tapety/[persistent.phone_bg].png"
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
@@ -257,7 +269,7 @@ screen bank():
 
 screen frak():
     modal True
-    add "tapety/bg1.png"
+    add "tapety/[persistent.phone_bg].png"
     add "cyberfon_clear.png"
     vbox:
         pos 0.4, 0.1
@@ -283,7 +295,7 @@ screen frak():
 
 screen postac():
     modal True
-    add "tapety/bg1.png"
+    add "tapety/[persistent.phone_bg].png"
     add "cyberfon_clear"
     vbox:
         pos 0.4, 0.10
@@ -312,6 +324,17 @@ screen postac():
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("postac"), Show("phone")
+
+screen stoc():
+    modal True
+    add "tapety/[persistent.phone_bg].png"
+    add "cyberfon_clear.png"
+
+    imagebutton auto "cyberfon_won_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("stoc"), Show("phone")
 
 screen map_screen():
     add "mapa.png"

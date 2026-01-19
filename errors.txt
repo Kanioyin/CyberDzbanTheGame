@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/akt2.rpy", line 702: if statement expects a non-empty block.
-    if stan2["Kris"] == 1:
-                          ^
+File "game/customscreen.rpy", line 327: imagebutton expects a non-empty block.
+    imagebutton auto "cyberfon_won_%s":
+                                       ^
 
-Ren'Py Version: Ren'Py 8.3.7.25031702
-Sat Jun 28 19:07:46 2025
+Ren'Py Version: Ren'Py 8.5.2.26010301
+Mon Jan 19 19:22:03 2026

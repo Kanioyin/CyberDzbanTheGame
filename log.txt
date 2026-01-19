@@ -1,44 +1,28 @@
-2025-09-15 11:00:49 UTC
+2026-01-19 18:47:30 UTC
 Windows-10-10.0.19045-SP0
-Ren'Py 8.4.1.25072401
+Ren'Py 8.5.2.26010301
 
-Early init took 52 ms
-Loading error handling took 239 ms
-Loading script took 3590 ms
-Loading save slot metadata took 1077 ms
-Loading persistent took 1 ms
-Running init code took 88 ms
-Loading analysis data took 39 ms
-Analyze and compile ATL took 4 ms
-Reloading save slot metadata took 542 ms
-Backing up script files to 'C:\\Users\\kamil\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
-Dump and make backups took 187 ms
+Early init took 49 ms
+Loading error handling took 41 ms
+Loading script took 1046 ms
+Loading save slot metadata took 45 ms
+Loading persistent took 0 ms
+Running init code took 99 ms
+Loading analysis data took 4 ms
+Analyze and compile ATL took 1 ms
+Reloading save slot metadata took 18 ms
+Dump and make backups took 48 ms
 Cleaning cache took 0 ms
 Making clean stores took 1 ms
-Initial gc took 71 ms
+Initial gc took 58 ms
 DPI scale factor: 1.000000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: Disabled thread optimizations.
-Creating interface object took 208 ms
+Creating interface object took 246 ms
 Init translation took 0 ms
 Cleaning stores took 0 ms
-Load screen analysis took 326 ms
-Analyze screens took 19 ms
-Save screen analysis took 12 ms
-Save pyanalysis took 5 ms
-Save bytecode took 27 ms
-Running _start took 1 ms
-Interface start took 233 ms
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1920, 1080)
-swap interval: 1 frames
-Windowed mode.
-Vendor: 'NVIDIA Corporation'
-Renderer: 'NVIDIA GeForce GTX 1660/PCIe/SSE2'
-Version: '4.6.0 NVIDIA 565.90'
-Display Info: <Info({'bitsize': 32, 'bytesize': 4, 'masks': (16711680, 65280, 255, 0), 'shifts': (16, 8, 0, 0), 'losses': (0, 0, 0, 8), 'current_w': 1920, 'current_h': 1080, 'refresh_rate': 60, 'hw': False, 'wm': True, 'video_mem': 268435456, 'blit_hw': False, 'blit_hw_CC': False, 'blit_hw_A': False, 'blit_sw': False, 'blit_sw_CC': False, 'blit_sw_A': False})>
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1057) drawable=(1920, 1057)
-Maximum texture size: 4096x4096
+Load screen analysis took 27 ms
+Analyze screens took 1 ms
+Save screen analysis took 0 ms
+Save pyanalysis took 0 ms
+Save bytecode took 29 ms
