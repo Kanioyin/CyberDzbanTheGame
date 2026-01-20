@@ -67,7 +67,7 @@ init python:
         try:
             current_index = wallpapers.index(persistent.phone_bg)
         except ValueError:
-            current_index = 1   
+            current_index = 1
         next_index = (current_index + 1) % len(wallpapers)
         persistent.phone_bg = wallpapers[next_index]
         renpy.restart_interaction()
@@ -99,6 +99,41 @@ label checktime:
 
     else:
         return
+
+
+label spanko:
+    $ czas = 20
+    $ dzien += 1
+    $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-10,10)
+    if cenaAkcjiSp1 < 1:
+        $ cenaAkcjiSp1 = 1
+
+    if HP < MaxHP:
+        if inventory.has_item(Flaszka) == True and MaxHP>HP+4:
+            p "Flaszka, moja żono"
+            $ inventory.remove_item(Flaszka)
+            $ HP += 5
+
+        elif edki > 19 and hunger == 1:
+            "Przed snem zjadłeś jeszcze coś z automatu"
+            $ edki -= 20
+            if atrefakty["Jaja"] == "Zbadane":
+                $ HP += (cechy["BC"] * 2 )
+            
+            else:
+                $ HP += cechy["BC"]
+
+            if HP > MaxHP:
+                $ HP = MaxHP
+
+        else:
+            "Zasnąłeś z pustym brzuchem"
+
+    elif HP == MaxHP:
+        "Śpisz słodko, jak aniołek"
+
+    $ hunger = 1
+    return
 
 
 # input call testSkili("Skil","Cecha", PT), nie fogoruj ""
@@ -1289,28 +1324,7 @@ label sypialnia:
     menu:
         "Jesteś w swoim pokoju, co chcesz zrobić?"
         "Idę spać":
-            $ czas = 20
-            $ dzien += 1
-            
-            if HP < MaxHP:
-                if inventory.has_item(Flaszka) == True and MaxHP>HP+4:
-                    p "Flaszka, moja żono"
-                    $ inventory.remove_item(Flaszka)
-                    $ HP += 5
-
-                elif edki > 19:
-                    "Przed snem zjadłeś jeszcze coś z automatu"
-                    $ edki -= 20
-                    $ HP += cechy["BC"]
-                    if HP > MaxHP:
-                        $ HP = MaxHP
-
-                else:
-                    "Zasnąłeś z pustym brzuchem"
-
-            elif HP == MaxHP:
-                "Śpisz słodko, jak aniołek"
-
+            call spanko
             jump rozstaje
 
         "Czy ja przypadkiem nie dostałem?":

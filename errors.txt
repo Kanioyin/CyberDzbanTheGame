@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/customscreen.rpy", line 327: imagebutton expects a non-empty block.
-    imagebutton auto "cyberfon_won_%s":
-                                       ^
+File "game/script.rpy", line 106: Line is indented, but the preceding one-line python statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
+    $ dzien += 1
+    ^
 
 Ren'Py Version: Ren'Py 8.5.2.26010301
-Mon Jan 19 19:22:03 2026
+Tue Jan 20 17:37:00 2026

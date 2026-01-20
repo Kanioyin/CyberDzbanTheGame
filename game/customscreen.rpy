@@ -99,17 +99,17 @@ screen phone():
         unhovered SetVariable("screen_tooltip","")
         action Hide("phone"), Show("stoc")
 
-    imagebutton auto "cyberfon_won_%s":
-        focus_mask True
-        hovered SetVariable("screen_tooltip", "Return")
-        unhovered SetVariable("screen_tooltip","")
-        action Hide("phone"), Show("hud")
-
     imagebutton auto "cyberfon_walp_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Function(change_wallpaper)
+
+    imagebutton auto "cyberfon_won_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("phone"), Show("hud")
 
 screen znaj():
     modal True
@@ -329,6 +329,11 @@ screen stoc():
     modal True
     add "tapety/[persistent.phone_bg].png"
     add "cyberfon_clear.png"
+
+    vbox:
+        pos 0.4, 0.13
+        text "{color=000} Cena akcji KGU: [cenaAkcjiSp1]"
+        text "{color=000} Posiadane akcjie: [iloscAkcjiSp1]"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True

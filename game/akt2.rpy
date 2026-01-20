@@ -803,34 +803,7 @@ label oporslep:
     menu:
         "Jesteś w swoim pokoju, co chcesz zrobić?"
         "Idę spać":
-            $ czas = 20
-            $ dzien += 1
-            if HP < MaxHP:
-                if inventory.has_item(Flaszka) == True and MaxHP>HP+4:
-                    p "Flaszka, moja żono"
-                    $ inventory.remove_item(Flaszka)
-                    $ HP += 5
-
-                elif edki > 19 and hunger == 1:
-                    "Przed snem zjadłeś jeszcze coś z automatu"
-                    $ edki -= 20
-                    if atrefakty["Jaja"] == "Zbadane":
-                        $ HP += (cechy["BC"] * 2 )
-                    
-                    else:
-                        $ HP += cechy["BC"]
-
-                    if HP > MaxHP:
-                        $ HP = MaxHP
-
-                else:
-                    "Zasnąłeś z pustym brzuchem"
-
-            elif HP == MaxHP:
-                "Śpisz słodko, jak aniołek"
-
-            $ hunger = 1
-            return
+            call spanko
 
         "Czy ja przypadkiem nie dostałem?":
             if HP < MaxHP:

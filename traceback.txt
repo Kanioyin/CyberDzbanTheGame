@@ -1,140 +1,23 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While running game code:
-  File "game/script.rpy", line 419, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 462, in script call
-    pause 1
-  File "game/spacerek.rpy", line 379, in script call
-    pause 1
-  File "game/spacerek.rpy", line 379, in script call
-    pause 1
-  File "game/spacerek.rpy", line 379, in script call
-    pause 1
-  File "game/script.rpy", line 419, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 462, in script call
-    pause 1
-  File "game/spacerek.rpy", line 379, in script call
-    pause 1
-  File "game/spacerek.rpy", line 379, in script call
-    pause 1
-  File "game/script.rpy", line 462, in script call
-    pause 1
-  File "game/script.rpy", line 462, in script call
-    pause 1
-  File "game/akt2.rpy", line 129, in script call
-    call checktime from _call_checktime_1
-  File "game/akt2.rpy", line 803, in script
-    menu:
-  File "game/customscreen.rpy", line 61, in execute
-    screen phone():
-  File "game/customscreen.rpy", line 61, in execute
-    screen phone():
-  File "game/customscreen.rpy", line 108, in execute
-    imagebutton auto "cyberfon_walp_%s":
-  File "game/customscreen.rpy", line 108, in keywords
-    imagebutton auto "cyberfon_walp_%s":
-  File "game/customscreen.rpy", line 112, in <module>
-    action Function(change_wallpaper)
-                    ^^^^^^^^^^^^^^^^ 
-NameError: name 'change_wallpaper' is not defined
+After initialization, but before game start.
+PermissionError: [WinError 32] Proces nie może uzyskać dostępu do pliku, ponieważ jest on używany przez inny proces: 'C:\\Users\\kamil\\Desktop\\CPTG\\CyberDzbanTheGame\\game\\saves\\navigation.json.new' -> 'C:\\Users\\kamil\\Desktop\\CPTG\\CyberDzbanTheGame\\game\\saves\\navigation.json'
 
 -- Full Traceback ------------------------------------------------------------
 
 Traceback (most recent call last):
-  File "game/script.rpy", line 419, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 462, in script call
-    pause 1
-  File "game/spacerek.rpy", line 379, in script call
-    pause 1
-  File "game/spacerek.rpy", line 379, in script call
-    pause 1
-  File "game/spacerek.rpy", line 379, in script call
-    pause 1
-  File "game/script.rpy", line 419, in script call
-    call checktime from _call_checktime
-  File "game/script.rpy", line 462, in script call
-    pause 1
-  File "game/spacerek.rpy", line 379, in script call
-    pause 1
-  File "game/spacerek.rpy", line 379, in script call
-    pause 1
-  File "game/script.rpy", line 462, in script call
-    pause 1
-  File "game/script.rpy", line 462, in script call
-    pause 1
-  File "game/akt2.rpy", line 129, in script call
-    call checktime from _call_checktime_1
-  File "game/akt2.rpy", line 803, in script
-    menu:
-  File "renpy/ast.py", line 1815, in execute
-    choice = renpy.exports.menu(choices, self.set, args, kwargs, item_arguments)
-             ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/exports/menuexports.py", line 135, in menu
-    rv = renpy.store.menu(new_items)
-         ~~~~~~~~~~~~~~~~^^^^^^^^^^^
-  File "renpy/exports/menuexports.py", line 418, in display_menu
-    rv = renpy.ui.interact(mouse="menu", type=type, roll_forward=roll_forward)
-         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/ui.py", line 306, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/display/core.py", line 2154, in interact
-    repeat, rv = self.interact_core(
-                 ~~~~~~~~~~~~~~~~~~^
-        preloads=preloads,
-        ^^^^^^^^^^^^^^^^^^
-    ...<4 lines>...
-        **kwargs,
-        ^^^^^^^^^
-    )
-    ^
-  File "renpy/display/core.py", line 2700, in interact_core
-    root_widget.visit_all(lambda d: d.per_interact())
-    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/display/displayable.py", line 457, in visit_all
-    d.visit_all(callback, seen)
-    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
-  File "renpy/display/displayable.py", line 457, in visit_all
-    d.visit_all(callback, seen)
-    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
-  File "renpy/display/displayable.py", line 457, in visit_all
-    d.visit_all(callback, seen)
-    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
-  File "renpy/display/screen.py", line 503, in visit_all
-    callback(self)
-    ~~~~~~~~^^^^^^
-  File "renpy/display/core.py", line 2700, in <lambda>
-    root_widget.visit_all(lambda d: d.per_interact())
-                                    ~~~~~~~~~~~~~~^^ 
-  File "renpy/display/screen.py", line 514, in per_interact
-    self.update()
-    ~~~~~~~~~~~^^
-  File "renpy/display/screen.py", line 715, in update
-    self.screen.function(**self.scope)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
-  File "game/customscreen.rpy", line 61, in execute
-    screen phone():
-  File "game/customscreen.rpy", line 61, in execute
-    screen phone():
-  File "game/customscreen.rpy", line 108, in execute
-    imagebutton auto "cyberfon_walp_%s":
-  File "game/customscreen.rpy", line 108, in keywords
-    imagebutton auto "cyberfon_walp_%s":
-  File "renpy/python.py", line 1305, in py_eval
-    return py_eval_bytecode(code, globals, locals)
-           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/python.py", line 1298, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "game/customscreen.rpy", line 112, in <module>
-    action Function(change_wallpaper)
-                    ^^^^^^^^^^^^^^^^ 
-NameError: name 'change_wallpaper' is not defined
+  File "renpy/bootstrap.py", line 401, in bootstrap
+    renpy.main.main()
+    ~~~~~~~~~~~~~~~^^
+  File "renpy/main.py", line 532, in main
+    renpy.dump.dump(False)
+    ~~~~~~~~~~~~~~~^^^^^^^
+  File "renpy/dump.py", line 257, in dump
+    os.rename(new, filename)
+    ~~~~~~~~~^^^^^^^^^^^^^^^
+PermissionError: [WinError 32] Proces nie może uzyskać dostępu do pliku, ponieważ jest on używany przez inny proces: 'C:\\Users\\kamil\\Desktop\\CPTG\\CyberDzbanTheGame\\game\\saves\\navigation.json.new' -> 'C:\\Users\\kamil\\Desktop\\CPTG\\CyberDzbanTheGame\\game\\saves\\navigation.json'
 
 Windows-10-10.0.19045-SP0 AMD64
 Ren'Py 8.5.2.26010301
 CyberDzban 0.00000009
-Mon Jan 19 19:39:50 2026
+Tue Jan 20 17:42:09 2026
