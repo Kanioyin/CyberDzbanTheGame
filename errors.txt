@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 106: Line is indented, but the preceding one-line python statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    $ dzien += 1
-    ^
+File "game/akt2.rpy", line 206: reached end of line when expecting ':'.
+    "A co powiesz na takiego Malboraska" if fajki > 0 and sidetosee has["Jax1"]
+                                                                               ^
 
 Ren'Py Version: Ren'Py 8.5.2.26010301
-Tue Jan 20 17:37:00 2026
+Wed Jan 21 17:23:37 2026

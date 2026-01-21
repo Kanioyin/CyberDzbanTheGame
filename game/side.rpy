@@ -6,3 +6,7 @@ label side_intro:
     mg "Te magiczne szlugi gdzieś będziesz mógł znaleźć, albo chyba kupić"
     mg "Co Cię tu dalej znajdzie, zobaczymy"
     mg "Teraz możesz czmychać, ja będę wymyślał głupoty"
+
+label side_Jax_1:
+    scene japiwko
+    ja ""

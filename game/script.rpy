@@ -1592,6 +1592,11 @@ label frogszop:
                     $ HP = MaxHP
 
             "Malborasek?" if frogsy > 999 and fajki < 1:
+                if "intro" not in sideseen:
+                    $ sideseen.append("intro")
+                    call side_intro
+                    $ sidetosee.remove("intro")
+
                 p "Daj mnie malboraska"
                 fse "Się robi"
                 $ frogsy -= 1000

@@ -202,6 +202,10 @@ label jaxowo:
                 p "No dobrze, teraz spytam się VIO, do czego on jest zdolny"
                 $ stan2["Kris"] = 3
 
+
+            "A co powiesz na takiego Malboraska" if fajki > 0 and sidetosee has ["jax1"]:
+                ja "O cholender, takiej przyjemności nie mogę odmówić"
+
             "Co powiesz na mały trening?" if exp > 9:
                 ja "Jasne mordeczko"
                 $ exp -= 10

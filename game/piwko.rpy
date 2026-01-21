@@ -101,6 +101,7 @@ label piwko:
             pass
 
     elif kompan == 1:
+        scene vipiwko
         if postacie2["VIO"] == 0:
             p "No to opowiadaj Vio, jak Ci życie mijo"
             vi "Va vobrze vobrze, vziękować"
