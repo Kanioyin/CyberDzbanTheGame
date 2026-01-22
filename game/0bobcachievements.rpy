@@ -76,6 +76,7 @@ define BOBCACHIEVEMENT_LIST = (
     ("Psy", _("Cipnik"), _("Ty weź może strzelaj a nie edki wydajesz")),
     ("Red", _("Czytelnik"), _("A se poczytam.")),
     ("UPG", _("UPGRADE"), _("Ulepszyłeś się!")),
+    ("Faj", _("Fajna Faja"), _("Użyłeś pierwszej fajki")),
     ("Zjw", _("Pomekon"), _("Znalazłeś je wszystkie?.")),
     ("Egg", _("Ale jaja"), _("Znalazłeś przeklęte jajca")),
     ("Bir", _("Dobre piwko"), _("Dobry browarek nie jest zły")),

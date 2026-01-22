@@ -18,7 +18,7 @@ define gr = Character(_("Grupa"), color = "#324511")
 define cr = Character(_("Kris"), color = "#EE0000")
 define ja = Character(_("Jax"), color = "#e4adf1")
 define vi = Character(_("VIO"), color = "#ffbcbc")
-define ec = Character(_("Evil Cypher"), color = "#FF0009")
+define ec = Character(_("Evil Cypher"), color = "#fff01c")
 define gkp = Character(_("Gatekeeper"), color = "#213213")
 define be = Character(_("Szybki Ben"), color = "#ed4040")
 define au = Character(_("Automatoniks"), color = "#383303")
@@ -30,6 +30,7 @@ define gg = Character(_("Gangus"), color = "#ec3434")
 define ko = Character(_("Korpos"), color = "#444444")
 define gu = Character(_("Ochrona"), color = "#abba69")
 define al = Character(_("Alfonso"), color="#ABACAD")
+define sus = Character(_("Podejrzany typ"), color="#bd8585")
 
 # słowniki
 default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}

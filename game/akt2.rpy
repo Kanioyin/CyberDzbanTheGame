@@ -205,6 +205,7 @@ label jaxowo:
 
             "A co powiesz na takiego Malboraska" if fajki > 0 and sidetosee has ["jax1"]:
                 ja "O cholender, takiej przyjemności nie mogę odmówić"
+                call side_Jax_1
 
             "Co powiesz na mały trening?" if exp > 9:
                 ja "Jasne mordeczko"
