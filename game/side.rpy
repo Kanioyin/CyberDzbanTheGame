@@ -47,15 +47,50 @@ label side_Jax_1:
     ja "Schodzimy tam, na trzecim peronie jest ukryte przejście, tam zejdę do Rubina"
     p "A ja nie mogę zejść?"
     ja "Nie da rady, on przyjmuje tylko sprawdzonych przez siebie klientów"
+    "Zeszliście z Jaxem do metra"
+    ja "Oj, kolejne wspomnienia się odblokowują"
+    p "A jakie tym razem?"
+    ja "Pewnego strasznego dnia, jak w bazie pojaiwł się Cypher"
+    ja "Musięli dostać się do pomieszczenia technicznego na środku trasy"
+    ja "Jak się możesz domyślać, ochrona nie chciała ich przepuścić"
+    ja "To te kretyny odpaliły granat dymny i tam nasrały"
+    ja "Absolutnie kretyński pomysł"
+    call cipflash
+    ja "Skończyło się na tym, że Kałach załatwił im przejście"
+    p "No dobra, to serio była kretyńska akcja"
+    ja "Dlatego mi się teraz głupio do metra wchodzi"
+    p "W pełni zrozumiały krindż, dzięki bogu mnie jeszcze nie połączyli z resztą"
+    ja "Jeszcze, to jest słowo klucz"
+    ja "Ale dobra, to tutaj będę schodził, zostań tutaj"
     p "No spoczko, ja tutaj poczekam"
     "Jax zszedł w podziemny tunel"
     menu:
         "Co terez robisz?"
         "A podsłucham, co tam porabia":
-            "Skibidi"
+            ja "Siema Rubin, ja po to co zwykle"
+            sus "Cześć Jax, może być mały problem"
+            ja "Co się dzieje?"
+            sus "Na Jokohamie zaczęła się mała wojenka gangów, ich najwięksi bosowie Jakuz gdzieś zniknęli"
+            sus "I teraz cały narybek walczy o władzę"
+            ja "I pewnie napadają na wszystko, co związane z pieniędzmi"
+            sus "Dokładnie, więc mogę przyjąć hajs ale go nie wyślę aktualnie"
+            ja "Wiesz kiedy mniej więcej może to się skończyć?"
+            sus "Nie mam pojęcia, musimy czekać na pojawienie się jakieś większej ryby"
+            ja "Kurwa mać, są jakieś straty w cywilach?"
+            sus "Nie, walczą między sobą, ludności nie tykają"
+            sus "Mówimy o japońcach a nie o izraelitach"
+            ja "Dobra, przesyłam Ci edki i się zawijam"
+            sus "Dziękim dam Ci znać jak przelew dotrze do twoich, bywaj"
 
         "Poszukam sobie jakiegoś zajęcia":
-            "Skibi"
+            "Radośnie tuptasz sobie po stacji i znajdujesz smutnego biznesmena"
+            p "Panie, coś pan taki smutny?"
+            "Ziomek opowiedział Ci jak stracił swoje pieniądze na giełdzie"
+            "Zaoferował Ci przyjęcię od niego jego akcji a ty, przyjąłeś je bez zastanowienia"
+            $ iloscAkcjiSp1 += 1
+            "A następnie wskoczył pod nadjeżdżający pociąg metra"
+            "Przykra sprawa troszeczkę"
+            p "Jest jak jest mordziaty"
 
         "A odpocznę sobie":
             "Usiadłeś sobie na krześle i uciąłeś komara"
@@ -63,6 +98,7 @@ label side_Jax_1:
             $ fart += 5
             "Jakoś Ci się lepiej na duszy aż zrobiło"
 
+    "Jax wychodzi z przejścia"
     ja "No siema, jestem już z powrotem"
     p "I jak poszło?"
     ja "Całkiem nieźle, powoli zmniejsza prowizję od wysyłki i coraz lepiej na tym wychodzimy"

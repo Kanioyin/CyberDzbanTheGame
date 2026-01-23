@@ -16,6 +16,7 @@ label spacerek:
     $ cel = renpy.random.randint(1, 100)
     if "intro" not in sideseen:
         $ sideseen.append("intro")
+        $ sidetosee.remove("intro")
         call side_intro
 
     if stan["Kasia"] == 666 and fajki > 0:
@@ -271,6 +272,12 @@ label spacerek:
                 g "Faktycznie, to ja znikam"
                 hide gun with dissolve
         
+        elif iloscAkcjiSp1 > 0:
+            "Na mieście napali Cię bandziory z Wall Street"
+            "Bardzo brutalnie pozbawili Cię twoich cennych akcji"
+            $ iloscAkcjiSp1 -= 1
+            $ renpy.notify(f"Straciłem jedną akcję")
+
         else:
             p "Dziwne, nic się nie stało. Jakbym miał itemki to pewnie ktoś by mnie okradł."
             
