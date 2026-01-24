@@ -244,6 +244,19 @@ screen day():
             elif bigquest == 3:
                 text "{color=000} Porozmawiaj z Krisem"
 
+            elif bigquest == 4:
+                if stan2["Kris"] == 1:
+                    text "{color=000} Porozmawiaj z Krisem"
+
+                elif stan2["Kris"] == 2:
+                    text "{color=000} Porozmawiaj z Jaxem"
+
+                elif stan2["Kris"] == 3:
+                    text "{color=000} Porozmawiaj z VIO"
+
+                elif stan2["Kris"] == 4:
+                    text "{color=000} Porozmawiaj z Krisem"
+
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -340,6 +353,14 @@ screen stoc():
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
         action Hide("stoc"), Show("phone")
+
+    imagebutton auto "cyberfon_kup_%s":
+        focus_mask True
+        action Function(buyakc1)
+
+    imagebutton auto "cyberfon_sell_%s":
+        focus_mask True
+        action Function(sellakc1)
 
 screen map_screen():
     add "mapa.png"

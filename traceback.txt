@@ -1,23 +1,163 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-After initialization, but before game start.
-PermissionError: [WinError 32] Proces nie może uzyskać dostępu do pliku, ponieważ jest on używany przez inny proces: 'C:\\Users\\kamil\\Desktop\\CPTG\\CyberDzbanTheGame\\game\\saves\\navigation.json.new' -> 'C:\\Users\\kamil\\Desktop\\CPTG\\CyberDzbanTheGame\\game\\saves\\navigation.json'
+While running game code:
+  File "renpy/style.pyx", line 808, in renpy.style.rebuild
+  File "game/customscreen.rpy", line 328, in prepare_screen
+    screen stoc():
+  File "game/customscreen.rpy", line 328, in prepare
+    screen stoc():
+  File "game/customscreen.rpy", line 344, in prepare
+    imagebutton auto "cyberfon_kup_%s":
+  File "game/customscreen.rpy", line 344, in prepare
+    imagebutton auto "cyberfon_kup_%s":
+  File "game/customscreen.rpy", line 346
+    (iloscAkcjiSp1+= 1), (edki -= cenaAkcjiSp1)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "game/customscreen.rpy", line 328, in prepare_screen
+    screen stoc():
+  File "game/customscreen.rpy", line 328, in prepare
+    screen stoc():
+  File "game/customscreen.rpy", line 344, in prepare
+    imagebutton auto "cyberfon_kup_%s":
+  File "game/customscreen.rpy", line 344, in prepare
+    imagebutton auto "cyberfon_kup_%s":
+  File "game/customscreen.rpy", line 346
+    (iloscAkcjiSp1+= 1), (edki -= cenaAkcjiSp1)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax
 
 -- Full Traceback ------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "renpy/common/00start.rpy", line 216, in script
+    python:
+  File "renpy/ast.py", line 1187, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/python.py", line 1273, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/common/00start.rpy", line 217, in <module>
+    _init_language()
+    ~~~~~~~~~~~~~~^^
+  File "renpy/common/00start.rpy", line 86, in _init_language
+    renpy.change_language(language, force=True)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/translation/__init__.py", line 854, in change_language
+    renpy.style.rebuild()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "renpy/style.pyx", line 808, in renpy.style.rebuild
+  File "renpy/display/screen.py", line 1035, in prepare_screens
+    s.ast.prepare_screen()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "game/customscreen.rpy", line 328, in prepare_screen
+    screen stoc():
+  File "game/customscreen.rpy", line 328, in prepare
+    screen stoc():
+  File "game/customscreen.rpy", line 344, in prepare
+    imagebutton auto "cyberfon_kup_%s":
+  File "game/customscreen.rpy", line 344, in prepare
+    imagebutton auto "cyberfon_kup_%s":
+  File "renpy/pyanalysis.py", line 913, in ast_eval
+    return self.ast_eval_literal(expr)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^   
+  File "renpy/pyanalysis.py", line 895, in ast_eval_literal
+    expr = py_compile(expr, "eval", ast_node=True)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/python.py", line 1260, in py_compile
+    raise e
+  File "renpy/python.py", line 1190, in py_compile
+    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, True)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "game/customscreen.rpy", line 346
+    (iloscAkcjiSp1+= 1), (edki -= cenaAkcjiSp1)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax
+
+During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
   File "renpy/bootstrap.py", line 401, in bootstrap
     renpy.main.main()
     ~~~~~~~~~~~~~~~^^
-  File "renpy/main.py", line 532, in main
-    renpy.dump.dump(False)
-    ~~~~~~~~~~~~~~~^^^^^^^
-  File "renpy/dump.py", line 257, in dump
-    os.rename(new, filename)
-    ~~~~~~~~~^^^^^^^^^^^^^^^
-PermissionError: [WinError 32] Proces nie może uzyskać dostępu do pliku, ponieważ jest on używany przez inny proces: 'C:\\Users\\kamil\\Desktop\\CPTG\\CyberDzbanTheGame\\game\\saves\\navigation.json.new' -> 'C:\\Users\\kamil\\Desktop\\CPTG\\CyberDzbanTheGame\\game\\saves\\navigation.json'
+  File "renpy/main.py", line 591, in main
+    run(restart)
+    ~~~^^^^^^^^^
+  File "renpy/main.py", line 137, in run
+    renpy.execution.run_context(True)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "renpy/execution.py", line 1036, in run_context
+    context.run()
+    ~~~~~~~~~~~^^
+  File "renpy/common/00start.rpy", line 216, in script
+    python:
+  File "renpy/common/00start.rpy", line 216, in script
+    python:
+  File "renpy/display/error.py", line 135, in report_exception
+    renpy.game.invoke_in_new_context(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        call_exception_screen,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        ignore_action=ignore_action,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "renpy/game.py", line 285, in invoke_in_new_context
+    return callable(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "renpy/display/error.py", line 44, in call_exception_screen
+    return renpy.ui.interact(mouse="screen", type="screen", suppress_overlay=True, suppress_underlay=True)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/ui.py", line 306, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/display/core.py", line 2154, in interact
+    repeat, rv = self.interact_core(
+                 ~~~~~~~~~~~~~~~~~~^
+        preloads=preloads,
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "renpy/display/core.py", line 2384, in interact_core
+    renpy.display.screen.prepare_screens()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "renpy/display/screen.py", line 1035, in prepare_screens
+    s.ast.prepare_screen()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "game/customscreen.rpy", line 328, in prepare_screen
+    screen stoc():
+  File "game/customscreen.rpy", line 328, in prepare
+    screen stoc():
+  File "game/customscreen.rpy", line 344, in prepare
+    imagebutton auto "cyberfon_kup_%s":
+  File "game/customscreen.rpy", line 344, in prepare
+    imagebutton auto "cyberfon_kup_%s":
+  File "renpy/pyanalysis.py", line 913, in ast_eval
+    return self.ast_eval_literal(expr)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^   
+  File "renpy/pyanalysis.py", line 895, in ast_eval_literal
+    expr = py_compile(expr, "eval", ast_node=True)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/python.py", line 1260, in py_compile
+    raise e
+  File "renpy/python.py", line 1190, in py_compile
+    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, True)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "game/customscreen.rpy", line 346
+    (iloscAkcjiSp1+= 1), (edki -= cenaAkcjiSp1)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax
 
 Windows-10-10.0.19045-SP0 AMD64
 Ren'Py 8.5.2.26010301
 CyberDzban 0.00000009
-Tue Jan 20 17:42:09 2026
+Sat Jan 24 09:21:38 2026

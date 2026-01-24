@@ -14,28 +14,13 @@ label spacerek:
     $ czas -= 5
     $ persistent.wolki += 1
     $ cel = renpy.random.randint(1, 100)
-    if "intro" not in sideseen:
-        $ sideseen.append("intro")
-        $ sidetosee.remove("intro")
+    if "side_intro" not in sideseen:
+        $ sideseen.append("side_intro")
+        $ sidetosee.remove("side_intro")
         call side_intro
 
-    if stan["Kasia"] == 666 and fajki > 0:
-        $ los = do_zobaczenia()
-        if los is None:
-            pass
-        
-        $ fajki -= 1
-        if los == 1:
-            call me
-            
-        elif los == 2:
-            "Dupa"
-        elif los == 3:
-            "Dupa"
-        elif los == 4:
-            "Dupa"
-        elif los == 5:
-            "Dupa"
+    if fajki > 0:
+        $ sidestory()
 
     if stan["Kasia"] == 3:
         jump frogsimp

@@ -26,10 +26,10 @@ define bo = Character(_("Borubabor"), color = "#abba69")
 define ha = Character(_("Halina"), color = "#423123")
 define bb = Character(_("Blink Blink"), color = "#3ef374")
 define wr = Character(_("Wróżbitka"), color = "#f04eda")
+define al = Character(_("Alfonso"), color="#ABACAD")
 define gg = Character(_("Gangus"), color = "#ec3434")
 define ko = Character(_("Korpos"), color = "#444444")
 define gu = Character(_("Ochrona"), color = "#abba69")
-define al = Character(_("Alfonso"), color="#ABACAD")
 define sus = Character(_("Podejrzany typ"), color="#bd8585")
 
 # słowniki
@@ -146,7 +146,8 @@ default kasiaknow = 0
 default jajca = 0
 default buul = ["bul1.mp3", "demon.mp3"]
 default sideseen = []
-default sidetosee = ["intro", "jax1"]
+default sidetosee = ["side_intro"]
+default sidelocked = ["side_Jax_1"]
 
 # deklaracje co do V
 default vechnik_stage = 0

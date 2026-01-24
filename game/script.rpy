@@ -78,6 +78,24 @@ init python:
             self.desc = desc
             self.image = image
 
+    def sidestory():
+        if sidetosee:
+            stp = random.choice(sidetosee)
+            sidetosee.remove(stp)
+            sideseen.append(stp)
+            renpy.call(stp)
+
+        else:
+            pass
+
+    def buyakc1():
+        iloscAkcjiSp1 += 1
+        edki -= cenaAkcjiSp1
+
+    def sellakc1():
+        iloscAkcjiSp1 -= 1
+        edki += cenaAkcjiSp1
+
 
 label updict(Who,dict):
         python:
@@ -388,6 +406,7 @@ label start:
 
         elif player_name == "Zium":
             $ chipy = 5
+            jump a2intro
 
         elif player_name == "Kasia":
             mg "Nie pozwalaj sobie kurwa"

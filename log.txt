@@ -1,44 +1,30 @@
-2026-01-23 18:07:34 UTC
+2026-01-24 15:35:08 UTC
 Windows-10-10.0.19045-SP0
 Ren'Py 8.5.2.26010301
 
-Early init took 118 ms
-Loading error handling took 145 ms
-Loading script took 3910 ms
-Loading save slot metadata took 545 ms
+Early init took 632 ms
+Loading error handling took 831 ms
+Loading script took 9736 ms
+Loading save slot metadata took 534 ms
 Loading persistent took 0 ms
-Running init code took 247 ms
-Loading analysis data took 30 ms
-Analyze and compile ATL took 5 ms
-Reloading save slot metadata took 133 ms
+ - Init at game/gui.rpy:11 took 529 ms.
+Running init code took 1181 ms
+Loading analysis data took 33 ms
+Analyze and compile ATL took 6 ms
+Reloading save slot metadata took 163 ms
 Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
-Dump and make backups took 285 ms
+Dump and make backups took 99 ms
 Cleaning cache took 0 ms
-Making clean stores took 2 ms
-Initial gc took 297 ms
+Making clean stores took 0 ms
+Initial gc took 167 ms
 DPI scale factor: 1.500000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: b"Couldn't load nvlib." (can be ignored)
-Creating interface object took 37 ms
+Creating interface object took 365 ms
 Init translation took 3 ms
 Cleaning stores took 1 ms
-Load screen analysis took 43 ms
-Analyze screens took 46 ms
-Save screen analysis took 43 ms
-Save pyanalysis took 1 ms
-Save bytecode took 68 ms
-Running _start took 3 ms
-Interface start took 1338 ms
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1920, 1080)
-swap interval: 1 frames
-Windowed mode.
-Vendor: 'ATI Technologies Inc.'
-Renderer: 'AMD Radeon(TM) RX Vega 10 Graphics'
-Version: '4.6.13559 Compatibility Profile Context 26.20.12036.1'
-Display Info: <Info({'bitsize': 32, 'bytesize': 4, 'masks': (16711680, 65280, 255, 0), 'shifts': (16, 8, 0, 0), 'losses': (0, 0, 0, 8), 'current_w': 1920, 'current_h': 1080, 'refresh_rate': 60, 'hw': False, 'wm': True, 'video_mem': 268435456, 'blit_hw': False, 'blit_hw_CC': False, 'blit_hw_A': False, 'blit_sw': False, 'blit_sw_CC': False, 'blit_sw_A': False})>
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
-Maximum texture size: 4096x4096
+Load screen analysis took 336 ms
+Analyze screens took 363 ms
+Save screen analysis took 157 ms
+Save pyanalysis took 54 ms
+Save bytecode took 257 ms

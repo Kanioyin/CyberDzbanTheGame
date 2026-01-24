@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/akt2.rpy", line 206: reached end of line when expecting ':'.
-    "A co powiesz na takiego Malboraska" if fajki > 0 and sidetosee has["Jax1"]
-                                                                               ^
+File "game/customscreen.rpy", line 347: keyword argument 'action' appears more than once in a imagebutton statement.
+    action (edki -= cenaAkcjiSp1)
+          ^
 
 Ren'Py Version: Ren'Py 8.5.2.26010301
-Wed Jan 21 17:23:37 2026
+Sat Jan 24 09:21:16 2026

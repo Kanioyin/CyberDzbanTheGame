@@ -132,7 +132,32 @@ label piwko:
             achieve Bir
         
         elif postacie2["VIO"] == 1:
-            vi "Zaczynamy"
+            vi "Viemandero [old_pn], jak tam leci?"
+            p "A po staremu dość, możesz mi trochę opowiedzieć o swojej przeszłości?"
+            vi "Vo vholera"
+            p "Tak wiem, bardzo dużo wymagam ale się zaciekawiłem w sumie"
+            vi "Vle v vumie vogę voś vpowiedzieć"
+            vi "Vyłem vobie vwykłym vhirurgiem, vracovałem vałymi vniami"
+            vi "Vle vewnego vnia, vojawiła vię vferta vpecjalna. Vpdate vałego voftu va vół veny"
+            vi "Viestety, vkazało vię, ve ven vpecialista vył Vistą"
+            vi "V vzasie vpdejtu vostałem Vistem, va voczątku vie viedziałem vo vię vieje"
+            vi "Vle votem, vbudził vię ve vnie vłód, vhiałem vudzkiego vięsa"
+            vi "Vyłem vednak vdporny va vtaki vniewu v vogłem vakoś vię vkrywać"
+            vi "Voprowadziłem vikla vperacji vle vakradałem vię vo vostnicy vy veść"
+            vi "Vewnego vnia, vostałem vłapany. Vtedy vojawiły vię vnne Visty"
+            vi "V v vzpitalu vaczął vię vrmagedon"
+            vi "Vo vym vszystkim, vciekłem v vnnymi Vistami v vizdu"
+            vi "Viestety, vie vpodobało vim vię voje vodejście vo vycia"
+            vi "V vamknęli vnie v vrumnie vdzie viał vnie vwolnić vovo"
+            vi "Vle vigdy vo vnie vie vrzyszedł v vnaleźli vnie vbany"
+            vi "Vak vygląga voja vistoria"
+            p "Ciekawe, fajnie jest usłyszeć wasze backstory"
+            vi "Vzy va vak viem, vpowieść vak vpowieść"
+            p "Imo warto to wiedzieć, lepiej można wtedy zrozumieć ludzi"
+            vi "Vo vobra, vo va vens"
+            p "Ano"
+            "I z VIO dokończyliście sobie piwko"
+            $ postacie2["VIO"] = 2
 
         elif postacie2["VIO"] == 2:
             vi "Jestem z VIO"

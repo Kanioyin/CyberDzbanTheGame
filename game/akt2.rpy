@@ -6,7 +6,10 @@ label a2intro:
     $ Frakcja = oldFrakcja
     if helper < 0:
         $ helper = 0
-        
+
+
+    $sidetosee.append("side_Jax_1")
+    $sidelocked.remove("side_Jax_1")        
     sb "Aj karamba, bolało! Mam nadzeję, że jesteś cały"
     sb "Zobaczmy z czego jesteś zbudowany"
     menu:
@@ -201,11 +204,6 @@ label jaxowo:
                 ja "I w akcjach na głośno mogę pokazać swój pełen potencjał"
                 p "No dobrze, teraz spytam się VIO, do czego on jest zdolny"
                 $ stan2["Kris"] = 3
-
-
-            "A co powiesz na takiego Malboraska" if fajki > 0 and sidetosee has ["jax1"]:
-                ja "O cholender, takiej przyjemności nie mogę odmówić"
-                call side_Jax_1
 
             "Co powiesz na mały trening?" if exp > 9:
                 ja "Jasne mordeczko"
@@ -776,7 +774,36 @@ label krzis:
             $ stan2["Kris"] = 5
 
         if stan2["Kris"] == 5:
+            cr "Czyli jesteś już ostatecznie przygotowany"
+            p "Tajest, nie ma sensu tego dłużej przeciągać"
+            cr "No dobrze, powodzenia młody i reszcie też powodzenia"
+            cr "Może się zobaczymy jeszcze w lepszym miejscu"
+            cr "Żegnaj Zbigniew"
+            p "Adios Krisos"
+            scene spacerek
+            show jax at left
+            show vio at right
+            p "Dobra panowie, jedziemy z tym zadaniem"
+            vi "Masz już jakiś plan przygotowany?"
+            p "Na spokojnie, wszystko już sobie obmyślałem"
+            vi "No niech będzie, wszyscy na łączach?"
+            ja "Pewnie, że tak"
+            p "Dobrze was słychać, możemy zaczynać powoli"
+            p "Pamiętajcie, nie możemy panikować. Ben jest czujny jak pies podwójny"
+            ja "I ma bardzo dobrych strażników przy sobie"
+            vi "I ta jego lafirynda obserwuje zawsze co się dzieje"
+            p "Będzie trzeba ich oślepić nim coś zrobimy"
+            ja "Dobre podejście"
+            scene kasyno
+            p "Podejście pod miejście akcji"
             jump tempend
+            menu:
+                p "Jak podchodzimy to tego zadania?"
+                "Na przypale":
+                    "Zit"
+
+                "Na skradaka":
+                    "Tit"
 
     jump opor
 
