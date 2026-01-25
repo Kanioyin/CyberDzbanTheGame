@@ -91,10 +91,12 @@ init python:
     def buyakc1():
         iloscAkcjiSp1 += 1
         edki -= cenaAkcjiSp1
+        tradexp += 1
 
     def sellakc1():
         iloscAkcjiSp1 -= 1
         edki += cenaAkcjiSp1
+        tradexp += 1
 
 
 label updict(Who,dict):
@@ -122,12 +124,25 @@ label checktime:
 label spanko:
     $ czas = 20
     $ dzien += 1
-    $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-10,10)
+    if tradexp > 49:
+        $ skile["Handlowanie"] += 1
+        $ tradexp -= 50
+
+    if fart < 40:
+        $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-50,10)
+    
+    elif fart in (39,80):
+        $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-10,10)
+
+    elif fart > 79:
+        $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-10,50)
+        $ fart -= 10
+
     if cenaAkcjiSp1 < 1:
         $ cenaAkcjiSp1 = 1
 
     if HP < MaxHP:
-        if inventory.has_item(Flaszka) == True and MaxHP>HP+4:
+        if inventory.has_item(Flaszka) == True and MaxHP > HP + 4:
             p "Flaszka, moja żono"
             $ inventory.remove_item(Flaszka)
             $ HP += 5
@@ -270,12 +285,19 @@ transform bounce:
     linear 3.0 xalign 0.0
     repeat 2
 
+transform najebanie(intensity=10    ):
+    linear 2.0 blur intensity
+    linear 2.0 blur (intensity / 2)
+    repeat
+
+transform abstynencja:
+    linear 1.5 blur 0
+
 label cipflash:
     show ciphate with dissolve
     pause 1
     hide ciphate with dissolve
     return
-
 
 label start:
     $ start_time = renpy.get_game_runtime()
@@ -1613,8 +1635,8 @@ label frogszop:
             "Malborasek?" if frogsy > 999 and fajki < 1:
                 if "intro" not in sideseen:
                     $ sideseen.append("intro")
-                    call side_intro
                     $ sidetosee.remove("intro")
+                    call side_intro
 
                 p "Daj mnie malboraska"
                 fse "Się robi"
@@ -1639,6 +1661,9 @@ label frogszop:
                 $ zawal += 1
                 $ persistent.monsters += 1
                 if zawal >= renpy.random.randint(0,99):
+                    if umieram == 1:
+                        jump gameover
+
                     p "A niech to, chyba mam zawał"
                     $ HP = 0
                     $ zawal = 0
@@ -1659,7 +1684,7 @@ label frogszop:
                 fse "25 edków"
                 p "Proszę"
                 p "Dobra, zobaczymy czy wygrałem"
-                if renpy.random.randint(0, 200) < fart:
+                if renpy.random.randint(50, 300) < fart:
                     $ fart = 1
                     p "O CHUJ WYGRAŁEM"
                     achieve Mak

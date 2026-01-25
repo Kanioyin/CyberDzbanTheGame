@@ -26,16 +26,16 @@ define bo = Character(_("Borubabor"), color = "#abba69")
 define ha = Character(_("Halina"), color = "#423123")
 define bb = Character(_("Blink Blink"), color = "#3ef374")
 define wr = Character(_("Wróżbitka"), color = "#f04eda")
-define al = Character(_("Alfonso"), color="#ABACAD")
+define al = Character(_("Alfonso"), color = "#ABACAD")
 define gg = Character(_("Gangus"), color = "#ec3434")
 define ko = Character(_("Korpos"), color = "#444444")
 define gu = Character(_("Ochrona"), color = "#abba69")
-define sus = Character(_("Podejrzany typ"), color="#bd8585")
+define sus = Character(_("Podejrzany typ"), color = "#bd8585")
 
 # słowniki
 default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
 default cechy = {"INT":2, "ZW":2, "CHAR":2,"BC":2}
-default skile = {"Atletyka": 2, "Bron": 2, "Gadanie": 2, "Myslenie": 2}
+default skile = {"Atletyka": 2, "Bron": 2, "Gadanie": 2, "Myslenie": 2, "Handlowanie": 1}
 default stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0, "Kasia":0}
 
 # inventory
@@ -105,7 +105,8 @@ default orientacja = 0
 # 0 = Hereto
 # 1 = Homo
 # 2 = Bi
-default tapeta = 0
+default tradexp = 0
+default wstawienie = 0
 default Cap = 4
 default dzien = 1
 default armor = 0

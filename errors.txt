@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/customscreen.rpy", line 347: keyword argument 'action' appears more than once in a imagebutton statement.
-    action (edki -= cenaAkcjiSp1)
-          ^
+File "game/script.rpy", line 283: expected 'simple_expression' not found.
+    linear 2.0 blur
+                   ^
 
 Ren'Py Version: Ren'Py 8.5.2.26010301
-Sat Jan 24 09:21:16 2026
+Sun Jan 25 19:48:31 2026

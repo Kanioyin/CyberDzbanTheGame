@@ -1,30 +1,219 @@
-2026-01-24 15:35:08 UTC
+2026-01-25 19:11:55 UTC
 Windows-10-10.0.19045-SP0
 Ren'Py 8.5.2.26010301
 
-Early init took 632 ms
-Loading error handling took 831 ms
-Loading script took 9736 ms
-Loading save slot metadata took 534 ms
-Loading persistent took 0 ms
- - Init at game/gui.rpy:11 took 529 ms.
-Running init code took 1181 ms
-Loading analysis data took 33 ms
-Analyze and compile ATL took 6 ms
-Reloading save slot metadata took 163 ms
-Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
-Dump and make backups took 99 ms
+Early init took 896 ms
+Loading error handling took 619 ms
+Loading script took 8728 ms
+Loading save slot metadata took 3423 ms
+Loading persistent took 2 ms
+Running init code took 1372 ms
+Loading analysis data took 101 ms
+Analyze and compile ATL took 29 ms
+Reloading save slot metadata took 401 ms
+Dump and make backups took 1173 ms
 Cleaning cache took 0 ms
-Making clean stores took 0 ms
-Initial gc took 167 ms
+Making clean stores took 55 ms
+Initial gc took 2041 ms
 DPI scale factor: 1.500000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: b"Couldn't load nvlib." (can be ignored)
-Creating interface object took 365 ms
+Creating interface object took 442 ms
+Init translation took 8 ms
+Cleaning stores took 1 ms
+Load screen analysis took 2926 ms
+Analyze screens took 155 ms
+Save screen analysis took 1 ms
+Save pyanalysis took 0 ms
+Save bytecode took 0 ms
+Running _start took 16 ms
+Interface start took 8102 ms
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: 'ATI Technologies Inc.'
+Renderer: 'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: '4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: <Info({'bitsize': 32, 'bytesize': 4, 'masks': (16711680, 65280, 255, 0), 'shifts': (16, 8, 0, 0), 'losses': (0, 0, 0, 8), 'current_w': 1920, 'current_h': 1080, 'refresh_rate': 60, 'hw': False, 'wm': True, 'video_mem': 268435456, 'blit_hw': False, 'blit_hw_CC': False, 'blit_hw_A': False, 'blit_sw': False, 'blit_sw_CC': False, 'blit_sw_A': False})>
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+Resetting cache.
+Early init took 280 ms
+Loading error handling took 631 ms
+Loading script took 7331 ms
+Loading save slot metadata took 658 ms
+Loading persistent took 2 ms
+ - Init at game/0bobcgallery.rpy:157 took 306 ms.
+Running init code took 1789 ms
+Loading analysis data took 134 ms
+Analyze and compile ATL took 41 ms
+Reloading save slot metadata took 278 ms
+Dump and make backups took 834 ms
+Cleaning cache took 1 ms
+Making clean stores took 5 ms
+Initial gc took 774 ms
+DPI scale factor: 1.500000
+Creating interface object took 4 ms
+Init translation took 4 ms
+Cleaning stores took 1 ms
+Load screen analysis took 458 ms
+Analyze screens took 15 ms
+Save screen analysis took 1 ms
+Save pyanalysis took 0 ms
+Save bytecode took 1 ms
+Running _start took 21 ms
+Interface start took 6316 ms
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: 'ATI Technologies Inc.'
+Renderer: 'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: '4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: <Info({'bitsize': 32, 'bytesize': 4, 'masks': (16711680, 65280, 255, 0), 'shifts': (16, 8, 0, 0), 'losses': (0, 0, 0, 8), 'current_w': 1920, 'current_h': 1080, 'refresh_rate': 60, 'hw': False, 'wm': True, 'video_mem': 268435456, 'blit_hw': False, 'blit_hw_CC': False, 'blit_hw_A': False, 'blit_sw': False, 'blit_sw_CC': False, 'blit_sw_A': False})>
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+
+Full traceback:
+  File "renpy/common/_layout/screen_main_menu.rpym", line 28, in script
+    python hide:
+  File "renpy/ast.py", line 1187, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/python.py", line 1273, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/common/_layout/screen_main_menu.rpym", line 28, in <module>
+    python hide:
+  File "renpy/common/_layout/screen_main_menu.rpym", line 35, in _execute_python_hide
+    ui.interact()
+    ~~~~~~~~~~~^^
+  File "renpy/ui.py", line 306, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/display/core.py", line 2154, in interact
+    repeat, rv = self.interact_core(
+                 ~~~~~~~~~~~~~~~~~~^
+        preloads=preloads,
+        ^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "renpy/display/core.py", line 2700, in interact_core
+    root_widget.visit_all(lambda d: d.per_interact())
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/display/displayable.py", line 457, in visit_all
+    d.visit_all(callback, seen)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "renpy/display/displayable.py", line 457, in visit_all
+    d.visit_all(callback, seen)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "renpy/display/displayable.py", line 457, in visit_all
+    d.visit_all(callback, seen)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+[Previous line repeated 1 more time]
+  File "renpy/display/screen.py", line 503, in visit_all
+    callback(self)
+    ~~~~~~~~^^^^^^
+  File "renpy/display/core.py", line 2700, in <lambda>
+    root_widget.visit_all(lambda d: d.per_interact())
+                                    ~~~~~~~~~~~~~~^^ 
+  File "renpy/display/screen.py", line 514, in per_interact
+    self.update()
+    ~~~~~~~~~~~^^
+  File "renpy/display/screen.py", line 715, in update
+    self.screen.function(**self.scope)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "game/screens.rpy", line 340, in execute
+    screen stats():
+  File "game/screens.rpy", line 340, in execute
+    screen stats():
+  File "game/screens.rpy", line 343, in execute
+    frame:
+  File "game/screens.rpy", line 350, in execute
+    vbox:
+  File "game/screens.rpy", line 363, in execute
+    text _("Zobaczone sidestory: [len.sideseen]/[len.sidetosee]")
+  File "renpy/text/text.py", line 2211, in __init__
+    self.set_text(text, scope, substitute)  # type: ignore
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^                
+  File "renpy/text/text.py", line 2350, in set_text
+    i, did_sub = renpy.substitutions.substitute(i, scope, substitute)  # type: ignore
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^                
+  File "renpy/substitutions.py", line 355, in substitute
+    s = interpolate(s, variables)  # type: ignore
+        ~~~~~~~~~~~^^^^^^^^^^^^^^                
+  File "renpy/substitutions.py", line 89, in interpolate
+    raise e
+  File "renpy/substitutions.py", line 81, in interpolate
+    value = renpy.python.py_eval(code, {}, scope)
+            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "renpy/python.py", line 1305, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/python.py", line 1298, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<none>", line 1, in <module>
+AttributeError: 'builtin_function_or_method' object has no attribute 'sideseen'
+
+While running game code:
+  File "game/screens.rpy", line 340, in execute
+    screen stats():
+  File "game/screens.rpy", line 340, in execute
+    screen stats():
+  File "game/screens.rpy", line 343, in execute
+    frame:
+  File "game/screens.rpy", line 350, in execute
+    vbox:
+  File "game/screens.rpy", line 363, in execute
+    text _("Zobaczone sidestory: [len.sideseen]/[len.sidetosee]")
+AttributeError: 'builtin_function_or_method' object has no attribute 'sideseen'
+Resetting cache.
+Early init took 201 ms
+Loading error handling took 402 ms
+Loading script took 4452 ms
+Loading save slot metadata took 363 ms
+Loading persistent took 1 ms
+Running init code took 342 ms
+Loading analysis data took 51 ms
+Analyze and compile ATL took 12 ms
+Reloading save slot metadata took 89 ms
+Backing up script files to 'C:\\Users\\Lenovo\\AppData\\Roaming/RenPy/backups\\CyberDzbanTheGame':
+Dump and make backups took 250 ms
+Cleaning cache took 0 ms
+Making clean stores took 1 ms
+Initial gc took 583 ms
+DPI scale factor: 1.500000
+Creating interface object took 3 ms
 Init translation took 3 ms
 Cleaning stores took 1 ms
-Load screen analysis took 336 ms
-Analyze screens took 363 ms
-Save screen analysis took 157 ms
-Save pyanalysis took 54 ms
-Save bytecode took 257 ms
+Load screen analysis took 5 ms
+Analyze screens took 240 ms
+Save screen analysis took 187 ms
+Save pyanalysis took 66 ms
+Save bytecode took 17 ms
+Running _start took 21 ms
+Interface start took 7208 ms
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: 'ATI Technologies Inc.'
+Renderer: 'AMD Radeon(TM) RX Vega 10 Graphics'
+Version: '4.6.13559 Compatibility Profile Context 26.20.12036.1'
+Display Info: <Info({'bitsize': 32, 'bytesize': 4, 'masks': (16711680, 65280, 255, 0), 'shifts': (16, 8, 0, 0), 'losses': (0, 0, 0, 8), 'current_w': 1920, 'current_h': 1080, 'refresh_rate': 60, 'hw': False, 'wm': True, 'video_mem': 268435456, 'blit_hw': False, 'blit_hw_CC': False, 'blit_hw_A': False, 'blit_sw': False, 'blit_sw_CC': False, 'blit_sw_A': False})>
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1046) drawable=(1920, 1046)
+Maximum texture size: 4096x4096

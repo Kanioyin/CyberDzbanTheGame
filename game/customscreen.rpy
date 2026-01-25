@@ -273,6 +273,7 @@ screen bank():
         text "{color=000} Masz na koncie [edki] edków"
         text "{color=000} Masz na koncie [vdolce] Vdolców"
         text "{color=000} Masz na koncie [frogsy] frogsów"
+        text "{color=000} Masz [iloscAkcjiSp1] akcji KGU"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -331,6 +332,7 @@ screen postac():
             text "{color=000} Gadanie: [skile['Gadanie']]"
             text "{color=000} Spierdalanie: [skile['Atletyka']]"
             text "{color=000} Myślenie: [skile['Myslenie']]"
+            text "{color=000} Handlowanie: [skile['Handlowanie']]"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True

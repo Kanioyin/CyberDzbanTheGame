@@ -1,14 +1,3 @@
-init python:
-    import random
-    def do_zobaczenia():
-        possible = [x for x in sidetosee if x not in sideseen]
-        if not possible:
-            return None
-
-        choice = random.choice(possible)
-        sideseen.append(choice)
-        return choice
-
 label spacerek:
     scene spacer
     $ czas -= 5
@@ -132,7 +121,6 @@ label spacerek:
                 $ fart -= 20
                 $ exp += 1
 
-
         else:
             "Coś się zjebało"
 
@@ -224,14 +212,14 @@ label spacerek:
             show aspiwko
             "Spacerując, zauważyłeś przystojnego zimeczka, waloncego browareczka"
             "Zaoferował Ci wspólne obalenie Mocnego Knura. Skorzystałeś z tej oferty"
-            $ fart += 20
+            $ fart += 25
             "Czujesz się teraz szczęśliwszy"
 
 
     elif cel > 66 and cel < 78:
         if fart > 49:
             "Szczęśliwie uniknąłeś złodzieji, farcik"
-            $ fart -= 15
+            $ fart -= 25
 
         elif inventory.has_item(Kokos) == True:
             "Znalazły Cię ćpuny"
@@ -272,7 +260,7 @@ label spacerek:
         if inventory.has_item(Wytrych) == True:
             p "Jest i wytryszek, pogczamp"
             p "Opening time!"
-            $ helper = renpy.random.randint(1, 4)
+            $ helper = renpy.random.randint(1, 5)
             if renpy.random.randint(1, 5) == 5:
                 p "Karamba! Złamałem wytrych"
                 $ inventory.remove_item(Wytrych)
@@ -296,12 +284,17 @@ label spacerek:
                 $ Cap += 1
                 p "Zawsze jeden przedmiot więcej"
 
+            elif helper == 5:
+                p "Ktoś zostawił swojego agenta maklerskiego"
+                $ iloscAkcjiSp1 += 1
+                p "Jakaś akcja dla mnie"
+
         elif akt == 2:
             p "Dupa, nie mam go w eq. Może siłą umysłu uda mi się go otworzyć"
             call testSkili("Myslenie","INT",10) from _call_testSkili_9
             if wynik == 1:
                 p "Mój giga mózg pomógł mi to otworzyć"
-                $ helper = renpy.random.randint(1, 4)
+                $ helper = renpy.random.randint(1, 5)
                 if helper == 1:
                     p "O proszę! Hajsiwo"
                     $ edki += renpy.random.randint(50, 300)
@@ -320,6 +313,11 @@ label spacerek:
                     p "O proszę, powiększenie ekwipunku"
                     $ Cap += 1
                     p "Zawsze jeden przedmiot więcej"
+
+                elif helper == 5:
+                    p "Ktoś zostawił swojego agenta maklerskiego"
+                    $ iloscAkcjiSp1 += 1
+                    p "Jakaś akcja dla mnie"
 
         else:
             p "Kurwa nie, przydał by się wytrych"
