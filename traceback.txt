@@ -1,34 +1,82 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/screens.rpy", line 340, in execute
-    screen stats():
-  File "game/screens.rpy", line 340, in execute
-    screen stats():
-  File "game/screens.rpy", line 343, in execute
-    frame:
-  File "game/screens.rpy", line 350, in execute
+  File "game/script.rpy", line 512, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 555, in script call
+    pause 1
+  File "game/spacerek.rpy", line 369, in script call
+    pause 1
+  File "game/spacerek.rpy", line 369, in script call
+    pause 1
+  File "game/spacerek.rpy", line 369, in script call
+    pause 1
+  File "game/script.rpy", line 512, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 555, in script call
+    pause 1
+  File "game/spacerek.rpy", line 369, in script call
+    pause 1
+  File "game/spacerek.rpy", line 369, in script call
+    pause 1
+  File "game/script.rpy", line 555, in script call
+    pause 1
+  File "game/script.rpy", line 555, in script call
+    pause 1
+  File "game/akt2.rpy", line 136, in script
+    pause 10
+  File "game/customscreen.rpy", line 316, in execute
+    screen postac():
+  File "game/customscreen.rpy", line 316, in execute
+    screen postac():
+  File "game/customscreen.rpy", line 325, in execute
+    if akt > 1:
+  File "game/customscreen.rpy", line 334, in execute
     vbox:
-  File "game/screens.rpy", line 363, in execute
-    text _("Zobaczone sidestory: [len.sideseen]/[len.sidetosee]")
-AttributeError: 'builtin_function_or_method' object has no attribute 'sideseen'
+KeyError: 'Handlowanie'
 
 -- Full Traceback ------------------------------------------------------------
 
 Traceback (most recent call last):
-  File "renpy/common/_layout/screen_main_menu.rpym", line 28, in script
-    python hide:
-  File "renpy/ast.py", line 1187, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/python.py", line 1273, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/common/_layout/screen_main_menu.rpym", line 28, in <module>
-    python hide:
-  File "renpy/common/_layout/screen_main_menu.rpym", line 35, in _execute_python_hide
-    ui.interact()
-    ~~~~~~~~~~~^^
+  File "game/script.rpy", line 512, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 555, in script call
+    pause 1
+  File "game/spacerek.rpy", line 369, in script call
+    pause 1
+  File "game/spacerek.rpy", line 369, in script call
+    pause 1
+  File "game/spacerek.rpy", line 369, in script call
+    pause 1
+  File "game/script.rpy", line 512, in script call
+    call checktime from _call_checktime
+  File "game/script.rpy", line 555, in script call
+    pause 1
+  File "game/spacerek.rpy", line 369, in script call
+    pause 1
+  File "game/spacerek.rpy", line 369, in script call
+    pause 1
+  File "game/script.rpy", line 555, in script call
+    pause 1
+  File "game/script.rpy", line 555, in script call
+    pause 1
+  File "game/akt2.rpy", line 136, in script
+    pause 10
+  File "renpy/ast.py", line 2241, in execute
+    self.call("execute")
+    ~~~~~~~~~^^^^^^^^^^^
+  File "renpy/ast.py", line 2195, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/statements.py", line 381, in call
+    return method(parsed, *args, **kwargs)
+           ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/common/000statements.rpy", line 483, in execute_pause
+    renpy.pause(delay)
+    ~~~~~~~~~~~^^^^^^^
+  File "renpy/exports/statementexports.py", line 198, in pause
+    rv = renpy.ui.interact(mouse="pause", type="pause", roll_forward=roll_forward, pause=delay, pause_modal=modal)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "renpy/ui.py", line 306, in interact
     rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -54,7 +102,6 @@ Traceback (most recent call last):
   File "renpy/display/displayable.py", line 457, in visit_all
     d.visit_all(callback, seen)
     ~~~~~~~~~~~^^^^^^^^^^^^^^^^
-[Previous line repeated 1 more time]
   File "renpy/display/screen.py", line 503, in visit_all
     callback(self)
     ~~~~~~~~^^^^^^
@@ -67,19 +114,17 @@ Traceback (most recent call last):
   File "renpy/display/screen.py", line 715, in update
     self.screen.function(**self.scope)
     ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
-  File "game/screens.rpy", line 340, in execute
-    screen stats():
-  File "game/screens.rpy", line 340, in execute
-    screen stats():
-  File "game/screens.rpy", line 343, in execute
-    frame:
-  File "game/screens.rpy", line 350, in execute
+  File "game/customscreen.rpy", line 316, in execute
+    screen postac():
+  File "game/customscreen.rpy", line 316, in execute
+    screen postac():
+  File "game/customscreen.rpy", line 325, in execute
+    if akt > 1:
+  File "game/customscreen.rpy", line 334, in execute
     vbox:
-  File "game/screens.rpy", line 363, in execute
-    text _("Zobaczone sidestory: [len.sideseen]/[len.sidetosee]")
-  File "renpy/text/text.py", line 2211, in __init__
-    self.set_text(text, scope, substitute)  # type: ignore
-    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^                
+  File "renpy/text/text.py", line 2313, in _scope
+    return self.set_text(self.text_parameter, scope, self.substitute, update)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "renpy/text/text.py", line 2350, in set_text
     i, did_sub = renpy.substitutions.substitute(i, scope, substitute)  # type: ignore
                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^                
@@ -98,9 +143,9 @@ Traceback (most recent call last):
     return eval(bytecode, globals, locals)
            ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "<none>", line 1, in <module>
-AttributeError: 'builtin_function_or_method' object has no attribute 'sideseen'
+KeyError: 'Handlowanie'
 
 Windows-10-10.0.19045-SP0 AMD64
 Ren'Py 8.5.2.26010301
 CyberDzban 0.00000009
-Sun Jan 25 20:13:28 2026
+Mon Jan 26 19:15:20 2026

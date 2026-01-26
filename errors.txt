@@ -2,9 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 283: expected 'simple_expression' not found.
-    linear 2.0 blur
+File "game/niepodleglosc.rpy", line 95: expected '=' not found.
+    default global cenaAkcjiSp1 = 100
+                   ^
+
+File "game/niepodleglosc.rpy", line 96: expected '=' not found.
+    default global iloscAkcjiSp1 = 0
                    ^
 
 Ren'Py Version: Ren'Py 8.5.2.26010301
-Sun Jan 25 19:48:31 2026
+Mon Jan 26 18:47:24 2026

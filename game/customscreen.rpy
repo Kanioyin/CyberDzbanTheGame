@@ -105,6 +105,11 @@ screen phone():
         unhovered SetVariable("screen_tooltip","")
         action Function(change_wallpaper)
 
+    imagebutton auto "cyberfon_hors_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
@@ -318,7 +323,7 @@ screen postac():
 
     if akt > 1:
         vbox:
-            pos 0.4, 0.13
+            pos 0.4, 0.19
             text "{color=000} Twoje cechy"
             text "{color=000} Budowa ciała: [cechy['BC']]"
             text "{color=000} Zwinność: [cechy['ZW']]"
@@ -326,7 +331,7 @@ screen postac():
             text "{color=000} Umysł [cechy['INT']]"
 
         vbox:
-            pos 0.4, 0.33
+            pos 0.4, 0.37
             text "{color=000} Twoje umiejętności"
             text "{color=000} Strzelanie: [skile['Bron']]"
             text "{color=000} Gadanie: [skile['Gadanie']]"
@@ -349,6 +354,7 @@ screen stoc():
         pos 0.4, 0.13
         text "{color=000} Cena akcji KGU: [cenaAkcjiSp1]"
         text "{color=000} Posiadane akcjie: [iloscAkcjiSp1]"
+        text "{color=000} Twój kapitał: [edki]"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -356,13 +362,15 @@ screen stoc():
         unhovered SetVariable("screen_tooltip","")
         action Hide("stoc"), Show("phone")
 
-    imagebutton auto "cyberfon_kup_%s":
-        focus_mask True
-        action Function(buyakc1)
+    if edki > cenaAkcjiSp1:
+        imagebutton auto "cyberfon_kup_%s":
+            focus_mask True
+            action Function(buyakc1)
 
-    imagebutton auto "cyberfon_sell_%s":
-        focus_mask True
-        action Function(sellakc1)
+    if iloscAkcjiSp1 > 0:
+        imagebutton auto "cyberfon_sell_%s":
+            focus_mask True
+            action Function(sellakc1)
 
 screen map_screen():
     add "mapa.png"

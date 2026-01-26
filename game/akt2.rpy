@@ -774,6 +774,7 @@ label krzis:
             $ stan2["Kris"] = 5
 
         if stan2["Kris"] == 5:
+            jump tempend
             cr "Czyli jesteś już ostatecznie przygotowany"
             p "Tajest, nie ma sensu tego dłużej przeciągać"
             cr "No dobrze, powodzenia młody i reszcie też powodzenia"
@@ -796,7 +797,6 @@ label krzis:
             ja "Dobre podejście"
             scene kasyno
             p "Podejście pod miejście akcji"
-            jump tempend
             menu:
                 p "Jak podchodzimy to tego zadania?"
                 "Na przypale":

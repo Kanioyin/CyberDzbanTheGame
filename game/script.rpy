@@ -89,11 +89,19 @@ init python:
             pass
 
     def buyakc1():
+        global iloscAkcjiSp1
+        global edki
+        global tradexp
+
         iloscAkcjiSp1 += 1
         edki -= cenaAkcjiSp1
         tradexp += 1
 
     def sellakc1():
+        global iloscAkcjiSp1
+        global edki
+        global tradexp
+
         iloscAkcjiSp1 -= 1
         edki += cenaAkcjiSp1
         tradexp += 1
