@@ -94,6 +94,7 @@ default hunger = 0
 default wallpapers = ["bg1", "bg2", "bg3"]
 default cenaAkcjiSp1 = 100
 default iloscAkcjiSp1 = 0
+default zakład = 0
 # 0 = Niezrzeszony
 # 1 = DH
 # 2 = DN

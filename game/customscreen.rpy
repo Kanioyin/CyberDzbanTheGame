@@ -109,6 +109,7 @@ screen phone():
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
+        action Hide("phone"), Show("hors")
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -371,6 +372,17 @@ screen stoc():
         imagebutton auto "cyberfon_sell_%s":
             focus_mask True
             action Function(sellakc1)
+
+screen hors():
+    modal True
+    add "tapety/[persistent.phone_bg].png"
+    add "cyberfon_clear"
+
+    imagebutton auto "cyberfon_won_%s":
+        focus_mask True
+        hovered SetVariable("screen_tooltip", "Return")
+        unhovered SetVariable("screen_tooltip","")
+        action Hide("hors"), Show("phone")
 
 screen map_screen():
     add "mapa.png"

@@ -293,7 +293,7 @@ transform bounce:
     linear 3.0 xalign 0.0
     repeat 2
 
-transform najebanie(intensity=10    ):
+transform najebanie(intensity=10):
     linear 2.0 blur intensity
     linear 2.0 blur (intensity / 2)
     repeat
@@ -397,7 +397,7 @@ label start:
         elif player_name == "Kennedy" or player_name == "Ken":
             gk "Szczylu, uspokuj się"
 
-        elif player_name == "Sex" or player_name == "sex":
+        elif player_name == "Sex":
             "Kto jak kto ale ty raczej nie ruchasz"
 
         elif player_name == "Cycu":
@@ -443,7 +443,6 @@ label start:
 
         else:
             $ helper = 0
-
     
     "Nie miałeś edków"
     call bigunl from _call_bigunl
@@ -453,7 +452,6 @@ label start:
         "Więc postanowiłeś..."
 
         "Dołączyć do Cyberdzbanów.":
-
             scene baza
 
         "Spierdalać.":
