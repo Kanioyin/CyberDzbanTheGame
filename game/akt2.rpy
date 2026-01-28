@@ -800,7 +800,55 @@ label krzis:
             menu:
                 p "Jak podchodzimy to tego zadania?"
                 "Na przypale":
-                    "Zit"
+                    p "Dobra panowie, plan jest prosty, wbijamy sobie głównym wejściem"
+                    vi "Oho, dobrze się zapowiada"
+                    p "Cicho, nie zapeszaj"
+                    p "Po wejściu, pogramy sobie trochę a później się rozdzielimy"
+                    p "Powoli będziemy progresować do pomieszczenia ze wszczepem"
+                    p "Tylko będzie trzeba się pozbyć tych jebanych kamer"
+                    menu:
+                        p "Kto wyłączy kamery?"
+                        "VIO":
+                            p "Będziesz w stanie się ich pozbyć?"
+                            vi "Jasna sprawa"
+                            $ stan2["Vio"] = 1
+
+                        "JAX":
+                            p "Będziesz w stanie się ich pozbyć?"
+                            vi "Jasna sprawa"
+                            $ stan2["Jax"] = 2
+
+                    p "Jak będą ślepi, to zobaczymy co nas dalej czeka"
+                    p "Spotkamy się w środku i zobaczymy co nas czeka"
+                    p "Zrozumiały plan?"
+                    ja "Tajest"
+                    scene kasyno
+                    p "Panowie, rozproszyć się"
+                    "I tak, każdy z was poszedł do własnego stołu"
+                    menu:
+                        "Na jakie stawki chcesz grać?"
+                        "Wysokie" if edki > 4999:
+                            $ zakład = 5000
+
+                        "Średnie" if edki > 2499:
+                            $ zakład = 2500
+
+                        "Niskie" if edki > 999:
+                            $ zakład = 1000
+
+                        "Minimalne":
+                            $ zakład = 50
+
+                    $ edki -= zakład
+                    p "Dobra, let's go gambling"
+                    "Teraz zobaczmy jak Ci poszło"
+                    $ helper = renpy.random.randint(25, 100)
+                    if helper < fart:
+                        "Ciemna cipa, udało Ci się wygrać"
+                        $ edki += zakład * 2
+
+                    else:
+                        "Jasny chuj, nic nie siadło"
 
                 "Na skradaka":
                     "Tit"
