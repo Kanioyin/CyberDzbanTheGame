@@ -2,13 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/niepodleglosc.rpy", line 95: expected '=' not found.
-    default global cenaAkcjiSp1 = 100
-                   ^
-
-File "game/niepodleglosc.rpy", line 96: expected '=' not found.
-    default global iloscAkcjiSp1 = 0
+File "game/heistprog.rpy", line 96: choice menuitem expects a non-empty block.
+    "Drugie drzwi":
                    ^
 
 Ren'Py Version: Ren'Py 8.5.2.26010301
-Mon Jan 26 18:47:24 2026
+Thu Jan 29 18:37:23 2026

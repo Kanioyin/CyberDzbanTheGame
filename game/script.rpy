@@ -436,7 +436,7 @@ label start:
 
         elif player_name == "Zium":
             $ chipy = 5
-            jump a2intro
+            jump heistprogsc
 
         elif player_name == "Kasia":
             mg "Nie pozwalaj sobie kurwa"

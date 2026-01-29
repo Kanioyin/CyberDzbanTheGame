@@ -767,6 +767,7 @@ label krzis:
             cr "Upewnij się, że masz wszystko, co Ci jest potrzebne i wróć do mnie"
             cr "Ostrzegam, to będzie punkt bez powrotu, jak pogadamy, to polecisz"
             cr "Upewnij się też, że będziesz miał zkitrane troszeczkę pieniędzy na łapówki"
+            mg "Tak na prawdę, to na gambling"
             p "Bardzo ciekawa porada, kogo miałbym niby przekupić?"
             cr "Kogokolwiek w sumie, zawsze lepiej coś mieć w kieszeni"
             p "No dobra, to ja się idę OSTATECZNIE szykować"
@@ -781,77 +782,7 @@ label krzis:
             cr "Może się zobaczymy jeszcze w lepszym miejscu"
             cr "Żegnaj Zbigniew"
             p "Adios Krisos"
-            scene spacerek
-            show jax at left
-            show vio at right
-            p "Dobra panowie, jedziemy z tym zadaniem"
-            vi "Masz już jakiś plan przygotowany?"
-            p "Na spokojnie, wszystko już sobie obmyślałem"
-            vi "No niech będzie, wszyscy na łączach?"
-            ja "Pewnie, że tak"
-            p "Dobrze was słychać, możemy zaczynać powoli"
-            p "Pamiętajcie, nie możemy panikować. Ben jest czujny jak pies podwójny"
-            ja "I ma bardzo dobrych strażników przy sobie"
-            vi "I ta jego lafirynda obserwuje zawsze co się dzieje"
-            p "Będzie trzeba ich oślepić nim coś zrobimy"
-            ja "Dobre podejście"
-            scene kasyno
-            p "Podejście pod miejście akcji"
-            menu:
-                p "Jak podchodzimy to tego zadania?"
-                "Na przypale":
-                    p "Dobra panowie, plan jest prosty, wbijamy sobie głównym wejściem"
-                    vi "Oho, dobrze się zapowiada"
-                    p "Cicho, nie zapeszaj"
-                    p "Po wejściu, pogramy sobie trochę a później się rozdzielimy"
-                    p "Powoli będziemy progresować do pomieszczenia ze wszczepem"
-                    p "Tylko będzie trzeba się pozbyć tych jebanych kamer"
-                    menu:
-                        p "Kto wyłączy kamery?"
-                        "VIO":
-                            p "Będziesz w stanie się ich pozbyć?"
-                            vi "Jasna sprawa"
-                            $ stan2["Vio"] = 1
-
-                        "JAX":
-                            p "Będziesz w stanie się ich pozbyć?"
-                            vi "Jasna sprawa"
-                            $ stan2["Jax"] = 2
-
-                    p "Jak będą ślepi, to zobaczymy co nas dalej czeka"
-                    p "Spotkamy się w środku i zobaczymy co nas czeka"
-                    p "Zrozumiały plan?"
-                    ja "Tajest"
-                    scene kasyno
-                    p "Panowie, rozproszyć się"
-                    "I tak, każdy z was poszedł do własnego stołu"
-                    menu:
-                        "Na jakie stawki chcesz grać?"
-                        "Wysokie" if edki > 4999:
-                            $ zakład = 5000
-
-                        "Średnie" if edki > 2499:
-                            $ zakład = 2500
-
-                        "Niskie" if edki > 999:
-                            $ zakład = 1000
-
-                        "Minimalne":
-                            $ zakład = 50
-
-                    $ edki -= zakład
-                    p "Dobra, let's go gambling"
-                    "Teraz zobaczmy jak Ci poszło"
-                    $ helper = renpy.random.randint(25, 100)
-                    if helper < fart:
-                        "Ciemna cipa, udało Ci się wygrać"
-                        $ edki += zakład * 2
-
-                    else:
-                        "Jasny chuj, nic nie siadło"
-
-                "Na skradaka":
-                    "Tit"
+            jump heistprogsc
 
     jump opor
 

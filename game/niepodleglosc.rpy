@@ -161,3 +161,4 @@ default valki = 5
 default stan2 = {"Vio":0, "Jax":0, "Kris":0, "Bo":0, "Halina":0, "BB":0}
 default postacie2 = {"Jax":0, "VIO":0}
 default atrefakty = {"Jaja":"szukane", "Kajdanki":"szukane"}
+default heistprog = {"Main":0, "D1":0, "D2":0, "D3":0 ,"D4":0}
