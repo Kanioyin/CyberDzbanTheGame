@@ -10,14 +10,14 @@ label heistprogsc:
     show jax at left
     show vio at right
     p "Dobra panowie, jedziemy z tym zadaniem"
-    vi "Masz już jakiś plan przygotowany?"
+    vi "Vasz vuż vakiś vlan vrzygotowany?"
     p "Na spokojnie, wszystko już sobie obmyślałem"
-    vi "No niech będzie, wszyscy na łączach?"
+    vi "vo viech vędzie, vszyscy va vączach?"
     ja "Pewnie, że tak"
     p "Dobrze was słychać, możemy zaczynać powoli"
     p "Pamiętajcie, nie możemy panikować. Ben jest czujny jak pies podwójny"
     ja "I ma bardzo dobrych strażników przy sobie"
-    vi "I ta jego lafirynda obserwuje zawsze co się dzieje"
+    vi "V va vego vafirynda vbserwuje vawsze vo vię vzieje"
     p "Będzie trzeba ich oślepić nim coś zrobimy"
     ja "Dobre podejście"
     scene kasyno
@@ -26,7 +26,7 @@ label heistprogsc:
         p "Jak podchodzimy to tego zadania?"
         "Na przypale":
             p "Dobra panowie, plan jest prosty, wbijamy sobie głównym wejściem"
-            vi "Oho, dobrze się zapowiada"
+            vi "Vho, vobrze vię vapowiada"
             p "Cicho, nie zapeszaj"
             p "Po wejściu, pogramy sobie trochę a później się rozdzielimy"
             p "Powoli będziemy progresować do pomieszczenia ze wszczepem"
@@ -35,13 +35,13 @@ label heistprogsc:
                 p "Kto wyłączy kamery?"
                 "VIO":
                     p "Będziesz w stanie się ich pozbyć?"
-                    vi "Jasna sprawa"
+                    vi "Vasna vprawa"
                     $ stan2["Vio"] = 1
                     $ stan2["Jax"] = 1
 
                 "JAX":
                     p "Będziesz w stanie się ich pozbyć?"
-                    vi "Jasna sprawa"
+                    ja "Jasna sprawa"
                     $ stan2["Jax"] = 2
                     $ stan2["Vio"] = 2
 
@@ -123,14 +123,59 @@ label heistprogsc:
                         "Sprawdzasz ostatnie drzwi, tutaj jest sejf naścienny"
                         if heistprog["D3"] == 1:
                             p "VIO, możesz otworzyć?"
-                            vi "Jasna sprawa szefie"
+                            vi "Vasna vprawa vzefie"
                             "Raz dwa VIO zhackował zabezpieczenia"
-                            
+                            vi "Vasna vupa, vajny viniądz vrodku"
+                            p "Fifti-fifty?"
+                            vi "Vewex"
+                            $ edki += 2500
+                            $ renpy.notify("Dostałeś 2500 edków")
 
+                        else:
+                            p "Dupa, nie otworzę tego"
+
+                        "Poza tym, jest tu jeszcze pistolecik"
+                        if inventory.has_space(Cap) == True:
+                            $ inventory.add_item(Pistolecik)
+                            p "A wezmę sobie"
+
+                        "I to tyle z tego pomieszczenia"
                         $ heistprog["D4"] = 2
 
                     "Wyjście":
                         $ helper = 1
+
+            "Wychodzisz z pomieszczeń technicznych"
+            "Po chwili dołączają do Ciebie twoi towarzysze"
+            vi "Vo vo veraz vobimy?"
+            p "Musimy się dostać do pomieszczenia ze wszczepami, powinno ono gdzieś tu być"
+            ja "Wiesz w ogóle które to?"
+            p "Będę strzelał"
+            vi "Va vierdole"
+            "Nagle, dostałeś tajemniczą wiadomośc na swojego agenta"
+            sb "Idąc dalej zginiecie, lepiej zawróćcie"
+            ja "Co tam Ci przyszło?"
+            p "A jakaś napalona mamuśka pewnie"
+            "Nagle, widzisz lufę z drona obronnego na suficie"
+            p "HALT, mają ochronę"
+            vi "Vkurvysyny"
+            menu:
+                "Co teraz zrobić?"
+                "VIO, zhackuj to proszę":
+                    $ stan2["Vio"] += 1
+                    vi "Vię vobi"
+                    "VIO sprawnie wyłączył drona"
+                    vi "Vrobione"
+
+                "JAX, pora pięści":
+                    $ stan2["Jax"] += 1
+                    ja "Przyjąłem"
+                    "JAX zakrada się pod działko i błyskawicznie je wyrywa"
+                    ja "Jak pójdziemy z tym na złom, to będziemy bogaci"
+                    p "Plan dobry, okoliczności chujowe"
+                    ja "Ah, fair point"
+
+            p "Dobra robota, chodźmy sprawdzić co trzymają w środku"
 
         "Na skradaka":
             "Tit"

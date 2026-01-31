@@ -263,6 +263,8 @@ screen day():
                 elif stan2["Kris"] == 4:
                     text "{color=000} Porozmawiaj z Krisem"
 
+                elif stan2["Kris"] == 5:
+                    text "{color=000} Zhackuj wszczep w Bena"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -377,6 +379,7 @@ screen hors():
     modal True
     add "tapety/[persistent.phone_bg].png"
     add "cyberfon_clear"
+    text "{color=000} Aplikacja w budowie"
 
     imagebutton auto "cyberfon_won_%s":
         focus_mask True
@@ -394,6 +397,7 @@ screen map_screen():
             hovered SetVariable("screen_tooltip", "Return")
             unhovered SetVariable("screen_tooltip","")
             action Hide("map_screen"), Jump("rozstaje")
+            
     if czas > 4:
         imagebutton auto "city_tup_%s":
             focus_mask True

@@ -160,7 +160,25 @@ label piwko:
             $ postacie2["VIO"] = 2
 
         elif postacie2["VIO"] == 2:
-            vi "Jestem z VIO"
+            vi "Viemandero"
+            p "Cześć VIO, coś tam nowego w świecie?"
+            vi "Va voviem Vi, ve vam voś viekavego"
+            p "No dawaj"
+            vi "Vył vobie vaki viomek, vazyvał vię Vyścigowy Vvel"
+            vi "Vrzez vrzypadek vostał vajviększym vrogiem Vuna"
+            vi "V vię vstatnio vkazało, ve va vakieś voviązania v vetrolchemem"
+            vi "Vodobno vestuje vch vove valivo vyścigove"
+            p "To chyba nie jest nic dziwnego, korposi bardzo często biorą jakiś parapetów do niebezpiecznej gry"
+            vi "Vo v vutaj vest vies vogrzebany, Vvel viał vię vcigać v vym valivem"
+            vi "Vecz, vn vrobił v viego vmunicję vapalającą v vaatakował vonwój viotecha"
+            vi "Veraz viędzy vopro vą vakieś vpiny v voże vię vrobić vojna"
+            p "To byłoby zajebiście śmieszne zobaczyć jak się te dwie ze sobą napierdalają"
+            vi "Vo vie? Va vam vadzieję va vakieś vombie"
+            vi "Vlbo vovą vroń viologiczną"
+            p "A wtedy nie będzie całe NC w niebezpieczeństwie?"
+            vi "Vto vie?"
+            p "Oki doki, dzięki za info, ja muszę lecieć, narka"
+            vi "Vajo"
 
     else:
         "Wyjebali Cię z baru"

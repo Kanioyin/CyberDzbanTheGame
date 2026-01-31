@@ -226,12 +226,6 @@ label spacerek:
             "Niestety mięli przewagę liczebną (było ich 3)"
             $ inventory.remove_item(Kokos)
 
-        elif inventory.has_item(AR) == True:
-            "Chodząc po ulicy czujesz, że jest Ci jakoś lekko"
-            "Obracasz się za siebię i widzisz że czegoś brakuje"
-            p "Kurwa"
-            $ inventory.remove_item(AR)
-
         elif inventory.has_item(Ser) == True:
             "W twoim kierunku leci chmara (5) szczurów"
             p "Na chuja mego wuja, tylko nie to"
@@ -250,6 +244,12 @@ label spacerek:
             "Bardzo brutalnie pozbawili Cię twoich cennych akcji"
             $ iloscAkcjiSp1 -= 1
             $ renpy.notify(f"Straciłem jedną akcję")
+        
+        elif inventory.has_item(AR) == True:
+            "Chodząc po ulicy czujesz, że jest Ci jakoś lekko"
+            "Obracasz się za siebię i widzisz że czegoś brakuje"
+            p "Kurwa"
+            $ inventory.remove_item(AR)
 
         else:
             p "Dziwne, nic się nie stało. Jakbym miał itemki to pewnie ktoś by mnie okradł."

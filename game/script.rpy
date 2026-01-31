@@ -1599,7 +1599,6 @@ label frogszop:
 
     if stan["Kasia"] == 1:
         jump frogsimp
-
     
     if stan["Kasia"] == 2 and dzien % 2 == 0:
         jump frogsimp
@@ -1681,7 +1680,7 @@ label frogszop:
                 fse "To będzie 50 edków"
                 p "Prosze"
                 $ edki -= 50
-                $ fart += 2
+                $ fart += 5
 
             "Zdrapeczka" if edki > 24:
                 $ edki -= 25
@@ -1736,6 +1735,7 @@ label frogszop:
                 fse "To bardzo miłe z twojej strony, dziękuję"
                 if stan["Kasia"] == 0 and frogrel == 5:
                     $ stan["Kasia"] = 1
+
                 $ frogrel += 1
 
             "Potrzebuję leczenia" if stan["Kasia"] > 4 and HP < MaxHP and frogsy > 499:

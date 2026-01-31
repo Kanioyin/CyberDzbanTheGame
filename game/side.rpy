@@ -49,6 +49,7 @@ label side_Jax_1:
     p "A ja nie mogę zejść?"
     ja "Nie da rady, on przyjmuje tylko sprawdzonych przez siebie klientów"
     "Zeszliście z Jaxem do metra"
+    scene metro
     ja "Oj, kolejne wspomnienia się odblokowują"
     p "A jakie tym razem?"
     ja "Pewnego strasznego dnia, jak w bazie pojaiwł się Cypher"
