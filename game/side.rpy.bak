@@ -57,7 +57,7 @@ label side_Jax_1:
     ja "Jak się możesz domyślać, ochrona nie chciała ich przepuścić"
     ja "To te kretyny odpaliły granat dymny i tam nasrały"
     ja "Absolutnie kretyński pomysł"
-    call cipflash from _call_cipflash_20
+    call cipflash
     ja "Skończyło się na tym, że Kałach załatwił im przejście"
     p "No dobra, to serio była kretyńska akcja"
     ja "Dlatego mi się teraz głupio do metra wchodzi"

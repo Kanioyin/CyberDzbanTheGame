@@ -6,7 +6,7 @@ label spacerek:
     if "side_intro" not in sideseen:
         $ sideseen.append("side_intro")
         $ sidetosee.remove("side_intro")
-        call side_intro
+        call side_intro from _call_side_intro_1
 
     if fajki > 0:
         $ sidestory()

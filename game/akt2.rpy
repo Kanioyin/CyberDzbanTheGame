@@ -814,7 +814,7 @@ label oporslep:
     menu:
         "Jesteś w swoim pokoju, co chcesz zrobić?"
         "Idę spać":
-            call spanko
+            call spanko from _call_spanko
 
         "Czy ja przypadkiem nie dostałem?":
             if HP < MaxHP:

@@ -6,7 +6,10 @@ label a2intro:
     $ Frakcja = oldFrakcja
     if helper < 0:
         $ helper = 0
-        
+
+
+    $sidetosee.append("side_Jax_1")
+    $sidelocked.remove("side_Jax_1")        
     sb "Aj karamba, bolało! Mam nadzeję, że jesteś cały"
     sb "Zobaczmy z czego jesteś zbudowany"
     menu:
@@ -185,7 +188,23 @@ label jaxowo:
                 ja "Nie powiedział bym, w wojsku jest teraz nowy szef, tylko nikt nie wie jak to u niego wygląda"
                 p "Zobaczymy później pewnie. Ja będę się już zbierał, trzymaj się Jax"
                 $ stan2["BB"] =7
-            
+
+            "Musimy pogadać" if bigquest == 4 and stan2["Kris"] == 2:
+                ja "Co się dzieje mordeczko?"
+                p "Kris dał nam bojowe zadanie, musimy się dostać do dziupli do jego kasyna"
+                ja "Ty wiesz, że to będzie praktycznie misja samobójcza, nie?"
+                p "Wiem, kolejny raz już to słyszę w tej gierce typu komputer"
+                ja "I co będziemy musieli zrobić?"
+                p "Dostaniemy wirusa do wgrania, ja pewnie go tam wgram, wy wyglądacie na wojowników"
+                ja "Kolego, ja ostatnio zrobiłem przyśpieszony kurs excela, nie jest tak źle"
+                p "No dobrze, może Cię delikatnie niedoceniłem"
+                ja "No widzisz, VIO jest też całkiem dobry, jeśli chodzi o konkurty"
+                ja "Ale ja najlepiej sprawdzam się i tak przy walce na blisko"
+                ja "Mam też trochę metod do kontroli tłumu"
+                ja "I w akcjach na głośno mogę pokazać swój pełen potencjał"
+                p "No dobrze, teraz spytam się VIO, do czego on jest zdolny"
+                $ stan2["Kris"] = 3
+
             "Co powiesz na mały trening?" if exp > 9:
                 ja "Jasne mordeczko"
                 $ exp -= 10
@@ -252,6 +271,27 @@ label viocha:
             "Idziesz na vrowara?":
                 vi "Vevnie"
                 jump piwko
+
+            "Musimy porozmawiać" if bigquest == 4:
+                if stan2["Kris"] == 2:
+                    vi "Viałeś vorozmawiać vpierw v JAXEM"
+                    p "A może ja chcę z tobą pogadać"
+                    mg "Możesz się odpierdolić?"
+                    mg "Absolutnie nie chce mi się szykować specjalnych metod dla specialnych przypadków"
+                    mg "Won mi stont"
+
+                if stan2["Kris"] == 3:
+                    vi "Vo vam vię vieje vordziaty?"
+                    p "Dokładnie to samo, co powiedziałem JAXowi"
+                    vi "Vtraszny veń v Viebie viesz?"
+                    mg "Spierdalaj"
+                    p "Jakby, stoicie dosłownie 640 pikseli od siebie, raczej słyszałeś co mówiłem"
+                    vi "Vo vobra, vunkt vla Viebie, vo va vestem vekspertem v vywyadzie"
+                    vi "Vam vsypiający vas v vartko votrafię vykręcić viezły vumer"
+                    vi "Vojom vpecialnością vest vicha vkcja, volę vie vostać"
+                    vi "V viem vak vokonać vojedyńczych vrogów"
+                    p "Spoczko VIO, powiem Krisowi co i jak"
+                    $ stan2["Kris"] = 4
 
             "Możesz mnie uleczyć?" if HP < MaxHP:
                 if inventory.has_item(HuMeat) == True:
@@ -531,12 +571,12 @@ label krzis:
             c "Jeśli coś może mieć wartość, sprzedaj to. Wcześniej chciałem to wyjebać, bo mi nie była potrzebna"
             c "Teraz jak wytowrzyłeś popyt, to mogę na tym jeszcze zarobić."
             p "A potem się dziwisz, że nikt nie chce się z tobą zadawać"
-            call cipflash
+            call cipflash from _call_cipflash_19
             c "Wrrr. To i tak nie wpłynie na cenę"
             p "Chuj, niech stracę"
             $ edki -= 100
             "Zapłaciłeś Cypherowi i dostałeś bombę"
-            c "Tylko sobie przypadkiem krzywty tym nie zrób."
+            c "Tylko sobie przypadkiem krzywdy tym nie zrób."
             p "Od kiedy się martwisz o kogokolwiek?"
             c "Od momentu, w którym zostałeś moim klientem"
             p "A spierdalaj"
@@ -669,7 +709,80 @@ label krzis:
             
 
         elif stan2["Kris"] == 5:
+            cr "Gratulacje [player_name], udało Ci się przeprowadzić inwigilację kasyna Benka i wyjść z tego cało"
+            p "A dziękuję, jakaś nagroda mnie za to czeka?"
+            cr "Tak, za swoje wyczyny dostajesz dietę w postaci edwardów"
+            $ edki += 2000
+            $ renpy.notify("Dostałeś 2000 edków")
+            p "Jasna dupa ile pieniędzy! Wojskowe diety są aż tak duże?"
+            cr "Robisz tajną misję dla nas, tu tylko są takie wypłaty"
+            p "No to panie Krzysztofie, ja się piszę na kolejne zadanie"
+            cr "Niepotrzebnie, po zakończeniu jajec z kasynem przestajemy się znać"
+            p "AHA66"
+            cr "No tak wygląda tak u nas. Nie musisz się martwić, z tego ci wiem, twoji starzy znajomi niedługo wracają z pierdla"
+            p "Co ty pierdolisz? Wyrok im się już kończy?"
+            cr "Nie, oni po prostu spierdalają. I tak nie ma już sensu w trzymaniu ich tam"
+            p "A jaki był sens wcześniej?"
+            cr "Gonili ich najemnicy i musieliśmy ich gdzieś schować. Najemników już nie ma, więc mogą wracać"
+            p "I tak po prostu na to pozwalasz?"
+            cr "Tak. Ta banda jest przydatna do uspokajania miasta w nasz sposób"
+            p "Ta, pewnie, już w to wierzę"
+            cr "Nie obchodzi mnie to za bardzo. Oni robią to, co im zagramy i tak powoli ustawiamy misto pod siebie"
+            p "Jak niby? Oni robią to, co im głos w głowie (Robert) powie. Nie mają jakiś większych planów"
+            cr "Dobra młody, ty się ogarnij lepiej. Nie wyciągniesz ze mnie żadnych wrażliwych informacji"
+            p "Karwasz, miałem nadzieję, że mi się to uda"
+            cr "Powiedziałbym, że warto próbować ale nie w tym przydaku. To ostatnie ostrzeżenie"
+            p "Dobra szefunciu, kalmuj koka"
+            cr "Weź mi znikaj z oczu, wróć potem, to może powiem Ci co masz dalej robić"
+            p "TAJEST"
+            $ stan2["Kris"] = 0
+            $ bigquest = 4
+
+    elif bigquest == 4:
+        if stan2["Kris"] == 1:
+            p "Co ty się tu tak prujesz?"
+            cr "Wyobraź sobie kurwa, że ta twoja banda parapetów zrobiła największą przysłguę Benkowi"
+            p "W sensie, że teraz?"
+            cr "Nie kurwa, jeszcze nim trafili do Czyśćca, dostarczyli Benkowi cyberpsychola"
+            cr "Ten psychol miał w sobie bardzo spocyficzny wszczep"
+            p "A jakoś mniej tajemniczo?"
+            cr "Zakładam, że wiesz jak działa sandevistan. Dodaj sobie do tego możliwość obsługi wielu kończyn"
+            cr "W taki sposób, powstaje ośmioręki strzelec, którego nie możesz nawet trafić"
+            cr "A znając Benka, to on to podłączy pod tą swoją babę i będzie napierdalał"
+            cr "A taka broń w rękach fixera nie jest niczym dobrym"
+            p "I co, będę musiał to teraz podpierdolić?"
+            cr "Nie. Dostaniesz się znowu do środka i wgrasz specjalnego wirusa na jego soft"
+            cr "Jeśli pójdzie dobrze, to część wszczepów zostanie uszkodzona"
+            p "Będzie to jakieś ciężkie zadanie?"
+            cr "W tą podróż ruszysz z kompanami, będziesz im dawał jeszcze dodatkowe taski"
+            cr "Zacznę tutaj obmyślanie wykonania tego zadania. Idź się przygotuj, to będzie ciężka sprawa"
+            cr "Pogadaj z Jaxem, potem leć do VIO. Jak wszystko ogarniesz, to możesz do mnie wrócić"
+            p "Się zrobi szefie"
+            $ stan2["Kris"] = 2
+
+        if stan2["Kris"] == 4:
+            p "Porozmaiwałem z kompanami, wiem co i kto potrafi"
+            cr "Teraz masz jakikolwiek przegląd zdolności, to będzie ważne jak będziecie na misji"
+            cr "To będzie troszeczkę bardziej taktyczna klepa, niżeli w zakończeniu poprzedniego aktu"
+            cr "Upewnij się, że masz wszystko, co Ci jest potrzebne i wróć do mnie"
+            cr "Ostrzegam, to będzie punkt bez powrotu, jak pogadamy, to polecisz"
+            cr "Upewnij się też, że będziesz miał zkitrane troszeczkę pieniędzy na łapówki"
+            mg "Tak na prawdę, to na gambling"
+            p "Bardzo ciekawa porada, kogo miałbym niby przekupić?"
+            cr "Kogokolwiek w sumie, zawsze lepiej coś mieć w kieszeni"
+            p "No dobra, to ja się idę OSTATECZNIE szykować"
+            cr "Powodzenia"
+            $ stan2["Kris"] = 5
+
+        if stan2["Kris"] == 5:
             jump tempend
+            cr "Czyli jesteś już ostatecznie przygotowany"
+            p "Tajest, nie ma sensu tego dłużej przeciągać"
+            cr "No dobrze, powodzenia młody i reszcie też powodzenia"
+            cr "Może się zobaczymy jeszcze w lepszym miejscu"
+            cr "Żegnaj Zbigniew"
+            p "Adios Krisos"
+            jump heistprogsc
 
     jump opor
 
@@ -683,38 +796,25 @@ label oporslep:
         bo "Te kurwa, dawaj tu"
         p "Spoczko foczko, jak mi się zachce to ruszę"
         $ stan2["Bo"] = 3
+
+    if bigquest == 4 and stan2["Kris"] == 0:
+        p "Dobra kurwa, udało mi się zrobić inwigilację. Jeśli dobrze liczę, to teraz czeka mnie ostatnie zadanie"
+        p "Po tym, skończy się 2 akt i będzie coś nowego do roboty. Mam nadzieję na powrót do bazy"
+        p "Baza estate powinno być już zrobione i będę mógł poprawić swoje warunki mieszkalne"
+        p "Kurwa, mieć więcej możliwości spędzania czasu dnia, to jest cel życia"
+        p "Jeszcze znając tego kutasa, to będę musiał ulepszać pokój bo będzie więcej zadań w czasie dnia i może jeszcze da jakieś limity czasowe"
+        mg "Oj, nie mylisz się kolego"
+        p "No, kurwa, właśnie"
+        p "Pozostaje mi tylko trzymać kciuki, bym mógł w spokoju skończyć akt"
+        "Po tych słowach, usłyszałeś głośny, wkurwiony krzyk Krisa z pomieszczenia obok"
+        p "No tak, chuj mi w dupe"
+        $ stan2["Kris"] = 1
         
     p "Pusto tu"
     menu:
         "Jesteś w swoim pokoju, co chcesz zrobić?"
         "Idę spać":
-            $ czas = 20
-            $ dzien += 1
-            if HP < MaxHP:
-                if inventory.has_item(Flaszka) == True and MaxHP>HP+4:
-                    p "Flaszka, moja żono"
-                    $ inventory.remove_item(Flaszka)
-                    $ HP += 5
-
-                elif edki > 19:
-                    "Przed snem zjadłeś jeszcze coś z automatu"
-                    $ edki -= 20
-                    if atrefakty["Jaja"] == "Zbadane":
-                        $ HP += (cechy["BC"] * 2 )
-                    
-                    else:
-                        $ HP += cechy["BC"]
-
-                    if HP > MaxHP:
-                        $ HP = MaxHP
-
-                else:
-                    "Zasnąłeś z pustym brzuchem"
-
-            elif HP == MaxHP:
-                "Śpisz słodko, jak aniołek"
-
-            return
+            call spanko
 
         "Czy ja przypadkiem nie dostałem?":
             if HP < MaxHP:

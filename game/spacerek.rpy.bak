@@ -3,11 +3,22 @@ label spacerek:
     $ czas -= 5
     $ persistent.wolki += 1
     $ cel = renpy.random.randint(1, 100)
+    if "side_intro" not in sideseen:
+        $ sideseen.append("side_intro")
+        $ sidetosee.remove("side_intro")
+        call side_intro
+
+    if fajki > 0:
+        $ sidestory()
+
     if stan["Kasia"] == 3:
         jump frogsimp
 
     if akt > 1:
         if stan["Kasia"] == 5 and (dzien % 7 == 0 or dzien % 7 == 6):
+            jump frogsimp
+
+        elif stan["Kasia"] in (7, 9):
             jump frogsimp
         
     if cel > 0 and cel < 11:
@@ -25,12 +36,12 @@ label spacerek:
 
     elif cel > 10 and cel < 21:
         if Frakcja == 0:
-            "Ni chuja, same nudy"
+            p "Ni chuja, same nudy. Jakbym był w jakieś frakcji, to pewnie bym coś znalazł"
 
         elif Frakcja == 1:
             "Wędrując znalazłeś skrzynkę z symbolem DH"
             p "Ciperowe śmieci, wezmę sobie"
-            call cipflash
+            call cipflash from _call_cipflash_18
             $ helper = renpy.random.randint(1,200)
             "Znalazłeś [helper] edków"
             $ edki += helper
@@ -44,65 +55,71 @@ label spacerek:
 
         elif Frakcja == 4:
             "Na mieście spotkałeś Kałacha. Dostałeś od niego flachę"
-            $ inventory.add_item(Flacha)
+            $ inventory.add_item(Flaszka)
 
         elif Frakcja == 6:
-            "Na mieście znalazłeś kupon na darmowego monsterka (frogsy)"
+            "Na mieście znalazłeś kupon na darmowego potworka (frogsy)"
             $ frogsy += 225
 
         else:
             "Ni chuja, same nudy"
 
     elif cel > 20 and cel < 31:
-        if akt == 1:
-            "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-            $ wpierdol = renpy.random.randint(4, 16)
-            call checkHP(wpierdol) from _call_checkHP_4
+        if fart < 40:
+            if akt == 1:
+                "Przez przypadek wszedłeś do Bloku Władcy Demonów"
+                $ wpierdol = renpy.random.randint(4, 16)
+                call checkHP(wpierdol) from _call_checkHP_4
 
-        elif akt == 2:
-            "Przez przypadek wszedłeś do Bloku Władcy Demonów"
-            "Ale teraz nadszedł czas działać"
-            menu:
-                "Co robisz?"
-                "Atak na suki":
-                    call testSkili("Bron","ZW",7) from _call_testSkili_5
-                    if wynik == 1:
-                        "Demony zostały pokonane, natenczas"
-                        p "Szach mat frajery"
-                        $ edki += 250
-                        p "Wszystkie wasze portfele są teraz moje"
-                        if inventory.has_item(HuMeat) == False and inventory.has_space(Cap) == True:
-                            $ inventory.add_item(HuMeat)
-                            p "Wezmę trochę boczku dla VIO"
-                    
-                    else:
-                        p "Ło nie, są silniejsi"
-                        call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_28
+            elif akt == 2:
+                "Przez przypadek wszedłeś do Bloku Władcy Demonów"
+                "Ale teraz nadszedł czas działać"
+                menu:
+                    "Co robisz?"
+                    "Atak na suki":
+                        call testSkili("Bron","ZW",7) from _call_testSkili_5
+                        if wynik == 1:
+                            "Demony zostały pokonane, natenczas"
+                            p "Szach mat frajery"
+                            $ edki += 250
+                            $ renpy.notify("Zyskałem 250 edków")
+                            p "Wszystkie wasze portfele są teraz moje"
+                            if inventory.has_item(HuMeat) == False and inventory.has_space(Cap) == True:
+                                $ inventory.add_item(HuMeat)
+                                p "Wezmę trochę boczku dla VIO"
+                        
+                        else:
+                            p "Ło nie, są silniejsi"
+                            call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_28
 
-                "Ted Talk":
-                    call testSkili("Gadanie","CHAR",7) from _call_testSkili_6
-                    "Powiedziałeś demonom żeby spierdalali"
-                    if wynik == 1:
-                        "I nawet Ci się udało"
-                        p "Krowy doić! He he"
-                        "Kolejny sukces Night Citiowskich punków"
+                    "Ted Talk":
+                        call testSkili("Gadanie","CHAR",7) from _call_testSkili_6
+                        "Powiedziałeś demonom żeby spierdalali"
+                        if wynik == 1:
+                            "I nawet Ci się udało"
+                            p "Krowy doić! He he"
+                            "Kolejny sukces Night Citiowskich punków"
 
-                    else:
-                        "Niestety, nikt Cie nie zrozumiał"
-                        call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_29
+                        else:
+                            "Niestety, nikt Cie nie zrozumiał"
+                            call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_29
 
-                "Ucieczka":
-                    call testSkili("Atletyka","ZW",7) from _call_testSkili_7
-                    "Gdy tylko ich zobaczyłeś zacząłeś uciekać"
-                    "Te pojeby otworzyły ogień"
-                    if wynik == 1:
-                        "Uniknąłeś części pocisków"
-                        call checkHP(renpy.random.randint(1, 7)) from _call_checkHP_30
+                    "Ucieczka":
+                        call testSkili("Atletyka","ZW",7) from _call_testSkili_7
+                        "Gdy tylko ich zobaczyłeś zacząłeś uciekać"
+                        "Te pojeby otworzyły ogień"
+                        if wynik == 1:
+                            "Uniknąłeś części pocisków"
+                            call checkHP(renpy.random.randint(1, 7)) from _call_checkHP_30
 
-                    else:
-                        "Skurwysyny chyba mają snipera"
-                        call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_31
+                        else:
+                            "Skurwysyny chyba mają snipera"
+                            call checkHP(renpy.random.randint(4, 16)) from _call_checkHP_31
 
+            else:
+                "Narciarz farciarz z ciebie, uniknąłeś diabłów"
+                $ fart -= 20
+                $ exp += 1
 
         else:
             "Coś się zjebało"
@@ -122,24 +139,26 @@ label spacerek:
             $ znajOkol = 3
 
         else:
-            p "Jaki fajny plasterek"
             if HP < MaxHP:
+                p "Jaki fajny plasterek"
                 p "A se przykleję"
                 $ HP += 1
+
             else:
-                p "Ta? To zajebiście."
-                "Plasterek trafił do kosza."
+                p "O kurde balans, cybernetyczna czterolistna koniczyna. Ja to mam farta"
+                $ fart += 10
 
     elif cel > 46 and cel < 57:
         "Wszedłeś do bloku furrasów"
         if stan2["Halina"] == 0:
-            if dzien % 7 == 4:
+            if dzien % 7 == 3:
                 "Futrzana domina Cię dopadła"
                 achieve Futa
                 $ HP = 1
                 $ czas = 0
+
             else:
-                "Masz farta, był zamknięty"
+                "Dzięki bogu dziś nie jest środa i blok był zamknięty"
 
         elif stan2["Halina"] == 1:
             "Halina dotrzymała obietnicy, blok jest spokojny"
@@ -151,13 +170,13 @@ label spacerek:
             "Napadańsko":
                 if akt == 1:
                     "Atakujesz kasztana"
-                    call checkHP(renpy.random.randint(8, 18)) from _call_checkHP_21
+                    call checkHP(renpy.random.randint(8, 12)) from _call_checkHP_21
                     $ zysk = renpy.random.randint(50, 150)
                     $ edki += zysk
                     p "Trochę dostałem ale udało mi się zarobić [zysk] edków!"
 
                 elif akt == 2:
-                    call testSkili("Bron","ZW",renpy.random.randint(8, 12)) from _call_testSkili_8
+                    call testSkili("Bron","ZW",renpy.random.randint(8, 18)) from _call_testSkili_8
                     if wynik == 1:
                         "Ziomo dostał wpierdol"
                         p "A ja wypłatę"
@@ -174,31 +193,38 @@ label spacerek:
                 pass
 
     elif cel == 66:
-        show evilc
-        achieve Zns
-        ec "Witaj [player_name]!"
-        p "O kierwa! To zły Cypher"
-        ec "Tak, to ja"
-        p "Proszę, nie rób mi krzywdy!"
-        ec "Nawet nie chcę"
-        $ HP = MaxHP
-        "Magiczna moc złego Cyphera cię uleczyła"
-        p "Cholera Cypher, dzięki"
-        hide evilc with dissolve
-        ec "Hi Hi Ha Ha..."
+        if HP < MaxHP:
+            show evilc
+            achieve Zns
+            ec "Witaj [player_name]!"
+            p "O kierwa! To zły Cypher"
+            ec "Tak, to ja"
+            p "Proszę, nie rób mi krzywdy!"
+            ec "Nawet nie chcę"
+            $ HP = MaxHP
+            $ umieram = 0
+            "Magiczna moc złego Cyphera cię uleczyła"
+            p "Cholera Cypher, dzięki"
+            hide evilc with dissolve
+            ec "Hi Hi Ha Ha..."
+
+        else:
+            show aspiwko
+            "Spacerując, zauważyłeś przystojnego zimeczka, waloncego browareczka"
+            "Zaoferował Ci wspólne obalenie Mocnego Knura. Skorzystałeś z tej oferty"
+            $ fart += 25
+            "Czujesz się teraz szczęśliwszy"
 
 
     elif cel > 66 and cel < 78:
-        if inventory.has_item(Kokos) == True:
+        if fart > 49:
+            "Szczęśliwie uniknąłeś złodzieji, farcik"
+            $ fart -= 25
+
+        elif inventory.has_item(Kokos) == True:
             "Znalazły Cię ćpuny"
             "Niestety mięli przewagę liczebną (było ich 3)"
             $ inventory.remove_item(Kokos)
-
-        elif inventory.has_item(AR) == True:
-            "Chodząc po ulicy czujesz, że jest Ci jakoś lekko"
-            "Obracasz się za siebię i widzisz że czegoś brakuje"
-            p "Kurwa"
-            $ inventory.remove_item(AR)
 
         elif inventory.has_item(Ser) == True:
             "W twoim kierunku leci chmara (5) szczurów"
@@ -213,6 +239,18 @@ label spacerek:
                 g "Faktycznie, to ja znikam"
                 hide gun with dissolve
         
+        elif iloscAkcjiSp1 > 0:
+            "Na mieście napali Cię bandziory z Wall Street"
+            "Bardzo brutalnie pozbawili Cię twoich cennych akcji"
+            $ iloscAkcjiSp1 -= 1
+            $ renpy.notify(f"Straciłem jedną akcję")
+        
+        elif inventory.has_item(AR) == True:
+            "Chodząc po ulicy czujesz, że jest Ci jakoś lekko"
+            "Obracasz się za siebię i widzisz że czegoś brakuje"
+            p "Kurwa"
+            $ inventory.remove_item(AR)
+
         else:
             p "Dziwne, nic się nie stało. Jakbym miał itemki to pewnie ktoś by mnie okradł."
             
@@ -222,8 +260,9 @@ label spacerek:
         if inventory.has_item(Wytrych) == True:
             p "Jest i wytryszek, pogczamp"
             p "Opening time!"
-            $ helper = renpy.random.randint(1, 4)
+            $ helper = renpy.random.randint(1, 5)
             if renpy.random.randint(1, 5) == 5:
+                p "Karamba! Złamałem wytrych"
                 $ inventory.remove_item(Wytrych)
 
             if helper == 1:
@@ -243,13 +282,19 @@ label spacerek:
             elif helper == 4:
                 p "O proszę, powiększenie ekwipunku"
                 $ Cap += 1
-                p "Zawsze jeden przedmio więcej"
+                p "Zawsze jeden przedmiot więcej"
+
+            elif helper == 5:
+                p "Ktoś zostawił swojego agenta maklerskiego"
+                $ iloscAkcjiSp1 += 1
+                p "Jakaś akcja dla mnie"
 
         elif akt == 2:
+            p "Dupa, nie mam go w eq. Może siłą umysłu uda mi się go otworzyć"
             call testSkili("Myslenie","INT",10) from _call_testSkili_9
             if wynik == 1:
                 p "Mój giga mózg pomógł mi to otworzyć"
-                $ helper = renpy.random.randint(1, 4)
+                $ helper = renpy.random.randint(1, 5)
                 if helper == 1:
                     p "O proszę! Hajsiwo"
                     $ edki += renpy.random.randint(50, 300)
@@ -268,6 +313,11 @@ label spacerek:
                     p "O proszę, powiększenie ekwipunku"
                     $ Cap += 1
                     p "Zawsze jeden przedmiot więcej"
+
+                elif helper == 5:
+                    p "Ktoś zostawił swojego agenta maklerskiego"
+                    $ iloscAkcjiSp1 += 1
+                    p "Jakaś akcja dla mnie"
 
         else:
             p "Kurwa nie, przydał by się wytrych"

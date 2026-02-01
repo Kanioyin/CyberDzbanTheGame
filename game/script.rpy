@@ -1371,7 +1371,7 @@ label sypialnia:
     menu:
         "Jesteś w swoim pokoju, co chcesz zrobić?"
         "Idę spać":
-            call spanko
+            call spanko from _call_spanko_1
             jump rozstaje
 
         "Czy ja przypadkiem nie dostałem?":
@@ -1641,7 +1641,7 @@ label frogszop:
                 if "intro" not in sideseen:
                     $ sideseen.append("intro")
                     $ sidetosee.remove("intro")
-                    call side_intro
+                    call side_intro from _call_side_intro
 
                 p "Daj mnie malboraska"
                 fse "Się robi"
