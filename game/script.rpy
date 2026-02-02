@@ -138,13 +138,13 @@ label spanko:
 
     if fart < 40:
         $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-50,10)
-    
-    elif fart in (39,80):
-        $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-10,10)
 
     elif fart > 79:
         $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-10,50)
         $ fart -= 10
+
+    else:
+        $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-10,10)
 
     if cenaAkcjiSp1 < 1:
         $ cenaAkcjiSp1 = 1
