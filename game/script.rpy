@@ -106,6 +106,15 @@ init python:
         edki += cenaAkcjiSp1
         tradexp += 1
 
+    def licz_osiongi(folder):
+        sciezka = os.path.join(config.gamedir, folder)
+        
+        try:
+            pliki = [f for f in os.listdir(sciezka) if os.path.isfile(os.path.join(sciezka, f))]
+            return len(pliki)
+        except OSError:
+            return 0
+
 
 label updict(Who,dict):
         python:
@@ -436,7 +445,7 @@ label start:
 
         elif player_name == "Zium":
             $ chipy = 5
-            jump heistprogsc
+            jump a2intro
 
         elif player_name == "Kasia":
             mg "Nie pozwalaj sobie kurwa"

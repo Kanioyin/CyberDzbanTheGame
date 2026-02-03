@@ -1,4 +1,4 @@
-default foty = 61
+default foty = licz_osiongi("images/bobcgallery")
 default nua = len(persistent._achievements)
 default cnt = 1
 

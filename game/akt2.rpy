@@ -815,6 +815,7 @@ label oporslep:
         "Jesteś w swoim pokoju, co chcesz zrobić?"
         "Idę spać":
             call spanko from _call_spanko
+            return
 
         "Czy ja przypadkiem nie dostałem?":
             if HP < MaxHP:
