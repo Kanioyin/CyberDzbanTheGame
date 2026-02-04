@@ -279,7 +279,7 @@ label frogsimp:
         p "Dobra, pora kończyć te pogadanki, pora na zakupy"
         $ stan["Kasia"] = 7
 
-    elif stan["Kasia"] == 7:
+    elif stan["Kasia"] == 7 and bigquest > 1:
         scene spacer
         "Wędrując sobie po mieście, znowu znalazłeś Kasię. Tym razem szła ona z jakimś dzieckiem"
         p "Jasna dupa, to jest Kasia w swojej kolejnej pracy, powinienem ją śledzić"

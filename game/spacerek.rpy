@@ -240,7 +240,7 @@ label spacerek:
                 hide gun with dissolve
         
         elif iloscAkcjiSp1 > 0:
-            "Na mieście napali Cię bandziory z Wall Street"
+            "Na mieście napadli Cię bandziory z Wall Street"
             "Bardzo brutalnie pozbawili Cię twoich cennych akcji"
             $ iloscAkcjiSp1 -= 1
             $ renpy.notify(f"Straciłem jedną akcję")
