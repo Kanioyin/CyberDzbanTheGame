@@ -191,7 +191,7 @@ label frogsimp:
         fse "Spoczko, uważaj na siebie [old_pn]"
         $ stan["Kasia"] = 5
 
-    elif stan["Kasia"] == 5:
+    elif stan["Kasia"] == 5 and akt > 1:
         "Jak sobie spacerowałeś, zobaczyłeś Kasię w kawiarni"
         "Jako totalny creep, postanowiłeś iść zakłócać jej spokój"
         scene cafe
@@ -215,7 +215,7 @@ label frogsimp:
         fse "Bo to jest cały dzień roboty. Przynajmniej jest jakkolwiek zająć głowę"
         p "Ja jak nie mam co robić, to strzelam se w łe.."
         fse "._."
-        p "Sorka, mówiłem, jestem zbudowany ina"
+        p "Sorka, mówiłem, jestem zbudowany ina..."
         fse "Trzeci raz mi to mówisz"
         p "A ty chyba wiesz nawet dlaczego"
         fse "To jest jakiś twój catchfrase?"

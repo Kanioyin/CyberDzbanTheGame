@@ -149,7 +149,7 @@ default jajca = 0
 default buul = ["bul1.mp3", "demon.mp3", "hit3.mp3"]
 default sideseen = []
 default sidetosee = ["side_intro"]
-default sidelocked = ["side_Jax_1"]
+default sidelocked = ["side_Jax_1","side_Gun_1","side_Łaskawca_1","side_Cypher_1"]
 
 # deklaracje co do V
 default vechnik_stage = 0

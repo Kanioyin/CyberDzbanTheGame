@@ -115,3 +115,7 @@ label side_Jax_1:
     p "Dobrze powiedziane panie Jaxie"
     ja "No to wracamy"
     return
+
+label side_Gun_1:
+    scene kuchnia
+    $ sideseen.append("side_Gun_1")
