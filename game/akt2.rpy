@@ -537,7 +537,7 @@ label krzis:
             p "Co kurwa? Jak to? Od kiedy Cypher jest powiązany z całą akcją?"
             cr "Specjalny kontrakt przewidział użycie niemieckich najemników w inwigilacyjnej misji ale dopiero w drugiej części"
             p "To to jest podzielone na party?"
-            cr "Tak, część pierwsza, to inwigilacja, szukanie tropów i wyciąganie wniosków. Część druga, to pełnoprawne włamaie."
+            cr "Tak, część pierwsza, to inwigilacja, szukanie tropów i wyciąganie wniosków. Część druga, to pełnoprawne włamanie."
             p "A czy przypadkiem sama inwigilacja nie jest już włamaniem?"
             cr "Nie mędrkuj mi tutaj, szpiegostwo, to jest tylko włamanie pośrednie."
             p "Zostawmy tę papierologię, powiedz mi co mam teraz zrobić"
@@ -581,7 +581,7 @@ label krzis:
             c "Od momentu, w którym zostałeś moim klientem"
             p "A spierdalaj"
             "I wyszedłeś w pizdu"
-            $ stan2["Kris"] == 3
+            $ stan2["Kris"] = 3
         
         elif stan2["Kris"] == 3:
             cr "Dobra młody, masz już ekwipunek. Pora na trening szpiegowski"
@@ -1133,8 +1133,8 @@ label anomalia:
                     p "Darmowe edeczki, to się szanuje"
 
                 else:
-                    $ checkHP(10)
-                    p "Kurwa chuj mnie trafił, z mi jeszcze chujowo siadło"
+                    $ call checkHP(10)
+                    p "Kurwa chuj mnie trafił, i mi jeszcze chujowo siadło"
                     p "Nawet nie ma co zbierać"
                 
                 p "Przynajmniej nie umarłem, zawsze jakiś sukces"
@@ -1665,7 +1665,7 @@ label nowedh:
         p "Co do kurwy? Ty nie powinieneś być w więzieniu"
         c "Słuchaj szczylu, ja mam swoje metody na unikanie konsekwencji swoich czynów"
         p "Na przykład?"
-        c "Tym razem mój geniusz nawet mnie zaskoczył. Znalazłem maszynę klonującą i się zklonowałem"
+        c "Tym razem mój geniusz nawet mnie zaskoczył. Znalazłem maszynę klonującą i się sklonowałem"
         c "Następnie, wysłałem czterysta swoich klonów do więzienia a sam sobie tu chilluję bombę"
         p "Gdzie ty niby znalazłeś maszynę klonującą?"
         c "W magazynie wojskowym stała niepilnowana, tylko głupi by nie zabrał"
@@ -1775,6 +1775,7 @@ label nowedh:
         jump opor
 
     elif stan2["BB"] == 7:
+        show cypher at left with moveinleft
         c "I jak? Udało się wam otworzyć działalność?"
         p "Nah, zamiast tego udało nam się otworyć skrzynkę"
         call cipflash from _call_cipflash_2

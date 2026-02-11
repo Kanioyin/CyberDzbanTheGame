@@ -79,7 +79,7 @@ label frogsimp:
         p "Papatki"
         $ stan["Kasia"] = 3
 
-    elif stan["Kasia"] == 3:
+    elif stan["Kasia"] == 3 and edki > 14:
         "Wędrując sobie po mieście, udało Ci się znaleźć Kasię, stojącą w kolejce pod kinem"
         scene kino
         p "OMG, to Kasia, >_< chyba podejdę ją napastować poza miejscem pracy"
@@ -191,7 +191,7 @@ label frogsimp:
         fse "Spoczko, uważaj na siebie [old_pn]"
         $ stan["Kasia"] = 5
 
-    elif stan["Kasia"] == 5 and akt > 1:
+    elif stan["Kasia"] == 5 and akt > 1 and edki > 25:
         "Jak sobie spacerowałeś, zobaczyłeś Kasię w kawiarni"
         "Jako totalny creep, postanowiłeś iść zakłócać jej spokój"
         scene cafe

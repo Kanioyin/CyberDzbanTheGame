@@ -131,6 +131,7 @@ default part = 0
 default testPass = 0
 default kody = 0
 default kompan = 0
+default ilosc_trade = 0
 # 0 = Nikt
 # 1 = VIO
 # 2 = JAX

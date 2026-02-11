@@ -208,6 +208,11 @@ label spacerek:
             hide evilc with dissolve
             ec "Hi Hi Ha Ha..."
 
+        if fart > 99:
+            $ fart = 0
+            "Spacerując, znalazłeś pozostawioną fajeczkę"
+            $ fajki += 1 
+
         else:
             show aspiwko
             "Spacerując, zauważyłeś przystojnego zimeczka, waloncego browareczka"

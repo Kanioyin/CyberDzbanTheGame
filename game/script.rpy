@@ -97,6 +97,14 @@ init python:
         edki -= cenaAkcjiSp1
         tradexp += 1
 
+    def buyakc1mult(amt):
+        global edki, iloscAkcjiSp1, cenaAkcjiSp1
+        koszt = amt * cenaAkcjiSp1
+        if edki >= koszt:
+            edki -= koszt
+            iloscAkcjiSp1 += amt
+            renpy.restart_interaction()
+
     def sellakc1():
         global iloscAkcjiSp1
         global edki
@@ -105,6 +113,13 @@ init python:
         iloscAkcjiSp1 -= 1
         edki += cenaAkcjiSp1
         tradexp += 1
+
+    def sellakc1mult(amt):
+        global edki, iloscAkcjiSp1, cenaAkcjiSp1
+        if iloscAkcjiSp1 >= amt:
+            iloscAkcjiSp1 -= amt
+            edki += amt * cenaAkcjiSp1
+            renpy.restart_interaction()
 
     def licz_osiongi(folder):
         sciezka = os.path.join(config.gamedir, folder)
@@ -567,7 +582,6 @@ label rozstaje:
             pause 1
             jump rozstaje
 
-
 label kibel:
     scene kibel
     if akt == 0:
@@ -680,7 +694,7 @@ label warsztat:
                         h "Migomat to popularna nazwa spawarki, służącej do spawania metodą MIG-MAG."
                         h "Technologia MIG umożliwia spawanie w osłonie gazów obojętnych (argon lub hel), natomiast technologia MAG w osłonie gazów aktywnych (dwutlenek węgla)."
                         h "Spawanie migomatem jest efektywne, wydajne i precyzyjne."
-                        h "Uzyskanie spoiny charakteryzują się wysoką jakością wykonania. A teraz powiem Ci jak to działa"
+                        h "Uzyskane spoiny charakteryzują się wysoką jakością wykonania. A teraz powiem Ci jak to działa"
                         h "Spawanie MIG (Metal Inert Gas) to metoda 131, natomiast spawanie MAG (Metal Active Gas) to metoda 135. "
                         h "Migomaty to urządzenia półautomatyczne. Najważniejsze elementy układu to źródło prądu, połączone z układem sterującym;"
                         h "podajnik drutu (jeżeli umieszczony jest na zewnątrz, to łączy się go ze źródłem prądu za pomocą przewodu zespolonego); przewód masowy, łączący przedmiot spawany ze źródłem prądu"
@@ -833,7 +847,7 @@ label klinika:
                 "Podziękuje":
                     pass
 
-        if inventory.has_item(Kokos) == False and edki > 19:
+        if inventory.has_item(Kokos) == False and edki > 19 and inventory.has_space(Cap) == True:
             pl "Chcesz kupić kokosa kurwa ten?"
             menu:
                 "Dawaj tego kokosa":

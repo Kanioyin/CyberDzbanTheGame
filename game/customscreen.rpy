@@ -21,12 +21,19 @@ screen inventory():
         pos (0.05, 0.1)
         text "Pojemność [inventory.quantity]/[Cap]"
 
-    grid 20 5: 
-        pos (0.1, 0.25)
+    vpgrid:
+        cols 10  
         spacing 20
+        pos (0.1, 0.25)
+        allow_underfull True
+        draggable True      
+        mousewheel True      
+
         for item in inventory.items:
             frame:
                 padding (10, 10)
+                xsize 120 ysize 120 
+                
                 vbox:
                     spacing 5
                     xalign 0.5
@@ -34,13 +41,14 @@ screen inventory():
                         idle item.image
                         hover item.image
                         action Show("item_details", item=item)
+                        xalign 0.5
 
-    
     imagebutton auto "inventory_screen_return_%s":
+        align (0.95, 0.95)
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
-        action Hide("inventory"), Show("hud"), Play("sound", "opi.wav")
+        action [Hide("inventory"), Show("hud"), Play("sound", "opi.wav")]
 
 screen item_details(item):
     modal True
@@ -352,28 +360,46 @@ screen stoc():
     modal True
     add "tapety/[persistent.phone_bg].png"
     add "cyberfon_clear.png"
-
     vbox:
-        pos 0.4, 0.13
-        text "{color=000} Cena akcji KGU: [cenaAkcjiSp1]"
-        text "{color=000} Posiadane akcjie: [iloscAkcjiSp1]"
-        text "{color=000} Twój kapitał: [edki]"
+        pos (0.4, 0.13)
+        spacing 5
+        text "{color=000} Cena akcji KGU: [cenaAkcjiSp1]" size 22
+        text "{color=000} Posiadane akcje: [iloscAkcjiSp1]" size 22
+        text "{color=000} Twój kapitał: [edki]" size 22
+        
+        null height 10
+        
+        hbox:
+            spacing 10
+            text "{color=000}Ilość: [ilosc_trade]" size 20
+            bar value VariableValue("ilosc_trade", 100):
+                xsize 200
+                range 100
+        
+        text "{color=000}Łącznie: [ (ilosc_trade * cenaAkcjiSp1) ]" size 18
 
     imagebutton auto "cyberfon_won_%s":
+        pos (0, 0)
         focus_mask True
         hovered SetVariable("screen_tooltip", "Return")
         unhovered SetVariable("screen_tooltip","")
-        action Hide("stoc"), Show("phone")
+        action [Hide("stoc"), Show("phone")]
 
-    if edki > cenaAkcjiSp1:
+    if edki >= (ilosc_trade * cenaAkcjiSp1):
         imagebutton auto "cyberfon_kup_%s":
+            pos (0.0, 0.05)
             focus_mask True
-            action Function(buyakc1)
+            action Function(buyakc1, ilosc_trade)
+    else:
+        add "cyberfon_kup_idle" matrixcolor SaturationMatrix(0.0) pos (0.0, 0.05)
 
-    if iloscAkcjiSp1 > 0:
+    if iloscAkcjiSp1 >= ilosc_trade:
         imagebutton auto "cyberfon_sell_%s":
+            pos (0.0, 0.05)
             focus_mask True
-            action Function(sellakc1)
+            action Function(sellakc1, ilosc_trade)
+    else:
+        add "cyberfon_sell_idle" matrixcolor SaturationMatrix(0.0) pos (0.0, 0.05)
 
 screen hors():
     modal True
