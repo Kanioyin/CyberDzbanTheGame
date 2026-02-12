@@ -10,6 +10,7 @@ label side_intro:
 
 label side_Jax_1:
     achieve Faj
+    $ sideseen.append("side_Jax_1")
     scene japiwko
     ja "Siemandero [old_pn], dzięki za tego Malboraska"
     p "Spoczko Jax, żaden problem. Nawet nie wiem co one robią"
@@ -118,4 +119,44 @@ label side_Jax_1:
 
 label side_Gun_1:
     scene kuchnia
+    show gun at left
     $ sideseen.append("side_Gun_1")
+    g "Siema [old_player_name], robota jest"
+    p "Oho, co takiego tu się szykuje?"
+    g "Musimy skoczyć na zakupy, szybka robota, minimum strat"
+    p "A jakie straty przewidujesz?"
+    g "Stratę czasu przeszukując alejki za przedmiotami"
+    p "No dobra, powiedzmy, że Ci wierzę, gdzie jedziemy?"
+    g "Jest tylko jeden sklep bliski memu sercu (i miejscu zamieszkania)"
+    g "Dokładnie ptysiu, jedziemy do froga"
+    scene idrive
+    play music "idrive.mp3" volume 0.2
+    p "W sumie, czemu nie mogę siedzieć normalnie?"
+    g "Co to za pytaine"
+    p "No wiesz, takie z ciekawości, nie pojawiam się tu na spritach bo siedzę schowany"
+    g "To wszystko dla twojego bezpieczeństwa [player_name]"
+    p "Co by się niby stało jakbym się wychylił?"
+    g "Od razu zajebali by Cię, tutejsi snajperzy są bardzo dobrzy"
+    p "Sranie w banie, po prostu nie chcecie ustalić wyglądu mojego"
+    $ renpy.notify("Twórca potwierdza")
+    p "No widzisz, mówiłem"
+    g "Dobra tam, tłumaczenie ze snajperami jest bardziej normalne"
+    p "Co jest w tym niby bardziej normalnego? Czemu w takim wypadku ty się tu pojaiwasz?"
+    g "Bo ja mam plot armor, precyzując, nikt nie może mnie zabić poza Łaskawcą"
+    p "Co kurwa?"
+    g "No ta, mamy taką delikatną umowę, tylko jego koło fortuny może mnie zajebać"
+    g "Tak jak w sumie praktycznie każdy z poprzednich punków"
+    g "Nawet nie wiesz, ilu zostało zabitych przez Łaskawce"
+    p "No, nie wiem, ilu?"
+    g "A nie liczę tego, Eryka się pytaj, on ma jakiś fetysz liczenia tego"
+    p "No spoko, kiedyś się go zapytam"
+    g "To się pytaj, kończymy już ten dialog, dojechaliśmy"label frogszop:
+    stop music
+    play music "szop.mp3" volume 0.2
+    scene frogszop
+    $ baba_name = "Kasia"
+    fse "Dzień dobry"
+    g "Siemandero, dobra [player_name], weź mi poszukaj paczkę naczosów śmietanowych"
+    g "Do tego jeszcze keczup ostry, żelki i srajta"
+    p "Co ty za jakąś mieszankę wybuchową robisz?"
+    g "A potrzebuję trochę smaczków przed zadaniem"

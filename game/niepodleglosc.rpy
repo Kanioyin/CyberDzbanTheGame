@@ -115,6 +115,7 @@ default ammo = 0
 default umieram = 0
 default maxarmor = 0
 default czas = 20
+default maxczas = 20
 default veq = 0
 default znajOkol = 0
 # 1 = sklep

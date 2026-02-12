@@ -154,7 +154,7 @@ label checktime:
 
 
 label spanko:
-    $ czas = 20
+    $ czas = maxczas
     $ dzien += 1
     if tradexp > 49:
         $ skile["Handlowanie"] += 1
@@ -168,7 +168,7 @@ label spanko:
         $ fart -= 10
 
     else:
-        $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-10,10)
+        $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-20,20)
 
     if cenaAkcjiSp1 < 1:
         $ cenaAkcjiSp1 = 1
@@ -350,6 +350,9 @@ label start:
 
     if nua > 49:
         $ edki += 2000
+
+    if nua > 59:
+        $ maxczas = 25
 
     while helper == 1:
         $ player_name = old_pn = renpy.input("Nazywasz się:")
@@ -1660,7 +1663,7 @@ label frogszop:
                 if HP > MaxHP:
                     $ HP = MaxHP
 
-            "Malborasek?" if frogsy > 999 and fajki < 1:
+            "Malborasek?" if edki > 9999 and fajki < 1:
                 if "intro" not in sideseen:
                     $ sideseen.append("intro")
                     $ sidetosee.remove("intro")
@@ -1668,7 +1671,7 @@ label frogszop:
 
                 p "Daj mnie malboraska"
                 fse "Się robi"
-                $ frogsy -= 1000
+                $ edki -= 10000
                 $ fajki += 1
 
             "Dupnę sobie monsterka" if (edki > 24 or frogsy > 224) and czas < 30:
