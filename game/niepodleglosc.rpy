@@ -31,6 +31,7 @@ define gg = Character(_("Gangus"), color = "#ec3434")
 define ko = Character(_("Korpos"), color = "#444444")
 define gu = Character(_("Ochrona"), color = "#abba69")
 define sus = Character(_("Podejrzany typ"), color = "#bd8585")
+define dt = Character(_("Donut Trump"), color = "#312d66")
 
 # słowniki
 default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}

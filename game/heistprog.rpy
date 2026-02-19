@@ -175,6 +175,17 @@ label heistprogsc:
                     p "Plan dobry, okoliczności chujowe"
                     ja "Ah, fair point"
 
+                "Zastrzelę tego gnoja":
+                    call testSkili("Bron", "ZW", 15)
+                    if wynik == 1:
+                        "Celnym strzałem zdjąłeś drona"
+                        ja "Dobra robota"
+
+                    else:
+                        call checkHP(15)
+                        p "Kurwa, dostałem"
+                        "I dopiero drugim strzałem do pokonałeś"
+
             p "Dobra robota, chodźmy sprawdzić co trzymają w środku"
 
         "Na skradaka":

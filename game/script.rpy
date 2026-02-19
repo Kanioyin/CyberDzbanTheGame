@@ -468,6 +468,15 @@ label start:
         elif player_name == "Kasia":
             mg "Nie pozwalaj sobie kurwa"
 
+        elif player_name == "Henryk":
+            mg "Świat nie jest jeszcze na Ciebie gotowy"
+
+        elif player_name == "Gajda":
+            scene dtstare
+            dt "Myślisz, że jesteś bezpieczny?"
+            scene dtvibe
+            jump gameover
+
         else:
             $ helper = 0
     
