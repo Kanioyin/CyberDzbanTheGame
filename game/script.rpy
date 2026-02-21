@@ -2565,6 +2565,8 @@ label amongthevpods:
     play music "Monkeys Spinning Monkeys.mp3" volume 0.2
     $ kibel_stan = 0
     $ bigquest = 3
+    $ sidetosee.append("side_Gun_1")
+    $ sidelocked.remove("side_Gun_1")
     achieve Iabk
 
     if Frakcja != 1:

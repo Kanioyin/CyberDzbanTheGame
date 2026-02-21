@@ -122,6 +122,7 @@ label side_Gun_1:
     scene kuchnia
     show gun at left
     $ sideseen.append("side_Gun_1")
+    $ sidetosee.remove("side_Gun_1")
     g "Siema [old_player_name], robota jest"
     p "Oho, co takiego tu się szykuje?"
     g "Musimy skoczyć na zakupy, szybka robota, minimum strat"

@@ -187,6 +187,22 @@ label heistprogsc:
                         "I dopiero drugim strzałem do pokonałeś"
 
             p "Dobra robota, chodźmy sprawdzić co trzymają w środku"
+            "Delikatnie otworzyłeś drzwi"
+            p "Ty, fajne to"
+            ja "A co to jest?"
+            p "Jax, ty nie widzisz tego?"
+            ja "Mordziaty, ja mam ponad dwa metry, drzwi są mniejsze ode mnie i zasłaniają"
+            p "Przykra sprawa"
+            "W środku jest magazyn kończyn, część z nich oznaczono jako niebezpieczne"
+            vi "Vo Volera, viezłe vkarby"
+            p "Wiecie co, ja sobie chyba wezmę jedną sztukę"
+            menu:
+                "A wezmę sobie"
+                "Zwykłą cyberkończynę":
+                    $ Inventory.add_item("CyberK")
+
+                "Niebezpieczną kończynę":
+                    $ Inventory.add_item("NCyberK")
 
         "Na skradaka":
             "Tit"
