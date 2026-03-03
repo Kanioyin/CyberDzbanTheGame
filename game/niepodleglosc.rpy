@@ -32,6 +32,7 @@ define ko = Character(_("Korpos"), color = "#444444")
 define gu = Character(_("Ochrona"), color = "#abba69")
 define sus = Character(_("Podejrzany typ"), color = "#bd8585")
 define dt = Character(_("Donut Trump"), color = "#312d66")
+define kpt = Character(_("Kapitan Dzikobrody"), color = "#474545")
 
 # słowniki
 default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0}
@@ -152,7 +153,7 @@ default jajca = 0
 default buul = ["bul1.mp3", "demon.mp3", "hit3.mp3"]
 default sideseen = []
 default sidetosee = ["side_intro"]
-default sidelocked = ["side_Jax_1","side_Gun_1","side_Łaskawca_1","side_Cypher_1"]
+default sidelocked = ["side_Jax_1","side_Gun_1","side_Łaskawca_1","side_Cypher_1", "side_Perła"]
 
 # deklaracje co do V
 default vechnik_stage = 0

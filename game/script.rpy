@@ -1712,6 +1712,10 @@ label frogszop:
                 $ czas += 10
 
             "Perła Import" if edki > 49:
+                if side_perła in sidelocked:
+                    if 7 == renpy.random.randint(1, 50):
+                        call side_Perła
+
                 fse "To będzie 50 edków"
                 p "Prosze"
                 $ edki -= 50

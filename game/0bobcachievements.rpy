@@ -45,6 +45,7 @@ define BOBCACHIEVEMENT_LIST = (
     ("Zns", _("Zło nie śpi"), _("A nawet czasami leczy.")),
     ("Frg", _("Żabiarz"), _("Pierwsze frogi w nogi")),
     ("Mak", _("3 Cytryny"), _("I w taki sposób, tysiaczek wpada")),
+    ("Per", _("Perła"), _("Znalazłeś czarną perłę import")),
     ("Gtm", _("Gentleman"), _("Miły z Ciebie człowiek")),
     ("Abs", _("Absolutne kino"), _("To był dobry film.")),
     ("Tim", _("Czas, dobrze spędzony"), _("Masz rację")),

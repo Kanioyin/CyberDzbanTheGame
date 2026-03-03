@@ -239,3 +239,37 @@ label side_Gun_1:
     "I z Gunem wróciliście do bazy"
     $ postacie["Gun"] += 1
     return
+
+label side_Perła:
+    scene black
+    $ sideseen.append("side_Perła")
+    sb "Aj, ciężki przypadek"
+    sb "Żyjesz jeszcze koleżko?"
+    p "Kurwa, nie wiem. Chyba tak"
+    sb "No i gites"
+    sb "Pora otworzyć oczy"
+    scene statek
+    play music "piraty.wav" volume 0.2 loop 
+    achieve Per
+    show kpt
+    p "Gdzie ja kurwa jestem, kim ty kurwa jesteś?"
+    sb "Pozwól, że się przedstawię"
+    kpt "Jestem Kapitan Dzikobrody"
+    kpt "A to jest Czarna Perła Import"
+    kpt "Mój potężny statek handlowy"
+    p "Jak ja się tu znalazłem?"
+    kpt "Wypiłeś przeklętą butelkę z klątwą w płynie. Teraz będziesz na statku, aż nie skończy się efekt"
+    p "A kiedy to się skończy? Ja mam wątek Kasi do zrobienia"
+    kpt "Ay szczurze lądowy, pogoń za miłością poczeka, piracka przygoda już nie"
+    p "Ale mi się nie chce morskich opowieści"
+    kpt "A utkaj dziurę, płyniemy na wyspę gier"
+    p "A gdzie to jest?"
+    kpt "Archipelag dobrej zabawy, w morzu grania fair"
+    p "Absolutnie nic mi to nie mówi"
+    kpt "No nie dziwię się, jesteśmy w końcu w piętnastym wieku"
+    p "Przepraszam, co kurwa?!"
+    kpt "Cofnąłeś się w czasie, jesteś teraz u schyłku czasu piractwa morskiego i ich opowieści"
+    p "Pojebie mnie, chuj no, niech zyskam, to gdzie dokładniej cumujemy?"
+    kpt "Kolego, bez takich tylko proszę, tarmosić kindybała to za pokład możesz"
+    p "Dobra, to gdzie zrzucamy kotwicę?"
+    ktp "O tutaj, przy tej palmie"
