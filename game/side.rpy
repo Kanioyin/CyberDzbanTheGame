@@ -204,6 +204,7 @@ label side_Gun_1:
     g "Bo jest głośny"
     p "Ten zlot ludzi to jest jego wiec?"
     g "No, dawaj, wysiadamy i zobaczymy co tam gada"
+    stop music
     scene zjemgo
     dt "Zjemgo"
     dt "Znam wielu polaków ale on jest najgorszy"
@@ -251,7 +252,7 @@ label side_Perła:
     scene statek
     play music "piraty.wav" volume 0.2 loop 
     achieve Per
-    show kpt
+    show kpt at left
     p "Gdzie ja kurwa jestem, kim ty kurwa jesteś?"
     sb "Pozwól, że się przedstawię"
     kpt "Jestem Kapitan Dzikobrody"
@@ -273,3 +274,39 @@ label side_Perła:
     kpt "Kolego, bez takich tylko proszę, tarmosić kindybała to za pokład możesz"
     p "Dobra, to gdzie zrzucamy kotwicę?"
     ktp "O tutaj, przy tej palmie"
+    p "Ajaj kapitanie"
+    "I wraz z kapitanem wylądowaliście na plaży"
+    scene plaza
+    show kpt at left
+    kpt "Ah, piękna, dziewicza plaża. A bym sobie opalił mój tors gladiatora"
+    sb "Mówiłeś coś o torsie gladiatora?"
+    show cypherPla at right
+    p "No to jest już kurwa przesada"
+    c "Hi hi ha ha"
+    p "Co TY tu robisz? Jak TY się tu w ogóle znalazłeś?"
+    c "No normalnie, przeleciałem sobie swoim helikoptrem"
+    p "Kapitanie, kiedy my w końcu kurwa jesteśmy?"
+    kpt "Nic się nie zmieniło, jestesmy wciąż końcu w piętnastym wieku"
+    p "To jak TY tu się pojaiwłeś?"
+    c "Mam specjalne umiejętności manipulacji czasem i przestrzeniem"
+    p "Aha66"
+    kpt "Wy się znacie?"
+    p "Można tak powiedzieć, jesteśmy znajomymi z pracy"
+    c "Znajomymi? My jesteśmy top 5 przyjaciół w mieście"
+    c "A to, że teraz się znaleźliśmy tylko utrwala naszą znajomość"
+    kpt "Czyli stan relacji to skąplikowane, rozumiem"
+    p "No niech będzie"
+    kpt "To chyba możemy iść szukać skarbu?"
+    c "Kolego, zainteresowałeś mnie tym fragmentem, opowiedz mi więcej"
+    kpt "To ty się tu pojawiłeś, nic nie wiedząc o skarbie?"
+    c "Ja tu opalać się przyleciałem"
+    kpt "To pozwól, że Ci wyjaśnie, skarbem wyspy gier jest..."
+    p "CZY TAM LECI PŁONĄCY HELIKOPTER?"
+    c "Oho, chyba Młynarczyk przesadził z grillem"
+    kpt "Ha ha ha, to jest dopiero duch przygody"
+    p "Chyba duch głupoty bardziej"
+    c "Czepiasz się kolego"
+    p "I jak chcesz teraz wrócić do domu?"
+    c "Ciekawostka, na pokładzie jest gaśnica, ma chyba konfetti w sobie"
+    p "I w czym to niby pomoże?"
+    c "Morale nie ucierpią w trakcie"
