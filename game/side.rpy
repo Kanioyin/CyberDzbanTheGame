@@ -244,6 +244,7 @@ label side_Gun_1:
 label side_Perła:
     scene black
     $ sideseen.append("side_Perła")
+    $ sidelocal.delete("side_Perła")
     sb "Aj, ciężki przypadek"
     sb "Żyjesz jeszcze koleżko?"
     p "Kurwa, nie wiem. Chyba tak"
@@ -310,3 +311,21 @@ label side_Perła:
     c "Ciekawostka, na pokładzie jest gaśnica, ma chyba konfetti w sobie"
     p "I w czym to niby pomoże?"
     c "Morale nie ucierpią w trakcie"
+    kpt "I to się nazywa dusza drużyny"
+    p "Dusza drużyny? Wyobraź sobie, że to my jesteśmy na pokładzie"
+    c "Byłoby ciepło przynajmniej, a to nie są jeszcze czasy globalnego ocieplenia"
+    p "No dobra, punkt dla Ciebie"
+    c "Hi hi ha ha"
+    kpt "Wracając do skarbu"
+    c "O to to to, mów mi tak więcej przystojniaku"
+    kpt "To skarbem wyspy gier jest..."
+    "Zaczyna Ci się ściemniać przed oczami"
+    c "Fascynujące, to można jeszcze zdobyć?"
+    kpt "TAK! Jeszcze żaden poszukiwacz nie znalazł go"
+    p "A czego dokładniej? Bo coś mnie ucięło"
+    kpt "Oho, czyli chyba zaczynasz wracać do domu"
+    p "No nie, powiedz mi jeszcze szybko czym jest ten skarb"
+    kpt "No dobra, nie lubie się powrarzać ale dla Ciebie zrobię wyjątek"
+    kpt "Więc skarbem wyspy gier jest..."
+    stop music
+    return
