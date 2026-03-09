@@ -65,6 +65,9 @@ default RadArm = InventoryItem("Hazmat", "Pancerz przeciw radjacji","Itemy/Hazma
 default Kwiat = InventoryItem("Kwiatki", "Działają na kobiety jak dzik na MG","itemy/Kwiat.png")
 default Odznaka = InventoryItem("Odznaka Partioty", "Tylko dla ludzi z DH lub złodzieji","itemy/Dhbage.png")
 default Srubo = InventoryItem("Śrubokręt", "Kręci śruby","itemy/screw.png")
+default CyberK = InventoryItem("Cyberkończyna", "Cybernetyczna kończyna", "itemy/cyberk.png")
+default NCyberK = InventoryItem("Niebezpieczna Cyberkończyna", "Rozpierdala mózg szybciej od piwa", "itemy/ncyberk.png")
+
 
 #Stany postaci
 default kibel_stan = 0

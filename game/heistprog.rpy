@@ -191,7 +191,7 @@ label heistprogsc:
             p "Ty, fajne to"
             ja "A co to jest?"
             p "Jax, ty nie widzisz tego?"
-            ja "Mordziaty, ja mam ponad dwa metry, drzwi są mniejsze ode mnie i zasłaniają"
+            ja "Mordziaty, ja mam ponad dwa metry, drzwi są mniejsze ode mnie i zasłaniają mi wizję"
             p "Przykra sprawa"
             "W środku jest magazyn kończyn, część z nich oznaczono jako niebezpieczne"
             vi "Vo Volera, viezłe vkarby"
@@ -203,6 +203,29 @@ label heistprogsc:
 
                 "Niebezpieczną kończynę":
                     $ Inventory.add_item("NCyberK")
+
+                "Chyba nic":
+                    p "Głupio tak kraść w trakcie napadu"
+
+            ja "Dobry wybór"
+            p "Wiem, nie robię złych wyborów"
+            vi "V vo veraz?"
+            p "Odkręcamy płytę w podłodze i przejdziemy tunelem technicznym do dziupli"
+            ja "Mamy się szykować na walkę?"
+            p "Ty, to się szykuj do pilnowania i późniejszego spierdalania"
+            ja "Nie wcisnę się do tunelu?"
+            p "Ty kurwa ledwo przez drzwi przeszedłeś"
+            ja "Fair point"
+            vi "V vo ve vną?"
+            p "Ty, mój drogi VIO, masz tu pendrajwa, wgrasz Benkowi jakiegoś wirusa od Krisa"
+            vi "Vo volera, vo vie vniszczy vu vasyna?"
+            p "Zniszczy, tylko powolutku, kawałek po kawałku jego imperium się rozpadnie"
+            vi "V vkąd vo viesz?"
+            p "Tak strzelam, nie wysłałby nas z bombą bez zapowiedzi"
+            vi "Vogiczne"
+            p "Dobra, to wskakujemy, trzymaj się Jax"
+            ja "Narka"
+            "Wskoczyliście do tunelu"
 
         "Na skradaka":
             "Tit"
