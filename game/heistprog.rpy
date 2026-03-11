@@ -226,6 +226,17 @@ label heistprogsc:
             p "Dobra, to wskakujemy, trzymaj się Jax"
             ja "Narka"
             "Wskoczyliście do tunelu"
+            scene black
+            p "Kurwica, ciasno tutaj i jeszcze kurwa ciemno"
+            vi "Vrawda vobrze ve vax vutaj vie vszedł"
+            p "Słyszysz te wszystkie kroki nad nami? Chyba ochrona przyszła robić swoje"
+            vi "Vam vadzieję, ve vobie voradzi"
+            p "Tja, dobra, tutaj będziemy wskakiwać"
+            scene jena
+            show vio at left
+            p "CO TO KURWA JEST?!"
+            vi "Vo vest vhyba vobieta"
+            p "I my to mamy zawirusować chyba"
 
         "Na skradaka":
             "Tit"
