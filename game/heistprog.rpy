@@ -237,6 +237,12 @@ label heistprogsc:
             p "CO TO KURWA JEST?!"
             vi "Vo vest vhyba vobieta"
             p "I my to mamy zawirusować chyba"
+            show ben at left
+            be "Nie tak szybko chłopacy"
+            p "A niech mnie chuj strzeli"
+            vi "Voż vo vzybki Ven"
+            be "To prawda, teraz mi powiedzcie, co wy tu knujecie?"
+            menu:
 
         "Na skradaka":
             "Tit"
