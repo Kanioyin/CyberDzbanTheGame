@@ -243,6 +243,47 @@ label heistprogsc:
             vi "Voż vo vzybki Ven"
             be "To prawda, teraz mi powiedzcie, co wy tu knujecie?"
             menu:
+                p "Co mu mówimy"
+                "My tu tylko sprzątamy":
+                    be "Ta, jakoś w to nie wierzę"
+                    p "Jak nie, a ta miotła to do czego może być?"
+                    be "[old_pn], ty nawet nie masz miotły"
+                    p "O kurwica, skąd ty posiadasz takie dane wywiadowcze?"
+
+                "A nie interesuj się (zaatakuj)":
+                    "Nim zdążyłeś wyciągnąć spluwę, automatyczne działko do Ciebie strzeliło"
+                    "I to w dodatku kilkanaście razy"
+                    jump gameover
+
+                "Tajną misję":
+                    be "A zdradzisz mi kto zlecił Ci to zadanie?"
+                    p "Kris, nie wiem w sumie jak on się nazywa"
+                    be "Krzysztof Czerownopolski?"
+                    p "Jasny chuj, skąd wiesz?"
+
+            be "Jestem pierdolonym fixerem, mówi Ci to coś, czy mam Ci to kurwa przeliterować?"
+            p "To znaczy, że szukasz informacji po mieście co nie?"
+            be "Ja wiem więcej, niż Ci się wydaje"
+            be "Wiem, że przysłał Cię tu Kris. Wiem, że chesz sabotować moje interesy"
+            p "Strasznie dużo informacji"
+            be "Nie powinno Cię to dziwić, taka moja praca"
+            be "A z samego faktu, że mieszkasz w mojej dzielnicy, to już na mnie wymusza śledzenie Ciebie"
+            be "I tak każdego, bardziej rzucającego się w oczy dzbana"
+            p "To po kiego się mnie o cokolwiek pytasz, jak już znasz odpowiedzi?"
+            be "Sprawdzałem, czy będziesz leciał fair. Dostałem odpowiedź na to pytanie"
+            p "I co teraz ze mną zrobisz?"
+            vi "Vic Vi vię vie vtanie vłody, vszystko vdzie vedle vlanu"
+            p "Co? Jakiego planu? O czym ty do mnie VIO mówisz?"
+            be "Jakby Ci to powiedzieć, gra była ustawiona od samego początku"
+            be "Vio i Jax są moimi agentami, pomagali mi przy czyszczeniu"
+            be "Bo w sumie też, nie mięli zbytnio innego wyjścia"
+            be "Krzysiowi nie można ufać, jak w sumie każdemu z FAoNUSA"
+            p "Pierwszy raz słyszę ten skrót"
+            be "Jakoś mnie to nie dziwi, Federalna Agencja Nowego USA, specjalna rządowa jednostka"
+            be "Mają jakieś bardzo dziwne plany a my nie chcemy im w tym pomagać"
+            vi "Ven va v vękawie vartę vrzetargową"
+            vi "Va vaba v vłoiku va vuper votężną VI"
+            
 
         "Na skradaka":
             "Tit"
