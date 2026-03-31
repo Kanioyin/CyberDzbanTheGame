@@ -283,7 +283,13 @@ label heistprogsc:
             be "Mają jakieś bardzo dziwne plany a my nie chcemy im w tym pomagać"
             vi "Ven va v vękawie vartę vrzetargową"
             vi "Va vaba v vłoiku va vuper votężną VI"
-            
+            be "I ona potrafi o wiele więcej, niż FAoNUSA by mogło"
+            p "I jak rozumiem, federalni chcą zniszczyć ten słoik?"
+            be "To niestety jest prawda, nie chcemy na to zbytnio pozwolić"
+            p "To co, chcesz, żebym zdradził teraz Krisa?"
+            be "To są twoje słowa, ja chcę tylko, byś zostawił to zadanie"
+            be "Wróć do siebie, powiedz, że zrobiłeś to co miałeś i tyle"
+            p "To będzie tak trochę zdrada, poza tym, chyba nie zobaczę go już więcej"
 
         "Na skradaka":
             "Tit"

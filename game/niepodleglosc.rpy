@@ -39,6 +39,7 @@ default postacie = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0,
 default cechy = {"INT":2, "ZW":2, "CHAR":2,"BC":2}
 default skile = {"Atletyka": 2, "Bron": 2, "Gadanie": 2, "Myslenie": 2, "Handlowanie": 1}
 default stan = {"Kalach":0, "Gun":0, "Cypher":0, "Laskawca":0, "Hartmann":0, "Jhin":0, "Visty":0, "Kennedy":0, "Krateus":0, "Kasia":0}
+default zakonczenia = ("Akt1":0, "Akt2":0)
 
 # inventory
 default inventory = Inventory([],0)

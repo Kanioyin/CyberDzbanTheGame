@@ -163,7 +163,7 @@ label spanko:
     if fart < 40:
         $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-50,10)
 
-    elif fart > 79:
+    elif fart > 79 and cenaAkcjiSp1 < 200:
         $ cenaAkcjiSp1 = cenaAkcjiSp1 + renpy.random.randint(-10,50)
         $ fart -= 10
 
@@ -1397,30 +1397,6 @@ label bruhzylia:
 
 
     jump rozstaje
-
-label sypialnia:
-    scene pokoj
-    show screen hud
-    call bigunl from _call_bigunl_1
-    p "Pusto tu"
-    menu:
-        "Jesteś w swoim pokoju, co chcesz zrobić?"
-        "Idę spać":
-            call spanko from _call_spanko_1
-            jump rozstaje
-
-        "Czy ja przypadkiem nie dostałem?":
-            if HP < MaxHP:
-                p "Faktycznie mam tylko [HP] na [MaxHP]."
-                p "Pancerz ma [armor] punktów"
-                jump sypialnia
-
-            else:
-                p "Zdawało mi się."
-                jump sypialnia
-
-        "Wyjść" if czas > 0:
-            jump rozstaje
 
 #akt 1
 label akt1:

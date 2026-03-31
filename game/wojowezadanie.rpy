@@ -775,6 +775,7 @@ label wojowezadanie:
         c "Jak to mówimy w niemczech, Adios"
         "I Cypher odleciał"
         p "Adios jest po Hiszpańsku"
+        $ zakonczenia = {"Akt1":1}
         jump akt1pods
 
     elif Frakcja == 3:
@@ -897,6 +898,7 @@ label wojowezadanie:
         k "A spierdalaj"
         p "Aha 66"
         "I Kałach poszedł sobie w pizdu"
+        $ zakonczenia = {"Akt1":5}
         jump akt1pods
 
     elif Frakcja == 6:
